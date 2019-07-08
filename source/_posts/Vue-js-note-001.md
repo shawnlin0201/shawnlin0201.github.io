@@ -231,7 +231,7 @@ let vm = new Vue({
 <input type="text" @keyup.enter.shift="sumbitValid"/>
 ```
 ### 結尾
-本次Vue.js的筆記就到這邊結束啦，相信透過這一章節大家也可以簡單地認識到一些Vue.js的實用功能，
+本次Vue.js的筆記就到這邊結束啦，相信透過這一章節大家也可以簡單地認識到一些Vue.js的實用功能，下一章節將會介紹一下Vue.js的`computed`、`methods`以及`watch`等等的用法。
 
 ### 參考資料
 

@@ -1,5 +1,5 @@
 ---
-title: Vue.js學習筆記(二)data、computed、methods、watch、el
+title: Vue.js學習筆記(二)data、computed、methods、watch
 date: 2019-07-08 12:30:00
 tags: vue.js
 ---
@@ -139,3 +139,12 @@ let vm = new Vue({
 })
 ```
 這個範例是簡單透過yesno網站所提供的api去實作晚餐要不要吃這個，使用者在`input`輸入問題後，透過上篇提過的`v-model`雙向綁定資料到`data`中的`question`，進而透過資料去驅動監聽`question`的`watch`，而`watch`再去啟動對應欄位`question`裡頭的方法，裡頭的方法使用到了`methods`裡的`getAnswer`，接著`getAnswer`發送了一個`fetch`到[https://yesno.wtf/api](https://yesno.wtf/api)並得到一個回應後，透過第一個`then.(res=>res.json())`把他打包成json格式，接著再從第二個then把資料灌回`data`中的`answer`。
+
+### 結尾
+這篇簡單介紹了Vue.js的`computed`、`methods`以及`watch`等等的用法，基本上搭配上一篇的指令後，就可以實作出許多有用的小工具了，而接下來下一篇章節將會講到Vue.js的生命週期，瞭解生命週期將會對Vue.js有更加完整的認識，就讓我們繼續前進吧！
+
+
+### 參考資料
+
+- [官方網站文件：https://cn.vuejs.org/v2/guide/](https://cn.vuejs.org/v2/guide/)
+- [六角學院影片：https://www.youtube.com/channel/UC-b2nGm0xLzic38Byti0VjA](https://www.youtube.com/channel/UC-b2nGm0xLzic38Byti0VjA)
