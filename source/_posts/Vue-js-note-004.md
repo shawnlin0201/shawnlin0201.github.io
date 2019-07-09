@@ -1,19 +1,20 @@
 ---
-title: Vue.js學習筆記(四)components
+title: Vue.js學習筆記(四)components(Registration, child component and template)
 date: 2019-07-08 17:05:04
 tags: vue.js
 ---
 
 ### 前言
-前幾篇講了基本搭建、指令、與常見到的幾個options、再講到了生命週期的部分，相信大家跟我一樣對於Vue.js的瞭解已經有了個雛形，而這篇文章要來介紹的是Vue.js的`components`的部分，介紹我們要如何再Vue.js中使用`components`，用`components`時需要注意什麼地方，以及實際上在開發時，如何有效運用`components`來組織我們的應用程式。
+前幾篇講了基本搭建、指令、與常見到的幾個options、再講到了生命週期的部分，相信大家跟我一樣對於Vue.js的瞭解已經有了個雛形，而這篇文章要來介紹的是Vue.js的`components`的部分，介紹我們要如何在Vue.js中使用`components`，用`components`時需要注意什麼地方，以及實際上在開發時，如何有效運用`components`來組織我們的應用程式。而因為篇幅較長的關係我們將其拆為兩篇，這篇主要講解的地方將著重在元件的註冊`Registration`、
+子元件`child component`如何創建以及`template`的封裝方式。
 
 ### MVVM、樹狀結構
-要介紹`components`前，首先來瞭解一下Vue.js的大架構，Vue.js的架構深受[MVVM](https://zh.wikipedia.org/wiki/MVVM)的影響，而MVVM講的也就是，M(model)、V(view)以及VM(view-model)，官網使用的範例常用到的`vm`也是因此來的。透過類似MVVM的架構，我們在使用Vue.js時，不必在一個個去`select`我們所需要操作的DOM對象，我們可以透過對`$el`對象的綁定，來讓Vue.js在初始化的過程中，知道我們要對哪個元素操作，間接將`data`去綁定在該元素身上，形成一個樹狀結構，而這個樹狀結構講的就是`components`的部分，而理所當然在`components`中的屬性，大部分與vue instance都相同，其中最重要的呢，便是用來傳遞屬性的`props`(有用過React.js並且沒用Redux管理狀態的人應該對這個詞彙很熟悉XD，常常會需要props來props去的)。
+要介紹`components`前，首先來瞭解一下Vue.js的大架構，Vue.js的架構深受[MVVM](https://zh.wikipedia.org/wiki/MVVM)的影響，而MVVM講的也就是，M(model)、V(view)以及VM(view-model)，官網使用的範例常用到的`vm`也是因此來的。透過類似MVVM的架構，我們在使用Vue.js時，不必在一個個去`select`我們所需要操作的DOM對象，我們可以透過對`$el`對象的綁定，來讓Vue.js在初始化的過程中，知道我們要對哪個元素操作，間接將`data`去綁定在該元素身上，形成一個樹狀結構，而這個樹狀結構講的就是`components`的部分，而理所當然在`components`中的屬性，大部分與vue instance都相同，其中最重要的呢，便是用來傳遞屬性的`props`(有用過React.js並且沒用Redux管理狀態的人應該對這個詞彙很熟悉XD，常常會需要props來props去的)，但是在講解`props`之前，首先我們要來講一下組件的使用方法。
 
 ![](/images/vue-component.png)
 
 ### 元件註冊
-當我們在Vue.js中要使用`components`時，我們除了要對實體初始化，元件的部分則是在初始化Vue的時候將其資訊帶進去，並且分為區域性的註冊方式(`scope`)以及全域性的註冊方式(`global`)，以下介紹兩種註冊方式的差異。
+當我們在Vue.js中要使用`components`時，我們可以選擇在初始化Vue的時候將其資訊帶進去，或是使用`Vue.component`的方式來註冊，而因使用方法不同分為區域性的註冊方式(`scope`)以及全域性的註冊方式(`global`)，以下介紹兩種註冊方式的差異。
 #### 區域註冊
 在使用區域性的元件時，我們可以在初始化Vue.js的時候將元件的資訊帶進去：
 HTML部分
@@ -215,6 +216,9 @@ let vm = new Vue({
     },
 })
 ```
+### 結尾
+`components`部分還有許多的細節可以講解，因此剩下的部分將會挪到[下個章節](https://shawnlin0201.github.io/2019/07/09/Vue-js-note-005/)！
+
 
 ### 參考資料
 
