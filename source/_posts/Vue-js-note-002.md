@@ -19,7 +19,7 @@ let vm = new Vue({
 })
 
 ```
-而其中最需要注意的是，當我們今天如果是使用component的方式創造，`data`則必須聲明為返回一個初始數據對象的函數，如下：
+而其中最需要注意的是，當我們今天如果是使用全域性的`components`的方式創造，`data`則必須聲明為返回一個初始數據對象的函數，如下：
 
 ```
 Vue.component('my-component',
@@ -31,7 +31,7 @@ Vue.component('my-component',
 )
 
 ```
-其原因在於，若`data`我們如果仍然只是使用純粹的數據對象，則我們在創建多個實體時，數據對象將會被共享，白話的說，若我們想要元件間擁有個別的數值，我們必須使用`function`來切割，這邊可參考javascript中`call by value`、`call by reference`與`scope`的概念。
+其原因在於，若`data`我們如果仍然只是使用純粹的數據對象，則我們在創建多個實體時，數據對象將會混淆，並且被元件所共享，因此Vue.js在這邊強制必須返回一個初始數據對象的函數，白話的說，若我們想要元件間擁有個別的數值，我們必須使用`function`來切割（因為Javascript切割`scope`的最小單位是`function`），這邊可參考javascript中`call by value`、`call by reference`與`scope`的概念。
 
 而另外一個須注意的地方是，在`data`中如果使用了es6的箭頭函式(`arrow function`)，則`this`不會指向原先的實體(`instance`)。
 
