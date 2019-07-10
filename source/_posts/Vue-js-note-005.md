@@ -1,14 +1,14 @@
 ---
 title: Vue.js學習筆記(五)components(props)
-date: 2019-07-09 14:37:58
+date: 2019-07-11 14:37:58
 tags: vue.js
 ---
 
 ### 前言
-本篇是繼上一篇講解`components`的續集，還沒有看過的朋友可以先[點此看上一篇](https://shawnlin0201.github.io/2019/07/08/Vue-js-note-004/)。
+本篇是繼上一篇講解`components`的續集，還沒有看過的朋友可以先[點此看上一篇](https://shawnlin0201.github.io/2019/07/10/Vue-js-note-004/)。
 
 ### props
-在使用`component`時，許多需要顯示的資料可能不一定來自元件所擁有的，有時候可能是由父層元件所傳遞下來的，而這個傳遞方法就是透過`component`中的`props`來進行，需要額外設定的地方在於HTML部分中，自定義元件`my-component`的屬性加上了一個藉由`v-bind`所綁定的`parent-msg`，這個`parent-msg`所對應的是由JavaScript部分中`Vue.component`全域註冊元件屬性`props`中的`['parentMsg']`，進而使得`x-template`中的元件數據對象`parentMsg`能夠知道這是個被傳遞的對象；而相對的例子便是`x-template`中元件(`<div>Child Message: {{ message }}</div>`)的`message`，這裡指的`message`則是`Vue.component`中的`data`('子元件資料')。而回到原本的HTML部分，藉由`v-bind`所綁定的`parent-msg`，最終會找到其對應的`message`，這裡的`message`則是指初始化實體後根元件的數據對象`vm.$data.message`，範例程式碼如下：
+在使用`component`時，許多需要顯示的資料可能不一定來自本身元件所擁有的，有時候可能是由父層元件所傳遞下來的，而這個傳遞方法就是透過`component`中的`props`來進行，需要額外設定的地方在於HTML部分中，自定義元件`my-component`的屬性加上了一個藉由`v-bind`所綁定的`parent-msg`，這個`parent-msg`所對應的是由JavaScript部分中`Vue.component`全域註冊元件屬性`props`中的`['parentMsg']`，進而使得`x-template`中的元件數據對象`parentMsg`能夠知道這是個被傳遞的對象；而相對的例子便是`x-template`中元件(`<div>Child Message: {{ message }}</div>`)的`message`，這裡指的`message`則是`Vue.component`中的`data`('子元件資料')。而回到原本的HTML部分，藉由`v-bind`所綁定的`parent-msg`，最終會找到其對應的`message`，這裡的`message`則是指初始化實體後根元件的數據對象`vm.$data.message`，範例程式碼如下：
 HTML部分
 ```
 <div id="app" >
@@ -107,6 +107,8 @@ let vm  = new Vue({
 `parentMsgD`的設定，則是數據型態須為`Number`之外，若元件沒有傳入數據對象，他會預設數據對象的數值為`100`。
 `parentMsgE`的設定，則是數據型態須為`Object`之外，預設數據對象還會返回一個物件對象。
 `parentMsgF`的設定`,則是我們可以自行寫一個驗證器的部分來驗證傳進來的數據對象是否符合我們所返回的條件。
+
+
 
 ### 參考資料
 

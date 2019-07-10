@@ -1,6 +1,6 @@
 ---
 title: Vue.js學習筆記(四)components(Registration, child component and template)
-date: 2019-07-08 17:05:04
+date: 2019-07-10 17:05:04
 tags: vue.js
 ---
 
