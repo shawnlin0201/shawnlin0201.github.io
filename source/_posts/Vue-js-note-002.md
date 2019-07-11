@@ -4,6 +4,8 @@ date: 2019-07-08 12:30:00
 tags: vue.js
 ---
 
+![](/images/vue-logo.png)
+
 # 前言
 [在上一章節中](https://shawnlin0201.github.io/2019/07/07/Vue-js-note-001/)，簡單介紹了Vue.js的環境架設、指令與修飾符的部分，而這章節則要來討論Vue instance中常見到的一些`options`(`data`,`computed`,`methods`,`watch`)的使用方法以及注意事項。
 

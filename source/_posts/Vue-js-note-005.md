@@ -12,7 +12,7 @@ tags: vue.js
 # props
 在使用`component`時，許多需要顯示的資料可能不一定來自本身元件所擁有的，有時候可能是由父層元件所傳遞下來的，而這個傳遞方法就是透過`component`中的`props`來進行，需要額外設定的地方在於HTML部分中，自定義元件`my-component`的屬性加上了一個藉由`v-bind`所綁定的`parent-msg`，這個`parent-msg`所對應的是由JavaScript部分中`Vue.component`全域註冊元件屬性`props`中的`['parentMsg']`，進而使得`x-template`中的元件資料物件`parentMsg`能夠知道這是個被傳遞的物件；而相對的例子便是`x-template`中元件(`<div>Child Message: {{ message }}</div>`)的`message`，這裡指的`message`則是`Vue.component`中的`data`('子元件資料')。而回到原本的HTML部分，藉由`v-bind`所綁定的`parent-msg`，最終會找到其對應的`message`，這裡的`message`則是指初始化實體後根元件的資料物件`vm.$data.message`，範例程式碼如下：
 HTML部分
-```HTML
+```
 <div id="app" >
     <my-component :parent-msg="message"></my-component>
 </div>
@@ -20,7 +20,7 @@ HTML部分
 
 JavaScript部分
 
-```JavaScript
+```
 <script type="text/x-template" id="my-component">
     <div>
         <div>Parent Message: {{ parentMsg }}</div>
@@ -123,7 +123,7 @@ let vm  = new Vue({
     <p>子元件：
       <child-component :parent-message="message"></child-component>
     </p>
-  </div>
+</div>
 ```
 ```
 Vue.component('child-component',{
@@ -155,13 +155,13 @@ let vm = new Vue({
 
 ```
 <div id="app">
-<p>父元件：<br>
-    {{ message }}<br>
-    <input type="text" v-model="message">
-</p>
-<p>子元件：
-    <child-component :parent-message="message"></child-component>
-</p>
+    <p>父元件：<br>
+        {{ message }}<br>
+        <input type="text" v-model="message">
+    </p>
+    <p>子元件：
+        <child-component :parent-message="message"></child-component>
+    </p>
 </div>
 ```
 ```
@@ -202,8 +202,8 @@ let vm = new Vue({
 HTML部分是兩個平行的元件`element-city1`與`element-city2`：
 ```
 <div id="app">
-<element-city1></element-city1>
-<element-city2></element-city2>
+    <element-city1></element-city1>
+    <element-city2></element-city2>
 </div>
 ```
 JavaScript部分，首先我們一開始先透過new初始化一個Vue物件並賦值給變數`bus`，使`bus`擁有Vue物件的屬性與功能，接著如同父子元件溝通範例一樣，以`$emit`發送事件然後對象再透過在生命週期鉤子來註冊事件，以`$on`監聽事件。而不一樣的地方在於發送事件與監聽的參考對象要改在`bus`上，這樣就能透過`bus`來當作溝通的橋樑：
@@ -260,7 +260,7 @@ let vm = new Vue({
 **而要注意的地方是**，由於註冊與監聽事件都是在變數`bus`上，不同元件間註冊與監聽可能事件名稱會有撞名的問題，可以透過初始化另一台`bus`來緩解這個問題。
 
 # 結尾
-`components`章節至今已經邁向第二篇啦，元件系統的部分還蠻多東西可以介紹的，因此我們將會三顧茅廬，而接下來將會講到動態與非同步的元件處理、樣板語言的編譯範圍以及如何在塞入資料在到元件的編譯樣板內。
+`components`章節至今已經邁向第二篇啦，元件系統的部分還蠻多東西可以介紹的，因此我們將會三顧茅廬，而接下來將會講到動態的元件處理、樣板語言的編譯範圍以及如何在塞入資料在到元件的編譯樣板內。
 
 # 參考資料
 

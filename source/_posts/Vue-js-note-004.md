@@ -4,6 +4,8 @@ date: 2019-07-10 14:37:58
 tags: vue.js
 ---
 
+![](/images/vue-logo.png)
+
 # 前言
 前幾篇講了基本搭建、指令、與常見到的幾個options、再講到了生命週期的部分，相信大家跟我一樣對於Vue.js的瞭解已經有了個雛形，而這篇文章要來介紹的是Vue.js的`components`的部分，介紹要如何在Vue.js中使用`components`，用`components`時需要注意什麼地方，以及實際上在開發時，如何有效運用`components`來組織我們的應用程式。而因為篇幅較長的關係我們將其拆為兩篇，這篇主要講解的地方將著重在元件的註冊`Registration`、
 子元件`child component`如何創建以及`template`的封裝方式。
