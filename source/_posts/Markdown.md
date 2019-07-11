@@ -1,8 +1,12 @@
 ---
 title: Markdown筆記
 date: 2019-07-04 15:45:07
-tags: markdown
+tags: 
+- [Markdown]
+categories: 
+- [工具, Markdown]
 ---
+
 # 前言
 　　嗨，大家好，我是Shawn。身為工程師的我常常需要看一些前輩們的技術部落格，不僅對於前輩們的技術功力感到高深外，自己也慢慢想要擁有自己的技術部落格，研究了好長一段時間後，最後我終於決定採用Hexo 搭配 Github page來架設。而Hexo發文是採用markdown的格式，並且github上專案的readme說明文件也是採用Markdown的語言，想說是時候要來好好瞭解它，順便做個紀錄，因此第一篇文章便獻給Markdown啦！而我第一次撰寫這類文章，若編寫上有錯誤或是有其他建議也歡迎[來信](mailto:shawnlin0201@gmail.com)討論。
 

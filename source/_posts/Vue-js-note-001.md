@@ -1,7 +1,12 @@
 ---
 title: Vue.js學習筆記(一)入門、環境搭建、指令與修飾符
 date: 2019-07-07 17:30:00
-tags: vue.js
+tags:
+- [前端]
+- [JavaScript]
+- [Vue.js]
+categories: 
+- [前端, JavaScript, Vue.js]
 ---
 
 ![](/images/vue-logo.png)

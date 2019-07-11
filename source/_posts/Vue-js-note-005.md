@@ -1,7 +1,12 @@
 ---
 title: Vue.js學習筆記(五)components(props, event-bus, Dynamic & Async)
 date: 2019-07-10 17:05:04
-tags: vue.js
+tags:
+- [前端]
+- [JavaScript]
+- [Vue.js]
+categories: 
+- [前端, JavaScript, Vue.js]
 ---
 
 ![](/images/vue-logo.png)
@@ -264,7 +269,6 @@ let vm = new Vue({
 
 # 參考資料
 
-- [MVVM維基百科：https://zh.wikipedia.org/wiki/MVVM](https://zh.wikipedia.org/wiki/MVVM)
 - [官方網站文件：https://cn.vuejs.org/v2/guide/](https://cn.vuejs.org/v2/guide/)
 - [六角學院影片：https://www.youtube.com/channel/UC-b2nGm0xLzic38Byti0VjA](https://www.youtube.com/channel/UC-b2nGm0xLzic38Byti0VjA)
 - [Kuro Hsu與六角學院合作的課程ppt：https://drive.google.com/file/d/0B5TNzeyWT1lqc2k0SEZtSnFuMXc/view](https://drive.google.com/file/d/0B5TNzeyWT1lqc2k0SEZtSnFuMXc/view)
