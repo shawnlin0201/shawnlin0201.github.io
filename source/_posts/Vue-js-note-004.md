@@ -9,7 +9,7 @@ tags: vue.js
 子元件`child component`如何創建以及`template`的封裝方式。
 
 # MVVM、樹狀結構
-要介紹`components`前，首先來瞭解一下Vue.js的大架構，Vue.js的架構深受[MVVM](https://zh.wikipedia.org/wiki/MVVM)的影響，而MVVM講的也就是，M(model)、V(view)以及VM(view-model)，官網使用的範例常用到的`vm`也是因此來的。透過類似MVVM的架構，我們在使用Vue.js時，不必在一個個去`select`我們所需要操作的DOM對象，我們可以透過對`$el`對象的綁定，來讓Vue.js在初始化的過程中，知道我們要對哪個元素操作，間接將`data`去綁定在該元素身上，形成一個樹狀結構，而這個樹狀結構講的就是`components`的部分，而理所當然在`components`中的屬性，大部分與vue instance都相同，其中最重要的呢，便是用來傳遞屬性的`props`(有用過React.js並且沒用Redux管理狀態的人應該對這個詞彙很熟悉XD，常常會需要props來props去的)，但是在講解`props`之前，首先我們要來講一下組件的使用方法。
+要介紹`components`前，首先來瞭解一下Vue.js的大架構，Vue.js的架構深受[MVVM](https://zh.wikipedia.org/wiki/MVVM)的影響，而MVVM講的也就是，M(model)、V(view)以及VM(view-model)，官網使用的範例常用到的`vm`也是因此來的。透過類似MVVM的架構，我們在使用Vue.js時，不必在一個個去`select`我們所需要操作的DOM物件，我們可以透過對`$el`物件的綁定，來讓Vue.js在初始化的過程中，知道我們要對哪個元素操作，間接將`data`去綁定在該元素身上，形成一個樹狀結構，而這個樹狀結構講的就是`components`的部分，而理所當然在`components`中的屬性，大部分與vue instance都相同，其中最重要的呢，便是用來傳遞屬性的`props`(有用過React.js並且沒用Redux管理狀態的人應該對這個詞彙很熟悉XD，常常會需要props來props去的)，但是在講解`props`之前，首先我們要來講一下組件的使用方法。
 
 ![](/images/vue-component.png)
 
@@ -63,7 +63,7 @@ Vue.component('my-component',{
     template:'<div class="myComponent">Hello Vue</div>'
 })
 ```
-相信大家一定會注意到某個特別的地方，那就是在全域元件中`data`的對象是一個函式，而為什麼要這樣大費周章把他包裝成函式在返回呢？這個問題在我們[Vue.js的第二章節](https://shawnlin0201.github.io/2019/07/08/Vue-js-note-002/)的時候有提到過這個概念，這邊在重複說明一次，原因是因為我們在創建多個元件時，若不將數據對象以函式返回物件的方式封裝起來的話，數據對象將會混淆，並且被各個元件共享（原因是物件是屬於複雜類型，複雜類型的參考方式是`call by reference`），也就是說元件對`data`操作時將會連帶影響到其他元件的數值。（當然，大家不會想要在購買某樣東西的時候，結果結帳卻發現購物網站把所有商品都一起加入購物車裡面吧XD？）而解決辦法就是利用Javascript切割scope最小單位`function`來做封裝（如上面範例程式碼所示）。
+相信大家一定會注意到某個特別的地方，那就是在全域元件中`data`的物件是一個函式，而為什麼要這樣大費周章把他包裝成函式在返回呢？這個問題在我們[Vue.js的第二章節](https://shawnlin0201.github.io/2019/07/08/Vue-js-note-002/)的時候有提到過這個概念，這邊在重複說明一次，原因是因為我們在創建多個元件時，若不將資料物件以函式返回物件的方式封裝起來的話，資料物件將會混淆，並且被各個元件共享（原因是物件是屬於複雜類型，複雜類型的參考方式是`call by reference`），也就是說元件對`data`操作時將會連帶影響到其他元件的數值。（當然，大家不會想要在購買某樣東西的時候，結果結帳卻發現購物網站把所有商品都一起加入購物車裡面吧XD？）而解決辦法就是利用Javascript切割scope最小單位`function`來做封裝（如上面範例程式碼所示）。
 
 # 子孫元件
 同樣，在某些情境下我們可能會在元件內使用大量重複的元素標籤已集內容，這個時候我們就可以把元件中的重複的內容再次元件化，作法一樣可以分為區域性與全域性的作法，而區域性作法可以在初始化Vue實體時，在`components`資訊裡頭，使用`Vue.extend`夾帶相關的屬性：

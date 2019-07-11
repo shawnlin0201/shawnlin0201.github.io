@@ -7,8 +7,8 @@ tags: vue.js
 # 前言
 [在上一章節中](https://shawnlin0201.github.io/2019/07/07/Vue-js-note-001/)，簡單介紹了Vue.js的環境架設、指令與修飾符的部分，而這章節則要來討論Vue instance中常見到的一些`options`(`data`,`computed`,`methods`,`watch`)的使用方法以及注意事項。
 
-# data 數據
-通常我們會將數據對象放在此`option`中，而Vue.js會將其屬性轉換為`getter/setter`，使我們可以對數值去做讀取與更動，而放入的對象均需要為純粹的`key/value pair`。而在實體中的生命週期`created`後，便可以透過`vm.$data`的方式讀取到`data`。另外透過Vue.js的包裝，同樣可以使用`vm.data`的方式得到其值。
+# data 資料
+通常我們會將資料物件放在此`option`中，而Vue.js會將其屬性轉換為`getter/setter`，使我們可以對數值去做讀取與更動，而放入的物件均需要為純粹的`key/value pair`。而在實體中的生命週期`created`後，便可以透過`vm.$data`的方式讀取到`data`。另外透過Vue.js的包裝，同樣可以使用`vm.data`的方式得到其值。
 
 這邊採用官網的範例：
 ```
@@ -19,7 +19,7 @@ let vm = new Vue({
 })
 
 ```
-**其中最需要注意的是**，當我們今天如果是使用全域性的`components`的方式創造，`data`則必須聲明為返回一個初始數據對象的函數，如下：
+**其中最需要注意的是**，當我們今天如果是使用全域性的`components`的方式創造，`data`則必須聲明為返回一個初始資料物件的函數，如下：
 
 ```
 Vue.component('my-component',
@@ -31,13 +31,13 @@ Vue.component('my-component',
 )
 
 ```
-其原因在於，若`data`仍然只使用純粹的數據對象，則在創建多個實體時，數據對象將會混淆，並且被元件所共享，因此Vue.js在這邊強制使用者必須返回一個初始數據對象的函數，白話的說，若我們想要元件間擁有個別的數值，我們必須使用`function`來切割（因為JavaScript切割`scope`的最小單位是`function`），這邊可參考javascript中`call by value`、`call by reference`與`scope`的概念。
+其原因在於，若`data`仍然只使用純粹的資料物件，則在創建多個實體時，資料物件將會混淆，並且被元件所共享，因此Vue.js在這邊強制使用者必須返回一個初始資料物件的函數，白話的說，若我們想要元件間擁有個別的數值，我們必須使用`function`來切割（因為JavaScript切割`scope`的最小單位是`function`），這邊可參考javascript中`call by value`、`call by reference`與`scope`的概念。
 
 而另外一個須注意的地方是，在`data`中如果使用了es6的箭頭函式(`arrow function`)，則`this`不會指向原先的實體(`instance`)。
 
 # computed 計算屬性
 
-computed顧名思義是在計算，而他要計算的是在`data`中的數據對象，當我們在樣板語言中做計算的時候，可以將其替代為`computed`中的對象，例如在實作一個匯率計算的樣板，可能要對原本的數據做運算：
+computed顧名思義是在計算，而他要計算的是在`data`中的資料物件，當我們在樣板語言中做計算的時候，可以將其替代為`computed`中的物件，例如在實作一個匯率計算的樣板，可能要對原本的資料做運算：
 
 ```
 <div id="app">
@@ -57,7 +57,7 @@ let vm = new Vue({
 ```
 <div id="app">
   目前擁有台幣：{{ money }}元。
-  轉換為日幣後：{{ JPY-Dollar }}日圓。
+  轉換為日幣後：{{ JPY }}日圓。
 </div>
 ```
 ```
@@ -67,22 +67,22 @@ let vm = new Vue({
     money:1000,
   },
   computed:{
-    JPY-Dollar : function(){
+    JPY : function(){
       return this.money / 0.3
     }
   }
 })
 ```
-這樣改變後，便可以將計算對象綁定於實體中，並且在HTML樣板語法的部分可以更加的直觀，避免有過多的計算干擾視覺。
-**而使用這個`option`要注意的地方在於**，若其function中沒有使用到`data`的數據對象時，**則資料將會無法更新！**，因此若確定每次使用都會更新到的部分建議還是使用`methods`的方法來驅動。
+這樣改變後，便可以將計算物件綁定於實體中，並且在HTML樣板語法的部分可以更加的直觀，避免有過多的計算干擾視覺。
+**而使用這個`option`要注意的地方在於**，若其function中沒有使用到`data`中的資料物件時，**則資料將會無法更新！**，因此若確定每次使用都會更新到的部分建議還是使用`methods`的方法來驅動。
 
 # methods 方法
 與`computed`不一樣的是，`methods`可以直接透過實體直接來調用，並且也可以藉由指令表達式使用，除此之外還能將參數帶入其函式中(`computed`是無法傳入參數的)。
 
 ```
-<div id="app">
-  <button @click="hello("Shawn")" type="button">{{text}}</button>
-</div>
+  <div id="app">
+    <button @click="handleOnClick('Shawn')" type="button">{{text}}</button>
+  </div>
 ```
 ```
 let vm = new Vue({
@@ -102,7 +102,7 @@ let vm = new Vue({
 
 # watcher 監聽器
 
-`watch`在其綁定的數據對象有更動時會即時監聽並且執行對應的對象，通常也用於異部執行數據變化時，參考官網的範例如下：
+`watch`在其綁定的資料物件有更動時會即時監聽並且執行對應的物件，通常也用於異部執行資料變化時，參考官網的範例如下：
 
 ```
 <div id="app">

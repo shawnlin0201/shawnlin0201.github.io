@@ -62,7 +62,7 @@ let vm = new Vue({
 開始注入依賴項目。
 
 ## created (hooks)
-由`alert`取得`$el`結果為`undefined`，`data`的結果為`get Data!`的結論得出，在此週期下，`$el`尚未被建立，但`data`此時已經可以讀取的到了，在這個階段中我們可以做的基本上是在於資料尚未被讀取進來的事情。而此階段Vue.js的`init.js`當中，還已經初始化`props`、`data`、`methods`、`watch`、`computed`，因此也說明了若想要使用`data`等等的數據的話，至少得等到`created`這個階段才可以使用。
+由`alert`取得`$el`結果為`undefined`，`data`的結果為`get Data!`的結論得出，在此週期下，`$el`尚未被建立，但`data`此時已經可以讀取的到了，在這個階段中我們可以做的基本上是在於資料尚未被讀取進來的事情。而此階段Vue.js的`init.js`當中，還已經初始化`props`、`data`、`methods`、`watch`、`computed`，因此也說明了若想要使用`data`等等的資料的話，至少得等到`created`這個階段才可以使用。
 
 ## el檢查
 這個階段會檢查Vue實體中是否含有`$el`的項目，有的話就繼續檢查是否含有`template`，沒有的話則是等到手動調用vm.#mount(el)的時候才繼續。
@@ -74,7 +74,7 @@ let vm = new Vue({
 由`alert`取得`$el`結果顯示此時已經抓的到`$el`，也就是說在此週期下DOM已經被Vue.js加載了一個新的元素。但此時的差異在於，`$el`裡面的樣板語言尚未被賦予值進去，所以顯示的仍然是兩個花括號的部分`{% raw %}{{ message }}{% endraw %}`。
 
 ## mounted (hooks)
-由`alert`取得`$el`結果顯示此時已經抓的到`$el`，並且此時樣板語言的部分也確實將數據對象傳遞進去，因此最後看到的`$el`的部分是顯示`get Data!`的字串而非`{% raw %}{{ message }}{% endraw %}`了。而一般初始化的Vue元件的必經之路到此階段就結束了(**除了使用`keep-alive`的元件，`keep-alive`元件再次渲染時並不會觸發`created`、`mounted`等hooks**)，因此我們可以再次看向官網的說明圖中，此階段後的線條是虛線的部分。
+由`alert`取得`$el`結果顯示此時已經抓的到`$el`，並且此時樣板語言的部分也確實將資料對象傳遞進去，因此最後看到的`$el`的部分是顯示`get Data!`的字串而非`{% raw %}{{ message }}{% endraw %}`了。而一般初始化的Vue元件的必經之路到此階段就結束了(**除了使用`keep-alive`的元件，`keep-alive`元件再次渲染時並不會觸發`created`、`mounted`等hooks**)，因此我們可以再次看向官網的說明圖中，此階段後的線條是虛線的部分。
 
 ## beforeUpdate (hooks)
 此生命週期發生在資料即將被更新前，這個階段主要可以用在得知哪個元件即將發生資料改動，並且可以移除對其綁定的事件監聽器。

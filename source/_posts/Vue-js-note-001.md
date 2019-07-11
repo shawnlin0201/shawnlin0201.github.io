@@ -45,7 +45,7 @@ tags: vue.js
 ```
 
 
-而在引入Vue.js後，我們便可以開始撰寫HTML以及JavaScript的部分，首先HTML的部分要有個可以讓Vue.js實體(instance)抓到要渲染的元素節點，我們可以使用id來命名，通常會使用`<div id='app'></div>`，並且在JavaScript的部分以new初始化，而初始化裡面的options，則是使用`el`指定剛才命名的id為`app`的對象作為綁定，使用`data`來放入物件當作數據對象，接著就能夠在HTML部分中以兩層花括號`{% raw %}{{ message }}{% endraw %}`的方式指定要顯示的資料對象，接著畫面上便會顯示出'Hello, world'的部分。範例如下：
+而在引入Vue.js後，我們便可以開始撰寫HTML以及JavaScript的部分，首先HTML的部分要有個可以讓Vue.js實體(instance)抓到要渲染的元素節點，我們可以使用id來命名，通常會使用`<div id='app'></div>`，並且在JavaScript的部分以new初始化，而初始化裡面的options，則是使用`el`指定剛才命名的id為`app`的物件作為綁定，使用`data`來存放資料物件，接著就能夠在HTML部分中以兩層花括號`{% raw %}{{ message }}{% endraw %}`的方式指定要顯示的資料物件，而畫面上便會顯示出'Hello, world'的部分。範例如下：
 
 HTML部分
 
@@ -90,10 +90,10 @@ let vm = new Vue({
 ```
 
 ### v-show
-和`v-if`很像，但`v-show`在`false`時的消失，實際觀察會發現該元素只是被加上了`style="display:none"`而已，並沒有從DOM上消失。
+和`v-if`很像，但`v-show`在`false`時的消失，實際觀察DOM會發現該元素只是被加上了`style="display:none"`而已，並沒有從DOM上消失。
 
 ### v-for
-透過`v-for`指令，我們可以將資料對象中的陣列遍歷出來，用法是在元素上綁定`v-for`指令，並在指令對應對象取一個任意名稱作為代表(範例使用person)，而在樣板語法中取用方式如同一般我們要取出物件中的`value`一樣。另外也可以透過第二個參數的部分(範例使用index)來取得該筆資料的陣列索引值。
+透過`v-for`指令，我們可以將`data`中的陣列遍歷出來，用法是在元素上綁定`v-for`指令，並在指令對應物件取一個任意名稱作為代表(範例使用person)，而在樣板語法中取用方式如同一般我們要取出物件中的`value`一樣。另外也可以透過第二個參數的部分(範例使用index)來取得該筆資料的陣列索引值。
 
 ```
 <div id='app'>
@@ -129,12 +129,12 @@ let vm = new Vue({
 </script>
 ```
 
-**需要注意的地方**，在使用`v-for`指令輸出時，[官網強烈建議](https://cn.vuejs.org/v2/style-guide/#%E4%B8%BA-v-for-%E8%AE%BE%E7%BD%AE%E9%94%AE%E5%80%BC-%E5%BF%85%E8%A6%81)需要給予相對應的`key`來作為可識別的資料，以便於我們在對資料做操作時，Vue.js能夠準確的找到資料對象是綁定在哪個元素上，而`key`的選用建議是使用資料對象中帶有的唯一數據(`primary key`)，並建議不要使用`v-for`指令帶來的第二個傳送參數(`index`)來當作`key`，否則在某些情境下將發生不可預期的錯誤。
+**需要注意的地方**，在使用`v-for`指令輸出時，[官網強烈建議](https://cn.vuejs.org/v2/style-guide/#%E4%B8%BA-v-for-%E8%AE%BE%E7%BD%AE%E9%94%AE%E5%80%BC-%E5%BF%85%E8%A6%81)需要給予相對應的`key`來作為可識別的資料，以便於我們在對資料做操作時，Vue.js能夠準確的找到資料物件`data`是綁定在哪個元素上，而`key`的選用建議是使用資料物件`data`中帶有的唯一鍵(`unique key`)，並建議不要使用`v-for`指令帶來的第二個參數(`index`)來當作`key`，否則在某些情境下將發生不可預期的錯誤。
 
 **另外一個須注意的地方是**避免`v-for`與`v-if`在同一個地方上使用，因為有可能會渲染到本來應該會隱藏的欄位，而官方也做了[詳細解釋](https://cn.vuejs.org/v2/style-guide/#%E9%81%BF%E5%85%8D-v-if-%E5%92%8C-v-for-%E7%94%A8%E5%9C%A8%E4%B8%80%E8%B5%B7-%E5%BF%85%E8%A6%81)。
 
 ### v-model
-透過`v-model`指令綁定在元素上，可以創造一個雙向綁定資料的概念，也就是假設在表單組件`input`上設置`v-model`並綁定到`data`中的`message`上，他除了會即時顯示`vm.$data.message`中的數據以外，我們在更動`input`中的`value`時也會同步更改回`vm.$data.message`中的數據。
+透過`v-model`指令綁定在元素上，可以創造一個雙向綁定資料的概念，也就是假設在表單組件`input`上設置`v-model`並綁定到`data`中的`message`上，他除了會即時顯示`vm.$data.message`中的資料以外，我們在更動`input`中的`value`時也會同步更改回`vm.$data.message`中的資料。
 
 ```
 <div id='app'>
