@@ -1,8 +1,10 @@
 ---
-title: Vue.js學習筆記(五)components(props)
+title: Vue.js學習筆記(五)components(props, event-bus, Dynamic & Async)
 date: 2019-07-10 17:05:04
 tags: vue.js
 ---
+
+![](/images/vue-logo.png)
 
 # 前言
 本篇是繼上一篇講解`components`的續集，還沒有看過的朋友可以先[點此看上一篇](https://shawnlin0201.github.io/2019/07/10/Vue-js-note-004/)。
@@ -10,13 +12,15 @@ tags: vue.js
 # props
 在使用`component`時，許多需要顯示的資料可能不一定來自本身元件所擁有的，有時候可能是由父層元件所傳遞下來的，而這個傳遞方法就是透過`component`中的`props`來進行，需要額外設定的地方在於HTML部分中，自定義元件`my-component`的屬性加上了一個藉由`v-bind`所綁定的`parent-msg`，這個`parent-msg`所對應的是由JavaScript部分中`Vue.component`全域註冊元件屬性`props`中的`['parentMsg']`，進而使得`x-template`中的元件資料物件`parentMsg`能夠知道這是個被傳遞的物件；而相對的例子便是`x-template`中元件(`<div>Child Message: {{ message }}</div>`)的`message`，這裡指的`message`則是`Vue.component`中的`data`('子元件資料')。而回到原本的HTML部分，藉由`v-bind`所綁定的`parent-msg`，最終會找到其對應的`message`，這裡的`message`則是指初始化實體後根元件的資料物件`vm.$data.message`，範例程式碼如下：
 HTML部分
-```
+```HTML
 <div id="app" >
     <my-component :parent-msg="message"></my-component>
 </div>
 ```
+
 JavaScript部分
-```
+
+```JavaScript
 <script type="text/x-template" id="my-component">
     <div>
         <div>Parent Message: {{ parentMsg }}</div>
@@ -45,7 +49,7 @@ let vm  = new Vue({
 </script>
 ```
 而若是HTML部分中`parent-msg`沒有使用`v-bind`綁定的話，其資料物件將會只是產生一般的`innerText`，如下所示：
-```
+``` 
 <div id="app" >
     <my-component parent-msg="message"></my-component>
 </div>
@@ -194,54 +198,69 @@ let vm = new Vue({
 })
 ```
 # event bus
-當我們今天元件之間傳遞不是父子關係，而是兄弟、甚至是多層元件關係時，可以使用`event-bus`來達成這項目的。顧名思義，`event-bus`就像是台公車一樣，不管兄弟元件，還是曾子孫元件，都可以達成集中管理。使用範例如下：
+顧名思義，`event-bus`就像是台公車一樣，當我們今天元件之間不是父子關係，而是兄弟、甚至是多層元件關係時，都可以使用`event-bus`來達成傳遞這項目的，使用範例如下：
+HTML部分是兩個平行的元件`element-city1`與`element-city2`：
 ```
 <div id="app">
-<p>父元件：<br>
-    {{ message }}<br>
-    <input type="text" v-model="message">
-</p>
-<p>子元件：
-    <child-component :parent-message="message"></child-component>
-</p>
+<element-city1></element-city1>
+<element-city2></element-city2>
 </div>
 ```
+JavaScript部分，首先我們一開始先透過new初始化一個Vue物件並賦值給變數`bus`，使`bus`擁有Vue物件的屬性與功能，接著如同父子元件溝通範例一樣，以`$emit`發送事件然後對象再透過在生命週期鉤子來註冊事件，以`$on`監聽事件。而不一樣的地方在於發送事件與監聽的參考對象要改在`bus`上，這樣就能透過`bus`來當作溝通的橋樑：
 ```
-Vue.component('child-component',{
-    template:'<div>{{ parentMessage }} <br><input type="text" v-model="message"> <button type="button" @click="updateText">Update</button></div> ',
-    props:{
-        parentMessage: String
-    },
-    data: function(){
-        return {
-            message : this.parentMessage
-        }
-    },
-    methods:{
-      updateText: function(){
-        this.$parent.$emit('update',this.message)
-      }
+let bus = new Vue()
+
+Vue.component('element-city1', {
+  template:
+  `
+    <div>
+      <input type="text" v-model="message"><br>
+      <button type="button" @click="submit">Click</button>
+    </div>
+  `,
+  methods:{
+    submit(){
+      bus.$emit('receive', this.message)
     }
+  },
+  data(){
+    return {
+      message : "this is city1's message"
+    }
+  }
+})
+
+Vue.component('element-city2', {
+  template:`<div>{{ message }}</div>`,
+  created(){
+    let self = this
+    bus.$on('receive',function(newMessage){
+      self.message = newMessage
+    })
+  },
+  data(){
+    return{
+      message: "this is city2's message"
+  }}
 })
 
 let vm = new Vue({
-    el:'#app',
-    data:{
-        message : '父元件資料'
-    },
-    methods: {
-      selfUpdate(value){
-        this.message = value
-      }
-    },
-    mounted() {
-      this.$on('update', this.selfUpdate)
-    },
+  el:'#app',
+  data:{
+    text:'Hello Vue!',
+  },
+  methods:{
+    handleOnClick : function(name){
+      return this.text = `Hello ${name}!`
+    }
+  }
 })
 ```
 
---待續--
+**而要注意的地方是**，由於註冊與監聽事件都是在變數`bus`上，不同元件間註冊與監聽可能事件名稱會有撞名的問題，可以透過初始化另一台`bus`來緩解這個問題。
 
+# 結尾
+`components`章節至今已經邁向第二篇啦，元件系統的部分還蠻多東西可以介紹的，因此我們將會三顧茅廬，而接下來將會講到動態與非同步的元件處理、樣板語言的編譯範圍以及如何在塞入資料在到元件的編譯樣板內。
 
 # 參考資料
 
