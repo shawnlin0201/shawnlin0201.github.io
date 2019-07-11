@@ -601,8 +601,8 @@ calendar:
 
 # Disqus
 disqus:
-  enable: false
-  shortname:
+  enable: true
+  shortname: shawnlin0201-github-io
   count: true
   lazyload: false
 

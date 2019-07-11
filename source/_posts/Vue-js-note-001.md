@@ -162,7 +162,7 @@ let vm = new Vue({
 
 HTML部分
 ```
-<div id="#app">
+<div id="app">
   <button type="button" v-on:click="handleOnClick">Click Me!</button>
 </div>
 ```
@@ -180,7 +180,7 @@ let vm = new Vue({
 ```
 除此之外，`v-on`也可以縮寫為`@`，我們將上面的範例改寫一下：
 ```
-<div id="#app">
+<div id="app">
   <button type="button" @click="handleOnClick">Click Me!</button>
 </div>
 ```
@@ -202,7 +202,7 @@ CSS部分，這裡簡單定義了box與rotate的樣式
 ```
 HTML部分，這裡透過`v-on`去驅動`data`中`isRotate`的值，而`v-bind:class`中的意思為將`rotate`這個class對應到在`vm.#data`中的`isRotate`上，若`isRotate`為`true`則替該元素加上`rotate`的class，若`false`則不添加`rotate`到元素身上。
 ```
-<div id="#app">
+<div id="app">
   <div class="box" v-bind:class="{'rotate':isRotate}"><div>
   <button type="button" v-on:click="isRotate = !isRotate"> Rotate the box</button>
 </div>
@@ -218,7 +218,7 @@ let vm = new Vue({
 ```
 如此一來我們便可以使用按鈕來驅動元素樣式。而常用到的這個指令也有縮寫的寫法，用法是省略`v-bind`只留下`:`的部分，範例修改上面後的如下：
 ```
-<div id="#app">
+<div id="app">
   <div class="box" :class="{'rotate':isRotate}"><div>
   <button type="button" @click="isRotate = !isRotate"> Rotate the box</button>
 </div>
