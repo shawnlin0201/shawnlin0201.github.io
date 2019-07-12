@@ -105,7 +105,7 @@ let vm = new Vue({
 ```
 <div id='app'>
   <ul>
-    <li v-for="(person,index) in class" :key="person.id">
+    <li v-for="(person,index) in class001" :key="person.id">
       第{{ index }}筆資料，姓名：{{ person.name }}，年齡：{{ person.age }}
     </li>
   </ul>
@@ -114,7 +114,7 @@ let vm = new Vue({
 let vm = new Vue({
   el:'#app',
   data:{
-    class:[
+    class001:[
       {
         id:'001',
         name:'小明',
