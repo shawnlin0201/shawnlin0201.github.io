@@ -1,12 +1,12 @@
 ---
-title: Vue.js學習筆記(三)lifecycle
+title: Vue.js學習系列(三)lifecycle
 date: 2019-07-09 14:33:32
 tags:
 - [前端]
 - [JavaScript]
 - [Vue.js]
 categories: 
-- [前端, JavaScript, Vue.js]
+- [前端, JavaScript, Vue.js, 學習系列]
 ---
 
 ![](/images/vue-logo.png)

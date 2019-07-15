@@ -1,12 +1,12 @@
 ---
-title: Vue.js學習筆記(六)components(Dynamic component, keep-alive,  slot)
+title: Vue.js學習系列(六)components(Dynamic component, keep-alive,  slot)
 date: 2019-07-11 11:46:25
 tags:
 - [前端]
 - [JavaScript]
 - [Vue.js]
 categories: 
-- [前端, JavaScript, Vue.js]
+- [前端, JavaScript, Vue.js, 學習系列]
 ---
 
 ![](/images/vue-logo.png)
