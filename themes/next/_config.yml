@@ -35,9 +35,9 @@ cache:
 # ---------------------------------------------------------------
 
 favicon:
-  small: /images/favicon-16x16-next.png
-  medium: /images/favicon-32x32-next.png
-  apple_touch_icon: /images/apple-touch-icon-next.png
+  small: /images/favicon-16x16-shawn.png
+  medium: /images/favicon-32x32-shawn.png
+  apple_touch_icon: /images/apple-touch-icon-shawn.png
   safari_pinned_tab: /images/logo.svg
   #android_manifest: /images/manifest.json
   #ms_browserconfig: /images/browserconfig.xml
@@ -99,7 +99,7 @@ creative_commons:
 
 # `Follow me on GitHub` banner in the top-right corner.
 github_banner:
-  enable: false
+  enable: true
   permalink: https://github.com/shawnlin0201
   title: Follow me on GitHub
 
