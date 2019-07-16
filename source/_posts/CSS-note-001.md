@@ -1,5 +1,5 @@
 ---
-title: CSS學習系列（一）如何善用命名管理你的CSS
+title: CSS學習系列（一）如何善用命名來管理CSS
 date: 2019-07-15 09:51:04
 tags:
 - [前端]
@@ -7,13 +7,11 @@ tags:
 - [OOCSS]
 - [SMACSS]
 - [BEM]
-- [Vue.js]
-- [React.js]
 categories: 
 - [前端, CSS, 學習系列]
 ---
 
-![](/images/css-logo.svg)
+![](/images/CSS-logo.svg)
 
 # CSS
 有接觸網頁端的工程師們或多或少都知道，尤其是前端工程師們一定認識他，對他可是又愛又恨（~~或是只有恨？~~）。CSS，全名（Cascading Style Sheets），主要在於提供於HTML文件做為樣式，語法的部分相當容易上手，只要學習如何透過選擇器（`Selector`）語法來讓CSS可以渲染到對應的HTML元素，並且瞭解該元素中有哪些可以使用的屬性（`property`）與值（`value`）即可。然而實際專案中最困難的地方不在於CSS要怎麼寫，而是在於CSS選擇器該怎麼取名。而常見的方式是遵循幾個基本原則：
@@ -189,9 +187,13 @@ Block裡面的小元件，但是不一定會有，而取名方式是前綴其依
 
 如同SMACSS中的state，命名方式是前綴Block或Element的名稱加上一個下底線`_`：
 ```
-.media-header_hover{...}
-.media-header__title_hover{...}
+.media-header_fixed{...}
+.media-header__title_isActive{...}
 ```
+
+### 補充
+
+BEM中的Modifier對於CSS pseudo class（如:hover、:active）並[沒有控管](https://en.bem.info/methodology/quick-start/#modifier)，另外也有[文章](https://michaelnthiessen.com/hover-in-vue/)指出這一類的狀態雖然可以透過框架的各種方法控管，能用CSS pseudo class解決的何樂不為呢；個人則是認為除非今天要實現的是hover後要維持當前狀態的可能就不適合單純使用CSS pseudo class了。
 
 # 結尾
 
