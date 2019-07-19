@@ -1,19 +1,19 @@
 ---
-title: Vue.js學習系列(一)入門、環境搭建、指令與修飾符
+title: Vue.js系列(一)入門、環境搭建、指令與修飾符
 date: 2019-07-07 17:30:00
 tags:
 - [前端]
 - [JavaScript]
 - [Vue.js]
 categories: 
-- [前端, JavaScript, Vue.js, 學習系列]
+- [前端, JavaScript, Vue.js]
 ---
 
 ![](/images/vue-logo.png)
 
 # 前言
 
-由於最近正在學Vue.js，順手來記錄一下，目前也正不斷的校稿當中。我在使用Vue.js之前，曾經在專案有使用過React.js，所以這次學Vue.js上還蠻能理解他的邏輯架構，另外在React.js常常搭配的create-react-app，在Vue.js中也有Vue-cli可以使用。而這系列Vue.js的文章將會在最後介紹到Vue-cli以及後續的一些搭配工具，而這篇主要會從頭簡單介紹Vue.js的一些基本指令與環境搭建！要快速閱覽目錄可以透過右下方的menu觀看，有任何問題歡迎寄信到[我的信箱](mailto:shawnlin0201@gmail.com)討論喔！
+由於最近正在學Vue.js，順手來記錄一下，目前也正不斷的校稿當中。我在使用Vue.js之前，曾經在專案有使用過React.js，所以這次學Vue.js上還蠻能理解他的邏輯架構，另外在React.js常常搭配的create-react-app，在Vue.js中也有Vue-cli可以使用。而這系列Vue.js的文章將會在最後介紹到Vue-cli以及後續的一些搭配工具，而這篇主要會從頭簡單介紹Vue.js的一些基本指令與環境搭建！要快速閱覽目錄可以透過右下方的menu觀看，有任何問題歡迎底下留言討論喔！
 
 # 為何要使用Vue.js？
 

@@ -1,5 +1,5 @@
 ---
-title: CSS學習系列（二）如何利用預處理器SASS(SCSS)來維護CSS
+title: CSS系列（二）如何利用預處理器SASS(SCSS)來維護CSS
 date: 2019-07-16 09:07:47
 tags:
 - [前端]
@@ -8,6 +8,7 @@ tags:
 - [SCSS]
 categories: 
 - [前端, CSS, 學習系列]
+- [前端, CSS, SASS(SCSS)]
 ---
 
 ![](/images/SASS-logo.svg)
@@ -20,11 +21,11 @@ categories:
 
 SASS全名（Syntactically Awesome Stylesheets），由Hampton Catlin所設計並由Natalie Weizenbaum所開發的一套語言，最初的開始的語法主要是利用縮排與換行來辨識程式碼區塊，後來推出更新的語法為SCSS，使用的語法基本上與CSS沒有不同，採用大括號區隔規則以及使用分號做為樣式分開，辨識檔案方法是透過副檔名`.sass`以及`.scss`作為區分。
 
-SASS加入了許多特色如變數（Variables）、巢狀（Nesting）、混和（Mixins）、繼承（Extend）、運算子（Operators）並且還有許多類似於JavaScript的用法，而在擴充工具[Compass](https://github.com/Compass/compass)出來後更大大的加強了SASS的能力，只可惜該專案目前已經宣布不再維護，故此文不提到Compass。
+SASS加入了許多特色如變數（Variables）、巢狀（Nesting）、混和（Mixins）、繼承（Extend）、運算子（Operators）並且還有許多類似於JavaScript的用法，而在擴充工具[Compass](https://github.com/Compass/compass)出來後更大大的加強了SASS的能力，只可惜該專案目前已經宣布不再維護，故此文不提到Compass的用法。
 
 # 解析.sass .scss檔
 
-在使用SASS與SCSS前首先要知道如何解析.sass與.scss檔，如果是使用VScode作為編譯器的人可以使用[Live Sass Compiler擴充工具](https://marketplace.visualstudio.com/items?itemName=ritwickdey.live-sass)，使用方法很簡單，下載完擴充工具後，點選編譯器底下的Watch Sass，就會在同個資料夾產生對應檔名的css檔案，並自動監控(Watching...)當前畫面中的檔案，只要該檔案有儲存動作，就會即時同步解析成對應檔案，若要停止即時解析的話再點一次(Watching...)即可（如下圖示範）；而如果是其他編譯器的使用者，也可以先使用[Sassmeister](https://www.sassmeister.com/)來解析。
+在使用SASS與SCSS前首先要知道如何解析.sass與.scss檔，如果是使用VScode作為編譯器的人可以使用[Live Sass Compiler擴充工具](https://marketplace.visualstudio.com/items?itemName=ritwickdey.live-sass)，使用方法很簡單，下載完擴充工具後，點選編譯器底下的Watch Sass，就會在同個資料夾產生對應檔名的css檔案，並自動監控(Watching...)當前畫面中的檔案，只要該檔案有儲存動作，就會即時同步解析成對應檔案，若要停止即時解析的話再點一次(Watching...)即可（如下圖示範）；而若想使用軟體的部分則可以考慮[Prepros](https://prepros.io/)，有解析Compass需求可以考慮[koala](http://koala-app.com/)，如果單純想體驗SASS(SCSS)可以考慮線上網站[Sassmeister](https://www.sassmeister.com/)來解析。
 
 ![](/images/SCSS-VScode-Watch-Sass.png)
 
@@ -34,7 +35,11 @@ SASS加入了許多特色如變數（Variables）、巢狀（Nesting）、混和
 
 ![](/images/SCSS-VScode-setting.png)
 
+接著點選右上角開啟VSCode的設定json檔案：
+
 ![](/images/SCSS-VScode-setting-screen.png)
+
+這裡存放VSCode擴充工具、喜好設定等等資訊，我們可以將Live Sass Compiler的設定檔放在這裡：
 
 ![](/images/SCSS-VScode-setting-json.png)
 

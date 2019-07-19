@@ -1,12 +1,12 @@
 ---
-title: Vue.js學習系列(二)data、computed、methods、watch
+title: Vue.js系列(二)data、computed、methods、watch
 date: 2019-07-08 12:30:00
 tags:
 - [前端]
 - [JavaScript]
 - [Vue.js]
 categories: 
-- [前端, JavaScript, Vue.js, 學習系列]
+- [前端, JavaScript, Vue.js]
 ---
 
 ![](/images/vue-logo.png)

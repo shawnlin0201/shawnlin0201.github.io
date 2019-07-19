@@ -1,12 +1,12 @@
 ---
-title: Vue.js學習系列(四)components(Registration, child component and template)
+title: Vue.js系列(四)components(Registration, child component and template)
 date: 2019-07-10 14:37:58
 tags:
 - [前端]
 - [JavaScript]
 - [Vue.js]
 categories: 
-- [前端, JavaScript, Vue.js, 學習系列]
+- [前端, JavaScript, Vue.js]
 ---
 
 ![](/images/vue-logo.png)

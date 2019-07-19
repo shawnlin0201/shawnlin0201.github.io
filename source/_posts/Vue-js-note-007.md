@@ -1,5 +1,5 @@
 ---
-title: Vue.js學習系列(七)vue-cli
+title: Vue.js系列(七)vue-cli
 date: 2019-07-12 13:55:58
 tags:
 - [前端]
@@ -7,7 +7,7 @@ tags:
 - [Vue.js]
 - [Vue-cli]
 categories: 
-- [前端, JavaScript, Vue.js, 學習系列]
+- [前端, JavaScript, Vue.js]
 ---
 
 ![](/images/vue-logo.png)

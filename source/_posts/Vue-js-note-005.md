@@ -1,12 +1,12 @@
 ---
-title: Vue.js學習系列(五)components(props, event-bus, Dynamic & Async)
+title: Vue.js系列(五)components(props, event-bus, Dynamic & Async)
 date: 2019-07-10 17:05:04
 tags:
 - [前端]
 - [JavaScript]
 - [Vue.js]
 categories: 
-- [前端, JavaScript, Vue.js, 學習系列]
+- [前端, JavaScript, Vue.js]
 ---
 
 ![](/images/vue-logo.png)
