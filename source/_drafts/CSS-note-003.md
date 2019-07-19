@@ -1,30 +1,80 @@
 ---
-title: CSS系列（三）視覺的藝術：圖片顯示與文字單位（相對單位、絕對單位）
+title: CSS系列（三）圖片與文字：單位解析（相對單位、絕對單位）
 date: 2019-07-18 11:58:50
 tags:
 - [前端]
 - [CSS]
 categories: 
-- [前端, CSS, 筆記系列]
+- [前端, CSS]
 ---
 
 ![](/images/CSS-logo.svg)
 
 # 前言
+前端工程師工作上與視覺牢不可分，時常與文字、圖片和容器為舞，要以CSS良好的控制他們，必須要先知道控制的度量單位，而在裝置上的度量單位根據W3c官方定義則分為了**絕對單位**、**相對單位**與**百分比單位**，而本篇文章將會介紹呈現裝置視覺與CSS的度量單位是如何呈現與定義的。
 
-以前端工程上來說，視覺主要接觸到的會有文字與圖片，以文字單位來說，w3c官方主要分為絕對單位、相對單位與長度百分單位，細分下去還有螢幕用（px、em、%...)以及印刷用單位（pt、mm、cm、in...)，而圖片視覺上則會考量到DPI、PPI等等，而本篇主要介紹。
+# 圖片優化 (Image Optimization)
 
-## 視覺顯示
+前端工程師常見對於圖片顯示優化須考量到的有：
+- 消除不必要的圖片資源
+- 圖片解析倍率
+- 圖片檔案大小
+- 圖片呼叫次數
+- 字體取代Icon
+- 圖片延遲載入
 
-在裝置上視覺顯示單位分為DPI與PPI，DPI（Dots per inch，每英吋點數）意思即為在一英吋中點的數量，通常是用於印刷單位使用；而PPI（Pixels Per Inch）則為一英吋中像素的數量，主要用於顯示器螢幕的部分。以下用px、pt來介紹dpi實際上的應用：
+
+## 圖片解析倍率 (srcset)
+
+再談到圖片解析度前有幾個視覺單位可以先科普一下：
+
+- **DPI（Dots per inch）**：為一英吋中點的數量，通常是用於印刷單位使用。
+- **PPI（Pixels Per Inch）**：為一英吋中**物理像素**的數量，也就是我們常聽到的解析度（Resolution）。
+- **DPR（Device Pixel Ratio）**：
 
 ![](/images/CSS-dpi.jpg)
 
-假設圖中為一平方英吋的方框，而左邊橫排格數為1、右邊橫排格數為2，因此左邊的ppi為1，右邊的ppi就是2，而紅色中的方塊範圍即為1px（Pixel）。
+假設圖中為一平方英吋的方框，而左邊橫排格數為1、右邊橫排格數為2，因此左邊方框代表的ppi為1，右邊方框代表的ppi就是2，紅色中的方塊範圍即為1px（Pixel）；而1pt（Point）的大小即為1/72英吋，也就是一個一平方英吋的方格切成72*72的方格時，每個方格代表即為1pt，此時正好同等1px。因此在72ppi情況下其實1pt就會同等於1px。
 
-而1pt（Point）的大小即為1/72英吋，也就是一個方格切成72*72的方格時，每個方格代表即為1pt，正好同等1px。因此在72ppi情況下其實1pt就會同等於1px。
 
-然而事情並不會如我們所意，目前各家顯示器的規格並不統一，較常見到的電腦螢幕ppi為96，而Apple公司出產的設備螢幕可從218ppi的5K螢幕到高達458ppi的iphone X，同時也代表前端工程在放圖片時也需考量到不同解析器顯示的問題（@1x、@2x、@3x等等），而再有了顯示單位的概念後再來理解長度單位應該會輕鬆許多。
+## 圖片檔案大小 (picture size cost down)
+
+壓縮
+[tinypng](https://tinypng.com/)
+
+格式
+
+## 圖片呼叫次數
+
+CSS Sprite
+SVG
+html5 canvas
+
+
+## 字體取代Icon
+
+[Fontawesome](https://fontawesome.com/)
+[Iconfont](https://www.iconfont.cn/)
+
+## 圖片延遲載入 (lazy loading)
+
+
+
+而目前各家顯示器解析度的規格並不統一，較常見到的電腦螢幕ppi為96，而Apple公司出產的設備螢幕可從218ppi的5K螢幕到高達458ppi的iphone X。
+
+
+
+
+
+
+同時也代表主視覺設計在放圖片時也需考量到不同解析器顯示的問題，若是強行將低解析度的圖檔以高解析度的裝置光看便會產生模糊的現象，而現在要拿到這些不同解析度的圖檔也不必在手動一個一個調整，Photoshop跟Illustrator等等都有支援協助輸出不同解析度的圖檔。
+
+而在RWD網頁中，前端工程師優化可以使用picture與img中的srcset來設置不同解析度的圖檔， 
+
+
+
+
+# CSS 度量單位
 
 ## 長度單位
 在螢幕顯示器中的長度單位可分為絕對單位與相對單位，並且在網頁端的CSS中也有額外提供屬性值的內容。
@@ -73,6 +123,7 @@ categories:
 
 
 # 參考資料
+- [完全理解px,dpr,dpi,dip](http://www.ayqy.net/blog/%E5%AE%8C%E5%85%A8%E7%90%86%E8%A7%A3px-dpr-dpi-dip/)
 - [PPI wiki](https://zh.wikipedia.org/wiki/%E6%AF%8F%E8%8B%B1%E5%AF%B8%E5%83%8F%E7%B4%A0)
 - [DPI wiki](https://en.wikipedia.org/wiki/Dots_per_inch)
 - [Retina wiki](https://en.wikipedia.org/wiki/Retina_display)

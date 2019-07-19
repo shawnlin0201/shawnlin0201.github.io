@@ -1,5 +1,5 @@
 ---
-title: CSS學習系列（一）如何善用命名來管理CSS
+title: CSS系列（一）如何善用命名來管理CSS
 date: 2019-07-15 09:51:04
 tags:
 - [前端]
@@ -8,8 +8,7 @@ tags:
 - [SMACSS]
 - [BEM]
 categories: 
-- [前端, CSS, 學習系列]
-- [前端, CSS, 命名心法]
+- [前端, CSS, 心法]
 ---
 
 ![](/images/CSS-logo.svg)

@@ -7,7 +7,6 @@ tags:
 - [SASS]
 - [SCSS]
 categories: 
-- [前端, CSS, 學習系列]
 - [前端, CSS, SASS(SCSS)]
 ---
 
