@@ -1,5 +1,5 @@
 ---
-title: CSS系列（二）如何利用預處理器SASS(SCSS)來維護CSS
+title: CSS系列(二)如何利用預處理器SASS(SCSS)來維護CSS
 date: 2019-07-16 09:07:47
 tags:
 - [前端]
@@ -10,7 +10,9 @@ categories:
 - [前端, CSS, SASS(SCSS)]
 ---
 
-![](/images/SASS-logo.svg)
+<div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/SASS-logo.svg' width='200px' height='200px' />
+</div>
 
 # 前言
 

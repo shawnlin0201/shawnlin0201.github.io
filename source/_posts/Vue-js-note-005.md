@@ -9,10 +9,12 @@ categories:
 - [前端, JavaScript, Vue.js]
 ---
 
-![](/images/vue-logo.png)
+<div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/vue-logo.png' width='200px' height='200px' />
+</div>
 
 # 前言
-本篇是繼上一篇講解`components`的續集，還沒有看過的朋友可以先[點此看上一篇](https://shawnlin0201.github.io/2019/07/10/Vue-js-note-004/)。
+本篇是繼上一篇講解`components`的續集，還沒有看過的朋友可以先[點此看上一篇](/2019/07/10/Vue-js-note-004/)。
 
 # props
 在使用`component`時，許多需要顯示的資料可能不一定來自本身元件所擁有的，有時候可能是由父層元件所傳遞下來的，而這個傳遞方法就是透過`component`中的`props`來進行，需要額外設定的地方在於HTML部分中，自定義元件`my-component`的屬性加上了一個藉由`v-bind`所綁定的`parent-msg`，這個`parent-msg`所對應的是由JavaScript部分中`Vue.component`全域註冊元件屬性`props`中的`['parentMsg']`，進而使得`x-template`中的元件資料物件`parentMsg`能夠知道這是個被傳遞的物件；而相對的例子便是`x-template`中元件(`<div>Child Message: {{ message }}</div>`)的`message`，這裡指的`message`則是`Vue.component`中的`data`('子元件資料')。而回到原本的HTML部分，藉由`v-bind`所綁定的`parent-msg`，最終會找到其對應的`message`，這裡的`message`則是指初始化實體後根元件的資料物件`vm.$data.message`，範例程式碼如下：

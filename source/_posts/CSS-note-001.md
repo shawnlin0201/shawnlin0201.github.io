@@ -1,5 +1,5 @@
 ---
-title: CSS系列（一）如何善用命名來管理CSS
+title: CSS系列(一)如何善用命名來管理CSS
 date: 2019-07-15 09:51:04
 tags:
 - [前端]
@@ -11,7 +11,9 @@ categories:
 - [前端, CSS, 心法]
 ---
 
-![](/images/CSS-logo.svg)
+<div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/CSS-logo.svg' width='200px' height='200px' />
+</div>
 
 # CSS
 有接觸網頁端的工程師們或多或少都知道，尤其是前端工程師們一定認識他，對他可是又愛又恨（~~或是只有恨？~~）。CSS，全名（Cascading Style Sheets），主要在於提供於HTML文件做為樣式，語法的部分相當容易上手，只要學習如何透過選擇器（`Selector`）語法來讓CSS可以渲染到對應的HTML元素，並且瞭解該元素中有哪些可以使用的屬性（`property`）與值（`value`）即可。然而實際專案中最困難的地方不在於CSS要怎麼寫，而是在於CSS選擇器該怎麼取名。而常見的方式是遵循幾個基本原則：

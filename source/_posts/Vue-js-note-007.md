@@ -10,7 +10,9 @@ categories:
 - [前端, JavaScript, Vue.js]
 ---
 
-![](/images/vue-logo.png)
+<div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/vue-logo.png' width='200px' height='200px' />
+</div>
 
 # 前言
 當我們終於熟悉Vue.js的一些基本用法後，專案上可能會要使用webpack來建立專案，而Vue的團隊有提供了一套專門給需要使用webpack的開發人員快速開發的工具（vue-cli）。Vue-cli這個工具基於webpack提供了許多擴充，我們可以按照vue-cli的架子，合理的放置檔案，與團隊中的其他成員協作開發，並且在vue-cli環境中產出專案需要部屬的靜態網站，也支援了許多開發時需要用的工具，因此本文章就要來介紹這個好用的工具，並簡單帶過一些基本的檔案介紹。

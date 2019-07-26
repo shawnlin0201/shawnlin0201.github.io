@@ -9,7 +9,9 @@ categories:
 - [前端, JavaScript, Vue.js]
 ---
 
-![](/images/vue-logo.png)
+<div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/vue-logo.png' width='200px' height='200px' />
+</div>
 
 # 前言
 Vue.js的生命週期，隨著Vue.js的更新，Vue.js的生命週期也變化了不少，本篇文章討論時Vue.js的版本在2.x(3即將要推出)，因此若生命週期發現有不太一樣的地方請先確認版本號一致囉！

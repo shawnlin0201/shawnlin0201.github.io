@@ -9,10 +9,12 @@ categories:
 - [前端, JavaScript, Vue.js]
 ---
 
-![](/images/vue-logo.png)
+<div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/vue-logo.png' width='200px' height='200px' />
+</div>
 
 # 前言
-[在上一章節中](https://shawnlin0201.github.io/2019/07/07/Vue-js-note-001/)，簡單介紹了Vue.js的環境架設、指令與修飾符的部分，而這章節則要來討論Vue instance中常見到的一些`options`(`data`,`computed`,`methods`,`watch`)的使用方法以及注意事項。
+[在上一章節中](/2019/07/07/Vue-js-note-001/)，簡單介紹了Vue.js的環境架設、指令與修飾符的部分，而這章節則要來討論Vue instance中常見到的一些`options`(`data`,`computed`,`methods`,`watch`)的使用方法以及注意事項。
 
 # data 資料
 通常我們會將資料物件放在此`option`中，而Vue.js會將其屬性轉換為`getter/setter`，使我們可以對數值去做讀取與更動，而放入的物件均需要為純粹的`key/value pair`。而在實體中的生命週期`created`後，便可以透過`vm.$data`的方式讀取到`data`。另外透過Vue.js的包裝，同樣可以使用`vm.data`的方式得到其值。

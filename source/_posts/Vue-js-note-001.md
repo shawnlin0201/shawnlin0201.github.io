@@ -1,5 +1,5 @@
 ---
-title: Vue.js系列(一)入門、環境搭建、指令與修飾符
+title: Vue.js系列(一)入門、環境建置、指令與修飾符
 date: 2019-07-07 17:30:00
 tags:
 - [前端]
@@ -9,7 +9,9 @@ categories:
 - [前端, JavaScript, Vue.js]
 ---
 
-![](/images/vue-logo.png)
+<div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/vue-logo.png' width='200px' height='200px' />
+</div>
 
 # 前言
 

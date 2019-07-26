@@ -9,7 +9,9 @@ categories:
 - [前端, JavaScript, Vue.js]
 ---
 
-![](/images/vue-logo.png)
+<div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/vue-logo.png' width='200px' height='200px' />
+</div>
 
 # 前言
 元件系統經過三顧茅廬後終於來到了他的最終章節，這個章節將會補充`component`有關於動態元件的用法，以及如何在樣板語法的範圍中加入更多的顯示資訊。
