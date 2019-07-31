@@ -11,7 +11,7 @@ categories:
 ---
 
 <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/SASS-logo.svg' width='200px' height='200px' />
+  <img style="object-fit:cover;" src='/images/CSS-logo.svg' width='200px' height='200px' />
 </div>
 
 # 前言
