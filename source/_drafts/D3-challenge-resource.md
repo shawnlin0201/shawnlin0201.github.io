@@ -17,7 +17,7 @@ categories:
 
 
 # 圖表類
-
+- [D3 動態視覺圖製作—基本概念](http://stats.moe.gov.tw/high_graduate/d3_doc.pdf)
 - [你一定要會用的6個圖表！這種簡報，聽眾一看就懂，還會馬上記在腦袋裡](https://www.managertoday.com.tw/articles/view/52894)
 - [不同圖表不同使用時機，我的報表適合什麼圖形？你用對了嗎？](https://www.businesstoday.com.tw/article/category/80408/post/201903260012/%E4%B8%8D%E5%90%8C%E5%9C%96%E8%A1%A8%E4%B8%8D%E5%90%8C%E4%BD%BF%E7%94%A8%E6%99%82%E6%A9%9F%EF%BC%8C%E6%88%91%E7%9A%84%E5%A0%B1%E8%A1%A8%E9%81%A9%E5%90%88%E4%BB%80%E9%BA%BC%E5%9C%96%E5%BD%A2%EF%BC%9F%E4%BD%A0%E7%94%A8%E5%B0%8D%E4%BA%86%E5%97%8E%EF%BC%9F)
 
