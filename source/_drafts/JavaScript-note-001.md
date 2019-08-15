@@ -1,6 +1,6 @@
 ---
-title: JavaScript基礎系列（一）
-date: 2019-07-25 17:03:01
+title: JavaScript系列（一）
+date: 2019-07-28 22:53:40
 tags:
 - [前端]
 - [JavaScript]
@@ -10,9 +10,8 @@ categories:
 
 # 前言
 # 介紹
-JavaScript是什麼
+
 # 環境
-放置的位置
 
 
 
