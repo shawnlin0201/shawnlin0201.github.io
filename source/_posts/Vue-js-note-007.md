@@ -191,12 +191,12 @@ export default new Router({
 
 ```
 # 結尾
-經過走一遍vue-cli的設定後，其實可以發現開發的大模樣清晰可見，我們在router.js中設定相關路徑後，在App.js檔案放入相對應的router，接著設定views中各頁面的page後，在引入components資料夾中的原件，最後便能夠快速地完成一個完整帶有路徑比對的專案。
+經過走一遍vue-cli的設定後，其實可以發現開發的大模樣清晰可見，我們在router.js中設定相關路徑後，在App.js檔案放入相對應的router，接著設定views中各頁面的page後，在引入components資料夾中的元件，最後便能夠快速地完成一個完整帶有路徑比對的專案。
 
 # 參考資料
 
 - [Vue官方網站文件：https://cn.vuejs.org/v2/guide/](https://cn.vuejs.org/v2/guide/)
 - [Vue-cli官方網站文件](https://cli.vuejs.org/zh/guide/)
-- [Vue rounter官方網站文件](https://router.vuejs.org/zh/)
+- [Vue router官方網站文件](https://router.vuejs.org/zh/)
 - [Vue項目實戰影片](https://www.bilibili.com/video/av55664085/)
 - [六角學院Vue-cli教學](https://www.youtube.com/watch?v=3ypel9_VtmU)
