@@ -6,47 +6,49 @@ tags:
 categories: 
 - [鐵人賽, 「小孩才做選擇，我全都要。」30天瞭解Vue.js與D3.js。]
 ---
-# 我能不要用他嗎
-~~其實可以，結束鐵人賽程。~~
 
-# 作者要的是什麼？
-鐵人賽參賽初衷是在勉勵自己持續寫作，透過寫作時的思考，有脈絡的來學習前端的技術，並轉化為他人可以輕鬆閱讀的內容。而對於社群來說，相關的技術文章早已不勝枚舉，很容易能夠找到相關的資訊，但我認為這是我對我自己的期許，正如當初只會Hello world到能夠刻出完整網頁的過程，我期許三十天後的我能順利完成它，也期望能夠帶給讀者們一些幫助。~~這可能是這系列文中唯一正經的段落~~
+# 標題：Vue.js Why Vue.js：我能不要用他嗎？
 
-# 那我要看這篇嗎？
-本文主要會針對沒有使用過這兩樣工具的讀者來介紹，旨在瞭解**為何**以及**如何**這兩樣開發工具，因此適合擁有 HTML, CSS, JavaSciprt 基礎，沒碰過他們但想瞭解的開發者們。除此之外本文也會試著以entry engineer也能夠輕鬆瞭解的方式來撰寫文章，所以對這兩樣工具好奇有興趣的話就訂閱下去吧！
+# Vue.js 是什麼？
+Vue.js 是基於 **JavaScript** 的一個**漸進式框架**，而框架簡單來說不同於其他主流的框架，它可以依專案的需求來做變化，你可以很單純的只使用它的**資料綁定(Data Binding)**，在深一點的可以考慮把 **DOM (Document Object Model)的渲染**都交給 Vue.js，再更大型一點的會開始需要設定**路由(Router)**，甚至是**狀態集中管理(Vuex)**等等的功能，因此你可以決定不同的專案導入不同深度的 Vue.js。畢竟殺雞焉用牛刀，你可不會想做個簡單的網站結果還裝了一拖拉庫的工具吧？
 
-# 這三十天大概會講什麼？
-「工欲善其事必先利其器。」三十天說長不長說短不短，其實針對其中一個工具都是能夠寫成一本書去探討的，更不用說是只有三十天還要介紹兩樣，所以這三十天內將會盡量保留精華，各自分別介紹其核心觀念與用法，並在最後幾天的時間，結合兩者實作出一個簡單的小作品。以下提供大致的章節：
+# 「不過我目前已經有在用 jQuery 了？我還要 Vue.js 嗎」
 
-- Vue.js Why Vue.js：我能不要用他嗎？
-- Vue.js 環境建置：比你想像中的還要簡單！
-- Vue.js 指令 Directives：一個指令，一個動作！
-- Vue.js 修飾符 modifier：扣越來越短，能做的越來越多。
-- Vue.js 資料選項 Options：資料倒進去，前端發大財。
-- Vue.js 生命週期 lifecycle：人難免有一死，Vue實體也是。
-- Vue.js 元件註冊 Registration：依樣畫葫蘆，不如做元件。
-- Vue.js 父子元件 child component：元件中的元件中的元件中的元……
-- Vue.js 元件樣板 template：你長的怎麼跟我一樣！
-- Vue.js 元件傳遞 props：聽爸的話，去賣火柴。
-- Vue.js 元件傳遞 event-bus：有沒有人要買火柴。
-- Vue.js 動態元件 Dynamic component：跟著Vue.js一起動ㄘ動！
-- Vue.js 插槽 slot：這個資料要放哪裡好？
-- D3.js Why D3.js：我知道D3，但D3.js是誰？
-- D3.js 環境建置：跟Vue.js一樣簡單！
-- D3.js 認識圖表：你認識圖表，圖表不認識你。
-- D3.js 基本繪製：你看，很簡單吧！歡樂畫室登場！
-- D3.js 比例 Scale：等等，我的圖跑出去了。
-- D3.js 座標軸 Axis：笛卡爾按了座標軸一個讚。
-- D3.js 散佈圖 Scatter Plot：笛卡爾在圖上畫了一堆點。
-- D3.js 折線圖 Line chart：笛卡爾試著把點連了起來。
-- D3.js 地圖 Geo.json：笛卡爾畫了一個台灣地圖 (?
-- D3.js 地圖 Topo.json：笛卡爾又畫了一個台灣地圖
-- Vue-cli 笛卡爾再畫……不不不，要來介紹Vue-cli了。
-- Vue-cli 輕鬆看懂.vue file
-- Vue-cli 路由 router：今天的路由由前端掌握！
-- Vue-cli 狀態管理 vuex：你的狀態是我的狀態，我的狀態是你的狀態。
-- Vue-cli, D3.js 把前面笛卡爾的地圖放進來
-- Vue-cli, D3.js 串聯open api：在笛卡爾的地圖上著色
-- Vue-cli, D3.js scale繪製比例尺
-- Vue-cli, D3.js 製作側欄資料說明 append 節點
-- Vue-cli, D3.js 試著倒入其他api 確認功能沒問題 (最高溫度，最低溫度)
+這個問題首先要先知道 jQuery 原本解決的是什麼，且讓我從頭開始說起：
+
+jQuery 出現的歷史原因是 JavaScript 在早期一些原生功能較為薄弱，並且還有瀏覽器不兼容的問題使得寫法會有點繁雜，而既然很常用到，為什麼不把它寫得更短更加完善？這也就是 jQuery 發明的宗旨 ( Write less, do more. ) 的想法。
+
+舉例來說，在操作 DOM (Document Object Model)的時候，原先要使用 `document.getElementById('test')` 這種寫法去捕捉元素，再透過方法來將值輸入進去。但使用 jQuery 的作法則只要透過很炫的 $ 選擇器搭配鍊式語法如 `$('#text').html()` 就可以輕鬆達成，除此之外還有像是對於 **AJAX 的發送**、**建立新的 DOM 元素**、**各種事件**與**動畫**等等，jQuery 都提供更簡潔的方法來解決這類問題。
+
+# 「沒錯，這就是我使用 jQuery 的原因，那我可以不要用 Vue.js 嗎？」
+
+老實說，其實可以。~~本系列鐵人賽結束。~~，但我想更好的問法應該是說，**為什麼我會需要這個工具？**每個工具都是在**解決當代環境所遇到的一些問題而相應產生的**，作為 jQuery 最常見的問題是，縱使可以輕鬆的取得目標元素，但當網頁架構一龐大，資料綁定也會越複雜，也越難以管理狀態是受到哪段程式所影響的？
+
+而在單頁式應用(SPA, Single Page Application)漸漸流行起來之後對於 url 的控制也不在只是後端的責任了，前端們得透過各種判斷來取得對應的資料，再把資料輸入回要顯示的頁面，也就是說，如何控制好資料操作的輸出輸入變得越來越重要。
+
+為了解決上述等問題，以資料綁定來說，Vue.js 提供了樣板語法，可以在 HTML 的部分使用花括弧來將 JavaScript 中取得的資料輸出到裡面，不用在 JavaScript 中一個一個綁定輸出，使得程式碼更容易閱讀。而在 SPA 中的 會遇到的 url 問題，在 HTML5 規格發布後有相對應的 API (`history.pushState()`, `history.replaceState`)等等方式來應對，早期也可以透過監聽 # (Hash)的變化來改變，而在 Vue.js 中則可以透過引入 vue-router 來達到同樣的效果，實作起來也較好管理，而怎麼去使用 Vue.js 來做便是本系列接下來的焦點。
+
+# 這麼樣一說，那我們就只用 Vue.js 或其他框架好了，要 jQuery 幹嗎？
+
+
+
+
+
+
+
+
+
+
+
+
+# 參考文章
+
+- [How to use VueJs instead of jQuery](https://medium.com/kaliop/how-to-use-vuejs-instead-of-jquery-ee6003ba323d)
+- [Drop jQuery From Your Bootstrap Project (And Replace it with Vue.js!)](https://medium.com/js-dojo/drop-jquery-from-your-bootstrap-project-and-replace-it-with-vue-js-82230bfca98a)
+- [在 Vue.js 中是否還需要 jQuery](https://www.jianshu.com/p/0005487ee299)
+
+
+
+
+
+
