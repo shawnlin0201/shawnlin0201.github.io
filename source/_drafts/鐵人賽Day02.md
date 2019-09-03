@@ -10,13 +10,14 @@ categories:
 # 標題：Vue.js Why Vue.js：我能不要用他嗎？
 
 # Why Vue.js：我能不要用他嗎？
+
 在談談為什麼需要 Vue.js 之前，我想要先來聊聊幾個話題：
 - 學完了 HTML、CSS 以及 JavaScript 之後為什麼要學框架？
 - 我有 jQuery 了還需要 Vue.js 嗎？
 - Vue.js 究竟是何方神聖？我能靠他做到什麼？
 - Vue.js 特色
 
-# 為什麼要學框架
+# 為什麼要學框架？
 
 作為一個基礎的前端工程師，HTML、CSS 以及 JavaScript 是不可或缺的技能組合，然而學習完要投履歷時會發現許多公司都會要求至少要有一個框架的經驗，再加上一些工具才達到應徵門檻，不求甚解的話很容易認為框架就只是個公司需求，但可以反問的是，**為什麼公司會有需求呢？**
 
@@ -26,52 +27,34 @@ categories:
 
 隨著時代的演進，網路開發已從一人包辦變成前後端分離，而分離出來的前端要實作的功能也越趨複雜，以致於程式碼的維護與管理越來越困難，如果公司沒有固定設計模式的情況下，不同專案的開發人員依自己喜好編寫不一樣的開發架構，未來的維護將會越來越吃緊，直到進來的菜鳥完全看不懂，若依照各個框架本身提供的 **API** 、**風格**、**邏輯**與**架構**開發，下一個人要接手維護時只要懂得該框架的邏輯與用法就能繼續延續前人的程式碼。
 
+當然，現代框架的好處並不止於此而已，但首先我們要來看看下個問題！
 
-[The deepest reason why modern JavaScript frameworks exist](https://medium.com/dailyjs/the-deepest-reason-why-modern-javascript-frameworks-exist-933b86ebc445)
-[前端為什麼使用框架？](https://www.itread01.com/eqycx.html)
-[閱讀他人的程式碼](https://www.ithome.com.tw/node/47717)
-[為何資深開發者寫的程式看起來不怎樣](https://medium.com/@CQD/%E7%82%BA%E4%BD%95%E8%B3%87%E6%B7%B1%E9%96%8B%E7%99%BC%E8%80%85%E5%AF%AB%E7%9A%84%E7%A8%8B%E5%BC%8F%E7%9C%8B%E8%B5%B7%E4%BE%86%E4%B8%8D%E6%80%8E%E6%A8%A3-%E5%8F%88%E5%A6%82%E4%BD%95%E5%BE%9E%E5%8D%83%E9%87%8C%E4%B9%8B%E5%A4%96%E8%AA%8D%E5%87%BA%E8%8F%9C%E9%B3%A5-c1afa754c5e4)
+# jQuery 不好嗎，為什麼要用 Vue.js？
 
+// todo
+// todo
+// todo
+// todo
+// todo
+// todo
+// todo
+// todo
+// todo
+// todo
+// todo
+// todo
+// todo
+// todo
+// todo
+// todo
+// todo
+// todo
 
+這個問題首先要知道 jQuery 原本解決的是什麼，且讓我從頭開始說起：
 
+jQuery 出現的歷史原因是 JavaScript 在早期一些原生功能較為薄弱，並且還有瀏覽器不兼容的問題使得寫法會有點繁雜，而既然很常用到，為什麼不把它寫得更短更加完善？這也就是 jQuery 發明的宗旨 ( Write less, do more. ) 的想法。
 
-
-
-
-
-
-
-
-
-
-
-
-
-# 起源
-在學習 Vue.js 之前，我想要先來聊聊幾個話題。為什麼要去花時間學習工具？Vue.js 到底是什麼？以及 Vue.js 與 jQuery 之間的抉擇。
-
-## 為什麼花時間學習一項工具
-
-每樣的工具產生，都有他被**發明的理由**，有時候還有一些**歷史脈絡**，稍微翻了一下以往的社群、部落格、文章與參加線下活動就會發現，作為一個剛入門沒多久的前端工程師如我，錯過了《IE 之黃金時代》、《Chrome 之急起直追》、《2015 框架大戰》等等幾部好戲，現在的前端可以說是一出身就尊爵不凡，含著金湯匙出身，半路出家就有一堆工具可以使用，瀏覽器也逐漸**統一規格**，許多以往的問題到現在早已不是問題。~~只要專案不需支援 IE8~~若不求甚解，自然而然會對三大框架的**公司需求**感到困惑。
-
-
-
-
-
-都是在解決當時大家所困擾、關注的問題，不僅僅是在軟體界，任何身邊發明的產品都是如此。
-
-Vue.js 作為一款漸進式框架工具，自然而然也有他被發明的理由，只是 WEB 開發已有一段歷史的淵源，而這部分許多大神級前輩發表了許多優質文章在談論，我就不班門弄斧了。
-
-那作為菜逼巴前端的立場能談論的有什麼呢？一個避開了《盤古開天－瀏覽器大戰》、《2015框架大戰之百家爭鳴》等等好戲的我們，一出身就尊爵不凡，含著金湯匙出身。
-
-HTML5 API強大支援，CSS3 讓許多效果不再難以解決
-
-
-
-
-
-
-
+舉例來說，在操作 DOM (Document Object Model)的時候，原先要使用 `document.getElementById('test')` 這種寫法去捕捉元素，再透過方法來將值輸入進去。但使用 jQuery 的作法則只要透過很炫的 $ 選擇器搭配鍊式語法如 `$('#text').html()` 就可以輕鬆達成，除此之外還有像是對於 **AJAX 的發送**、**建立新的 DOM 元素**、**各種事件**與**動畫**等等，jQuery 都提供更簡潔的方法來解決這類問題。
 
 
 
@@ -85,50 +68,11 @@ HTML5 API強大支援，CSS3 讓許多效果不再難以解決
 # 「Vue.js 是什麼？」
 簡單來說，Vue.js 是一個基於 JavaScript 的**漸進式框架**，漸進式指的是在不同的專案中，你可以**決定引入 Vue.js 的程度**，小至只使用他提供的**資料綁定(Data Binding)**功能，大到可以藉由 Vue-cli 建立一個較為完整的單頁式應用程式(SPA, Single Page Application)。而框架的意思則是有一套放置與管理程式碼的規則與脈絡，使得在進行多人開發時、維護他人舊專案時，也能夠較為輕易的閱讀程式碼，並且透過框架已經處理好的方法，輕易地去實作較為複雜的功能。
 
-# 「那常聽到的 jQuery 呢？」
-不論哪個時代中，前端都與 **DOM 操作**與各種**網路請求**常打交道，然而在早期的 WEB 開發環境中許多問題：
-
-- 早期原生 JavaScript API 對於操作 DOM 元素又臭又長
-- 早期瀏覽器對 JavaScript 的支援不一致
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 # Vue.js 是什麼？
 Vue.js 是基於 **JavaScript** 的一個**漸進式框架**，而框架簡單來說不同於其他主流的框架，它可以依專案的需求來做變化，你可以很單純的只使用它的**資料綁定(Data Binding)**，在深一點的可以考慮把 **DOM (Document Object Model)的渲染**都交給 Vue.js，再更大型一點的會開始需要設定**路由(Router)**，甚至是**狀態集中管理(Vuex)**等等的功能，因此你可以決定不同的專案導入不同深度的 Vue.js。畢竟殺雞焉用牛刀，你可不會想做個簡單的網站結果還裝了一拖拉庫的工具吧？
-
-# 「目前我已經有在用 jQuery 了，可以不要 Vue.js 嗎」
-
-這個問題首先要先知道 jQuery 原本解決的是什麼，且讓我從頭開始說起：
-
-jQuery 出現的歷史原因是 JavaScript 在早期一些原生功能較為薄弱，並且還有瀏覽器不兼容的問題使得寫法會有點繁雜，而既然很常用到，為什麼不把它寫得更短更加完善？這也就是 jQuery 發明的宗旨 ( Write less, do more. ) 的想法。
-
-舉例來說，在操作 DOM (Document Object Model)的時候，原先要使用 `document.getElementById('test')` 這種寫法去捕捉元素，再透過方法來將值輸入進去。但使用 jQuery 的作法則只要透過很炫的 $ 選擇器搭配鍊式語法如 `$('#text').html()` 就可以輕鬆達成，除此之外還有像是對於 **AJAX 的發送**、**建立新的 DOM 元素**、**各種事件**與**動畫**等等，jQuery 都提供更簡潔的方法來解決這類問題。
-
-# 「沒錯，這就是我使用 jQuery 的原因，那我可以不要用 Vue.js 嗎？」
-
-老實說，其實可以。~~本系列鐵人賽結束。~~，但我想更好的問法應該是說，**為什麼我會需要這個工具？**每個工具都是在**解決當代環境所遇到的一些問題而相應產生的**，作為 jQuery 最常見的問題是，縱使可以輕鬆的取得目標元素，但當網頁架構一龐大，資料綁定也會越複雜，也越難以管理狀態是受到哪段程式所影響的？
-
-而在單頁式應用(SPA, Single Page Application)漸漸流行起來之後對於 url 的控制也不在只是後端的責任了，前端們得透過各種判斷來取得對應的資料，再把資料輸入回要顯示的頁面，也就是說，如何控制好資料操作的輸出輸入變得越來越重要。
-
-為了解決上述等問題，以資料綁定來說，Vue.js 提供了樣板語法，可以在 HTML 的部分使用花括弧來將 JavaScript 中取得的資料輸出到裡面，不用在 JavaScript 中一個一個綁定輸出，使得程式碼更容易閱讀。而在 SPA 中的 會遇到的 url 問題，在 HTML5 規格發布後有相對應的 API (`history.pushState()`, `history.replaceState`)等等方式來應對，早期也可以透過監聽 # (Hash)的變化來改變，而在 Vue.js 中則可以透過引入 vue-router 來達到同樣的效果，實作起來也較好管理，而怎麼去使用 Vue.js 來做便是本系列接下來的焦點。
-
-# 這麼樣一說，那我們就只用 Vue.js 或其他框架好了，要 jQuery 幹嗎？
-
-
-
-
-
 
 
 
@@ -137,6 +81,10 @@ jQuery 出現的歷史原因是 JavaScript 在早期一些原生功能較為薄�
 
 
 # 參考文章
+- [The deepest reason why modern JavaScript frameworks exist](https://medium.com/dailyjs/the-deepest-reason-why-modern-javascript-frameworks-exist-933b86ebc445)
+- [前端為什麼使用框架？](https://www.itread01.com/eqycx.html)
+- [閱讀他人的程式碼](https://www.ithome.com.tw/node/47717)
+- [為何資深開發者寫的程式看起來不怎樣](https://medium.com/@CQD/%E7%82%BA%E4%BD%95%E8%B3%87%E6%B7%B1%E9%96%8B%E7%99%BC%E8%80%85%E5%AF%AB%E7%9A%84%E7%A8%8B%E5%BC%8F%E7%9C%8B%E8%B5%B7%E4%BE%86%E4%B8%8D%E6%80%8E%E6%A8%A3-%E5%8F%88%E5%A6%82%E4%BD%95%E5%BE%9E%E5%8D%83%E9%87%8C%E4%B9%8B%E5%A4%96%E8%AA%8D%E5%87%BA%E8%8F%9C%E9%B3%A5-c1afa754c5e4)
 - [Vue.js](https://shan.io/sighting/modern-web-podcast-transcript-vue-js-evan-yu-sarah-drasner/)
 - [How to use VueJs instead of jQuery](https://medium.com/kaliop/how-to-use-vuejs-instead-of-jquery-ee6003ba323d)
 - [Drop jQuery From Your Bootstrap Project (And Replace it with Vue.js!)](https://medium.com/js-dojo/drop-jquery-from-your-bootstrap-project-and-replace-it-with-vue-js-82230bfca98a)
