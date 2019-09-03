@@ -12,40 +12,40 @@ categories:
 鐵人賽參賽初衷是在勉勵自己持續寫作，透過寫作時的思考，有脈絡的來學習前端的技術，並轉化為他人可以輕鬆閱讀的內容。而對於社群來說，相關的技術文章早已不勝枚舉，很容易能夠找到相關的資訊，但我認為這是我對我自己的期許，如當初只會Hello world到能夠刻出完整網頁的過程，我期許三十天後的我能順利完成它，也期望能夠帶給讀者們一些幫助。~~這可能是這系列文中唯一正經的段落~~
 
 # 服用文章前須知，那我適合看這篇系列文嗎？
-本文主要會針對沒有使用過這兩樣工具的讀者來介紹，旨在瞭解**為何**以及**如何**這兩樣開發工具，因此適合擁有 HTML, CSS, JavaSciprt 基礎，沒碰過他們但想瞭解的開發者們。除此之外本文會試著以**entry engineer**也能夠輕鬆瞭解的方式來撰寫文章，所以對這兩樣工具好奇有興趣的話就訂閱下去吧！
+本文主要會針對沒有使用過這兩樣工具的讀者來介紹，旨在瞭解**為何**以及**如何**這兩樣開發工具，因此適合擁有 HTML, CSS, JavaSciprt 基礎，沒碰過他們但想瞭解的開發者們，較深層的應用可能會在最後幾天補充。除此之外本文會試著以**entry engineer**也能夠輕鬆瞭解的方式來撰寫文章，所以對這兩樣工具好奇有興趣的話就訂閱下去吧！
 
 # 這三十天大概會講什麼？
 「工欲善其事必先利其器。」三十天說長不長說短不短，其實針對其中一個工具都是能夠寫成一本書去探討的，更不用說是只有三十天還要介紹兩樣，所以這三十天內將會盡量保留精華，各自分別介紹其核心觀念與用法，並在最後幾天的時間，結合兩者實作出一個簡單的小作品。以下提供大致的章節：
 
-- Vue.js Why Vue.js：我能不要用他嗎？
-- Vue.js 環境建置：比你想像中的還要簡單！
-- Vue.js 指令 Directives：一個指令，一個動作！
-- Vue.js 修飾符 modifier：扣越來越短，能做的越來越多。
-- Vue.js 資料選項 Options：資料倒進去，前端發大財。
-- Vue.js 生命週期 lifecycle：人難免有一死，Vue實體也是。
-- Vue.js 元件註冊 Registration：依樣畫葫蘆，不如做元件。
-- Vue.js 父子元件 child component：元件中的元件中的元件中的元……
-- Vue.js 元件樣板 template：你長的怎麼跟我一樣！
-- Vue.js 元件傳遞 props：聽爸的話，去賣火柴。
-- Vue.js 元件傳遞 event-bus：有沒有人要買火柴。
-- Vue.js 動態元件 Dynamic component：跟著Vue.js一起動ㄘ動！
-- Vue.js 插槽 slot：這個資料要放哪裡好？
-- D3.js Why D3.js：我知道D3，但D3.js是誰？
-- D3.js 環境建置：跟Vue.js一樣簡單！
-- D3.js 認識圖表：你認識圖表，圖表不認識你。
-- D3.js 基本繪製：「你看，很簡單吧！」歡樂畫室登場！
-- D3.js 比例 Scale：等等，我的圖跑哪裡了。
-- D3.js 座標軸 Axis：笛卡兒按了座標軸一個讚。
-- D3.js 散佈圖 Scatter Plot：笛卡兒在圖上畫了一堆點。
-- D3.js 折線圖 Line chart：笛卡兒試著把點連了起來。
-- D3.js 地圖 Geo.json：笛卡兒畫了一個台灣地圖 (?
-- D3.js 地圖 Topo.json：笛卡兒又畫了一個台灣地圖
-- Vue-cli 笛卡兒再畫……不不不，笛卡兒夠了，要來介紹Vue-cli了。
-- Vue-cli 輕鬆看懂.vue file
-- Vue-cli 路由 router：
-- Vue-cli 狀態管理 vuex：你的狀態是我的狀態，我的狀態是你的狀態。
-- Vue-cli, D3.js 製作台灣地圖
-- Vue-cli, D3.js 串聯open api
-- Vue-cli, D3.js scale繪製比例尺
-- Vue-cli, D3.js 製作側欄資料說明 append 節點
-- Vue-cli, D3.js 試著倒入其他api 確認功能沒問題 (最高溫度，最低溫度)
+- Vue.js Why Vue.js
+- Vue.js 環境建置
+- Vue.js 指令 Directives
+- Vue.js 修飾符 modifier
+- Vue.js 資料選項 Options
+- Vue.js 生命週期 lifecycle
+- Vue.js 元件註冊 Registration
+- Vue.js 父子元件 child component
+- Vue.js 元件樣板 template
+- Vue.js 元件傳遞 props
+- Vue.js 元件傳遞 event-bus
+- Vue.js 動態元件 Dynamic component
+- Vue.js 插槽 slot
+- D3.js Why D3.js
+- D3.js 環境建置
+- D3.js 認識圖表
+- D3.js 基本繪製
+- D3.js 比例 Scale
+- D3.js 座標軸 Axis
+- D3.js 散佈圖 Scatter Plot
+- D3.js 折線圖 Line chart
+- D3.js 地圖 Geo.json
+- D3.js 地圖 Topo.json
+- Vue-cli 環境建置
+- Vue-cli .vue file
+- Vue-cli 路由 router
+- Vue-cli 狀態管理 vuex
+- Vue-cli, D3.js 近請期待
+- Vue-cli, D3.js 近請期待
+- Vue-cli, D3.js 近請期待
+- Vue-cli, D3.js 近請期待
+- Vue-cli, D3.js 近請期待
