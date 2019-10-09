@@ -81,3 +81,7 @@ deploy:
   type: git
   repo: https://github.com/shawnlin0201/shawnlin0201.github.io.git
   branch: master
+
+#Sitemap
+sitemap:
+    path: sitemap.xml

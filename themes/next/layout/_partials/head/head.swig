@@ -118,3 +118,5 @@
   {% set custom_head = '../../_custom/head.swig' %}
 {% endif %}
 {% include custom_head %}
+
+<meta name="google-site-verification" content="42L8oDSDuWZZ5kxxGicokb-58OYtz2Ie_mxDqR5VjZo" />
