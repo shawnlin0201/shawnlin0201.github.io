@@ -1,5 +1,5 @@
 ---
-title: CSS系列(三)box-model
+title: Box-model 盒子模型
 date: 2019-07-20 09:34:42
 tags:
 - [前端]
@@ -14,7 +14,7 @@ categories:
 </div>
 
 # 前言
-盒子模型可以說是將HTML元素抽象的距離大小關係具象化，使設計師與前端更容易理解HTML標籤被瀏覽器渲染出來的樣子。而根據w3c對**盒子模型(box-model)**的定義與規範，一個元素含有content area，以及**選擇性**圍繞著padding、border以及margin，而為了更好的解說之間的關係，我已經切了一個盒子模型的板，有興趣的可以複製下面程式碼或直接由下圖參考：
+盒子模型可以說是將 HTML 元素抽象的距離大小關係具象化，使設計師與前端更容易理解 HTML 標籤被瀏覽器渲染出來的樣子。而根據 w3c 對**盒子模型(box-model)**的定義與規範，一個元素含有 content area，以及**選擇性**圍繞著 padding、border 以及 margin，而為了更好的解說之間的關係，我已經切了一個盒子模型的板，有興趣的可以複製下面程式碼或直接由下圖參考：
 
 CSS部分：
 ```
@@ -71,17 +71,17 @@ HTML部分：
   <img style="object-fit:cover;" src='/images/CSS-box-model.png' width='400px' height='280px' />
 </div>
 
-前提說到一個盒子的組成會有content area、padding、border以及margin的部分，並且padding、border與margin四個方向都可以分別設置(top, right, bottom, left)而實際上各屬性意涵為：
+前提說到一個盒子的組成會有 content area、padding、border 以及 margin 的部分，並且 padding、border 與 margin 四個方向都可以分別設置(top, right, bottom, left)而實際上各屬性意涵為：
 - `content`：盒子內容，文字與圖片將會顯示於此。
 - `padding`：盒子內容外到邊框的範圍，此範圍為透明。
 - `border`：盒子的邊框，圍繞在padding與content的外面，此範圍可以設置border顏色、border樣式。
 - `margin`：盒子最外層，此範圍為透明。
 
-在預設的情況下，若是CSS設了`background-color`，其背景顏色將會充滿content、padding以及border的範圍。
+在預設的情況下，若是 CSS 設了`background-color`，其背景顏色將會充滿 content、padding 以及 border 的範圍。
 
-另外，content與padding若是設置寬度但寬度不足**預設將會撐開所屬容器高度**(height)，content與padding若是設置高度但高度不足**content的內容預設將會突破content的範圍往下長**，而若設置寬度與高度，但寬度高度皆不足則**content的內容預設也是會突破content的範圍往下長**。
+另外，content 與 padding 若是設置寬度但寬度不足**預設將會撐開所屬容器高度**(height)，content 與 padding 若是設置高度但高度不足**content的內容預設將會突破content的範圍往下長**，而若設置寬度與高度，但寬度高度皆不足則**content的內容預設也是會突破content的範圍往下長**。
 
-而一般CSS中對元素設置的寬(width)與高(height)實際上包含的範圍**只有content的範圍**，所以如果CSS樣式是這樣設置：
+而一般CSS中對元素設置的寬(width)與高(height)實際上包含的範圍**只有 content 的範圍**，所以如果CSS樣式是這樣設置：
 ```
   div {
         width:300px;
@@ -91,7 +91,7 @@ HTML部分：
         margin:10px;
   }
 ```
-實際上這個div元素最後顯示的寬將會是：
+實際上這個 div 元素最後顯示的寬將會是：
 
 width 300px +
 padding-left 10px + padding-right 10px +
@@ -107,11 +107,11 @@ border-left 10px + border-right 10px +
 = 340px (**實際上仍佔360px**，只是因為margin的範圍肉眼看不見)
 
 # box-sizing
-在實際專案的設計稿中，可能會需要使用到border來增加邊框樣式，但是又不想要一直計算可見範圍時這時就可以使用`box-sizing`這個屬性
+在實際專案的設計稿中，可能會需要使用到 border 來增加邊框樣式，但是又不想要一直計算可見範圍時這時就可以使用`box-sizing`這個屬性
 - `box-sizing:content-box`：width計算將只會包含content的範圍（預設值）。
 - `box-sizing:border-box`：width計算將會包含content、padding到border的範圍（肉眼可視範圍）。
 
-同樣如上方的樣式，但多加了`box-sizing:border-box`：
+同樣如上方的樣式，但多加了 `box-sizing:border-box`：
 ```
   div {
         width:300px;
@@ -121,18 +121,18 @@ border-left 10px + border-right 10px +
         box-sizing:border-box;
   }
 ```
-最後肉眼可見的寬度就會變成300px，但是content的寬度將會變為：
+最後肉眼可見的寬度就會變成300px，但是 content 的寬度將會變為：
 
 300px -
 border-left 10px - border-right 10px -
 padding-left 10px - padding-right 10px
 = 260px (content width)
 
-由此可見使用`box-sizing:border-box`，可以使我們更專注在視覺切版後的樣子，而不是一直去計算content寬高與box-model間的關係。
+由此可見使用 `box-sizing:border-box` ，可以使我們更專注在視覺切版後的樣子，而不是一直去計算 content 寬高與 box-model 間的關係。
 
 在說完容器本身的盒子模型後，接著來看盒子與盒子之間的關係：
 
-# margin額外補充
+# margin 額外補充
 
 margin主要是用來控制盒子與盒子之間的距離(到border、padding的部分)，以下面範例講解之間的關係：
 CSS部分：
@@ -161,7 +161,7 @@ HTML部分：
   <img style="object-fit:cover;" src='/images/CSS-margin.png' width='100px' height='200px' />
 </div>
 
-如上圖與程式碼所示，可以看到兩個div.box元素是處於分開的狀態，而兩個div.box元素中間的空隙便是margin的部分，但是margin在渲染盒子時，會以盒子與盒子之間的的最大值來當作參考點，並不是直接兩者相加，因此上面範例最後兩者之間的距離為10px（如下圖）。
+如上圖與程式碼所示，可以看到兩個 div.box 元素是處於分開的狀態，而兩個 div.box 元素中間的空隙便是 margin 的部分，但是 margin 在渲染盒子時，會以盒子與盒子之間的的最大值來當作參考點，並不是直接兩者相加，因此上面範例最後兩者之間的距離為10px（如下圖）。
 
 <div style="display:flex;justify-content:center;">
   <img style="object-fit:cover;" src='/images/CSS-margin2.png' width='400px' height='400px' />
@@ -169,7 +169,7 @@ HTML部分：
 <br>
 <br>
 
-假設box1的margin-bottom為10px，但box2的margin-top改為20px後，兩者之間有一最大值20px，則box1的margin-bottom(10px)不會影響到之間的距離，最後距離為20px（如下圖）。
+假設 box1 的 margin-bottom 為 10px，但 box2 的 margin-top 改為 20px 後，兩者之間有一最大值 20px，則 box1 的 margin-bottom(10px) 不會影響到之間的距離，最後距離為 20px（如下圖）。
 
 <div style="display:flex;justify-content:center;">
   <img style="object-fit:cover;" src='/images/CSS-margin3.png' width='400px' height='400px' />
@@ -177,7 +177,7 @@ HTML部分：
 <br>
 <br>
 
-假設box1的margin-bottom為10px，但box2的margin-top改為-5px後，兩者之間有一最大值10px，則兩者距離將會變成先以box1的margin-bottom為基準撐開，接著box2在以margin-top(-5px)拉近距離，最後距離為5px（如下圖）。
+假設 box1 的 margin-bottom 為 10px，但 box2 的 margin-top 改為 -5px 後，兩者之間有一最大值 10px，則兩者距離將會變成先以 box1 的 margin-bottom 為基準撐開，接著 box2 在以 margin-top(-5px) 拉近距離，最後距離為 5px（如下圖）。
 
 <div style="display:flex;justify-content:center;">
   <img style="object-fit:cover;" src='/images/CSS-margin4.png' width='400px' height='400px' />
@@ -185,32 +185,32 @@ HTML部分：
 <br>
 <br>
 
-**簡單來說，今天若是有多個箱子模型互相牽制的情況，會先以其中一個最大的margin值作為基準，而其他若是介於最大值與0之間則不會影響，若是小於0的元素則該元素會往相對應的方向縮減，**而善用此margin的負值可以為排版上帶來更多的變化性。
+**簡單來說，今天若是有多個箱子模型互相牽制的情況，會先以其中一個最大的margin值作為基準，而其他若是介於最大值與0之間則不會影響，若是小於0的元素則該元素會往相對應的方向縮減，**而善用此 margin 的負值可以為排版上帶來更多的變化性。
 
-**要注意的是**，若是因為margin的設置而使其元素超過viewport的寬度(例如在1920*1080的電腦螢幕上設定了margin-left:1920px時)，網頁在渲染時將會為了將其元素渲染出來，而將整個**頁面寬度**撐大，若是網頁RWD要適應mobile的部分將會造成破版的結果。（同樣也會發生在設定margin-top時超過整個你原先預定的頁面高度）。
+**要注意的是**，若是因為 margin 的設置而使其元素超過 viewport 的寬度(例如在1920*1080的電腦螢幕上設定了 margin-left:1920px 時)，網頁在渲染時將會為了將其元素渲染出來，而將整個**頁面寬度**撐大，若是網頁RWD要適應mobile的部分將會造成破版的結果。（同樣也會發生在設定margin-top時超過整個你原先預定的頁面高度）。
 
 ## 縮寫
 縮寫的部分基本上各個箱子模型的屬性都差不多，若是想要個別設置的話則分為一至四個參數：
 
-一個參數，將會設定上右下左的margin
+一個參數，將會設定上右下左的 margin
 ```
 div {
   margin:10px;
 }
 ```
-兩個個參數，將會設定上下與左右的margin
+兩個個參數，將會設定上下與左右的 margin
 ```
 div {
   margin:10px 20px;
 }
 ```
-三個參數，將會設定上、左右`下的margin
+三個參數，將會設定上、左右`下的 margin
 ```
 div {
   margin:10px 20px 25px;
 }
 ```
-四個參數，將會設定上右下左的margin
+四個參數，將會設定上右下左的 margin
 ```
 div {
   margin:10px 15px 20px 25px;
@@ -220,7 +220,7 @@ div {
 若要快速記憶只要記得順序**上、右、下、左**，如果有缺一個屬性則會抓對角的來補齊，例如三個參數中缺左邊則抓右邊（最後參數設定為變成上、左右、下）。
 
 # border額外補充
-相對margin來說border基本上要容易理解，border簡單來說會佔預設箱子寬度(`width`)，並且`background-color`的部分會涵蓋在內，而其他的CSS樣是設定如下：
+相對 margin 來說 border 基本上要容易理解，border 簡單來說會佔預設箱子寬度(`width`)，並且`background-color`的部分會涵蓋在內，而其他的CSS樣是設定如下：
 - `border-style`：邊框的樣式
 - `border-width`：邊框的寬度
 - `border-color`：邊框的顏色
@@ -251,7 +251,7 @@ div {
 ```
 
 ## border-color
-透過`border-color`可以設置邊框的寬度：
+透過 `border-color` 可以設置邊框的寬度：
 ```
   div {
     border-color:black;
@@ -260,7 +260,7 @@ div {
 ```
 
 ## border-image
-若要自定義邊框的圖案則可以使用`border-image`屬性：
+若要自定義邊框的圖案則可以使用 `border-image` 屬性：
 ```
   div {
     border:10px solid transparent;
@@ -270,7 +270,7 @@ div {
 ```
 
 ## 縮寫
-同樣的border也可以各自設定(top、right、bottom、left)，而若四個邊框屬性皆相同可以寫在同一行：
+同樣的 border 也可以各自設定(top、right、bottom、left)，而若四個邊框屬性皆相同可以寫在同一行：
 ```
   div {
     border:1px solid black;
@@ -280,7 +280,7 @@ div {
 
 
 # padding 、 結尾
-最後padding的使用方法與margin類似，就不再冗述了。而本篇文章介紹的box-model在網頁排版基本上一定會遇到，並且會與容器中的display type與position有密切關聯，接下來的文章將會講述block、inline與inline-block的差別。
+最後 padding 的使用方法與 margin 類似，就不再冗述了。而本篇文章介紹的 box-model 在網頁排版基本上一定會遇到，並且會與容器中的 display type 與 position 有密切關聯，接下來的文章將會講述block、inline 與 inline-block 的差別。
 
 
 # 參考資料

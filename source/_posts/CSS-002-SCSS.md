@@ -1,5 +1,5 @@
 ---
-title: CSS系列(二)如何利用預處理器SASS(SCSS)來維護CSS
+title: 利用預處理器 SASS(SCSS) 來維護 CSS
 date: 2019-07-16 09:07:47
 tags:
 - [前端]
@@ -7,7 +7,7 @@ tags:
 - [SASS]
 - [SCSS]
 categories: 
-- [前端, CSS, SASS(SCSS)]
+- [前端, CSS]
 ---
 
 <div style="display:flex;justify-content:center;">
@@ -16,17 +16,17 @@ categories:
 
 # 前言
 
-在專案運行的過程中，偶爾可能會遇到需求更改的問題，若是遇到視覺更改且專案上是純寫CSS的話，容易會改到天荒地老，小案子則輕微中傷，大案子則重度身亡，而複製貼上並不是工程師所喜歡做的事情，然而在CSS中又沒辦法像是JavaScript一樣有變數可以儲存、可以寫邏輯判斷的概念，因此有許多人試著把這個想法實作出來，而他們就是CSS預處理器（CSS preprocessor）。節自2019年7月以來，CSS預處理器已經不勝枚舉，其中有幾個較為知名的預處理器如SASS(SCSS)、LESS、Stylus、PostCSS等等，也有網站分析了幾個預處理器的優劣（[點這裡查看](https://www.creativebloq.com/features/best-css-preprocessor)）。而本篇主要介紹的是如何利用SASS(SCSS)與VSCode編譯器順暢的結合。
+在專案運行的過程中，偶爾可能會遇到需求更改的問題，若是遇到視覺更改且專案上是純寫 CSS 的話，容易會改到天荒地老，小案子則輕微中傷，大案子則重度身亡，而複製貼上並不是工程師所喜歡做的事情，然而在 CSS 中又沒辦法像 JavaScript 一樣有變數可以儲存、可以寫邏輯判斷的概念，因此有許多人試著把這個想法實作出來，而他們就是 CSS 預處理器（CSS preprocessor）。節自2019年7月以來，CSS 預處理器已經不勝枚舉，其中有幾個較為知名的預處理器如 SASS(SCSS)、LESS、Stylus、PostCSS 等等，也有網站分析了幾個預處理器的優劣（[點這裡查看](https://www.creativebloq.com/features/best-css-preprocessor)）。而本篇主要介紹的是如何利用 SASS(SCSS) 與 VSCode 編譯器順暢的結合。
 
 # SASS(SCSS)
 
-SASS全名（Syntactically Awesome Stylesheets），由Hampton Catlin所設計並由Natalie Weizenbaum所開發的一套語言，最初的開始的語法主要是利用縮排與換行來辨識程式碼區塊，後來推出更新的語法為SCSS，使用的語法基本上與CSS沒有不同，採用大括號區隔規則以及使用分號做為樣式分開，辨識檔案方法是透過副檔名`.sass`以及`.scss`作為區分。
+SASS 全名（Syntactically Awesome Stylesheets），由 Hampton Catlin 所設計並由 Natalie Weizenbaum 所開發的一套語言，最初的開始的語法主要是利用縮排與換行來辨識程式碼區塊，後來推出更新的語法為 SCSS，使用的語法基本上與CSS沒有不同，採用大括號區隔規則以及使用分號做為樣式分開，辨識檔案方法是透過副檔名`.sass`以及`.scss`作為區分。
 
-SASS加入了許多特色如變數（Variables）、巢狀（Nesting）、混和（Mixins）、繼承（Extend）、運算子（Operators）並且還有許多類似於JavaScript的用法，而在擴充工具[Compass](https://github.com/Compass/compass)出來後更大大的加強了SASS的能力，只可惜該專案目前已經宣布不再維護，故此文不提到Compass的用法。
+SASS 加入了許多特色如變數（Variables）、巢狀（Nesting）、混和（Mixins）、繼承（Extend）、運算子（Operators）並且還有許多類似於 JavaScript 的用法，而在擴充工具 [Compass](https://github.com/Compass/compass) 出來後更大大的加強了SASS的能力，只可惜該專案目前已經宣布不再維護，故此文不提到 Compass 的用法。
 
 # 解析.sass .scss檔
 
-在使用SASS與SCSS前首先要知道如何解析.sass與.scss檔，如果是使用VScode作為編譯器的人可以使用[Live Sass Compiler擴充工具](https://marketplace.visualstudio.com/items?itemName=ritwickdey.live-sass)，使用方法很簡單，下載完擴充工具後，點選編譯器底下的Watch Sass，就會在同個資料夾產生對應檔名的css檔案，並自動監控(Watching...)當前畫面中的檔案，只要該檔案有儲存動作，就會即時同步解析成對應檔案，若要停止即時解析的話再點一次(Watching...)即可（如下圖示範）；而若想使用軟體的部分則可以考慮[Prepros](https://prepros.io/)，有解析Compass需求可以考慮[koala](http://koala-app.com/)，如果單純想體驗SASS(SCSS)可以考慮線上網站[Sassmeister](https://www.sassmeister.com/)來解析。
+在使用SASS與SCSS前首先要知道如何解析 .sass 與 .scss 檔，如果是使用 VScode 作為編譯器的人可以使用 [Live Sass Compiler擴充工具](https://marketplace.visualstudio.com/items?itemName=ritwickdey.live-sass)，使用方法很簡單，下載完擴充工具後，點選編譯器底下的 Watch Sass，就會在同個資料夾產生對應檔名的 css 檔案，並自動監控(Watching...)當前畫面中的檔案，只要該檔案有儲存動作，就會即時同步解析成對應檔案，若要停止即時解析的話再點一次(Watching...)即可（如下圖示範）；而若想使用軟體的部分則可以考慮[Prepros](https://prepros.io/)，有解析Compass需求可以考慮[koala](http://koala-app.com/)，如果單純想體驗SASS(SCSS)可以考慮線上網站[Sassmeister](https://www.sassmeister.com/)來解析。
 
 ![](/images/SCSS-VScode-Watch-Sass.png)
 
@@ -61,7 +61,7 @@ SASS加入了許多特色如變數（Variables）、巢狀（Nesting）、混和
     ],
 }
 ```
-其中`format`表示解析檔案類型，這個範例分別有`expanded`與`compressed`版本；而`extensionName`則表示編譯後的結尾副檔名，可以依照解析檔案的類型分別使用不同的名稱，最後`savePath`則表示解析完後儲存檔案的路徑，**要注意的是若VScode有開啟工作區，預設根目錄會是工作區中第一個資料夾**，而解決辦法可以將路徑改為`../"檔案夾名稱"/`即可在解析在工作區中指定的資料夾。
+其中 `format` 表示解析檔案類型，這個範例分別有 `expanded` 與 `compressed` 版本；而 `extensionName` 則表示編譯後的結尾副檔名，可以依照解析檔案的類型分別使用不同的名稱，最後 `savePath` 則表示解析完後儲存檔案的路徑，**要注意的是若VScode有開啟工作區，預設根目錄會是工作區中第一個資料夾**，而解決辦法可以將路徑改為`../"檔案夾名稱"/`即可在解析在工作區中指定的資料夾。
 
 # 使用方法
 
@@ -144,7 +144,7 @@ SASS(SCSS)唯一在巢狀語言中可以使用的特殊選擇器&，它的作用
 ```
 
 ## 混和（Mixins）
-有時候同樣相近的語法在CSS中是枯燥乏味的（例如為了適應各家瀏覽器實作而需要用到一堆prefix的時候）。而Mixins提供了可以組合SASS(SCSS)的功能，使以往要重複填入的內容可以打包在一起，並且提供了傳參、組合與流程控制等等在裡面，而在使用Mixins方法也很簡單，撰寫`@mixin`啟用語法，而後如同CSS一樣的寫樣式規則，接著要在其他地方引入時則是使用`@include`加上要傳入的Mixins名稱：
+有時候同樣相近的語法在CSS中是枯燥乏味的（例如為了適應各家瀏覽器實作而需要用到一堆prefix的時候）。而 Mixins 提供了可以組合 SASS(SCSS) 的功能，使以往要重複填入的內容可以打包在一起，並且提供了傳參、組合與流程控制等等在裡面，而在使用 Mixins 方法也很簡單，撰寫 `@mixin` 啟用語法，而後如同 CSS 一樣的寫樣式規則，接著要在其他地方引入時則是使用 `@include` 加上要傳入的 Mixins 名稱：
 ```
 @mixin text-format {
   font-family: Verdana;
@@ -165,7 +165,7 @@ SASS(SCSS)唯一在巢狀語言中可以使用的特殊選擇器&，它的作用
 
 ### 傳參（Arguments）
 
-加上傳參的功能，加速解決prefix方面的問題：
+加上傳參的功能，加速解決 prefix 方面的問題：
 
 ```
 @mixin transform($property) {
@@ -183,7 +183,7 @@ SASS(SCSS)唯一在巢狀語言中可以使用的特殊選擇器&，它的作用
 }
 ```
 ### 組合（In combination）
-能夠傳入不只一個Mixins：
+能夠傳入不只一個 Mixins：
 ```
 @mixin fontFormat($size) {
   font-size: $size;
@@ -211,7 +211,7 @@ SASS(SCSS)唯一在巢狀語言中可以使用的特殊選擇器&，它的作用
 ```
 
 ## 繼承（Extend）
-不同於Mixins，Extend提供的功能是將目標擴充原本SCSS部分，並且繼承者本身會保留下來：
+不同於 Mixins，Extend 提供的功能是將目標擴充原本 SCSS 部分，並且繼承者本身會保留下來：
 ```
 .btn {
   font-weight: bold;
@@ -249,7 +249,7 @@ SASS(SCSS)唯一在巢狀語言中可以使用的特殊選擇器&，它的作用
 ```
 
 ## 流程控制 （Flow Control）
-流程控制的部分則是有引入類似JavaScript裡面的if、else、each、for、while等等，而用法也接近原生JavaScript一樣：
+流程控制的部分則是有引入類似 JavaScript 裡面的 if、else、each、for、while 等等，而用法也接近原生 JavaScript 一樣：
 ```
 $base-color: #036;
 
@@ -275,7 +275,7 @@ ul:nth-child(3n + 3) {
 ```
 
 ## 函式（Function）
-在我心目中SCSS好用榜單前幾名的功能，SCSS的function類似於JavaScript中的function，配合上方流程控制選項（`if`、`else`、`each`、`for`），使我們可以自訂一段程式：
+在我心目中 SCSS 好用榜單前幾名的功能，SCSS 的 function 類似於 JavaScript 中的 function ，配合上方流程控制選項（`if`、`else`、`each`、`for`），使我們可以自訂一段程式：
 ```
 @function rem($targetFontPx, $rootFontSize: 16px){
   @return ( $targetFontPx / $rootFontSize ) + 0rem;
@@ -293,7 +293,7 @@ ul:nth-child(3n + 3) {
 ```
 
 ## 內建函式 (Built-in Functions)
-而除了可自訂函式之外，原生SASS(SCSS)也內建了許多不同的函式可以使用，像可以把顏色加亮的lighten()、或是把顏色轉色相的adjust-hue()等等：
+而除了可自訂函式之外，原生 SASS(SCSS) 也內建了許多不同的函式可以使用，像可以把顏色加亮的 `lighten()`、或是把顏色轉色相的 `adjust-hue()` 等等：
 ```
 .shop-item {
   background: adjust-hue(#6b717f, 60deg)
@@ -307,7 +307,7 @@ ul:nth-child(3n + 3) {
 ```
 
 # 結尾
-熟練SASS(SCSS)後對於專案上的開發真的有如神助，而官網的文件也有很多其他功能可以[參考](https://sass-lang.com/documentation)，而這篇文章也僅列出幾個最常用的部分，另外也有國外網站整理的[十個使用CSS preporcessor的原因](https://raygun.com/blog/10-reasons-css-preprocessor/)可以看看。
+熟練 SASS(SCSS) 後對於專案上的開發真的有如神助，而官網的文件也有很多其他功能可以 [參考](https://sass-lang.com/documentation)，而這篇文章也僅列出幾個最常用的部分，另外也有國外網站整理的[十個使用CSS preporcessor的原因](https://raygun.com/blog/10-reasons-css-preprocessor/)可以看看。
 
 # 參考資料
 
