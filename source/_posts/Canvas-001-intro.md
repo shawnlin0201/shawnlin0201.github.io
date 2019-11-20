@@ -117,7 +117,7 @@ if(canvas.getContext){
 let canvas = document.getElementById('canvasWrapper')
 if(canvas.getContext){
     let ctx = canvas.getContext('2d')
-    let p = new Path2D('M 10,30 A 20,20 0,0,1 50,30 A 20,20 0,0,1 90,30 Q 90,60 50,90 Q 10,60 10,30 z')
+    let path = new Path2D('M 10,30 A 20,20 0,0,1 50,30 A 20,20 0,0,1 90,30 Q 90,60 50,90 Q 10,60 10,30 z')
     ctx.fill(path);
 }
 ```
