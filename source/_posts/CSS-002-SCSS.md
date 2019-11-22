@@ -45,7 +45,7 @@ SASS 加入了許多特色如變數（Variables）、巢狀（Nesting）、混�
 ![](/images/SCSS-VScode-setting-json.png)
 
 設定的資訊可以參考下方範例程式碼：
-```
+```json
 {
     "liveSassCompile.settings.formats": [
     {
@@ -71,7 +71,7 @@ SASS 加入了許多特色如變數（Variables）、巢狀（Nesting）、混�
 
 使用錢字號($)定義變數，並使用冒號(:)來定義其值，接著按照原本的方法撰寫CSS，使用變數來當作CSS屬性的值。這樣做的好處在於整個網站的字體、顏色如果要統一更改時，就不必再一個一個做更動，只需要更改其變數的數值即可。
 
-```
+```scss
 $font-title-color: #0a0a0a;
 
 .news-title {
@@ -82,7 +82,7 @@ $font-title-color: #0a0a0a;
 }
 ```
 編譯後的結果：
-```
+```css
 .news-title {
   color: #0a0a0a;
 }
@@ -96,7 +96,7 @@ $font-title-color: #0a0a0a;
 ## 巢狀（Nesting）
 
 SASS(SCSS)讓原先具有關係層級的CSS能夠以巢狀的形式呈現，使其更容易撰寫，也更容易一目瞭然之間的關係。
-```
+```scss
 #news {
   .news-article {
     .news-title {
@@ -109,7 +109,7 @@ SASS(SCSS)讓原先具有關係層級的CSS能夠以巢狀的形式呈現，使�
 }
 ```
 編譯後的結果：
-```
+```css
 #news .news-article .news-title {
   font-weight: bold;
 }
@@ -120,7 +120,7 @@ SASS(SCSS)讓原先具有關係層級的CSS能夠以巢狀的形式呈現，使�
 ```
 ### 父層選擇器 &
 SASS(SCSS)唯一在巢狀語言中可以使用的特殊選擇器&，它的作用是替代父層選擇器的名稱，以節省重複使用的時間：
-```
+```scss
 #news {
   .news-article {
     &-title {
@@ -133,7 +133,7 @@ SASS(SCSS)唯一在巢狀語言中可以使用的特殊選擇器&，它的作用
 }
 ```
 編譯後的結果：
-```
+```css
 #news .news-article-title {
   font-weight: bold;
 }
@@ -145,7 +145,7 @@ SASS(SCSS)唯一在巢狀語言中可以使用的特殊選擇器&，它的作用
 
 ## 混和（Mixins）
 有時候同樣相近的語法在CSS中是枯燥乏味的（例如為了適應各家瀏覽器實作而需要用到一堆prefix的時候）。而 Mixins 提供了可以組合 SASS(SCSS) 的功能，使以往要重複填入的內容可以打包在一起，並且提供了傳參、組合與流程控制等等在裡面，而在使用 Mixins 方法也很簡單，撰寫 `@mixin` 啟用語法，而後如同 CSS 一樣的寫樣式規則，接著要在其他地方引入時則是使用 `@include` 加上要傳入的 Mixins 名稱：
-```
+```scss
 @mixin text-format {
   font-family: Verdana;
   font-weight: bold;
@@ -156,7 +156,7 @@ SASS(SCSS)唯一在巢狀語言中可以使用的特殊選擇器&，它的作用
 }
 ```
 編譯後的結果：
-```
+```css
 .article-title {
   font-family: Verdana;
   font-weight: bold;
@@ -167,7 +167,7 @@ SASS(SCSS)唯一在巢狀語言中可以使用的特殊選擇器&，它的作用
 
 加上傳參的功能，加速解決 prefix 方面的問題：
 
-```
+```scss
 @mixin transform($property) {
   -webkit-transform: $property;
   -ms-transform: $property;
@@ -176,15 +176,16 @@ SASS(SCSS)唯一在巢狀語言中可以使用的特殊選擇器&，它的作用
 .box { @include transform(rotate(30deg)); }
 ```
 編譯後的結果：
-```
+```css
 .box {
   -webkit-transform: rotate(30deg);
+  -ms-transform: rotate(30deg);
   transform: rotate(30deg);
 }
 ```
 ### 組合（In combination）
 能夠傳入不只一個 Mixins：
-```
+```scss
 @mixin fontFormat($size) {
   font-size: $size;
   font-family: Verdana;
@@ -200,7 +201,7 @@ SASS(SCSS)唯一在巢狀語言中可以使用的特殊選擇器&，它的作用
 }
 ```
 編譯後的結果：
-```
+```css
 .comment-content {
   font-size: 18px;
   font-family: Verdana;
@@ -212,7 +213,7 @@ SASS(SCSS)唯一在巢狀語言中可以使用的特殊選擇器&，它的作用
 
 ## 繼承（Extend）
 不同於 Mixins，Extend 提供的功能是將目標擴充原本 SCSS 部分，並且繼承者本身會保留下來：
-```
+```scss
 .btn {
   font-weight: bold;
   font-size: 16px;
@@ -231,7 +232,7 @@ SASS(SCSS)唯一在巢狀語言中可以使用的特殊選擇器&，它的作用
 }
 ```
 編譯後的結果：
-```
+```css
 .btn, .btn-blue, .btn-red {
   font-weight: bold;
   font-size: 16px;
@@ -250,7 +251,7 @@ SASS(SCSS)唯一在巢狀語言中可以使用的特殊選擇器&，它的作用
 
 ## 流程控制 （Flow Control）
 流程控制的部分則是有引入類似 JavaScript 裡面的 if、else、each、for、while 等等，而用法也接近原生 JavaScript 一樣：
-```
+```scss
 $base-color: #036;
 
 @for $i from 1 through 3 {
@@ -260,7 +261,7 @@ $base-color: #036;
 }
 ```
 編譯後的結果：
-```
+```css
 ul:nth-child(3n + 1) {
   background-color: #004080;
 }
@@ -276,7 +277,7 @@ ul:nth-child(3n + 3) {
 
 ## 函式（Function）
 在我心目中 SCSS 好用榜單前幾名的功能，SCSS 的 function 類似於 JavaScript 中的 function ，配合上方流程控制選項（`if`、`else`、`each`、`for`），使我們可以自訂一段程式：
-```
+```scss
 @function rem($targetFontPx, $rootFontSize: 16px){
   @return ( $targetFontPx / $rootFontSize ) + 0rem;
 }
@@ -286,7 +287,7 @@ ul:nth-child(3n + 3) {
 }
 ```
 編譯後的結果：
-```
+```css
 .article-title {
   font-size: 1rem;
 }
@@ -294,13 +295,13 @@ ul:nth-child(3n + 3) {
 
 ## 內建函式 (Built-in Functions)
 而除了可自訂函式之外，原生 SASS(SCSS) 也內建了許多不同的函式可以使用，像可以把顏色加亮的 `lighten()`、或是把顏色轉色相的 `adjust-hue()` 等等：
-```
+```scss
 .shop-item {
   background: adjust-hue(#6b717f, 60deg)
 }
 ```
 編譯後的結果：
-```
+```css
 .shop-item {
   background: #796b7f;
 }
