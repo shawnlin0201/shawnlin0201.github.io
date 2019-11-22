@@ -1,9 +1,10 @@
 ---
-title: Canvas 繪製文字
+title: Canvas 套用樣式
 date: 2019-10-20 17:22:36
 tags:
 - [前端]
 - [Canvas]
+- [JavaScript]
 categories: 
 - [前端, Canvas]
 ---
@@ -184,114 +185,9 @@ draw();
 
 ---
 
-## 漸層
-
-- `createLinearGradient(x1, y1, x2, y2)`：線性漸層。
-- `createRadialGradient(x1, y1, r1, x2, y2, r2)`：放射性漸層。
-
-這裡採用 Vue.js 經典的兩個色碼，首先先以 `createLinearGradient()` 定義好漸層的顏色，接著透過 `addColorStop()` 來設置顏色中斷點，最後將定義好的漸層顏色套用至渲染環境，繪製出來就會是漸層的顏色。
-
-```javascript
-function draw() {
-    var ctx = document.getElementById('canvas').getContext('2d');
-    var linegrad = ctx.createLinearGradient(0,0,0,150);
-
-    linegrad.addColorStop(0, '#35495E');
-    linegrad.addColorStop(1, '#41B883');
-  
-    ctx.fillStyle = linegrad;
-    ctx.fillRect(0,0,150,150);
-}
-draw();
-```
-
-最後結果顯示還蠻好看的，正好是我喜歡的色系漸層 XD
-
-![](/images/canvas/Canvas_gradient.png)
-
-放射性漸層則大同小異，主要概念在於參數的部分需要指定兩個圓的 X Y 座標與 r 半徑。
-```javascript
-function draw() {
-    var ctx = document.getElementById('canvas').getContext('2d');
-    var radgrad  = ctx.createRadialGradient(75,75,0,75,75,100);
-
-    radgrad .addColorStop(0, '#41B883');
-    radgrad .addColorStop(1, '#35495E');
-  
-    ctx.fillStyle = radgrad ;
-    ctx.fillRect(0,0,150,150);
-}
-draw();
-```
-最後結果：
-
-![](/images/canvas/Canvas_gradient2.png)
-
----
-
-## 樣式 
-有如 PhotoShop 的圖章一樣，我們可以透過 `createPattern(image, type)` 先將之前所做的圖形儲存再重複渲染。
-- `image`：支援一般 HTML image 格式圖片、Canvas 元素還有 Video 元素。
-- `type`：傳入字串 (String) 型態的值，用來定義樣式如何產生
-    - `repeat`：向 X 軸與 Y 軸方向重複產生圖形。
-    - `repeat-x`：向 X 軸方向產生圖形。
-    - `repeat-y`：向 Y 軸方向產生圖形。
-    - `no-repeat`：只使用一次該樣式。
-
-```javascript
-function draw() {
-    var ctx = document.getElementById('canvas').getContext('2d');
-    var img = new Image();
-
-    img.src = '/images/canvas/Canvas_gradient2.png';
-    img.onload = function(){
-
-      var ptrn = ctx.createPattern(img,'repeat');
-      ctx.fillStyle = ptrn;
-      ctx.fillRect(0,0,300,300);
-  
-    }
-}
-draw();
-```
-
-結果顯示：
-![](/images/canvas/Canvas_pattern.png)
-
----
-
-## 陰影
-Canvas 的陰影也與一般軟體或 CSS style 中的 shadow 用法差不多。
-- `shadowOffsetX = float`：調整 X 軸方向陰影距離。
-- `shadowOffsetY = float`：調整 Y 軸方向陰影距離。
-- `shadowBlur = float`：調整陰影模糊大小。
-- `shadowColor = color`：調整陰影顏色。
-
-```javascript
-function draw() {
-    var ctx = document.getElementById("canvas").getContext("2d");
-
-  for (i = 0; i < 5; i++) {
-      for (j = 0; j < 5; j++) {
-          ctx.strokeStyle = `rgb(
-              ${Math.floor(0 + 30 * i)},
-            ${Math.floor(0 + 30 * j)},
-            0
-          )`;
-      ctx.shadowOffsetX = 3;
-      ctx.shadowOffsetY = 3;
-      ctx.shadowBlur = 1;
-      ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
-      ctx.beginPath();
-      ctx.arc(12.5 + j * 25, 12.5 + i * 25, 10, 0, Math.PI * 2, true);
-      ctx.stroke();
-    }
-  }
-}
-draw();
-```
-結果顯示：
-![](/images/canvas/Canvas_shadow.png)
-
 # 結尾
 今天跟著 MDN 範例快速瞭解 Canvas 中對於樣式色彩的替換，可以看到許多色彩樣式與一般繪圖軟體提供的功能差不多，覺得可以靠它來實作繪圖軟體，而在 Google keyword `web photoshop` 也確實找到不少利用 Canvas 實現近似 PhotoShop 軟體的功能，其中有幾個甚至完成度已經可以說是跟 Photoshop 很接近了。
+
+# 參考資料
+
+- [MDN-Canvas](https://developer.mozilla.org/zh-TW/docs/Web/API/Canvas_API/Tutorial)
