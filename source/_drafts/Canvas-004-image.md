@@ -18,6 +18,14 @@ categories:
 
 ---
 
+# 取得影像
+目前如果 Canvas 支援的影像格是有下列幾種資料類型：
+- HTMLImageElement：使用 `Image()` 建構式建立的
+- SVGImageElement
+- HTMLVideoElement
+- HTMLCanvasElement
+
+
 # 結尾
 
 
