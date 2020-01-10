@@ -15,7 +15,6 @@ categories:
 - [JavaScript, Vue.js]
 - [JavaScript, Mocha.js]
 - [JavaScript, Jest.js]
-
 ---
 
 <div style="display:flex;justify-content:center;">
