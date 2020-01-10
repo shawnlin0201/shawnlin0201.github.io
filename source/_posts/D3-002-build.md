@@ -6,7 +6,7 @@ tags:
 - [JavaScript]
 - [D3.js]
 categories: 
-- [前端, JavaScript, D3.js]
+- [JavaScript, D3.js]
 ---
 
 <div style="display:flex;justify-content:center;">

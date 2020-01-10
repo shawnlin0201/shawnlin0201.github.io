@@ -6,7 +6,7 @@ tags:
 - [JavaScript]
 - [Vue.js]
 categories: 
-- [前端, JavaScript, Vue.js]
+- [JavaScript, Vue.js]
 ---
 
 <div style="display:flex;justify-content:center;">

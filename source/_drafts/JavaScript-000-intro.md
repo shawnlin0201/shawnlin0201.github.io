@@ -6,7 +6,7 @@ tags:
 - [JavaScript]
 
 categories: 
-- [前端, JavaScript]
+- [JavaScript]
 ---
 
 <div style="display:flex;justify-content:center;">

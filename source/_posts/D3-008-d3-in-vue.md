@@ -7,7 +7,7 @@ tags:
 - [D3.js]
 - [Vue.js]
 categories: 
-- [前端, JavaScript, D3.js]
+- [JavaScript, D3.js]
 - [前端, JavaScript, Vue.js]
 ---
 

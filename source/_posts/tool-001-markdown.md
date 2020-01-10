@@ -4,7 +4,7 @@ date: 2019-07-04 15:45:07
 tags: 
 - [Markdown]
 categories: 
-- [工具, Markdown]
+- [Markdown]
 ---
 
 # Markdown由來

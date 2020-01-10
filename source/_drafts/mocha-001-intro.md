@@ -7,7 +7,7 @@ tags:
 - [Testing]
 - [Mocha.js]
 categories: 
-- [前端, JavaScript, Testing]
+- [JavaScript, Testing]
 ---
 
 <div style="display:flex;justify-content:center;">

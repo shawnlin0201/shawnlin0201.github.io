@@ -7,7 +7,7 @@ tags:
 - [D3.js]
 - [SVG]
 categories: 
-- [前端, JavaScript, D3.js]
+- [JavaScript, D3.js]
 ---
 
 <div style="display:flex;justify-content:center;">
