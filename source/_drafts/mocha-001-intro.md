@@ -44,24 +44,24 @@ $ npm install --save-dev mocha
 
 # 撰寫測試程式碼
 
-在撰寫測試程式碼前，我們先來準備一隻檔案 `add.js` 以供測試：
+在撰寫測試程式碼前，我們先來準備一隻檔案 `sum.js` 以供測試：
 
 ```javascript
-function add (a,b) {
+function sum (a,b) {
     return a + b
 }
 
-module.exports = add
+module.exports = sum
 ```
-範例中展示的是一個簡單的加法運算函式，我們透過 `module.exports = add` 來導出我們的函式，使待會我們可以在測試程式碼 `sample.spec.js` 中使用 `require` 來導入。
+範例中展示的是一個簡單的加法運算函式，我們透過 `module.exports = sum` 來導出我們的函式，使待會我們可以在測試程式碼 `sample.spec.js` 中使用 `require` 來導入。
 
-> 創立 **add.js** 之後，目前的專案目錄應該看起來像是這樣：
+> 創立 **sum.js** 之後，目前的專案目錄應該看起來像是這樣：
 > 
 > ```
 > ├── node_modules/
 > ├── test/
 > │   └── sample.spec.js
-> ├── add.js              // 剛剛寫好的 JavaScript 檔案
+> ├── sum.js              // 剛剛寫好的 JavaScript 檔案
 > ├── package-lock.json
 > └── package.json
 > ```
@@ -70,25 +70,25 @@ module.exports = add
 
 ```javascript
 let assert = require('assert')  // 引入 Mocha 的斷言庫。
-const add = require('../add')   // 引入寫好的程式
+const sum = require('../sum')   // 引入寫好的程式
 
 // 描述測試環境
-describe('add 函式測試', () => {
+describe('sum 函式測試', () => {
 
     // 描述測試案例
     it('1 加上 2 應該等於 3', () => {
         // 透過斷言庫來寫判斷式
-        assert.equal(add(1,2), 3,'沒有返回預期的結果')
+        assert.equal(sum(1,2), 3,'沒有返回預期的結果')
     })
 
     // 描述另一個測試案例
     it('100 加上 200 應該等於 300', () => {
-        assert.equal(add(100, 200), 300,'沒有返回預期的結果')
+        assert.equal(sum(100, 200), 300,'沒有返回預期的結果')
     })
 })
 ```
 
-在這個範例程式碼中，主要是在測試剛剛我們寫好的 `add.js` 函式，並且透過兩個測試案例來描述情境，並斷言該情境預期的結果。（語法在後面的篇章將會有更詳細的介紹。）
+在這個範例程式碼中，主要是在測試剛剛我們寫好的 `sum.js` 函式，並且透過兩個測試案例來描述情境，並斷言該情境預期的結果。（語法在後面的篇章將會有更詳細的介紹。）
 
 # 執行測試
 
@@ -103,7 +103,7 @@ describe('add 函式測試', () => {
 如此一來，我們在終端機中執行 `npm run test` 便可以執行 `Mocha` 來根據測試程式碼來測試程式了。而本次測試執行的結果如下：
 
 ```bash
-test add 函式測試
+test sum 函式測試
     √ 1 加上 2 應該等於 3
     √ 100 加上 200 應該等於 300
 2 passing (13ms)
