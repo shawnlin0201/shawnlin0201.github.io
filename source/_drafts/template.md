@@ -4,8 +4,18 @@ date: 2000-01-01 00:00:00
 tags:
 - [前端]
 - [JavaScript]
+- [D3.js]
+- [Vue.js]
+- [Vue-cli]
+- [Vuex]
+- [Vue-router]
 categories: 
-- [前端, JavaScript]
+- [JavaScript]
+- [JavaScript, D3.js]
+- [JavaScript, Vue.js]
+- [JavaScript, Mocha.js]
+- [JavaScript, Jest.js]
+
 ---
 
 <div style="display:flex;justify-content:center;">
