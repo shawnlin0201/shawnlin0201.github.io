@@ -77,4 +77,4 @@ test('adds 1 + 2 to equal 3', () => {
 
 # 參考資料
 
-- [Jest-getting-started](https://jestjs.io/docs/zh-Hans/getting-started.html)
+- [Jest-getting-started](https://jestjs.io/docs/en/getting-started)
