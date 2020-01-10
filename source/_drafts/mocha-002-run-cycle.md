@@ -17,6 +17,8 @@ categories:
 # Run Cycle
 Mocha.js 在執行測試時，會遵循它的運行週期，只要瞭解了它的運行週期，我們便能快速掌握撰寫測試程式碼的基本架構：
 
+![mocha-run-cycle.png](/images/Mocha/mocha-run-cycle.png)
+
 1. 執行 Mocha 主程式
 2. 生成並進入子處理程序。
 3. 處理並執行 Mocha options 選項內容。
@@ -79,6 +81,9 @@ after(function () {
     // 測後資料
 })
 ```
+
+
+
 
 
 # 參考資料
