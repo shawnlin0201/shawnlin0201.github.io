@@ -15,7 +15,7 @@ categories:
 </div>
 
 # What is Jest.js
-Jest.js 是由 Facebook, Inc 公司所維護的測試框架，並且支援了 Babel、TypeScript、Node.js、Vue.js、React.js、Angular.js，基本上支援了全部的現代框架，且像是 Vue.js 作者尤雨溪（Evan You）在撰寫 testing 時便是使用 Jest 來作為主要的 testing framework。
+Jest.js 是由 Facebook, Inc 公司所維護的測試框架，並且支援了 Babel、TypeScript、Node.js、Vue.js、React.js、Angular.js，基本上支援了全部的現代框架，而 Jest 的核心概念 **batteries-included**，使得我們在使用測試要找一些資源時不太需要費力，因為，Jest 都幫你準備好了！
 
 # 環境建置
 環境建置非常的快速，透過 npm 直接安裝 Jest 到 **專案開發環境** 下就完成了：
@@ -73,7 +73,7 @@ test('adds 1 + 2 to equal 3', () => {
   √ adds 1 + 2 to equal 3 (5ms)
 ```
 
-這個範例簡單的展示了 Jest 測式框架的魅力，與 Mocha 測試框架比較，可以發現 Jest 本身內帶斷言（assertion），使用的時後不再需要引入像是 Chai 之類的斷言庫（assertion library），並且 Mocha 中的測試套件需要透過 `describe()` 來描述，再用 `it()` 寫測試案例，Jest 則是可以直接使用 `test()` 來撰寫測試案例，需要的時候才加上 `describe()` 來替測試套件限制作用域（Scope）。（畢竟都用檔案名稱來分測試套件了？我自己本身也比較喜歡 Jest 直接寫下測試案例的作法 XD）
+這個範例簡單的展示了 Jest 測試框架的魅力，自帶的斷言庫（assertion）讓我們在使用斷言判斷時可以與官方較有一致的行為，有利於後續的學習方面（官方文件）及相關的問題討論資源，如果看了 Intro 之後對 Jest.js 感到興趣的話不仿一起來用 Jest.js 吧！
 
 # 參考資料
 
