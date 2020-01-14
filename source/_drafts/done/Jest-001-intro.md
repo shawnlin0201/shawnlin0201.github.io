@@ -1,6 +1,6 @@
 ---
 title: Jest.js 入門、環境建置與範例（Install, Build environment）
-date: 2000-01-01 00:00:00
+date: 2020-02-17 22:30:17
 tags:
 - [前端]
 - [JavaScript]
@@ -8,6 +8,7 @@ tags:
 - [Jest.js]
 categories: 
 - [JavaScript, Jest.js]
+- [JavaScript, Testing]
 ---
 
 <div style="display:flex;justify-content:center;">

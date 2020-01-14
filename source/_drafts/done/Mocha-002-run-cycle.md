@@ -1,6 +1,6 @@
 ---
 title: Mocha.js 運行週期、週期鉤子（Run cycle, Hook）
-date: 2020-01-01 00:00:00
+date: 2020-02-10 22:10:34
 tags:
 - [前端]
 - [JavaScript]
@@ -8,6 +8,7 @@ tags:
 - [Mocha.js]
 categories: 
 - [JavaScript, Mocha.js]
+- [JavaScript, Testing]
 ---
 
 <div style="display:flex;justify-content:center;">

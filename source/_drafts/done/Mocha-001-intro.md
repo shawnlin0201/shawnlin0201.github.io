@@ -1,6 +1,6 @@
 ---
 title: Mocha.js 入門、環境建置與範例（Install, Build environment）
-date: 2020-01-01 00:00:00
+date: 2020-02-03 21:11:19
 tags:
 - [前端]
 - [JavaScript]
@@ -8,6 +8,7 @@ tags:
 - [Mocha.js]
 categories: 
 - [JavaScript, Mocha.js]
+- [JavaScript, Testing]
 ---
 
 <div style="display:flex;justify-content:center;">

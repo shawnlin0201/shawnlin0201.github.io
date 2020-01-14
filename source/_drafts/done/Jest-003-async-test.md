@@ -1,6 +1,6 @@
 ---
 title: Jest.js 異步測試（Asynchronous Test）
-date: 2000-01-01 00:00:00
+date: 2020-03-02 23:11:56
 tags:
 - [前端]
 - [JavaScript]
@@ -8,6 +8,7 @@ tags:
 - [Jest.js]
 categories: 
 - [JavaScript, Jest.js]
+- [JavaScript, Testing]
 ---
 
 <div style="display:flex;justify-content:center;">

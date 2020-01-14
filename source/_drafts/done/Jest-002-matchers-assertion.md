@@ -1,6 +1,6 @@
 ---
 title: Jest.js 配對器（Matchers）a.k.a. 斷言（Assertion）
-date: 2000-01-01 00:00:00
+date: 2020-02-24 22:23:38
 tags:
 - [前端]
 - [JavaScript]
@@ -8,6 +8,7 @@ tags:
 - [Jest.js]
 categories: 
 - [JavaScript, Jest.js]
+- [JavaScript, Testing]
 ---
 
 <div style="display:flex;justify-content:center;">

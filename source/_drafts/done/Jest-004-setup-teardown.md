@@ -1,6 +1,6 @@
 ---
 title: Jest.js 設定、拆除與作用域（setup、teardown & scope）、執行順序
-date: 2000-01-01 00:00:00
+date: 2020-03-09 23:43:51
 tags:
 - [前端]
 - [JavaScript]
@@ -8,6 +8,7 @@ tags:
 - [Jest.js]
 categories: 
 - [JavaScript, Jest.js]
+- [JavaScript, Testing]
 ---
 
 <div style="display:flex;justify-content:center;">
@@ -126,10 +127,55 @@ describe('Scoped / Nested block', () => {
 
 簡單來說的話便是：整個鉤子邏輯是屬於後進先出（LIFO，Last in, First Out）原則的，並且父層的鉤子邏輯會**完整**的套用在子層鉤子邏輯中。
 
-## describe()、test()
-在鉤子中的順序我們可以透過以下程式碼來測試：
+## describe() 與 test() 之間的執行順序
+我們一樣透過官方範例程式碼來測試並觀察：
 
+```javascript
+describe('outer', () => {
+  console.log('describe outer-a')
+  describe('describe inner 1', () => {
+    console.log('describe inner 1')
+    test('test 1', () => {
+      console.log('test for describe inner 1')
+      expect(true).toEqual(true)
+    })
+  })
+  console.log('describe outer-b')
+  test('test 1', () => {
+    console.log('test for describe outer')
+    expect(true).toEqual(true)
+  })
+  describe('describe inner 2', () => {
+    console.log('describe inner 2')
+    test('test for describe inner 2', () => {
+      console.log('test for describe inner 2')
+      expect(false).toEqual(false)
+    })
+  })
+  console.log('describe outer-c')
+})
+```
 
+執行的結果如下：
+
+```bash 
+describe outer-a
+describe inner 1
+describe outer-b
+describe inner 2
+describe outer-c
+test for describe inner 1
+test for describe outer
+test for describe inner 2
+```
+
+從上列測試碼中我們可以看出幾個重點：
+1. `describe()` 的執行順序會優先於所有測試之前，接著才會開始執行 `test()` 的內容。
+2. 遵循上面的規則後，由上到下逐步執行每個測試內容。
+
+以上是關於 Jest 測試環境中的設定與執行順序，而真正要寫好測試還是得靠我們自己從實務上去慢慢證明想法與測試碼邏輯是否一致！
+
+如果不確定的話也可以下個簡單的斷言來看斷點是否正常，有時候可能只是不慎打錯字才導致測試失敗喔！
 
 # 參考資料
 
