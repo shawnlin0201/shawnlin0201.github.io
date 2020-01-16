@@ -6,6 +6,7 @@ tags:
 - [JavaScript]
 - [Testing]
 - [Jest.js]
+
 categories: 
 - [JavaScript, Jest.js]
 ---
@@ -15,22 +16,40 @@ categories:
 </div>
 
 # Test double 測試替身
-在單元測試中我們時常會利用到一些測試替身（Test double），而測試替身主要是在協助我們在某些情境下幫助我們模擬已知的測試條件。譬如我們在做 AJAX 像伺服器請求資料時，我們真正測試的目標可能是在**拿到資料後的後續行為**，這個時候我們就可以利用測試替身去模擬請求的資料，讓測試聚焦在真正的地方並且使測試速度達到顯著的提升。
 
-而依據 MSDN [文件](https://docs.microsoft.com/zh-tw/archive/msdn-magazine/2007/september/unit-testing-exploring-the-continuum-of-test-doubles)中指出，測試替身大致上可分為五個種類：Dummies、Stubs、Spies、Fakes 和 Mocks。
+測試替身最主要是透過封裝好的函式來協助開發者模擬一些函式、功能、模組所返回的值，而在之前我曾寫過一篇文章專門在講述不同類型的測試替身之間的差別。
 
-按照模擬程度差異從低到高排序：
-- Dummies：基本上就是模擬一些原始類型（primitive type）的資料，並且根本 
-- Stubs：
-- Spies：
-- Fakes：
-- Mocks：
- 
+> [測試替身 Test Doubles](/testing/testing-002-test-doubles/)
 
-# mock
+像是 Mocha.js 就會搭配像是 Sinon.js 這一類的隔離庫來使用測試替身。而 Jest 本身核心概念是屬於 **batteries-included** 類型的框架（即為你需要的功能，框架都盡量幫你準備好了），因此 Jest 在模擬測試替身上則是看 Jest 本身的 Mock API 即可！
 
+# Mock 基礎範例
+我們根據 Jest mock 中的範例程式，在自己的測試程式碼中寫入：
+```javascript
+function forEach(items, callback) {
+  for (let index = 0; index < items.length; index++) {
+    callback(items[index]);
+  }
+}
+
+const mockCallback = jest.fn(x => 42 + x);
+forEach([0, 1], mockCallback);
+
+test('mock test', () => {
+  expect(mockCallback.mock.calls.length).toBe(2); // mockCallback 函式應該被呼叫了 `2` 次
+  expect(mockCallback.mock.calls[0][0]).toBe(0); // mockCallback 函式第一次呼叫時第一個參數是 `0`
+  expect(mockCallback.mock.calls[1][0]).toBe(1); // mockCallback 函式第二次呼叫時第一個參數是 `1`
+  expect(mockCallback.mock.results[0].value).toBe(42); // mockCallback 函式第一次呼叫時，callback 返回的值是 42
+})
+
+```
+
+> 範例程式碼中的解釋，
+> 1-5 行是假設我們要用來模擬的函式。
+> 7 行是透過 Jest 測試時所提供的 `jest` 物件，裡面有個 `fn` 的方法，只要使用 `fn` 方法所建立的函式，後續才可以使用接下來的鍊式語法
+>
+>
 
 # 參考資料
 
 - [Jest-mock](https://jestjs.io/docs/zh-Hans/mock-functions)
-- [MSDN-magazine-Unit Testing: Exploring The Continuum Of Test Doubles](https://docs.microsoft.com/zh-tw/archive/msdn-magazine/2007/september/unit-testing-exploring-the-continuum-of-test-doubles)
