@@ -45,10 +45,39 @@ test('mock test', () => {
 ```
 
 > 範例程式碼中的解釋，
-> 1-5 行是假設我們要用來模擬的函式。
-> 7 行是透過 Jest 測試時所提供的 `jest` 物件，裡面有個 `fn` 的方法，只要使用 `fn` 方法所建立的函式，後續才可以使用接下來的鍊式語法
->
->
+> 1-5 行是一般的函式。
+> 7 行是透過 Jest 所提供的 `jest` 物件，透過 API `fn` 的方法，來模擬一個函式，而使用該函式會得到類似有關呼叫與傳參等等行為上的資訊。
+> 8 行則是實際使用 1-5 行函式，並在 callback function 的傳參中使用了被 Mock 了的函式，因此 `mockCallback` 會記載一些關於透過 `fn` 被記錄的內容。
+> 好比測試案例（Test case）中的第 11 行，`mockCallback` 裡面有被記載到被呼叫了幾次，而我們透過 `fn.mock.calls.length` 可以得到該資訊。
+
+# .Mock API
+上面範例中可以看到被 `jest.fn` 所 Mock 的函式，我們可以透過 `.mock` 繼續取得該函式的相關資訊，而這裡使用另一個函式來模擬：
+```javascript
+function add(a, b) {
+  return a + b
+}
+let mockAdd = jest.fn((a, b)=> a + b)
+mockAdd(1, 2)
+mockAdd('test','String')
+
+console.log('get mock info', mockAdd.mock)
+```
+我們將裡面的 mock console.log 出來：
+```javascript
+{
+  calls: [
+      [ 1, 2 ],
+      [ 'test', 'String' ]
+    ],
+  instances: [ undefined, undefined ],
+  invocationCallOrder: [ 1, 2 ],
+  results:[
+    { type: 'return', value: 3 },
+           { type: 'return', value: 'testString' }
+  ]
+}
+```
+
 
 # 參考資料
 

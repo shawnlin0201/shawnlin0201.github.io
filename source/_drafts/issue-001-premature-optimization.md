@@ -1,0 +1,55 @@
+---
+title: 過早的最佳化是萬惡的根源？（premature-optimization）
+date: 2000-01-01 00:00:00
+tags:
+- [前端]
+- [JavaScript]
+- [D3.js]
+- [Vue.js]
+- [Vue-cli]
+- [Vuex]
+- [Vue-router]
+categories: 
+- [JavaScript]
+- [JavaScript, D3.js]
+- [JavaScript, Vue.js]
+- [JavaScript, Mocha.js]
+- [JavaScript, Jest.js]
+- [JavaScript, Chai.js]
+---
+
+<div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/' width='200px' height='200px' />
+</div>
+
+> Premature optimization is the root of all evil -- Donald Knuth.
+
+「過早的最佳化是萬惡的根源」是由一名資訊大前輩 Donald knuth 所說的一句名言，而這也是我最近工作上很有感觸的一點。
+
+在剛學習程式語言時，非本科的我總是喜歡 survey 大量的文章，一邊實作一邊吸收技術，並在個人專案中盡可能的用上來增加實務經驗，抑或是看看其他前輩所寫的程式，試著瞭解程式中某些地方的小巧思。
+
+當我第一次真正踏入程式職場時，很開心遇見了一間團隊成員實力都很堅強的公司，也在裡面看了不少設計心法與設計模式，因此在開發時，我也嘗試著保持敏銳，盡可能的將函式之間能夠解耦，讓它們能夠單一職責化，使其變成像是積木一樣的容易拼接。
+
+然而 **年資尚淺** 仍是一個真的較難跨越的障礙，這裡所指的並非是努力不努力的問題，而是在於有沒有足夠的時間，去實際開發，並且真的**實際**遇到這個問題。這一點我個人認為是對於 junior 工程師來說最大的致命傷。
+
+實際來舉個例子，現在有一個程式內部需要提供加法與減法的功能，那麼第一個直覺的想法可能會這麼做：
+
+```javascript
+function add(a,b) {
+  return a + b
+}
+
+function minus(a,b) {
+  return a - b
+}
+```
+
+我們得到了一個職責分明，彼此之間沒有互相藕合的程式碼。但真的這麼簡單嗎？
+
+試著想像一下當我們從網頁表單節點所抓取下來的資料：
+
+
+
+# 參考資料
+
+- []()
