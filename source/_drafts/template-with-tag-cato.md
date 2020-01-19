@@ -1,8 +1,9 @@
 ---
-title: 標題
+title: 樣板－標題
 date: 2000-01-01 00:00:00
 tags:
 - [前端]
+- [Book]
 - [JavaScript]
 - [D3.js]
 - [Vue.js]
@@ -10,6 +11,7 @@ tags:
 - [Vuex]
 - [Vue-router]
 categories: 
+- [Book, Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship]
 - [JavaScript]
 - [JavaScript, D3.js]
 - [JavaScript, Vue.js]
