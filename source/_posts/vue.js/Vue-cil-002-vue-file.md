@@ -17,6 +17,8 @@ categories:
 ## 單一元件檔
 今天要來介紹的是**單一元件檔**，單一元件檔在 Vue-cli 中被大量地使用，算是寫 Vue-cli 不可不知的一環，而在昨天我們安裝好 Vue-cli 環境後，可以看見 src 資料夾底下充滿著大量 .vue 結尾的檔案，大家或許會滿臉疑惑，因為前一兩周寫 Vue.js 根本沒有提到這個東西啊？那他到底是什麼呢？
 
+<!--more-->
+
 ![https://ithelp.ithome.com.tw/upload/images/20191004/20119062Z2qnzMoZH6.jpg](https://ithelp.ithome.com.tw/upload/images/20191004/20119062Z2qnzMoZH6.jpg)
 
 其實顧名思義，單一元件檔（single-file-component）就是一個元件專屬的檔案，還記得我們當時使用  `Vue.component` 建立了一個全域環境的元件嗎？單一元件檔就好比把該元件所需的資訊封裝成一種檔案格式，透過 `import` 註冊到其他的檔案當中，最後以工具解析後，產生網頁能夠讀懂的相關靜態檔案（如 HTML、CSS、JavaScript 等等。）那他跟我們寫得全域性註冊元件差在哪呢？

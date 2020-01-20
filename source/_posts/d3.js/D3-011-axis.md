@@ -19,6 +19,8 @@ categories:
 
 而在 Vue.js 中的實體設定基本上與前幾天差不多，最主要我們將資料集換成**每筆資料各有兩個屬性資料**的格式：
 
+<!--more-->
+
 ```javascript
 let vm = new Vue({
     el: "#app",

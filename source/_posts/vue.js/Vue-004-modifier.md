@@ -19,6 +19,8 @@ categories:
 - [按鍵修飾符](https://cn.vuejs.org/v2/guide/events.html#%E6%8C%89%E9%94%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6)
 - [系統修飾鍵](https://cn.vuejs.org/v2/guide/events.html#%E7%B3%BB%E7%BB%9F%E4%BF%AE%E9%A5%B0%E9%94%AE)
 
+<!--more-->
+
 ## 事件修飾符
 事件修飾符是將常用的一些事件處理事件綁定在我們所觸發的指令上，例如我們常會在實作上遇見的**點擊冒泡**觸發事件，以往我們會透過`event.preventDefault()`來處理這一類事件，而在 Vue.js 中我們可以在`@click`後面加上`.prevent`就能夠在觸發`handleOnClick`後觸發`event.preventDefault()`：
 ```

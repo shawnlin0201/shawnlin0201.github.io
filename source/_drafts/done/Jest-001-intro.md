@@ -18,6 +18,8 @@ categories:
 # What is Jest.js
 Jest.js 是由 Facebook, Inc 公司所維護的測試框架，並且支援了 Babel、TypeScript、Node.js、Vue.js、React.js、Angular.js，基本上支援了全部的現代框架，而 Jest 的核心概念 **batteries-included**，使得我們在使用測試要找一些資源時不太需要費力，因為，Jest 都幫你準備好了！
 
+<!--more-->
+
 # 環境建置
 環境建置非常的快速，透過 npm 直接安裝 Jest 到 **專案開發環境** 下就完成了：
 ```bash

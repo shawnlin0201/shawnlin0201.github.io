@@ -23,6 +23,8 @@ categories:
 
 像是 Mocha.js 就會搭配像是 Sinon.js 這一類的隔離庫來使用測試替身。而 Jest 本身核心概念是屬於 **batteries-included** 類型的框架（即為你需要的功能，框架都盡量幫你準備好了），因此 Jest 在模擬測試替身上則是看 Jest 本身的 Mock API 即可！
 
+<!--more-->
+
 # Mock 基礎範例
 我們根據 Jest mock 中的範例程式，在自己的測試程式碼中寫入：
 ```javascript
@@ -77,7 +79,10 @@ console.log('get mock info', mockAdd.mock)
   ]
 }
 ```
+從 console.log 中我們可以得知：
 
+### mockFn.mock.calls
+這裡會顯示所有呼叫過的 mock 函式
 
 # 參考資料
 

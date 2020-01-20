@@ -21,6 +21,8 @@ categories:
 
 其中 `template` 指的就是元件樣板的部分，我們可以透過不同的封裝方式來管理內容，例如使用 `HTML` 標籤來進行封裝：
 
+<!--more-->
+
 ## HTML標籤封裝
 ```
 let vm = new Vue({

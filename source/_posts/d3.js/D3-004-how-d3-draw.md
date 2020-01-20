@@ -17,6 +17,8 @@ categories:
 
 今天要來介紹 D3.js 如何繪製圖形，而其實 D3.js **本身程式並不會繪圖**，嚴格來說是藉由操作 **HTML DOM** 來達到**新增修改刪除**等功能，而**實際繪製圖形**的部分則是會依靠 **SVG** 來產生，這裡要來稍微介紹一下這些名詞來幫助大家更快理解 D3.js 是怎麼運作的：
 
+<!--more-->
+
 ## DOM（Document Object Model）
 
 ![https://ithelp.ithome.com.tw/upload/images/20190921/201190628ubodsiOQU.png](https://ithelp.ithome.com.tw/upload/images/20190921/201190628ubodsiOQU.png)

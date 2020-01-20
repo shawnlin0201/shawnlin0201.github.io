@@ -19,7 +19,9 @@ categories:
 
 因此，我們可以透過綁定一個頁面上沒有的元素類別，利用 `enter()`找出不夠資料塞入的元素筆數，再透過 `append()` 函式新增元素：
 
-```
+<!--more-->
+
+```javascript
 let sampleData = ['a','b','c']
 d3.select('body')
     .selectAll('div')

@@ -19,13 +19,15 @@ categories:
 
 在 HTML 部分，我們可能會使用`v-on`（縮寫`@`）去綁定 `click` 事件，透過點擊事件來更動 `data` 裡的資料（`pagename`）：
 
-```
+<!--more-->
+
+```html
 <button type="button" @click="pagename = 'mainpage'">switch to Main page</button>
 ```
 
 接著在要顯示頁面的元件中掛上`v-if`來限定顯示的條件，如 `pagename` 的值是 `mainpage` 時就會顯示該元素，藉此來達到如切換分頁的效果，並且重複以上動作將各個顯示頁面用的元件加入如下：
 
-```
+```html
 <div id="app">
     <button type="button" @click="pagename = 'mainpage'">switch to Main page</button>
     <button type="button" @click="pagename = 'aboutpage'">switch to About page</button>
@@ -37,7 +39,7 @@ categories:
 ```
 
 而 JavaScript部分除了基本的頁面內容樣板之外， 在 Vue.js 初始化的實體中則是在 `data` 中先放入一開始預設頁面值：
-```
+```javascript
 Vue.component('mainpage', {
   template:`<div>This page is mainpage</div>`,
   created() {
@@ -79,7 +81,7 @@ let vm = new Vue({
 
 解決辦法是透過 Vue.js 所提供的 API (`:is`) 來達成同樣的效果，我們只需要放入一個名為`component`的標籤（ Vue.js 的內建元素 `Built-In Components`），並且透過 `:is` 來對應元件名稱，最後 Vue.js 就會依照`:is`的數值來決定被渲染的元件，HTML部分改寫後如下：
 
-```
+```html
 <div id="app">
     <button type="button" @click="pagename = 'mainpage'">switch to Main page</button>
     <button type="button" @click="pagename = 'aboutpage'">switch to About page</button>

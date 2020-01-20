@@ -445,7 +445,7 @@ tagcloud:
 # ---------------------------------------------------------------
 
 font:
-  enable: false
+  enable: true
 
   # Uri of fonts host, e.g. //fonts.googleapis.com (Default).
   host:
@@ -465,20 +465,20 @@ font:
   # Fallback to `global` font settings.
   headings:
     external: true
-    family:
+    family: Noto Sans TC
     size:
 
   # Font settings for posts.
   # Fallback to `global` font settings.
   posts:
     external: true
-    family:
+    family: Noto Sans TC
 
   # Font settings for Logo.
   # Fallback to `global` font settings.
   logo:
     external: true
-    family:
+    family: Noto Sans TC
     size:
 
   # Font settings for <code> and code blocks.

@@ -16,9 +16,11 @@ categories:
 ## 渲染範圍
 使用樣本語法時，我們可以在 HTML 中使用**兩對花括號**來表示要顯示的資料，並且透過 Vue.js 實體中的 `el` 來指定 Vue.js 渲染的範圍，並且在子元件的 `template` 中同樣也可以使用，然而如果是在 HTML 中的子元件標籤裡**直接使用則會導致失效**，如下面範例：
 
+<!--more-->
+
 HTML部分：
 
-```
+```html
 <div id="app">
     {{ message }}
     <child-element>{{ childMessage }}</child-element>
@@ -27,7 +29,7 @@ HTML部分：
 
 JavaScript部分：
 
-```
+```javascript
 Vue.component('child-element', {
   template:`<div></div>`,
   data(){
@@ -54,7 +56,7 @@ let vm = new Vue({
 
 JavaScript 部分：
 
-```
+```javascript
 Vue.component('child-element', {
   template:
   `
@@ -72,7 +74,7 @@ Vue.component('child-element', {
 
 HTML 部分：
 
-```
+```html
 <div id="app">
     {{ message }}
     <child-element>
@@ -87,7 +89,7 @@ HTML 部分：
 
 而當我們使用 `<slot>` 後，若沒有 HTML 部分中所綁定的元件中傳入資訊，則預設將會顯示`<slot></slot>`所包含的資料：
 
-```
+```html
 <div id="app">
     {{ message }}
     <child-element>
@@ -95,7 +97,7 @@ HTML 部分：
     </child-element>
 </div>
 ```
-```
+```javascript
 Vue.component('child-element', {
   template:
   `
@@ -127,7 +129,7 @@ let vm = new Vue({
 
 HTML部分：
 
-```
+```html
 <div id="app">
     {{ message }}
     <child-element>
@@ -140,7 +142,7 @@ HTML部分：
 
 JavaScript部分：
 
-```
+```javascript
 Vue.component('child-element', {
   template:
   `

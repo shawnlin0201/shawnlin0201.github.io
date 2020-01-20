@@ -27,6 +27,8 @@ categories:
 - promise 類
 - async / await 類
 
+<!--more-->
+
 ## callback function
 在處理 callback function 的作法是，在呼叫測試案例 API `test()` 時，使用 `done` API。
 

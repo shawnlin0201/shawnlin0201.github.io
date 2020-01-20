@@ -21,6 +21,8 @@ categories:
 
 ![https://ithelp.ithome.com.tw/upload/images/20190913/20119062xmubDbCYt5.png](https://ithelp.ithome.com.tw/upload/images/20190913/20119062xmubDbCYt5.png)
 
+<!--more-->
+
 ## props
 
 在傳遞資料時，我們可以使用元件內的 `props` 選項來指定傳遞的資料名稱，如下面範例中，我們在子元件 `props` 中指定了元件外面可以傳遞給他的資料為 `childmsg` ，並在 `template` 中將傳遞進來的資料當作數值，分別放入樣板語法與 v-model 中以供顯示。

@@ -19,6 +19,8 @@ categories:
 
 以下範例用昨天已繪製好的座標軸繼續延伸：
 
+<!--more-->
+
 ```javascript
 // draw() 函式內部
 enter.append('circle')

@@ -17,6 +17,9 @@ categories:
 今天我們要來繪製 D3.js 人人必**繪**的地圖啦！
 
 我們首先到臺灣 [政府資料開放平臺](https://data.gov.tw/dataset/7442) 的網站中下載以縣市為界的台灣地圖 SHP 檔案：
+
+<!--more-->
+
 ![https://ithelp.ithome.com.tw/upload/images/20191002/20119062X0e9kJFd5j.png](https://ithelp.ithome.com.tw/upload/images/20191002/20119062X0e9kJFd5j.png)
 
 > Shapefile（SHP），是美國環境系統研究所公司（ESRI）開發的空間資料開放格式。目前 SHP 檔案格式為地理資訊軟體界的開放標準。（資料來源： [SHP Wiki](https://zh.wikipedia.org/wiki/Shapefile)）

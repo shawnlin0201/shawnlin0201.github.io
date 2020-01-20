@@ -15,10 +15,10 @@ categories:
 
 今天開始要進入到 D3.js 的單元啦，在進入 D3.js 的常用 API 章節前，我們一樣要先來介紹一下 D3.js：
 
+<!--more-->
+
 > ![https://ithelp.ithome.com.tw/upload/images/20190918/20119062xiIiM2NaBx.jpg](https://ithelp.ithome.com.tw/upload/images/20190918/20119062xiIiM2NaBx.jpg)
 > ~~絕對不是這個 D3，但有機會的話或許也可以介紹（？~~
-
-
 
 
 ![https://ithelp.ithome.com.tw/upload/images/20190918/20119062fyOApfWwWF.png](https://ithelp.ithome.com.tw/upload/images/20190918/20119062fyOApfWwWF.png)

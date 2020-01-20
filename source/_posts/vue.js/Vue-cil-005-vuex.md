@@ -20,6 +20,8 @@ categories:
 
 然而昨天有提出了一個問題，**「假設今天不同頁面（不同 .vue 檔案），都要使用共同的狀態時，我們應該如何處理？」**
 
+<!--more-->
+
 ![https://ithelp.ithome.com.tw/upload/images/20191007/20119062j4oXCz4l8w.png](https://ithelp.ithome.com.tw/upload/images/20191007/20119062j4oXCz4l8w.png)
 
 如果大家還有印象，我們之前曾經在 Vue.js 章節中講過類似的 [傳遞](https://ithelp.ithome.com.tw/articles/10215277) ，在當時我們提到了子元件可以透過 `$emit` 去發送事件給另一個 Vue 實體（例如當時命名的 `bus`），而父元件就可以藉由監聽 `bus` 上的事件，等待其他元件去觸發他，從而達到**事件的集中管理**。

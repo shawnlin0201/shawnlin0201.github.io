@@ -26,6 +26,8 @@ categories:
 </div>
 ```
 
+<!--more-->
+
 在 JavaScript部分，區域性的作法是在 Vue.js 實體的 `components` 中使用 `Vue.extend` 去擴充元件，使得元件中物件除了可以回傳 `template` 之外，可以在裡面繼續使用 `components` 註冊一個新的元件。
 
 ```javascript

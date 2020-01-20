@@ -26,8 +26,10 @@ SVG 中有提供一個 `text` 標籤以供我們繪製文字的部分：
 - `textLength` ：文字字距。
 - `rotate` ：**每個文字**的旋轉角度。（若是要整組文字一起旋轉可以使用 `transform="rotate()"` 。）
 
+<!--more-->
+
 範例：
-```
+```html
 <svg height="50" width="50">
   <text x="20" y="20" fill="red" rotate="180" transform="rotate(30 20,40)">SVG</text>
 </svg>

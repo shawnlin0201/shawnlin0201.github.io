@@ -26,6 +26,8 @@ Vue.js 的架構深受 [MVVM](https://zh.wikipedia.org/wiki/MVVM) 的影響，�
 
 而 Vue.js 最主要是幫我們把**連結 View 與 Model 的部分**給處理掉了（**View-Model**），因此我們接下來要做的元件，最主要是要透過 Vue.js 提供的 API 等功能（也就是前面所說的指令、修飾符等等），來打造元件，並且搭配 View 與 CSS（SCSS）來塑造他的外觀。
 
+<!--more-->
+
 ## 元件註冊
 在 Vue.js 中要使用 `components` 時，可以選擇在初始化 Vue.js 時將其資訊帶進去，或是使用 `Vue.component` 的方式來註冊，並且依據使用方法不同分為區域性的註冊方式(`scope`)以及全域性的註冊方式(`global`)，以下介紹兩種註冊方式的差異：
 

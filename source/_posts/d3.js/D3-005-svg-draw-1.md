@@ -26,7 +26,7 @@ categories:
 - 多邊形 `<polygon>`
 - 路徑 `<path>`
 
-
+<!--more-->
 
 ### 圓形
 - `cx` ：表示圓心在 SVG 畫布中的 X 座標
