@@ -10,6 +10,7 @@ tags:
 - [Vue-cli]
 - [Vuex]
 - [Vue-router]
+- [optimization]
 categories: 
 - [Book, Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship]
 - [JavaScript]
@@ -18,6 +19,7 @@ categories:
 - [JavaScript, Mocha.js]
 - [JavaScript, Jest.js]
 - [JavaScript, Chai.js]
+- [Optimization, tool, lighthouse]
 ---
 
 <div style="display:flex;justify-content:center;">
