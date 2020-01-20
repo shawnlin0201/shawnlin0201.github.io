@@ -203,7 +203,7 @@ social:
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
   Facebook: https://www.facebook.com/profile.php?id=100004228181424 || facebook
-  LearnWeb: https://www.facebook.com/groups/learnweb.taipei/ || users
+  # LearnWeb: https://www.facebook.com/groups/learnweb.taipei/ || users
   #VK Group: https://vk.com/yourname || vk
   #StackOverflow: https://stackoverflow.com/yourname || stack-overflow
   #YouTube: https://youtube.com/yourname || youtube
@@ -217,11 +217,16 @@ social_icons:
 
 # Blog rolls
 links_icon: link
-links_title: Links
+links_title: 推薦閱讀
 links_layout: block
-#links_layout: inline
+# links_layout: inline
 links:
-  #Title: http://example.com
+  LearnWeb-Taipei 社群: https://www.facebook.com/groups/learnweb.taipei/
+  iThelp-ShawnL: https://ithelp.ithome.com.tw/users/20119062
+  iThelp-Kuro: https://ithelp.ithome.com.tw/users/20065504
+  Medium-Huli: https://medium.com/@hulitw
+  Blog-PJChender: https://pjchender.blogspot.com/
+  Blog-Cythilya: https://cythilya.github.io/
 
 # Sidebar Avatar
 avatar:
@@ -843,7 +848,7 @@ algolia_search:
 # Local search
 # Dependencies: https://github.com/theme-next/hexo-generator-searchdb
 local_search:
-  enable: false
+  enable: true
   # If auto, trigger search by changing input.
   # If manual, trigger search by pressing enter key or search button.
   trigger: auto
@@ -1180,3 +1185,7 @@ vendors:
 css: css
 js: js
 images: images
+
+# 文章末端加上感謝收看段落文字
+passage_end_tag:
+  enabled: true
