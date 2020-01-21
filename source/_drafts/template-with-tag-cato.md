@@ -4,13 +4,14 @@ date: 2000-01-01 00:00:00
 tags:
 - [前端]
 - [Book]
+- [HTML]
 - [JavaScript]
 - [D3.js]
 - [Vue.js]
 - [Vue-cli]
 - [Vuex]
 - [Vue-router]
-- [optimization]
+- [Optimization]
 categories: 
 - [Book, Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship]
 - [JavaScript]
@@ -19,6 +20,7 @@ categories:
 - [JavaScript, Mocha.js]
 - [JavaScript, Jest.js]
 - [JavaScript, Chai.js]
+- [Optimization]
 - [Optimization, tool, lighthouse]
 ---
 
