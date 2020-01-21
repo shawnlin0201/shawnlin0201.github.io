@@ -10,7 +10,7 @@ categories:
 ---
 
 <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/vue-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
 </div>
 
 前面兩天提到的元件間的資料傳遞，主要是父元件對子元件的 `props` 以及子元件對於父元件的 `event` 發送，而最後留下一個問題是假如今天我們要子元件與子元件溝通，要怎麼做呢？

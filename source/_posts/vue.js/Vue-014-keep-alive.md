@@ -10,7 +10,7 @@ categories:
 ---
 
 <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/vue-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
 </div>
 
 上一章節介紹到動態元件的使用方法，我們可以使用 `is` 來快速切換元件中的內容，藉著省下不少程式碼上的複製貼上，並且在 DOM 結構上也不會渲染出不必要的內容：

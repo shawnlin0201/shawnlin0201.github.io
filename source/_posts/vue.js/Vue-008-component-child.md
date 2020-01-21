@@ -10,7 +10,7 @@ categories:
 ---
 
 <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/vue-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
 </div>
 
 ## 父子元件

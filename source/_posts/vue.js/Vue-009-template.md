@@ -10,7 +10,7 @@ categories:
 ---
 
 <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/vue-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
 </div>
 
 前幾章花了一點時間在介紹元件的註冊方式與用法，除了能夠建立一個元件並使用對應的 `<tag>` 標籤建立在網頁上，也能將元件塞入其他元件當中成為他的子元件。

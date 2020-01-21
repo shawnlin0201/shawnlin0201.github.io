@@ -10,7 +10,7 @@ categories:
 ---
 
 <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/vue-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
 </div>
 
 元件的概念可以把它看作成一個**重複利用性高**的程式，好比只要輸入資料進去，就能夠輸出得到對應的需求，至於其他相關的外觀樣式等等都會相應產生。而要將 Vue.js 的程式元件化之前，首先一起來瞭解它的核心觀念：

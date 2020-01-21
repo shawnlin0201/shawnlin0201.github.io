@@ -10,7 +10,7 @@ categories:
 ---
 
 <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/d3js/d3.png' width='300px' height='300px' />
+  <img style="object-fit:cover;" alt="d3-logo" src='/images/d3js/d3.png' width='300px' height='300px' />
 </div>
 
 > 在圖表當中不可或缺的除了基本的**資料**與**圖表**之外，另一項就是**比例尺**的部分。在 D3.js 中，開發者可以透過比例尺**將一段範圍的某個數值對應到另一段範圍的數值**，這麼做的好處在於我們可以將資料轉換成一個具有比例意義的圖表，並且依比例縮放成我們所要的大小而不是毫無比例根據的作圖。

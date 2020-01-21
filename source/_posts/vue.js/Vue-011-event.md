@@ -10,7 +10,7 @@ categories:
 ---
 
 <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/vue-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
 </div>
 
 上一章節中，我們介紹了父元件如何透過 `props` 傳遞資料給子元件，並且使用**型別設定**來規範傳進元件中的值，而今天要來介紹**子元件要如何傳遞資料給父元件**。

@@ -10,7 +10,7 @@ categories:
 ---
 
 <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/vue-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
 </div>
 
 ![https://ithelp.ithome.com.tw/upload/images/20190909/20119062ONbDHOY5Nq.png](https://ithelp.ithome.com.tw/upload/images/20190909/20119062ONbDHOY5Nq.png)

@@ -9,10 +9,6 @@ categories:
 - [JavaScript, Testing]
 ---
 
-<div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='' width='200px' height='200px' />
-</div>
-
 身為工程師的一員，常常聽到許多人在討論測試的議題，縱使公司本身沒有導入測試，但仍然可以為自己學一下測試的技術。而學每項技術當然都有它的目的，絕非為了學而學，因此要來介紹一下為什麼前端工程師領域的中的測試是
 什麼？為什麼要寫？以及要如何寫？
 

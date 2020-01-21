@@ -12,7 +12,7 @@ categories:
 ---
 
 <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/Mocha/mocha-logo.svg' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="mocha-logo" src='/images/Mocha/mocha-logo.svg' width='200px' height='200px' />
 </div>
 
 # Run Cycle 運行週期

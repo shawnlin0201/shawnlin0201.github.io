@@ -10,7 +10,7 @@ categories:
 ---
 
 <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/d3js/d3.png' width='300px' height='300px' />
+  <img style="object-fit:cover;" alt="d3-logo" src='/images/d3js/d3.png' width='300px' height='300px' />
 </div>
 
 今天開始要進入到 D3.js 的單元啦，在進入 D3.js 的常用 API 章節前，我們一樣要先來介紹一下 D3.js：

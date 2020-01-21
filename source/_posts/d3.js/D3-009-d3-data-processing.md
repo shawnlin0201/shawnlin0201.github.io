@@ -12,7 +12,7 @@ categories:
 ---
 
 <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/d3js/d3.png' width='300px' height='300px' />
+  <img style="object-fit:cover;" alt="d3-logo" src='/images/d3js/d3.png' width='300px' height='300px' />
 </div>
 
 昨天我們已經成功的將 D3.js 放入 Vue.js 裡面，藉由 Vue.js 的 `生命週期鉤子` 與 `監聽` 來驅動函式重新繪製圖表，而今天要來說明的是 D3.js 中的資料處理與篩選：
