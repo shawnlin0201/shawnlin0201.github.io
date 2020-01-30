@@ -1,6 +1,6 @@
 ---
 title: 常常複製貼上？瞭解一下避免重複原則（DRY principle）
-date: 2030-03-30 17:18:04
+date: 2020-03-30 17:18:04
 tags:
 - [w3HexSchool]
 - [Methodology]

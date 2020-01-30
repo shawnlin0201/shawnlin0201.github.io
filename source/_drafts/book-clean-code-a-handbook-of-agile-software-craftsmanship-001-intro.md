@@ -1,6 +1,6 @@
 ---
 title: 無瑕的程式碼（Clean Code）書序 及 Chapter 1 無暇的程式碼
-date: 2099-01-01 00:00:00
+date: 2020-01-01 00:00:00
 tags:
 - [Book]
 - [Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship]

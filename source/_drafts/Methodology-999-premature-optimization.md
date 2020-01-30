@@ -2,6 +2,7 @@
 title: 過早的最佳化是萬惡的根源？（premature-optimization）
 date: 2099-01-01 00:00:01
 tags:
+- [w3HexSchool]
 - [Methodology]
 categories: 
 - [Methodology]
