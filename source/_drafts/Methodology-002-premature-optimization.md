@@ -1,15 +1,11 @@
 ---
 title: 過早的最佳化是萬惡的根源？（premature-optimization）
-date: 2000-01-01 00:00:00
+date: 2099-01-01 00:00:01
 tags:
-
+- [Methodology]
 categories: 
-
+- [Methodology]
 ---
-
-<div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/' width='200px' height='200px' />
-</div>
 
 > Premature optimization is the root of all evil -- Donald Knuth.
 
