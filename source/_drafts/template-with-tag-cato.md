@@ -13,6 +13,7 @@ tags:
 - [Vue-router]
 - [Optimization]
 categories: 
+- [w3HexSchool]
 - [Methodology]
 - [Book, Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship]
 - [JavaScript]
