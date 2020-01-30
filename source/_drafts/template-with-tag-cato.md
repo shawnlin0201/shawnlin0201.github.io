@@ -13,6 +13,7 @@ tags:
 - [Vue-router]
 - [Optimization]
 categories: 
+- [Methodology]
 - [Book, Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship]
 - [JavaScript]
 - [JavaScript, D3.js]
