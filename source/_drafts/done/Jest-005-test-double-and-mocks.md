@@ -2,6 +2,7 @@
 title: Jest.js 測試替身 Test double & Mocks Functions
 date: 2020-03-16 19:23:17
 tags:
+- [w3HexSchool]
 - [前端]
 - [JavaScript]
 - [Testing]
@@ -17,9 +18,7 @@ categories:
 
 # Test double 測試替身
 
-測試替身最主要是透過封裝好的函式來協助開發者模擬一些函式、功能、模組所返回的值，而在之前我曾寫過一篇文章專門在講述不同類型的測試替身之間的差別。
-
-> [測試替身 Test Doubles](/testing/testing-002-test-doubles/)
+測試替身最主要是透過封裝好的函式來協助開發者模擬一些函式、功能、模組所返回的值。
 
 像是 Mocha.js 就會搭配像是 Sinon.js 這一類的隔離庫來使用測試替身。而 Jest 本身核心概念是屬於 **batteries-included** 類型的框架（即為你需要的功能，框架都盡量幫你準備好了），因此 Jest 在模擬測試替身上則是看 Jest 本身的 Mock API 即可！
 

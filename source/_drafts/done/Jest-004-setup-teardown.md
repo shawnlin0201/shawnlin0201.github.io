@@ -2,6 +2,7 @@
 title: Jest.js 設定、拆除與作用域（setup、teardown & scope）、執行順序
 date: 2020-03-09 23:43:51
 tags:
+- [w3HexSchool]
 - [前端]
 - [JavaScript]
 - [Testing]

@@ -1,7 +1,8 @@
 ---
-title: Testing 關於前端測試這回事
+title: 關於前端測試這回事
 date: 2020-01-01 00:00:00
 tags:
+- [w3HexSchool]
 - [前端]
 - [JavaScript]
 - [Testing]

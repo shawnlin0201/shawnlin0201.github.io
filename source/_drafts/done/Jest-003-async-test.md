@@ -2,6 +2,7 @@
 title: Jest.js 異步測試（Asynchronous Test）
 date: 2020-03-02 23:11:56
 tags:
+- [w3HexSchool]
 - [前端]
 - [JavaScript]
 - [Testing]

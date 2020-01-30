@@ -1,5 +1,5 @@
 ---
-title: 單元測試工具比較：Jest、Mocha、Jasmine、AVA
+title: 測試風格 TDD、BDD 之間的差異
 tags:
 - [前端]
 - [JavaScript]
@@ -10,9 +10,6 @@ categories:
 <div style="display:flex;justify-content:center;">
   <img style="object-fit:cover;" src='/images/' width='200px' height='200px' />
 </div>
-
-> 天驱
-> 既没有实例，也没有做比较
 
 
 # 參考資料
