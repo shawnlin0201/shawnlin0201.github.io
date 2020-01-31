@@ -1,5 +1,5 @@
 ---
-title: 「萬物之始，大道至簡，演化至繁。」一起來瞭解簡單原則（KISS principle）
+title: 程式設計心法－簡單原則（KISS principle）
 date: 2020-04-06 17:00:25
 tags:
 - [w3HexSchool]
