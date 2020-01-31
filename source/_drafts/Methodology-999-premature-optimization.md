@@ -1,6 +1,6 @@
 ---
 title: 程式設計心法－過早最佳化（premature-optimization）
-date: 2099-01-01 00:00:01
+date: 2000-01-01 00:00:01
 tags:
 - [w3HexSchool]
 - [Methodology]
