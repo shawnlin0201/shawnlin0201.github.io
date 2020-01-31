@@ -1,5 +1,5 @@
 ---
-title: 過早的最佳化是萬惡的根源？（premature-optimization）
+title: 程式設計心法－過早最佳化（premature-optimization）
 date: 2099-01-01 00:00:01
 tags:
 - [w3HexSchool]
