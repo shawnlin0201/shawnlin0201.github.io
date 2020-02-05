@@ -52,8 +52,9 @@ export default {
 
 透過上面 **.vue file** 範例結果可以看到，我們在這時取得 DOM 的資料仍是初始化前的資料，而過程透過圖的話大致可以理解成這樣：
 
+<!-- ![](/images/vue.js/vue-nextTick.png) -->
 
-但如果我們真的想拿到 DOM 更新後的資料怎麼辦？
+<!-- 但如果我們真的想拿到 DOM 更新後的資料怎麼辦？ -->
 
 # nextTick
 Vue.js 提供了一個回呼函式（callback function）**Vue.nextTick(callback)** 以供我們使用，
