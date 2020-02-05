@@ -4,7 +4,7 @@ date: 2020-04-27 18:03:10
 tags:
 - [w3HexSchool]
 - [Methodology]
-categories: 
+categories:
 - [Methodology]
 ---
 
