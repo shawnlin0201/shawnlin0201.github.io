@@ -1,5 +1,5 @@
 ---
-title: 程式設計心法－三次原則（Rule Of Three principle）
+title: 程式設計心法 三次原則（Rule Of Three principle）
 date: 2020-04-20 17:25:09
 tags:
 - [w3HexSchool]
