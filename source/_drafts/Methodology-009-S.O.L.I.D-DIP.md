@@ -1,11 +1,11 @@
 ---
 title: 程式設計心法 S.O.L.I.D 之依賴反轉原則（DIP，Dependency Inversion Principle）
-date: 2020-04-27 18:03:10
+date: 2020-01-01 00:00:00
 tags:
 - [w3HexSchool]
 - [Methodology]
 categories:
-- [Methodology]
+- [Methodology, S.O.L.I.D.]
 ---
 
 # 依賴反轉原則 Dependency Inversion Principle

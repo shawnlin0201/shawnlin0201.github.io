@@ -1,11 +1,11 @@
 ---
 title: 程式設計心法 S.O.L.I.D 之開閉原則（OCP，Open-Close Principle）
-date: 2020-04-27 18:03:10
+date: 2020-01-01 00:00:00
 tags:
 - [w3HexSchool]
 - [Methodology]
 categories:
-- [Methodology]
+- [Methodology, S.O.L.I.D.]
 ---
 
 # 開閉原則 Open-Close Principle

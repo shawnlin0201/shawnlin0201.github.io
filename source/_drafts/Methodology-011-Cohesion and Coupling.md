@@ -1,6 +1,6 @@
 ---
-title: 程式設計心法 內聚與耦合Cohesion and Coupling
-date: 2020-04-27 18:03:10
+title: 程式設計心法 內聚與耦合 Cohesion and Coupling
+date: 2020-01-01 00:00:00
 tags:
 - [w3HexSchool]
 - [Methodology]
@@ -17,4 +17,4 @@ categories:
 
 # 參考資料
 
-- [SOLID：五則皆變](http://teddy-chen-tw.blogspot.com/2014/04/solid.html)
+- [亂談軟體設計（1）：Cohesion and Coupling](http://teddy-chen-tw.blogspot.com/2011/12/1.html)
