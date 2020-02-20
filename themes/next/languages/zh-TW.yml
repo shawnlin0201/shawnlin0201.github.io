@@ -9,7 +9,8 @@ menu:
   archives: 歷史文章
   categories: 分類
   tags: 標籤
-  about: 認識我
+  about: 關於我
+  sideproject: Side Project
   search: 搜尋
   schedule: 時間表
   sitemap: 網站地圖
@@ -25,7 +26,7 @@ post:
   edit: 編輯
   in: 分類於
   more: 更多
-  read_more: 閱讀全文
+  read_more: 繼續閱讀
   untitled: 未命名
   sticky: 置頂
   toc_empty: 此文章沒有目錄
@@ -67,7 +68,7 @@ state:
   tags: 標籤
   categories: 分類
 search:
-  placeholder: 搜尋...
+  placeholder: 輸入標題、內文關鍵字...
 cheers:
   um: 嗯..
   ok: 還行
