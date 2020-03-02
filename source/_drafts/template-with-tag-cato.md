@@ -16,6 +16,7 @@ categories:
 - [w3HexSchool]
 - [Methodology]
 - [Book, Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship]
+- [TypeScript]
 - [JavaScript]
 - [JavaScript, D3.js]
 - [JavaScript, Vue.js]
