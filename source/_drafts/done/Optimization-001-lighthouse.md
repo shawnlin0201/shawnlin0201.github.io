@@ -6,7 +6,7 @@ tags:
 - [Optimization]
 categories: 
 - [Optimization]
-- [Optimization, tool, lighthouse]
+- [Optimization, lighthouse]
 ---
 
 <div style="display:flex;justify-content:center;">

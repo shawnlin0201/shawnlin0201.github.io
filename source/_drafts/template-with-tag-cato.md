@@ -24,7 +24,8 @@ categories:
 - [JavaScript, Jest.js]
 - [JavaScript, Chai.js]
 - [Optimization]
-- [Optimization, tool, lighthouse]
+- [Optimization, lighthouse]
+- [Optimization, Chrome-DevTools]
 ---
 
 <div style="display:flex;justify-content:center;">
