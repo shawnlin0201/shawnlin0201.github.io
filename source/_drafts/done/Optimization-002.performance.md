@@ -2,15 +2,7 @@
 title: Chrome DevTools Performance 與畫面處理
 date: 2099-01-01 00:00:00
 tags:
-- [前端]
-- [Book]
-- [HTML]
-- [JavaScript]
-- [D3.js]
-- [Vue.js]
-- [Vue-cli]
-- [Vuex]
-- [Vue-router]
+- [w3HexSchool]
 - [Optimization]
 categories: 
 - [Optimization]
