@@ -1,6 +1,6 @@
 ---
 title: 程式設計心法 避免重複原則（DRY principle）
-date: 2020-03-30 17:18:04
+date: 2020-04-06 17:00:25
 tags:
 - [w3HexSchool]
 - [Methodology]

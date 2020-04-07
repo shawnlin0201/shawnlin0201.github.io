@@ -1,6 +1,6 @@
 ---
 title: 程式設計心法 你不會需要它（YAGNI principle）
-date: 2020-04-13 17:25:09
+date: 2020-04-20 17:25:09
 tags:
 - [w3HexSchool]
 - [Methodology]
