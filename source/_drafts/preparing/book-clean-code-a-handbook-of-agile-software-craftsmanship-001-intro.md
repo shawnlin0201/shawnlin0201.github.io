@@ -1,6 +1,6 @@
 ---
 title: 無瑕的程式碼（Clean Code）書序 及 Chapter 1 無暇的程式碼
-date: 2020-01-01 00:00:00
+date: 2020-04-07 22:13:03
 tags:
 - [Book]
 - [Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship]
@@ -13,7 +13,7 @@ categories:
 </div>
 
 # 序
-《Clean Code - A Handbook of Agile Software Craftsmanship》 這本書是由 **Robert C. Martin（Uncle Bob）** 所撰寫的著作，而這本著作據 Uncle Bob 本人所述，此書為 《Agile software development principles patterns and practices.》（敏捷軟件開發）一書的前傳。而無暇的程式碼（Clean Code）究竟表示的是什麼？我想推薦序一文做了非常良好的解釋：
+經過一段時間終於有機會再把它拿出來拜讀了！這本由 **Robert C. Martin（Uncle Bob）** 所撰寫的著作，為 《Agile software development principles patterns and practices.》（敏捷軟件開發）一書的前傳。而無暇的程式碼（Clean Code）究竟表示的是什麼？我想推薦序一文做了非常良好的解釋：
 
 <!--more-->
 
@@ -42,12 +42,11 @@ categories:
 
 如果我們若不這麼做、迫於專案時程關係，或是不慎端出了臭味道的料理怎麼辦？有些經驗的程式開發者可能已經透過了~惡劣的~環境來學習過了。如前面所說，我們花費在閱讀程式碼的時間已經隨著專案的大小，長得越來越大，閱讀時間也可能從短短的幾分鐘，進化到弄了一小時才解決，而**越雜亂的程式碼也將花費更多的時間來去維護**。
 
-> *檯面下必須花了許多努力，才能在檯面上看起來毫不費力。*
+> 童子軍原則：讓你所到之處，離開後比原先來得更加乾淨
 
-## 我們都是作者
+如同營地一般，某個專案中的程式可能已經歷經了一段風霜。不論當初撰寫專案的人是誰，我們所及之處的程式碼，最終應該都必須保持乾淨，在將來後續維護時，才不會受到歷史的阻礙。
 
-## 童子軍原則：讓你所到之處，離開後比原先來得更加乾淨
 
-以上便是此書的序文與第一章，在下一章開始，我們將會暸解如何實際提升我們撰寫程式碼的技巧，就讓我們一起來端出更好的料理吧！
+以上便是此書的序文與第一章，在下一章開始，書籍將會介紹如何實際提升我們撰寫程式碼的技巧！
 
 
