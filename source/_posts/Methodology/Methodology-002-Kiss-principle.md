@@ -1,6 +1,6 @@
 ---
 title: 程式設計心法 簡單原則（KISS principle）
-date: 2020-04-13 17:25:09
+date: 2020-04-13 01:10:04
 tags:
 - [w3HexSchool]
 - [Methodology]
