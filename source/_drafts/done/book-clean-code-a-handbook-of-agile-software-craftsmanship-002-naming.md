@@ -1,7 +1,8 @@
 ---
-title: 無瑕的程式碼（Clean Code） Chapter 2 有意義的命名
+title: 重新解構：無瑕的程式碼（Clean Code） Chapter 2 有意義的命名
 date: 2020-04-07 22:13:03
 tags:
+- [w3HexSchool]
 - [Book]
 - [Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship]
 categories: 
