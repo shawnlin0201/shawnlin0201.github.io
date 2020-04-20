@@ -165,6 +165,68 @@ searchButton.addEventListener('click', function () {
 而書中筆者則是建議，我們應該避免將巢狀結構納入其中，如果真的有必要這麼處理，應該確保這個函式是處於低層次的抽象概念當中，意思即為該函式幾乎不再被使用。
 
 ## 語句脈絡（context）
+別於語句結構的巢狀、深度，語句脈絡指的部分是在函式中的，語句整體的敘述與長度，包含了輸入、輸出值等等邏輯。
+
+而根據無暇的程式碼一書中，一個較好的語句脈絡應該包含了：
+- 由上而下的敘述
+- 越短越好
+- 無副作用
+- 只有一件目的
+- 結構化函式
+
+### 由上而下的敘述
+由上而下的敘述是指，在函式語句（statement）的過程中，我們可能會使用其他的函式來輔助，那麼這些函式應該要有父層（parent）、子層（child）這些相對的概念：
+
+
+```js
+// 計算淨利的程式
+function countIncome() {
+  let totalIncome = 0
+  totalIncome = totalRevenue() - totalCost() - calcTax(totalRevenue())
+  return totalIncome
+}
+
+function totalRevenue () {
+  // 計算並返回總營業額
+}
+
+function totalCost () {
+  // 計算並返回總成本
+}
+
+
+function calcTax(NTD) {
+  // 將總營業額帶入並計算營業稅
+}
+
+// 實際使用時
+const INCOME = countIncome()
+console.log(INCOME)
+```
+
+我們可以看見將來實際使用時，我們會首先暴露相較於父層的 `countIncome` 函式。
+
+因此如果將來想了解 `INCOME` 值是怎麼處理而來的時候，會先找到 `countIncome` 函式，接著在從內部語句中找到其餘計算相關內容的 `totalRevenue`、`totalCost` 與 `calcTax` 函式，我們就能輕易的透過這種由上而下的引入關係理解這些函式之間的關聯性。
+
+### 越短越好
+語句越短越好可以說是接著上節由上而下的敘述的補充。
+
+經過剛剛的範例可以看見，當我們在閱讀 `countIncome` 時，內部並沒有做太多複雜的計算，而是將這些計算分工給其餘的程式，如此一來我們可以加快閱讀每個函式本身在做的事情，藉由快速理解各個函式本身的行為，強化理解函式與函式之間的關聯。
+
+### 無副作用
+無副作用的意思即為，在處理函式數值時，函式本身應該是針對其數值做運算、針對功能做出相對應的行為；如果函式背地裡修改了其他數值、執行其他的行為，將會大大的加深理解函式的困難度。
+
+<!-- todo -->
+
+```js
+function countSomething () {
+
+}
+```
+
+### 只有一件目的
+### 結構化函式
+
 
 # 函式參數（parameter）
 
