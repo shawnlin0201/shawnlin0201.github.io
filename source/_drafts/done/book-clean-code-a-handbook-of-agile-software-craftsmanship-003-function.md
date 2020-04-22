@@ -280,7 +280,127 @@ renderPage({
 
 
 ### 只有一件目的
+一個函式語句（statement）應該要只有一件目的，如此一來閱讀程式碼時就不需要在多種目的下來回猜測，使函式本身做的事情更容易被表達。
+
+```js
+function getAndSetUserInfo (userID, setting) {
+  if (setting) {
+    fetch('...', {
+      body: JSON.stringify(setting.data),
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
+      .then(res => res.json())
+      .catch(err => {
+        console.error(err)
+        return false
+      })
+      .then(res => true)
+  } else {
+    fetch('...')
+      .then(res => res.json())
+      .catch(err => {
+        console.error(err)
+        return false
+      })
+      .then(res => res)
+  }
+}
+```
+
+再一次應證混和查詢型與指令型的用法，會使人難以瞭解最終到底會返回的內容。
+
+因此一樣我們將其分成兩個函式，讓每個函式中只有一件目的：
+
+```js
+function getUserInfo(userID) {
+  fetch('...')
+    .then(res => res.json())
+    .then(res => {
+      return res.data
+    })
+}
+
+function setUserInfo(userID, setting) {
+  fetch('...', {
+    data: JSON.stringify(setting.data),
+    method: 'POST',
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    })
+  })
+    .then(err => {
+      console.error(err)
+      return false
+    })
+    .then(res => true)
+}
+```
+
+<!-- todo 補 try/catch 也是一件事情-->
+
+透過讓函式符合專一職責的思維，最後可以帶來像是單元測試（unit testing）會更很容易測試他的邏輯以及重構時（refactoring）的抽象處理等等好處。
+
 ### 結構化函式
+現在我們知道只有一件目的的函式的語句脈絡的好處了，結構化函式則是在整體語句脈絡上訂下一個輸出輸入的準則。
+
+例如在需要初始化區域變數我們應該在函式語句的開頭就定義完畢，這樣可以使我們更容易找到值的來源：
+
+```js
+function countSomething(x, y, z) {
+  let a = x
+  let b = y
+  let c = z
+
+  /** 
+  * 假設函式語句有一些長度，以至於你可能需要滑鼠滾動檢查整段語句。
+  */
+
+  // 即便你不熟悉這個函式，你也可以到函式開頭檢查這個 c 變數的源頭是誰
+  c += 1 
+
+  // d 變數？到開頭找找
+  d = a + b
+
+  //最後發現沒有 d 變數，你可以很快意識到這個變數應該是範疇（scope）來自更外一層的區域所宣告的。而不是操作失誤忘記初始變數，最後變成全域變數。
+
+  return a + b - c 
+}
+```
+
+另一個結構化的方式則是將進入點輸出點集中管理：
+
+```js
+function sumArray (arr) {
+  let result = 0; // 將輸出值，透過變數初始化在上方
+  if (!Array.isArray(arr)) { return false }  // 防禦處理、例外處理（exception handling），也可以移置上方管理。
+
+  for (let i = 0; i < arr.length; i++) {
+    result += arr[i]
+  }
+
+  return result // 輸出的來源現在可以很確定是源自哪裡了
+}
+```
+
+這樣的作法在函式語句需要 `if/else`、`switch` 判斷時會更加的明顯：
+
+
+<!-- todo -->
+```js
+// 沒有控制的
+function getPageData(pageName) {
+  if (pageName === '')  {
+    return false
+  } else if (pageName  === 'search') {
+    return  false
+  } else {
+    
+  }
+}
+```
 
 
 # 函式參數（parameter）
