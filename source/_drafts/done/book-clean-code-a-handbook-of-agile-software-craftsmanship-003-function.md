@@ -387,21 +387,62 @@ function sumArray (arr) {
 
 這樣的作法在函式語句需要 `if/else`、`switch` 判斷時會更加的明顯：
 
-
-<!-- todo -->
 ```js
-// 沒有控制的
+// 沒有控制的情況
 function getPageData(pageName) {
   if (pageName === '')  {
-    return false
+    let something = ''
+    /**
+    * 進入流程處理
+    */
+    return something // 處理完直接輸出值
   } else if (pageName  === 'search') {
-    return  false
+    let something = ''
+    /**
+    * 進入流程處理
+    */
+    return something // 處理完直接輸出值
   } else {
-    
+    let something = ''
+    /**
+    * 進入流程處理
+    */
+    return something // 處理完直接輸出值
   }
 }
 ```
 
+在沒有控制的情況，這個判斷流程（condition)將會逐漸使開發、除錯漸漸變得困難，我們可能要不斷在各種流程中下斷點來判斷裡面返回的數值狀況。
+
+雖然不是不可，但是如果預期輸出的值是相同概念的話，可以將其控制為一點輸出：
+
+```js
+function getPageData(pageName) {
+  let result = ''; // 依照輸出的資料類型定義初始值，提供預期的輸出資料類型
+  if (pageName === '')  {
+    let something = ''
+    /**
+    * 進入流程處理
+    */
+    result = something  // 將處理好的數值接回輸出變數
+  } else if (pageName  === 'search') {
+     let something = ''
+    /**
+    * 進入流程處理
+    */
+    result = something  // 將處理好的數值接回輸出變數
+  } else {
+     let something = ''
+    /**
+    * 進入流程處理
+    */
+    result = something  // 將處理好的數值接回輸出變數
+  }
+
+  return result // 統一輸出
+}
+```
+<!-- todo -->
 
 # 函式參數（parameter）
 
