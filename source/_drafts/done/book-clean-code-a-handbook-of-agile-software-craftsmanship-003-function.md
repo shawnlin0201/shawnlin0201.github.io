@@ -198,7 +198,9 @@ function totalCost () {
 function calcTax(NTD) {
   // 將總營業額帶入並計算營業稅
 }
+```
 
+```js
 // 實際使用時
 const INCOME = countIncome()
 console.log(INCOME)
@@ -219,10 +221,63 @@ console.log(INCOME)
 <!-- todo -->
 
 ```js
-function countSomething () {
-
+function getUserInfo (userID) {
+  fetch('...')
+    .then(res => res.json())
+    .catch(e => location.reload())
+    .then(res => {
+      return res
+    })
 }
 ```
+
+```js
+// 實際使用時
+getUserInfo('c8763') // 找不到，但錯誤時直接重整，所以也不知道發生什麼事情
+```
+
+在這段程式碼中，欲使用 `getUserInfo` 函式取得使用者相關資訊，但是卻不知道為何直接重整的案例。
+
+去爬了定義 `getUserInfo` 的函式後，才發現語句中對於 ajax 的錯誤處理中，使用了 `location.reload()` 來重整頁面。
+
+即便是直接使用了有副作用的函式都讓人覺得疑惑了，可以試想當你是在深層度的層次中使用到時會發生什麼情況：
+
+```js
+function renderPage (obj) {
+  this.init = function (obj) {
+    let pageData = getPageData(obj.pageName) // 取得 <object>頁面資料
+    let userInfo = getUserInfo(obj.userID) // 取得 <object>會員資料
+    return `Hello, ${userInfo.nickname}!`
+  }
+  return this.init(obj)
+}
+
+function getPageData(pageName) {
+  let result = {}
+  // 取得頁面資料
+  return result
+}
+
+function getUserInfo(userID) {
+  fetch('...')
+    .then(res => res.json())
+    .catch(e => location.reload())
+    .then(res => {
+      return res
+    })
+}
+```
+
+```js
+// 實際使用時，預期要渲染一個名稱為 'main' 的頁面。
+renderPage({
+  pageName: 'main'
+  userID: 'c8763'
+})
+```
+
+你能夠輕易地看出為何 `renderPage()` 最後會導致不正常的頁面刷新嗎？如果可以的話，想像它只是某個不明顯的數值變更看看，你還能輕易地找到錯誤的地方嗎？
+
 
 ### 只有一件目的
 ### 結構化函式
