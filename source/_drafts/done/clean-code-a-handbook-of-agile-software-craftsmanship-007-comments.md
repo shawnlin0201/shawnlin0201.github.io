@@ -1,5 +1,5 @@
 ---
-title: 重新解構再重構：無瑕的程式碼（Clean Code） Chapter 4 註解
+title: 重新解構：無瑕的程式碼（Clean Code） Chapter 4 註解
 date: 2020-04-07 22:13:03
 tags:
 - [w3HexSchool]

@@ -1,6 +1,6 @@
 ---
 title: 程式設計心法 S.O.L.I.D 之單一職責原則（SRP，Single Responsibility Principle）
-date: 2020-99-01 00:00:00
+date: 2020-05-03 00:00:00
 tags:
 - [w3HexSchool]
 - [Methodology]
