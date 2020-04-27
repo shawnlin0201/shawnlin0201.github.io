@@ -1,6 +1,6 @@
 ---
 title: 程式設計心法 三次原則（Rule Of Three principle）
-date: 2020-04-27 17:25:09
+date: 2020-04-27 23:17:09
 tags:
 - [w3HexSchool]
 - [Methodology]
