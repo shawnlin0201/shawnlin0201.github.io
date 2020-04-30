@@ -1,5 +1,5 @@
 ---
-title: JavaScript 深入理解 Event Loop、Task quene、Mirco task quene
+title: JavaScript 深入理解 Event Loop、Task queue、Mirco task quene
 date: 2000-01-01 00:00:00
 tags:
 - [JavaScript]
@@ -28,3 +28,5 @@ categories:
 而什麼事件會放入到任務隊列？
 - 定時器（setTimeout、setInterval）等 Web APIs。
 - 使用者點擊元素所觸發的事件。
+
+
