@@ -14,18 +14,15 @@ categories:
   <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
 </div>
 
-# JavaScript 與記憶體
-記憶體漏失是程式設計中一項常見錯誤，特別是使用沒有內置自動垃圾回收的程式語言，如C及C++。
-提供自動記憶體管理的程式語言如Java、C#、VB.NET以及LISP，都不能避免記憶體漏失。例如，程式會把項目加入至列表，但在完成時沒有移除，如同人把物件丟到一堆物品中或放到抽屜內，但後來忘記取走這件物品一樣。記憶體管理器不能判斷項目是否將再被存取，除非程式作出一些指示表明不會再被存取。
+垃圾回收機制（Garbage Collection）主要是在協助執行於電腦上的應用程式，保留、清除一些儲存於記憶體中一些用不到的資料。
 
-如果一個程式存在記憶體流失並且它的記憶體使用量穩定增長，通常不會有很快的症狀。每個物理系統都有一個較大的記憶體量，如果記憶體流失沒有被中止（比如重新啟動造成漏失的程式）的話，它遲早會造成問題。
+那麼在 JavaScript 中的垃圾回收機制又是如何處理呢？就一起來看看吧！
 
-`array = []` `array.length = 0`
 
-重點：JavaScript 的 deallocation 不是你決定的，是 browser 決定的
+<!-- more -->
 
-當然你可以自己把 reference 移除，可是你無法直接 deallocate 它，而他什麼時候、在什麼條件下會被 GC 回收基本上也不是由你決定的。
 
+<!-- todo  -->
 # 記憶體生命週期
 
 配置你程式需要的記憶體空間
@@ -33,34 +30,68 @@ categories:
 當不再使用時釋放已被配置的記憶體空間
 
 在所有語言中，第二點的(運作方式)是確定的。第一點以及最後一點在低階語言中是確定的，但是在高階語言如Javascript 則通常是不明確的。
+<!-- todo  -->
 
-# 記憶體配置
-值的初始化
-為了不讓開發者對配置感到困擾，Javascript 會在宣告值的同時完成記憶體配置
 
-# 記憶體的使用
-基本上使用值表示對已被配置的記憶體做讀寫。可藉由讀取或寫入變數的值或一個物件特性或甚至傳一個參數到函數中來完成此事。
+# Garbage Collection 垃圾回收機制由來
+前面提到，垃圾回收機制主要是在協助執行於電腦上的應用程式，保留、清除一些儲存於記憶體中一些用不到的資料，然而早期執行程式不像現在有執行環境（Execution Context）中有 stack、heap 的概念，需要用到記憶體時都是使用**靜態分配**的策略，雖然執行期間的表現相對來說較好，但也理所當然的記憶體處理會受限在編譯期間就要指定好。
 
-# 記憶體流失
+而一些採用區塊結構（block）設計的語言則會使用 stack、heap 的機制來動態分配記憶體的各種操作。
 
-`array = []` 重新賦值 `array = []` （此時指向的記憶體已經有所不同）
+其中 stack 資料結構是使用先進後出（LIFO，Last in first out）的資料處理方式，對於 JavaScript 來說就像是執行環境（Execution Context），其執行環境中的 stack 會儲存對應的 heap 內容，並且是可以動態改變的。
 
 ```js
-let a = []
-let b = a // 參考指向 a 的記憶體
+var a = {age: 25};
+var b = a;
 
-console.log(a === b) // true，因為參考的記憶體指向同一處
+console.log(b) // 變數 `b` 參考的記憶體與 `a` 相同 => {age: 25}
 
-a = [] // 重新賦值一個新的陣列給 a 變數，此時 a 指向新的記憶體
+b = {age: 26} // 將 b 的參考重新指向位於 heap 中另一處的記憶體 => {age: 26}
 
-console.log(a === b) // false，此時兩個變數所指向的記憶體已經不同了
+console.log(a) // 此時 `a` 變數所參考的記憶體仍相同 => {age: 25}
 ```
+
+上面例子我們可以看到兩個不同的變數參考自 heap 中同一個記憶體，後來又將其中一個變數參考指定到另一個記憶體當中。
+那麼如果改變參考的都是同一個變數呢？
 
 ```js
-let a = []
-a = [] // Memory Leak！
+var a = {age: 25}; // 將 `a` 變數參考指向 heap 中某個記憶體所儲存的物件 => {age: 25}
+
+a = {age: 26}; // 糟了，是記憶體遺失（Memory leak）！
 ```
-前一行宣告 `a` 時所指向的記憶體參考已消失，找不到參考到原先陣列的方法了，因此造成記憶體洩漏（memory leak）。
+在最後一行程式碼中的重新賦值（reassign），將會使 a 的參考重新指向位於 heap 中另一處中的物件 => {age: 26}
+
+原先用來儲存 `{age: 25}` 的記憶體沒有變數去參考，且我們也沒任何手段能再取得他的參考，因此這個記憶體就成了 Garbage 漂失在 heap 的宇宙當中。
+
+那麼我們要如何處理這些宇宙垃圾呢？
+
+# Memory leak 記憶體遺失
+上述所提到的記憶體遺失（Memory leak）是一種程式設計中容易不慎發生的錯誤，不同一些程式語言沒有自動回收垃圾的機制（例如時常操控指針的 C 及 C++），身為使用 JavaScript 作為網頁開發的工程師們可以很大聲的說出：我們不需要親自處理這些垃圾！
+
+為何我們不需要處理這些垃圾呢？原因是 JavaScript 的宿主，也就是瀏覽器（browser）有協助我們處理記憶體遺失的問題。（Node.js 表示：...）
+
+- 查 node.js memory leak
+- 兩邊的解決辦法
+
+<!-- todo  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+重點：JavaScript 的 deallocation 不是你決定的，是 browser 決定的
+
+當然你可以自己把 reference 移除，可是你無法直接 deallocate 它，而他什麼時候、在什麼條件下會被 GC 回收基本上也不是由你決定的。
+
 
 # 記憶體回收機制
 
@@ -116,5 +147,5 @@ f();
 # 參考文章
 - [Memory Management MDN](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Memory_Management)
 - [Garbage Collection wiki](https://zh.wikipedia.org/wiki/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6_(%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%B8))
--[基本算法 mark-and-sweep](https://liujiacai.net/blog/2018/06/15/garbage-collection-intro/#%E5%9F%BA%E6%9C%AC%E7%AE%97%E6%B3%95-mark-and-sweep)
-- [](https://blog.sessionstack.com/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks-3f28b94cfbec)
+- [基本算法 mark-and-sweep](https://liujiacai.net/blog/2018/06/15/garbage-collection-intro/#%E5%9F%BA%E6%9C%AC%E7%AE%97%E6%B3%95-mark-and-sweep)
+- [garbage-collection](https://zh.javascript.info/garbage-collection)
