@@ -31,24 +31,43 @@ categories:
 > Huli 也有一系列的發表在 coderbridge 上的[文章](https://www.coderbridge.com/series/817c07dc8e1c46f2b0a604b3b4e195c1)，裡頭在講解有關於從 bytecode 看各個 JavaScript 關鍵字的各種議題，有興趣的可以看看。
 
 ## Call Stack
-在記憶體當中， `Call Stack` 所扮演的角色則是用來供辨識碼（Identifier）存放其路徑參考（address）以及數值，並且數值必須是**原始類型（primitive type）**，如字串（String）、布林值（Boolean）、數字（Number）。
+每當 JavaScript 呼叫函式時（包含主程式），便會創立一個執行環境（Execution Context），而每個執行環境都會有屬於它的一個變數物件（Variable Object），當我們宣告、操作辨識符時（Identifier），它就會分配（allocate）一個位於 `Call Stack` 的地址（address）。
 
 ```js
 var x = 1;
 var y = 2;
 ```
 
-當我們宣告、操作辨識符時，它就會分配（allocate）一個位於 `Call Stack` 的地址（address）：
+其執行環境中的變數物件即為：
+
+```js
+{
+  x: 1, 
+  y: 2
+}
+```
+
+而對於記憶體來說就像是這樣：
 
 | 辨識符 | 地址        | 該地址所儲存的數值 |
 |:------:|:-----------:|:----------------:|
 | x      | 228BAD56F62 | 1                |
 | y      | 228BAD56F66 | 2                |
 
-但假如想存放非原始類型（Non-primitive type）數值的話，這時候就會出動到 `Heap`。
+所以你那個 `1` 其實是由像是 `228BAD56F62` 這樣的地址而來的。
+
+
+另外在 `Call Stack` 中所存放的數值必須是**原始類型（primitive type）**，如字串（String）、布林值（Boolean）、數字（Number）。
+
+假如想存放非原始類型（Non-primitive type）數值的話，這時候就會出動到 `Heap`。
 
 ## Heap
-`Heap` 一樣都是有可供參考的地址與存放的數值，但它與 `call stack` 的不同就在於其
+`Heap` 一樣都是有可供參考的地址與存放的數值，但它與 `call stack` 的不同就在於其結構鬆散，不像 `call stack` 會隨著執行環境有所變動，因此適合用來存放像是一些具有深度的陣列以及物件：
+
+```js
+var x = {a: 1};
+var y = y;
+```
 
 
 在這個物件變數的執行環境當中，stack 的部分會負責儲存變數 `x` 、變數 `y` 以及 `x` 的值 `1`，而變數 `y` 的值則實際上是紀錄了一段參考到 heap 的指向。
