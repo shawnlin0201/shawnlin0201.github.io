@@ -1,6 +1,6 @@
 ---
 title: JavaScript 深入理解 Garbage Collection 垃圾回收機制
-date: 2000-01-01 00:00:00
+date: 2000-01-01 0:00:00
 tags:
 - [JavaScript]
 - [Memory]
@@ -18,11 +18,43 @@ categories:
 
 那麼在 JavaScript 中的垃圾回收機制又是如何處理呢？
 
-
 <!-- more -->
 
-# Memory 記憶體
-要瞭解垃圾回收機制（Garbage Collection）前，首先第一個要來瞭解記憶體（Memory）是什麼，因為垃圾回收機制中所回收的垃圾正是指**用不到的記憶體**。
+# Memory model
+在 JavaScript 中的記憶體模型（JavaScript Memory Model）主要可分為 `call stack` 、 `heap` 與 `constant pool` 的差別。
+
+## constant pool
+`constant pool` 簡單來說就像是一些常用的 JavaScript key word 會包含在裡面，如 `console` 與底下的方法 `log`。
+
+要如何看到 `constant pool` 可以透過 `node --print-bytecode <file.name>` 去執行並編譯成 bytecode，接著你就可以在裡面找到它的存在。
+
+> Huli 也有一系列的發表在 coderbridge 上的[文章](https://www.coderbridge.com/series/817c07dc8e1c46f2b0a604b3b4e195c1)，裡頭在講解有關於從 bytecode 看各個 JavaScript 關鍵字的各種議題，有興趣的可以看看。
+
+## Call Stack
+在記憶體當中， `Call Stack` 所扮演的角色則是用來供辨識碼（Identifier）存放其路徑參考（address）以及數值，並且數值必須是**原始類型（primitive type）**，如字串（String）、布林值（Boolean）、數字（Number）。
+
+```js
+var x = 1;
+var y = 2;
+```
+
+當我們宣告、操作辨識符時，它就會分配（allocate）一個位於 `Call Stack` 的地址（address）：
+
+| 辨識符 | 地址        | 該地址所儲存的數值 |
+|:------:|:-----------:|:----------------:|
+| x      | 228BAD56F62 | 1                |
+| y      | 228BAD56F66 | 2                |
+
+但假如想存放非原始類型（Non-primitive type）數值的話，這時候就會出動到 `Heap`。
+
+## Heap
+`Heap` 一樣都是有可供參考的地址與存放的數值，但它與 `call stack` 的不同就在於其
+
+
+在這個物件變數的執行環境當中，stack 的部分會負責儲存變數 `x` 、變數 `y` 以及 `x` 的值 `1`，而變數 `y` 的值則實際上是紀錄了一段參考到 heap 的指向。
+
+
+
 
 # 記憶體生命週期
 
@@ -146,7 +178,14 @@ f();
 雖然有這個限制存在，但在實務卻很少發生。這也是幾乎沒有人關心這件事的原因。
 
 # 參考文章
-- [Memory Management MDN](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Memory_Management)
 - [Garbage Collection wiki](https://zh.wikipedia.org/wiki/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6_(%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%B8))
+- [Memory wiki](https://zh.wikipedia.org/zh-tw/%E9%9B%BB%E8%85%A6%E8%A8%98%E6%86%B6%E9%AB%94)
+- [Memory Management MDN](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Memory_Management)
 - [基本算法 mark-and-sweep](https://liujiacai.net/blog/2018/06/15/garbage-collection-intro/#%E5%9F%BA%E6%9C%AC%E7%AE%97%E6%B3%95-mark-and-sweep)
 - [garbage-collection](https://zh.javascript.info/garbage-collection)
+- [JavaScript 内存泄漏教程](http://www.ruanyifeng.com/blog/2017/04/memory-leak.html)
+- [JavaScript 内存机制](https://juejin.im/post/5b10ba336fb9a01e66164346)
+- [How JavaScript works: memory management + how to handle 4 common memory leaks](https://blog.sessionstack.com/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks-3f28b94cfbec)
+- [JavaScript’s Memory Model](https://medium.com/@ethannam/javascripts-memory-model-7c972cd2c239)
+- [JS Demystified 04 — Execution Context](https://codeburst.io/js-demystified-04-execution-context-97dea52c8ac6)
+- [Day00：V8 bytecode 系列文介紹](https://www.coderbridge.com/@aszx87410/a5279d9298ab4e75bf75c75a4f391e78)
