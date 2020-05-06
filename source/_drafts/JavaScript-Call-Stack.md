@@ -1,11 +1,12 @@
 ---
-title: JavaScript 深入理解 Call Stack
+title: JavaScript 深入淺出 Call Stack
 date: 2000-01-01 00:00:00
 tags:
+- [w3HexSchool]
 - [JavaScript]
 categories: 
 - [JavaScript]
-- [JavaScript, 深入理解]
+- [JavaScript, 深入淺出]
 ---
 
 <div style="display:flex;justify-content:center;">

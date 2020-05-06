@@ -1,11 +1,12 @@
 ---
-title: JavaScript 深入理解 Event Loop、Task queue、Mirco task quene
+title: JavaScript 深入淺出 Event Loop、Task queue、Mirco task quene
 date: 2000-01-01 00:00:00
 tags:
+- [w3HexSchool]
 - [JavaScript]
 categories: 
 - [JavaScript]
-- [JavaScript, 深入理解]
+- [JavaScript, 深入淺出]
 ---
 
 <div style="display:flex;justify-content:center;">
