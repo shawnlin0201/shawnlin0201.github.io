@@ -13,8 +13,6 @@ categories:
   <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
 </div>
 
-搞不清楚函式處理先後順序嗎，你需要的是一起來深入理解
-
 呼叫堆疊（Call Stack）！
 
 <!-- more-->
