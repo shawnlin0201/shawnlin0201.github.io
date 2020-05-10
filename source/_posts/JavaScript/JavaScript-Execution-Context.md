@@ -1,6 +1,6 @@
 ---
 title: JavaScript 深入淺出 Execution Content 執行環境
-date: 2000-05-11 00:01:12
+date: 2020-05-11 00:01:12
 tags:
 - [w3HexSchool]
 - [JavaScript]

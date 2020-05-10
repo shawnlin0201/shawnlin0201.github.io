@@ -1,6 +1,6 @@
 ---
-title: JavaScript 深入淺出 Call Stack
-date: 2000-01-01 00:00:00
+title: JavaScript 深入淺出 Execution Context Stack（Call Stack）
+date: 2020-05-18 00:00:00
 tags:
 - [w3HexSchool]
 - [JavaScript]
@@ -13,12 +13,12 @@ categories:
   <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
 </div>
 
-呼叫堆疊（Call Stack）！
+
 
 <!-- more-->
 
-# Call Stack
-呼叫堆疊（Call Stack）顧名思義，其結構是一個堆疊（Stack），而堆疊資料結構特色就是後入先出（LIFO，Last in First out）。
+# Execution Context Stack
+執行環境中的堆疊又稱呼叫堆疊（Call Stack）顧名思義，其資料結構是一個堆疊（Stack），而這種資料結構處理方式就是後入先出（LIFO，Last in First out）。
 
 已 JavaScript 陣列來說就相當於對於一個陣列執行 `push` 塞入一個值後再 `pop` 出去。
 
@@ -34,7 +34,7 @@ console.log(arr) // [1, 2]
 
 而呼叫堆疊（Call Stack）就是透過這樣的機制處理 JavaScript 中的函式呼叫（call function）。
 
-我們每呼叫一次函式也就會將此函式結構放入到呼叫堆疊當中，執行完畢就將其從呼叫堆疊移除。
+我們每呼叫一次函式也就會將此執行環境（Execution Context）放入到呼叫堆疊當中，執行完畢就將其從呼叫堆疊移除。
 
 ```js
 function func1 () {
@@ -50,6 +50,9 @@ console.log('func start')
 func1()
 console.log('func end')
 ```
+
+![Execution-Context-Stack.png.png](/images/JavaScript/Execution-Context-Stack.png)
+
 
 在呼叫堆疊中：
 - 初始化呼叫堆疊
