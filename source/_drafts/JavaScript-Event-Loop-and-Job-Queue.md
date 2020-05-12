@@ -1,6 +1,6 @@
 ---
 title: JavaScript 深入淺出 Event Loop、Job Queue
-date: 2000-01-01 00:00:00
+date: 2020-05-24 00:00:00
 tags:
 - [w3HexSchool]
 - [JavaScript]
@@ -13,13 +13,11 @@ categories:
   <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
 </div>
 
-前面提過當呼叫堆疊（Call stack）處理完時，事情還未結束。
-
-因為有還有一群任務正在等著主程式處理結束才要開始……
-
-> 一群 event 虎 4 眈眈的看著主程式……
+呼叫堆疊（Call stack）在處理只有同步的程式碼時是非常容易理解的，直到遇上了非同步（Asynchronous）……
 
 <!-- more-->
+
+在呼叫堆疊（Call stack）或執行環境堆疊（Execution Context Stack）一文有介紹過程式碼只有同步時的情況，但如果我們需要非同步的時候怎麼辦？
 
 # Event Loop
 事件循環（event loop）是 JavaScript 引擎中的某個循環，那他循環什麼呢？
