@@ -1,5 +1,5 @@
 ---
-title: JavaScript 深入淺出 Event Loop、Task queue、Mirco task quene
+title: JavaScript 深入淺出 Event Loop、Job Queue
 date: 2000-01-01 00:00:00
 tags:
 - [w3HexSchool]
