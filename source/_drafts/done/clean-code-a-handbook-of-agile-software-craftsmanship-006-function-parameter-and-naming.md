@@ -1,6 +1,6 @@
 ---
 title: 重新解構：無瑕的程式碼（Clean Code） Chapter 3 函式－參數與名稱
-date: 2020-06-07 00:00:00
+date: 2000-00-00 00:00:00
 tags:
 - [w3HexSchool]
 - [Book]

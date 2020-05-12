@@ -1,6 +1,6 @@
 ---
 title: TypeScript 環境建置
-date: 2099-01-01 00:00:00
+date: 2000-00-00 00:00:00
 tags:
 - [前端]
 - [TypeScript]

@@ -1,6 +1,6 @@
 ---
 title: 重新解構：無瑕的程式碼（Clean Code） Chapter 2 有意義的命名（上）－命名心法
-date: 2020-05-10 00:00:00
+date: 2000-00-00 00:00:00
 tags:
 - [w3HexSchool]
 - [Book]
