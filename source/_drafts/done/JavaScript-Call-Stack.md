@@ -4,6 +4,8 @@ date: 2020-05-18 00:00:00
 tags:
 - [w3HexSchool]
 - [JavaScript]
+- [Call Stack]
+- [Synchronous]
 categories: 
 - [JavaScript]
 - [JavaScript, 深入淺出]
@@ -39,4 +41,14 @@ console.log('func end')
 
 一進入 JavaScript 前會執行一個主程式函式來包裹。
 
-接著執行 `func1()`
+接著執行 `func1()` 函式，進入 `func1()` 函式後執行 `func2()` 函式。
+
+在執行 `console.log('func2')` 完後，`func2()` 函式會從 stack 中移除。
+
+執行 `console.log('func1')`，`func1()` 函式會從 stack 中移除。
+
+最後整段程式碼都執行完畢時，便把 `main` 也拋出 stack。
+
+這就是 Execution Context Stack（Call Stack）呼叫堆疊的運作方式，也就是為何大家會說 JavaScript 是 **單執行緒（single thread）** 的原因。
+
+但以上的例子都只有同步（synchronous）的情況，如果遇到像是 setTimeout() 等 Web APIs 與需要藉由 Ajax 取得資料的非同步（Asynchronous）情況時，這時候就輪到 Event Loop 與 Job Queue 上場了。
