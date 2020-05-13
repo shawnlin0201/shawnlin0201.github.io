@@ -182,3 +182,7 @@ x();
 
 若能搞懂動態與靜態的差別，並知道 JavaScript 是以靜態作用域的思維下去思考，作用域其實沒你想像中的難！
 
+- [[筆記] JavaScript中Scope Chain和outer environment的概念](https://pjchender.blogspot.com/2015/12/javascriptscope-chainouter-environment.html)
+- [ECMA-262 Javascript核心 譯文](http://notepad.yehyeh.net/Content/WebDesign/Javascript/ECMA/Core/JavaScriptCore.php#section8)
+- [你不可不知的 JavaScript 二三事#Day5：湯姆克魯斯與唐家霸王槍——變數的作用域(Scope) (1)](https://ithelp.ithome.com.tw/articles/10203387)
+- [所有的函式都是閉包：談 JS 中的作用域與 Closure](https://blog.techbridge.cc/2018/12/08/javascript-closure/#scope)
