@@ -1,5 +1,5 @@
 ---
-title: JavaScript 深入淺出 Event Loop、Job Queue
+title: JavaScript 深入淺出 Synchronous & Asynchronous 同步與非同步
 date: 2020-05-24 00:00:00
 tags:
 - [w3HexSchool]
@@ -13,3 +13,7 @@ categories:
   <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
 </div>
 
+- 同步
+- 非同步
+- 阻塞（blocking）
+- 瀏覽器的非同步
