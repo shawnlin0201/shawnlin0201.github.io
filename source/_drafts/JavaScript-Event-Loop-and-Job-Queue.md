@@ -17,9 +17,9 @@ categories:
 
 <!-- more-->
 
-在呼叫堆疊（Call stack）或執行環境堆疊（Execution Context Stack）一文有介紹過程式碼只有同步時的情況，但如果我們需要非同步的時候怎麼辦？
+在呼叫堆疊（Call stack）或執行環境堆疊（Execution Context Stack）一文有介紹過程式碼只有同步時的情況，
 
-> 若不清楚同步（synchronous）與非同步（asynchronous）請詳見同步與非同步一文。
+但如果我們需要非同步的時候怎麼辦？
 
 # Event Loop
 事件循環（event loop）是 JavaScript 引擎中的某個循環，那他循環什麼呢？
