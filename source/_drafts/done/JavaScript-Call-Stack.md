@@ -52,3 +52,6 @@ console.log('func end')
 這就是 Execution Context Stack（Call Stack）呼叫堆疊的運作方式，也就是為何大家會說 JavaScript 是 **單執行緒（single thread）** 的原因。
 
 但以上的例子都只有同步（synchronous）的情況，如果遇到像是 setTimeout() 等 Web APIs 與需要藉由 Ajax 取得資料的非同步（Asynchronous）情況時，這時候就輪到 Event Loop 與 Job Queue 上場了。
+
+# 參考文章
+- [深入理解Javascript之CallStack&EventLoop](https://darjun.github.io/2018/11/23/javascript-callstack-eventloop/)

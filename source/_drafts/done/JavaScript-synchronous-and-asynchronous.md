@@ -135,3 +135,6 @@ console.log('處理主程式中')
 詳見 回呼函式（Callback Function）一文
 詳見 `Promise` 一文
 詳見 `Async` / `Await` 一文
+
+# 參考文章
+- [JavaScript 中的同步與非同步（上）：先成為 callback 大師吧！](https://blog.huli.tw/2019/10/04/javascript-async-sync-and-callback/#sync)

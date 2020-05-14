@@ -13,7 +13,21 @@ categories:
   <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
 </div>
 
+回呼？回調？
+Callback Function 到底 Call 了什麼東西回去？
+就讓我們來瞭解回呼函式到底在做什麼吧！
+
+
+<!-- more -->
+
+# callback function
+回呼函式
+
 - callback function
 - callback hell
 - async callback
 - err first
+
+
+# 參考文章
+- [Callback(回調)](https://eyesofkids.gitbooks.io/javascript-start-from-es6/content/part4/callback.html)
