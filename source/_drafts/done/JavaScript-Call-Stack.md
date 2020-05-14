@@ -37,7 +37,7 @@ console.log('func end')
 
 在呼叫堆疊中看起來就像這樣：
 
-![Execution-Context-Stack.png.png](/images/JavaScript/Execution-Context-Stack.png)
+![Execution-Context-Stack.png](/images/JavaScript/Execution-Context-Stack.png)
 
 一進入 JavaScript 前會執行一個主程式函式來包裹。
 
