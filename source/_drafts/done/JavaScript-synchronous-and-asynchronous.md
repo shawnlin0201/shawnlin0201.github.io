@@ -1,6 +1,6 @@
 ---
 title: JavaScript 深入淺出 Synchronous & Asynchronous 同步與非同步
-date: 2020-06-01 00:00:00
+date: 2020-05-25 00:00:00
 tags:
 - [w3HexSchool]
 - [JavaScript]

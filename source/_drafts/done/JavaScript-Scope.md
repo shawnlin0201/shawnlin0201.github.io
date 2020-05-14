@@ -1,6 +1,6 @@
 ---
 title: JavaScript 深入淺出 Scope
-date: 2020-05-25 00:00:00
+date: 2020-06-08 00:00:00
 tags:
 - [w3HexSchool]
 - [JavaScript]
