@@ -1,6 +1,6 @@
 ---
 title: JavaScript 深入淺出 Execution Context Stack（Call Stack）呼叫堆疊
-date: 2020-05-18 00:00:00
+date: 2020-05-18 13:41:31
 tags:
 - [w3HexSchool]
 - [JavaScript]
@@ -14,9 +14,14 @@ categories:
 <div style="display:flex;justify-content:center;">
   <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
 </div>
+延續上篇執行環境（Execution Context）的內容，接下來要介紹整個 JavaScript 在執行期間（runtime）的運作，也就是 JavaScript 在瀏覽器中是怎麼被執行的。
+
+<!-- more -->
+
+在瀏覽器當中執行 JavaScript 最主要關鍵在於瞭解上次提到的執行環境，以及接下來提到**執行環境的堆疊（Execution Context Stack 或稱 Call Stack）**與**任務循環（Event Loop）機制**。
 
 # Execution Context Stack
-執行環境中的堆疊又稱呼叫堆疊（Call Stack）顧名思義，其資料結構是一個堆疊（Stack），而這種資料結構處理方式就是後入先出（LIFO，Last in First out）。
+每呼叫一次函式就會創立一個執行環境（Execution Context），並且在執行完畢前又有新的執行環境時就會堆疊起來，而這種執行環境中的堆疊又稱呼叫堆疊（Call Stack）顧名思義，其資料結構是一個堆疊（Stack），而這種資料結構處理方式就是後入先出（LIFO，Last in First out）：
 
 例如當我們執行下面程式碼時：
 
