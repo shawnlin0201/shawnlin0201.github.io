@@ -71,9 +71,9 @@ FunctionExecutionContext = {
 }
 ```
 
-> 活化物件（Actication Object）與變數物件（Variable Object）其實只差在多了個 `argument` 參數。
+> 執行物件（Actication Object）與變數物件（Variable Object）其實只差在多了個 `argument` 參數。
 
-我們可以從活化物件（Actication Object）中看到他並沒有 `a` 這個變數，那麼它要去哪裡找呢？
+我們可以從執行物件（Actication Object）中看到他並沒有 `a` 這個變數，那麼它要去哪裡找呢？
 
 # Scope Chain
 範圍鏈、或稱作用鏈（Scope Chain），主要的目的在於當我們在該執行環境中的物件找不到變數時，就會透過作用鏈的機制來尋找。

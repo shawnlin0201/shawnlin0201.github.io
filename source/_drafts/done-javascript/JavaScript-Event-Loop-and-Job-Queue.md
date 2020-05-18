@@ -15,7 +15,7 @@ categories:
 
 要知道 JavaScript 執行期（runtime）究竟在做什麼事情？絕對不能不知呼叫堆疊（Call Stack）、事件循環（Event Loop）及任務隊列（Job Queue）。
 
-前陣子介紹了 JavaScript 執行期間如果只有同步（Synchronous）的程式碼時是非常容易理解的，因為我們只需要理解呼叫堆疊（Call stack）中的執行環境（Execution Context），就能夠透過變數物件（Variable）、活化物件（Activation Object）、作用域鍊（Scope Chain）來理解作用域（Scope）與以及閉包（Closure）等等概念。
+前陣子介紹了 JavaScript 執行期間如果只有同步（Synchronous）的程式碼時是非常容易理解的，因為我們只需要理解呼叫堆疊（Call stack）中的執行環境（Execution Context），就能夠透過變數物件（Variable）、執行物件（Activation Object）、作用域鍊（Scope Chain）來理解作用域（Scope）與以及閉包（Closure）等等概念。
 
 那麼非同步要以什麼方式來理解呢？那就是靠任務循環（Event Loop）以及任務序列（Job Queue）的機制啦！
 
