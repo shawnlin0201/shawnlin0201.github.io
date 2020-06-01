@@ -1,6 +1,6 @@
 ---
 title: JavaScript 深入淺出 Microtasks & Marcotask
-date: 2020-05-24 00:00:00
+date: 2020-06-01 00:09:55
 tags:
 - [w3HexSchool]
 - [JavaScript]
@@ -73,11 +73,11 @@ console.log('end')
 
 ```js
 queueMicrotask(() => {
-  console.log('想非同步的先被執行')
+  console.log('這個回呼回被拋到 Mircotasks 隊列中')
 })
 
 setTimeout(() => {
-  console.log('想非同步的後面才被執行')
+  console.log('這個回呼回被拋到 Marcotasks 隊列中')
 },0)
 ```
 

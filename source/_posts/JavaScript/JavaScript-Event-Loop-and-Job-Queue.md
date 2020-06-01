@@ -1,6 +1,6 @@
 ---
 title: JavaScript 深入淺出 Event Loop、Job Queue
-date: 2020-05-24 00:00:00
+date: 2020-05-28 00:10:00
 tags:
 - [w3HexSchool]
 - [JavaScript]
@@ -32,7 +32,7 @@ categories:
 
 也因此我們可以說任務循環算是實作 JavaScript 非同步機制的一種作法，如果沒有任務循環那麼 JavaScript 就無法做到非同步這件事情。
 
-那麼，我們現在任務循環了，但什麼是任務隊列？
+那麼，我們現在瞭解任務循環了，但什麼是任務隊列？
 
 # Job Queue
 任務隊列（Job Queue）又稱 Event Queue 或 Callback Queue，簡單來說就是各種非同步事件用來排隊的地方；也就意味著，在非同步的概念當中並不是誰比較早寫誰先被執行，而是透過上述所說的各個監視器產生事件後才排入任務隊列的：
@@ -67,7 +67,7 @@ setTimeout(function(){
 - `setTimeout`、`setInterval`：由於 JavaScript 本身沒有計時器，因此執行後會交由瀏覽器的計時器倒數，時間到了才回傳至任務序列（Task Queue）等待任務循環（Event Loop）機制將其傳入主線程。
 以上等等
 
-然而非同步程式區塊如果是 `promise` 的話則又有另一種隊列，我們稱其為 `Mircotask Queue`…
+然而非同步程式區塊如果是 `promise` 的話則又有另一種隊列，我們稱其為 `Mircotask`…
 
-詳見 `Mircotask Queue` 一文
+詳見 `Mircotask` 一文
 
