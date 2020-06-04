@@ -1,5 +1,5 @@
 ---
-title: JavaScript 深入淺出 This （上）預設綁定、隱含綁定與強制綁定
+title: JavaScript 深入淺出 This
 date: 2000-01-01 00:00:00
 tags:
 - [w3HexSchool]
@@ -276,5 +276,75 @@ addX.apply(obj, [1, 2]) // 23
 
 > apply()，第一個參數也是綁定 `this` 的物件，但後續帶入參數是放在一個陣列當中。
 
-以上就是 `this` 上半集啦，
-在下集中我們繼續提剩下沒提到的箭頭函式以及函式建構式的呼叫。
+# 箭頭函式的呼叫
+箭頭函式（arrow function）本身並沒有 `this`，並且會遵循一般變數查找的邏輯來運作，因此在箭頭函式中的 `this` 如同綁定在**函式宣告之處**：
+```js
+function getX(){
+  console.log(this.x) // 20
+
+  setTimeout(function(){
+    console.log(this.x) // 10
+  }, 1000)
+
+  setTimeout(()=>{
+    console.log(this.x) // 20
+  }, 2000)
+}
+
+var x = 10;
+var obj = {
+  x: 20,
+  getX: getX
+}
+
+obj.getX()
+```
+第一個 `setTimeout` 我們在上集已經討論過它是綁定到全域當中，所以最後會撈到 `window.x`。
+
+然而第二個 `setTimeout` 中的回呼函式用了箭頭函式的寫法，因此在即時直譯的過程中在箭頭函式內是找不到 `this` 的，接著他會如同我們在找變數值所參考作用域的情況一樣，向外層作用域去尋找 `this`，最後在 `getX` 作用域找到了當下執行環境中的 `this`，也就是由 `obj.getX()` 所創造出來的 `this`。（如第一個 `console.log` 當下的作用域一樣）
+
+現在我們便知道為何用在箭頭函式中的 `this` 如同綁定在**函式宣告之處**的這個由來了。
+
+## 箭頭函式的呼叫 in 嚴格模式
+箭頭函式中的 `this` 另一個值得一提的就是在嚴格模式下，以往嚴格模式是禁止預設綁定到全域當中，並且會給予 `undefined`：
+
+```js
+'use strict'
+function getX() {
+  console.log(this) 
+}
+
+getX()    // undefined
+```
+
+但如果是使用箭頭函式的話就沒有這個限制：
+
+```js
+'use strict'
+var getX = () => {
+  console.log(this)
+}
+
+getX()    // window
+```
+
+以上就是箭頭函式對於 `this` 的影響，最後再來談談個 `new`。
+
+# new 的綁定
+`new` 關鍵字主要是用來初始化函式建構式，而使用 `new` 的當下，`this` 就會綁定在對應的物件上：
+
+```js
+function Fruit(name) {
+  this.name = name
+  console.log(this)
+}
+
+var apple = new Fruit('apple')    // {name: "apple"}
+var banana = new Fruit('Banana')  // {name: "Banana"}
+
+Fruit('nothing') // window.name => nothing
+```
+
+雖然不是很完整，到這邊為止 `this` 的觀念已經可以解決大部分一般的 `this` 問題了。
+
+>如果還想繼續深究 `this` 的話我只能推這篇[文章](https://github.com/mqyqingfeng/Blog/issues/7)了
