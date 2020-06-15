@@ -1,6 +1,6 @@
 ---
 title: JavaScript 深入淺出 Callback Function 回呼函式
-date: 2020-06-01 00:00:00
+date: 2020-06-15 15:12:13
 tags:
 - [w3HexSchool]
 - [JavaScript]
