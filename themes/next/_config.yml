@@ -222,12 +222,8 @@ links_title: 推薦閱讀
 links_layout: block
 # links_layout: inline
 links:
-  LearnWeb-Taipei 社群: https://www.facebook.com/groups/learnweb.taipei/
+  LearnWeb-Taiwan 社群: https://www.facebook.com/groups/LearnWeb.Taiwan/
   iThelp-ShawnL: https://ithelp.ithome.com.tw/users/20119062
-  iThelp-Kuro: https://ithelp.ithome.com.tw/users/20065504
-  Medium-Huli: https://medium.com/@hulitw
-  Blog-PJChender: https://pjchender.blogspot.com/
-  Blog-Cythilya: https://cythilya.github.io/
 
 # Sidebar Avatar
 avatar:
