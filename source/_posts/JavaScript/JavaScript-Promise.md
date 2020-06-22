@@ -1,6 +1,6 @@
 ---
 title: JavaScript 深入淺出 Promise
-date: 2000-01-01 00:00:00
+date: 2020-06-22 10:07:53
 tags:
 - [w3HexSchool]
 - [JavaScript]
