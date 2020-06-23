@@ -12,3 +12,4 @@ categories:
 <div style="display:flex;justify-content:center;">
   <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
 </div>
+
