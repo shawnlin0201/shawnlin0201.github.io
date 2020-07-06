@@ -1,6 +1,6 @@
 ---
 title: JavaScript 深入淺出 Variable Object & Activation Object
-date: 2000-01-01 00:00:00
+date: 2020-07-06 15:52:59
 tags:
 - [w3HexSchool]
 - [JavaScript]
