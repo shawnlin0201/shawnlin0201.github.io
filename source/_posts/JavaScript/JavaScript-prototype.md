@@ -1,6 +1,6 @@
 ---
 title: JavaScript 深入淺出 prototype
-date: 2000-01-01 00:00:00
+date: 2020-07-27 10:03:14
 tags:
 - [w3HexSchool]
 - [JavaScript]
