@@ -1,6 +1,6 @@
 ---
 title: JavaScript 深入淺出 Automatic Semicolon Insertion 自動插入分號機制
-date: 2000-01-01 00:00:00
+date: 2020-08-24 13:16:12
 tags:
 - [w3HexSchool]
 - [JavaScript]
