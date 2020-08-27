@@ -120,7 +120,6 @@
 {% include custom_head %}
 
 <meta name="google-site-verification" content="42L8oDSDuWZZ5kxxGicokb-58OYtz2Ie_mxDqR5VjZo" />
-<script data-ad-client="ca-pub-5671856325343459" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
 <script>

@@ -1186,3 +1186,11 @@ images: images
 # 文章末端加上感謝收看段落文字
 passage_end_tag:
   enabled: true
+
+# Google AdSense
+google_adsense:
+  enable: true
+  google_ad_client_id: ca-pub-5671856325343459
+  enable_page_level_ads: true
+  siderbar_enable: true
+  siderbar_data_ad_slot: 6653476093

@@ -114,3 +114,11 @@ live2d:
   mobile:
     show: false
 
+# Google AdSense
+google_adsense:
+  enable: true
+  google_ad_client_id: ca-pub-5671856325343459
+  enable_page_level_ads: true
+  siderbar_enable: true
+  siderbar_data_ad_slot: 6653476093
+
