@@ -1,0 +1,76 @@
+<mxfile host="d7017596-25e8-44f9-9d0a-21a485c30c88" modified="2020-08-31T09:31:14.209Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.48.2 Chrome/78.0.3904.130 Electron/7.3.2 Safari/537.36" etag="QS-OuulvZ9hGg6oCxN1e" version="13.1.3">
+    <diagram id="6hGFLwfOUW9BJ-s0fimq" name="Page-1">
+        <mxGraphModel dx="1378" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="700" pageHeight="600" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="&lt;font style=&quot;font-size: 20px&quot;&gt;心智模型&lt;br&gt;Mental Model&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="40" y="350" width="160" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="&lt;font style=&quot;font-size: 20px&quot;&gt;概念模型&lt;br&gt;Mental Model&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="500" y="350" width="160" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;font style=&quot;font-size: 20px&quot;&gt;真實情境&lt;br&gt;Real Condition&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="270" y="50" width="160" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="" style="endArrow=classic;html=1;fontFamily=微軟正黑體;fontSize=24;strokeWidth=4;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="80" y="340" as="sourcePoint"/>
+                        <mxPoint x="280" y="140" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="18" value="" style="endArrow=classic;html=1;fontFamily=微軟正黑體;fontSize=24;strokeWidth=4;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="320" y="140" as="sourcePoint"/>
+                        <mxPoint x="120" y="340" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" value="" style="endArrow=classic;html=1;fontFamily=微軟正黑體;fontSize=24;strokeWidth=4;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="571.42" y="340" as="sourcePoint"/>
+                        <mxPoint x="371.42" y="140" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="20" value="" style="endArrow=classic;html=1;fontFamily=微軟正黑體;fontSize=24;strokeWidth=4;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="411.42" y="140" as="sourcePoint"/>
+                        <mxPoint x="611.42" y="340" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="21" value="" style="endArrow=classic;html=1;fontFamily=微軟正黑體;fontSize=24;strokeWidth=4;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="220" y="370" as="sourcePoint"/>
+                        <mxPoint x="470" y="370" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="23" value="" style="endArrow=classic;html=1;fontFamily=微軟正黑體;fontSize=24;strokeWidth=4;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="470" y="400" as="sourcePoint"/>
+                        <mxPoint x="220" y="400" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="24" value="&lt;font style=&quot;font-size: 14px&quot;&gt;模型概念參考：David Hestenes (2006) Notes for a Modeling Theory of Science, Cognition and Instruction. &lt;i&gt;Proceedings of the 2006 GIREP conference: Modelling in Physics and Physics Education.&lt;/i&gt;&lt;/font&gt;" style="text;whiteSpace=wrap;html=1;fontSize=24;fontFamily=微軟正黑體;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="510" width="660" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="瞭解、與他人溝通" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="248" y="420" width="204" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="知覺、經驗" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="210" y="250" width="130" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="行為" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="90" y="210" width="78.58" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="描述" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="389.28999999999996" y="250" width="78.58" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="解釋" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="530" y="210" width="78.58" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="創造、向他人學習" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="234.99999999999997" y="330" width="229.29" height="20" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
