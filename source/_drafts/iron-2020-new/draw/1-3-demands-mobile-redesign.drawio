@@ -1,0 +1,169 @@
+<mxfile host="9896ee9b-9481-4266-8c91-55f4c9e61764" modified="2020-09-04T07:08:19.990Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.48.2 Chrome/78.0.3904.130 Electron/7.3.2 Safari/537.36" etag="_MXTKjlplosgPz60y8YT" version="13.1.3">
+    <diagram id="6hGFLwfOUW9BJ-s0fimq" name="Page-1">
+        <mxGraphModel dx="507" dy="233" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="500" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="72" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=3;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="20" width="254.94" height="460" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Google Map&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="80" width="230" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Header (Fixed)&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="20" width="254.94" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="66" value="&lt;span style=&quot;font-size: 20px&quot;&gt;A. Map Info&amp;nbsp;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="280" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="78" value="&lt;span style=&quot;font-size: 20px&quot;&gt;B. Map Info&amp;nbsp;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="320" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="79" value="&lt;span style=&quot;font-size: 20px&quot;&gt;C. Map Info&amp;nbsp;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="360" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Footer (Fixed)&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="430" width="254.94" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="93" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=4;" vertex="1" parent="1">
+                    <mxGeometry x="152.47" y="410" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=4;fillColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="410" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="95" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=4;" vertex="1" parent="1">
+                    <mxGeometry x="172.47" y="410" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="96" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=3;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="323" y="20" width="254.94" height="460" as="geometry"/>
+                </mxCell>
+                <mxCell id="97" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Google Map&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="333" y="80" width="230" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="98" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Header (Fixed)&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="323" y="20" width="254.94" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="99" value="&lt;span style=&quot;font-size: 20px&quot;&gt;A. Map Info&amp;nbsp;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="333" y="280" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="100" value="&lt;span style=&quot;font-size: 20px&quot;&gt;B. Map Info&amp;nbsp;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="333" y="320" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="101" value="&lt;span style=&quot;font-size: 20px&quot;&gt;C. Map Info&amp;nbsp;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="333" y="360" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="103" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=4;" vertex="1" parent="1">
+                    <mxGeometry x="445.47" y="410" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="104" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=4;fillColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="423" y="410" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="105" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=4;" vertex="1" parent="1">
+                    <mxGeometry x="465.47" y="410" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="106" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=3;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="610" y="20" width="254.94" height="460" as="geometry"/>
+                </mxCell>
+                <mxCell id="107" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Google Map&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="620" y="80" width="230" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="108" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Header (Fixed)&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="610" y="20" width="254.94" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="109" value="&lt;span style=&quot;font-size: 20px&quot;&gt;A. Map Info&amp;nbsp;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="620" y="280" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="110" value="&lt;span style=&quot;font-size: 20px&quot;&gt;B. Map Info&amp;nbsp;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="620" y="320" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="111" value="&lt;span style=&quot;font-size: 20px&quot;&gt;C. Map Info&amp;nbsp;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="620" y="360" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="116" value="&lt;span style=&quot;font-size: 20px&quot;&gt;D. Map Info&amp;nbsp;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="333" y="400" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="102" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Footer (Fixed)&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="323" y="430" width="254.94" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="117" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Tab&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;arcSize=7;" vertex="1" parent="1">
+                    <mxGeometry x="333" y="240" width="67" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="121" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Tab&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;arcSize=7;" vertex="1" parent="1">
+                    <mxGeometry x="398.47" y="240" width="67" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="122" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Tab&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;arcSize=7;" vertex="1" parent="1">
+                    <mxGeometry x="465.47" y="240" width="67" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="123" value="&lt;span style=&quot;font-size: 20px&quot;&gt;&amp;nbsp;Ta&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=right;arcSize=7;" vertex="1" parent="1">
+                    <mxGeometry x="532.47" y="240" width="45" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="125" value="&lt;span style=&quot;font-size: 20px&quot;&gt;D. Map Info&amp;nbsp;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="620" y="400" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="112" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Footer (Fixed)&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="610" y="430" width="254.94" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="128" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=3;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="900" y="20" width="254.94" height="460" as="geometry"/>
+                </mxCell>
+                <mxCell id="129" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Google Map&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="910" y="80" width="230" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="130" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Header (Fixed)&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="900" y="20" width="254.94" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="131" value="&lt;span style=&quot;font-size: 20px&quot;&gt;A. Map Info&amp;nbsp;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="910" y="280" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="132" value="&lt;span style=&quot;font-size: 20px&quot;&gt;B. Map Info&amp;nbsp;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="910" y="320" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="133" value="&lt;span style=&quot;font-size: 20px&quot;&gt;C. Map Info&amp;nbsp;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="910" y="360" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="134" value="&lt;span style=&quot;font-size: 20px&quot;&gt;D. Map Info&amp;nbsp;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="910" y="400" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="135" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Footer (Fixed)&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="900" y="430" width="254.94" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="136" value="" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;verticalAlign=top;" vertex="1" parent="1">
+                    <mxGeometry x="1000" y="20" width="154.94" height="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="138" value="&lt;span style=&quot;font-size: 20px&quot;&gt;More&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;rotation=90;align=center;verticalAlign=bottom;" vertex="1" parent="1">
+                    <mxGeometry x="784.56" y="162.5" width="134.94" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="139" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Filter&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-size: 20px&quot;&gt;Tab&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;verticalAlign=top;" vertex="1" parent="1">
+                    <mxGeometry x="1000" y="60" width="154.94" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="141" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Filter&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-size: 20px&quot;&gt;Tab&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;verticalAlign=top;" vertex="1" parent="1">
+                    <mxGeometry x="1000" y="100" width="154.94" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="142" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Filter&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-size: 20px&quot;&gt;Tab&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;verticalAlign=top;" vertex="1" parent="1">
+                    <mxGeometry x="1000" y="140" width="154.94" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="143" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Filter&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-size: 20px&quot;&gt;Tab&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;verticalAlign=top;" vertex="1" parent="1">
+                    <mxGeometry x="1000" y="180" width="154.94" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="144" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Filter&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-size: 20px&quot;&gt;Tab&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;verticalAlign=top;" vertex="1" parent="1">
+                    <mxGeometry x="1000" y="220" width="154.94" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="145" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Filter&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-size: 20px&quot;&gt;Tab&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;verticalAlign=top;" vertex="1" parent="1">
+                    <mxGeometry x="1000" y="260" width="154.94" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="147" value="" style="triangle;whiteSpace=wrap;html=1;rounded=1;strokeWidth=2;fillColor=none;align=center;rotation=-180;arcSize=0;" vertex="1" parent="1">
+                    <mxGeometry x="846.4" y="122.5" width="11.25" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="150" value="&lt;span style=&quot;font-size: 20px&quot;&gt;More&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;rotation=90;align=center;verticalAlign=bottom;" vertex="1" parent="1">
+                    <mxGeometry x="919.5" y="162.5" width="134.94" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="151" value="" style="triangle;whiteSpace=wrap;html=1;rounded=1;strokeWidth=2;fillColor=none;align=center;rotation=0;arcSize=0;" vertex="1" parent="1">
+                    <mxGeometry x="981.3399999999999" y="122.5" width="11.25" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="152" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Filter Tab&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;verticalAlign=top;" vertex="1" parent="1">
+                    <mxGeometry x="1000" y="20" width="154.94" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
