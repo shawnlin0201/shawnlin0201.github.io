@@ -1,6 +1,6 @@
 ---
 title: JavaScript 深入淺出 Arrow Function 箭頭函式
-date: 2000-01-01 00:00:00
+date: 2020-09-07 19:03:56
 tags:
 - [w3HexSchool]
 - [JavaScript]
