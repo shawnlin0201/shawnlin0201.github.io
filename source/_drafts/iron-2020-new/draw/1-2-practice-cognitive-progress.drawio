@@ -1,0 +1,108 @@
+<mxfile host="45a4c249-fbc5-4d8f-a78d-8b19ddaaca0f" modified="2020-09-07T03:49:40.313Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.48.2 Chrome/78.0.3904.130 Electron/7.3.2 Safari/537.36" etag="WDc0GGXit5edCSIwnGeO" version="13.1.3">
+    <diagram id="6hGFLwfOUW9BJ-s0fimq" name="Page-1">
+        <mxGraphModel dx="1646" dy="824" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="500" pageHeight="700" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="62" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=4;" edge="1" parent="1" source="5" target="61">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;span style=&quot;font-size: 20px&quot;&gt;回家&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="360" y="295" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=4;" edge="1" parent="1" source="32" target="33">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="&lt;span style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;開始&lt;/b&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=1;" vertex="1" parent="1">
+                    <mxGeometry x="220" y="10" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeWidth=4;" edge="1" parent="1" source="33" target="35">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="280" y="230"/>
+                            <mxPoint x="140" y="230"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=4;" edge="1" parent="1" source="33" target="5">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="280" y="230"/>
+                            <mxPoint x="420" y="230"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="33" value="&lt;span style=&quot;font-size: 20px ; font-weight: 700&quot;&gt;肚子餓嗎&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;rounded=0;strokeWidth=1;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="110" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=4;" edge="1" parent="1" source="35" target="5">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=4;" edge="1" parent="1" source="35" target="45">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="&lt;span style=&quot;font-size: 20px ; font-weight: 700&quot;&gt;身上有錢嗎&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;rounded=0;strokeWidth=1;" vertex="1" parent="1">
+                    <mxGeometry x="60" y="280" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="&lt;b style=&quot;font-family: &amp;#34;helvetica&amp;#34; ; font-size: 20px&quot;&gt;餓&lt;/b&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="120" y="190" width="130" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="&lt;b style=&quot;font-family: &amp;#34;helvetica&amp;#34; ; font-size: 20px&quot;&gt;不餓&lt;/b&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="190" width="130" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="43" value="&lt;b style=&quot;font-family: &amp;#34;helvetica&amp;#34; ; font-size: 20px&quot;&gt;沒有&lt;/b&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="280" width="130" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=4;" edge="1" parent="1" source="45" target="5">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="320" y="450"/>
+                            <mxPoint x="320" y="320"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="55" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=4;" edge="1" parent="1" source="45" target="54">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="45" value="&lt;span style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;層架上有&lt;br&gt;想吃的嗎&lt;/b&gt;&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;rounded=0;strokeWidth=1;" vertex="1" parent="1">
+                    <mxGeometry x="60" y="410" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" value="&lt;b style=&quot;font-family: &amp;#34;helvetica&amp;#34; ; font-size: 20px&quot;&gt;沒有&lt;/b&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="200" y="410" width="130" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="&lt;font face=&quot;helvetica&quot;&gt;&lt;span style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;有&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="360" width="130" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="&lt;font face=&quot;helvetica&quot;&gt;&lt;span style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;有&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="490" width="130" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=4;" edge="1" parent="1" source="54" target="57">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" value="&lt;span style=&quot;font-size: 20px&quot;&gt;排隊結帳&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="80" y="540" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=4;" edge="1" parent="1" source="57" target="33">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="20" y="665"/>
+                            <mxPoint x="20" y="150"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="57" value="&lt;span style=&quot;font-size: 20px&quot;&gt;吃下食物&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="80" y="640" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" value="&lt;span style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;結束&lt;/b&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=1;" vertex="1" parent="1">
+                    <mxGeometry x="360" y="400" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeWidth=4;" edge="1" parent="1" source="51" target="51">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" value="&lt;font face=&quot;helvetica&quot;&gt;&lt;span style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;稍微休息&lt;br&gt;五分鐘&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="30" y="80" width="130" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
