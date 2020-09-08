@@ -1,6 +1,6 @@
-<mxfile host="8b7c7c46-78be-4442-b829-d12eedf18650" modified="2020-09-06T12:58:34.005Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.48.2 Chrome/78.0.3904.130 Electron/7.3.2 Safari/537.36" etag="pLk2EHLP8AJ1E47-EgvE" version="13.1.3">
+<mxfile host="0e71c28f-ca3a-4f04-a1a6-af2431b7efcc" modified="2020-09-08T03:12:03.150Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.48.2 Chrome/78.0.3904.130 Electron/7.3.2 Safari/537.36" etag="4IxqCdFFv5tZktgSpyKa" version="13.1.3">
     <diagram id="6hGFLwfOUW9BJ-s0fimq" name="Page-1">
-        <mxGraphModel dx="1059" dy="572" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="700" pageHeight="550" math="0" shadow="0">
+        <mxGraphModel dx="1399" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="700" pageHeight="550" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -10,7 +10,7 @@
                 <mxCell id="4" value="&lt;font style=&quot;font-size: 20px&quot;&gt;概念模型&lt;br&gt;Conceptual Model&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" parent="1" vertex="1">
                     <mxGeometry x="500" y="350" width="190" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="5" value="&lt;font style=&quot;font-size: 20px&quot;&gt;真實情境&lt;br&gt;Real Things&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" parent="1" vertex="1">
+                <mxCell id="5" value="&lt;font style=&quot;font-size: 20px&quot;&gt;真實環境&lt;br&gt;Environment&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" parent="1" vertex="1">
                     <mxGeometry x="270" y="50" width="160" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="17" value="" style="endArrow=classic;html=1;fontFamily=微軟正黑體;fontSize=24;strokeWidth=4;" parent="1" edge="1">
@@ -49,7 +49,7 @@
                         <mxPoint x="220" y="400" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="24" value="&lt;font style=&quot;font-size: 14px&quot;&gt;參考：David Hestenes (2006) Notes for a Modeling Theory of Science, Cognition and Instruction. &lt;i&gt;Proceedings of the 2006 GIREP conference: Modelling in Physics and Physics Education.&lt;/i&gt;&lt;/font&gt;" style="text;whiteSpace=wrap;html=1;fontSize=24;fontFamily=微軟正黑體;" parent="1" vertex="1">
+                <mxCell id="24" value="&lt;font style=&quot;font-size: 14px&quot;&gt;參考修改自：David Hestenes (2006) Notes for a Modeling Theory of Science, Cognition and Instruction. &lt;i&gt;Proceedings of the 2006 GIREP conference: Modelling in Physics and Physics Education.&lt;/i&gt;&lt;/font&gt;" style="text;whiteSpace=wrap;html=1;fontSize=24;fontFamily=微軟正黑體;" parent="1" vertex="1">
                     <mxGeometry x="30" y="470" width="660" as="geometry"/>
                 </mxCell>
                 <mxCell id="26" value="瞭解、與他人溝通" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=微軟正黑體;fontSize=24;fontStyle=1" parent="1" vertex="1">
