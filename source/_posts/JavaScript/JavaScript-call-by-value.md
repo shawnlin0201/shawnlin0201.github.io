@@ -21,6 +21,8 @@ https://blog.techbridge.cc/2018/06/23/javascript-call-by-value-or-reference/
 
 我覺得 call by value(address) 的解釋法應該是最接近且一致的心理模型了，來分享一下我對 JavaScript 中賦值、存取與修改的看法。
 
+<!-- more -->
+
 我預設的心理模型：
 1. 識別字（identity）存取資料時是靠記憶體地址，並不是值本身。
 2. 重新賦值時（reassign），無論資料型別，一率另開一個記憶體地址放入該值，並儲存該記憶體地址。
