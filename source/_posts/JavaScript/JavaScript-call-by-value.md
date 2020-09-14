@@ -1,6 +1,6 @@
 ---
 title: JavaScript 深入淺出 call by value（call by address）
-date: 2000-01-01 00:00:00
+date: 2020-09-14 10:00:52
 tags:
 - [w3HexSchool]
 - [JavaScript]
