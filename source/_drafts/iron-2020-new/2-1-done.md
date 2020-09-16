@@ -81,6 +81,7 @@ alert('Hello, JavaScript!');
 > - [Jointjs-javascript-ast](https://resources.jointjs.com/demos/javascript-ast)
 
 ## 建立模型時間
+目標：瞭解 JavaScript 的意義與程式碼大概是如何被執行的。
 
 ### 整理重點：
 
@@ -89,11 +90,8 @@ alert('Hello, JavaScript!');
 - 不同的瀏覽器中的 JavaScript 引擎並不一定相同，其實作上也會有些差異。
 - ECMAScript 是基於 ECMA-262 規範所形成的定義範本，基本上照這規格開發理應遵守的瀏覽器都能正常運作。
 
-### 給有經驗的開發者的延伸閱讀：
-
-- [用簡單範例入門 V8 bytecode](https://www.coderbridge.com/series/817c07dc8e1c46f2b0a604b3b4e195c1)
-
 ### 認知模型樹狀圖參考：
+請試著透過這張樹狀圖或你自製的圖表回想這章節的概念：
 - JavaScript
   - 用途
   - 執行/編譯
