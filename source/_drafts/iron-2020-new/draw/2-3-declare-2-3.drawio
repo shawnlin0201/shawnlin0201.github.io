@@ -1,0 +1,19 @@
+<mxfile host="acb3e382-3db5-4aa2-9704-f4c0ea639eae" modified="2020-09-19T07:43:52.646Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.48.2 Chrome/78.0.3904.130 Electron/7.3.2 Safari/537.36" etag="B7HYOR1BYMblH6IK0amd" version="13.1.3">
+    <diagram id="6hGFLwfOUW9BJ-s0fimq" name="Page-1">
+        <mxGraphModel dx="426" dy="792" grid="1" gridSize="10" guides="0" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="500" pageHeight="150" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="101" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;strokeWidth=3;" parent="1" source="99" target="100" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="99" value="&lt;table cellpadding=&quot;4&quot; cellspacing=&quot;0&quot; style=&quot;width: 100% ; height: 100% ; border: 1px solid rgb(0 , 0 , 0) ; border-collapse: collapse ; font-size: 14px ; background-color: rgb(255 , 255 , 255)&quot; border=&quot;1&quot;&gt;&lt;tbody&gt;&lt;tr style=&quot;line-height: 90%&quot;&gt;&lt;th&gt;&lt;font style=&quot;font-size: 16px&quot; color=&quot;#000000&quot;&gt;識別字&lt;/font&gt;&lt;/th&gt;&lt;th&gt;&lt;font style=&quot;font-size: 16px&quot; color=&quot;#000000&quot;&gt;記憶體地址&lt;/font&gt;&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;font style=&quot;font-size: 14px&quot; color=&quot;#000000&quot;&gt;boxA&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font style=&quot;font-size: 14px&quot; color=&quot;#000000&quot;&gt;0x00&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;font color=&quot;#000000&quot; style=&quot;font-size: 14px&quot;&gt;&lt;span&gt;boxB&lt;/span&gt;&lt;br&gt;&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font color=&quot;#000000&quot; style=&quot;font-size: 14px&quot;&gt;0x01&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt; " style="verticalAlign=top;align=left;overflow=fill;fontSize=15;fontFamily=正黑體;html=1;strokeWidth=3;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="30" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="100" value="&lt;table cellpadding=&quot;4&quot; cellspacing=&quot;0&quot; style=&quot;width: 100% ; height: 100% ; border: 1px solid rgb(0 , 0 , 0) ; border-collapse: collapse ; background-color: rgb(255 , 255 , 255) ; font-size: 14px&quot; border=&quot;1&quot;&gt;&lt;tbody style=&quot;font-size: 16px&quot;&gt;&lt;tr style=&quot;line-height: 90%&quot;&gt;&lt;th&gt;&lt;span&gt;&lt;font style=&quot;font-size: 16px&quot;&gt;記憶體地址&lt;br&gt;&lt;/font&gt;&lt;/span&gt;&lt;/th&gt;&lt;th&gt;&lt;span&gt;&lt;font style=&quot;font-size: 16px&quot;&gt;值&lt;/font&gt;&lt;/span&gt;&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;span&gt;&lt;font style=&quot;font-size: 14px&quot;&gt;0x00&lt;br&gt;&lt;/font&gt;&lt;/span&gt;&lt;/td&gt;&lt;td&gt;&lt;font style=&quot;font-size: 14px&quot;&gt;1&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;font style=&quot;font-size: 14px&quot;&gt;0x01&lt;/font&gt;&lt;/td&gt;&lt;td&gt;&lt;font style=&quot;font-size: 14px&quot;&gt;{}&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt; " style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=正黑體;html=1;strokeWidth=3;fillColor=none;strokeColor=none;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="280" y="30" width="180" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
