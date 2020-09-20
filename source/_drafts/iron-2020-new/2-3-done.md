@@ -37,6 +37,8 @@ tags: 《透過認知模型認識 JavaScript》
 - [物件](https://www.w3schools.com/js/js_objects.asp)
 - [陣列](https://www.w3schools.com/js/js_arrays.asp)、[陣列方法](https://www.w3schools.com/js/js_array_methods.asp)、[陣列排序](https://www.w3schools.com/js/js_array_sort.asp)、[陣列疊代](https://www.w3schools.com/js/js_array_iteration.asp)
 
+---
+
 ## 原始型別與非原始型別的差異
 
 > 字串、數字、物件這些原本不就是資料類別了嗎？為何還要區分出兩種大的類型？
@@ -113,7 +115,9 @@ console.log(boxB) // ???
 
 現在 `boxA` 與 `boxB` 都指向了 `0x01`，所以當程式執行到最後一行 `console.log(boxA)` 時，所找到的值自然為 `0x01` 中的 `{}`。
 
-### 比較賦值的不同情況
+---
+
+## 比較賦值的不同情況
 我們將前面「變數章節」提過的內容與這章節的情形比較一下：
 
 > 第一種情形：若將值直接賦值給變數時，不論資料型別為何，都會指向到新的記憶體。
@@ -157,7 +161,9 @@ console.log(boxB);
 console.log(boxC);
 ```
 
-### 賦值與修改物件的差別
+---
+
+## 賦值與修改物件的差別
 
 上面提到了賦值的三種情況，接下來我們來試著理解賦值與修改物件之間的差別。
 
@@ -215,6 +221,8 @@ console.log(boxC); // ???
 若你可以順利的解釋過程與結果，那麼表示你已經瞭解資料型別對於賦值上的影響了！
 
 若還是有遇到問題的話，不彷透過繪製記憶體圖表來觀察是否再哪個步驟上理解時遇到困難！
+
+---
 
 ## 建立模型時間
 目標：
