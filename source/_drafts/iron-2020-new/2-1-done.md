@@ -5,7 +5,8 @@ tags: 《透過認知模型認識 JavaScript》
 
 # 程式碼
 
-![](https://i.imgur.com/aFwSH80.png)
+![](https://i.imgur.com/ouTkIVU.jpg)
+>ㄑ
 
 你有沒有曾經思考過當你撰寫完 JavaScript 檔案時，為什麼瀏覽器「看」得懂你寫的程式呢？
 
@@ -101,4 +102,4 @@ alert('Hello, JavaScript!');
   - 瀏覽器
     - JavaScript 引擎
 
-在理解完 JavaScript 基本的執行過程後，接下來我們要開始學一些基本語法，再來放到瀏覽器上一一執行！
+在理解完 JavaScript 基本的執行過程後，接下來我們要開始學一些語法，來放到瀏覽器上執行！
