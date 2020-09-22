@@ -21,6 +21,10 @@ tags: 《透過認知模型認識 JavaScript》
 
 ---
 
+> 為了能夠更輕易瞭解變數的存取接下來的記憶體模型有經過簡化。
+> 
+> 想瞭解經由引擎處理過後的 Bytecode 是如何處理的可參考：[從變數看 bytecode](https://www.coderbridge.com/@aszx87410/de0143ab98ca495a8903519525d60a85) 一文。
+
 ## 宣告變數
 
 在 JavaScript 中，我們可以透過 `var` 關鍵字來宣告一個變數：
@@ -181,5 +185,3 @@ var PI = 3.1415926;
     - 命名
       - 規範
       - 風格
-
-> 為了能夠更輕易瞭解變數的存取上述的記憶體模型有經過簡化，想瞭解經由引擎處理過後的 Bytecode 是如何處理的可參考：[從變數看 bytecode](https://www.coderbridge.com/@aszx87410/de0143ab98ca495a8903519525d60a85) 一文。
