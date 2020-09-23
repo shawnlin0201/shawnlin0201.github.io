@@ -5,8 +5,8 @@ tags: 《透過認知模型認識 JavaScript》
 
 # 資料種類（data type）
 
-![](https://i.imgur.com/zNJueBL.png)
-![](https://i.imgur.com/fEx2YXe.jpg)
+![](https://i.imgur.com/hRa7cyM.jpg)
+> cover picture sponsor: [gleammming.art](https://www.instagram.com/gleammming.art/?hl=zh-tw)
 
 ---
 
