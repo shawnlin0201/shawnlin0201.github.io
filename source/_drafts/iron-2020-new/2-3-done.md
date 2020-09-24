@@ -3,18 +3,30 @@ title: 【事前準備】2-3 資料型別（data types）
 tags: 《透過認知模型認識 JavaScript》
 ---
 
-# 資料種類（data type）
+# 資料型別（data type）
 
 ![](https://i.imgur.com/hRa7cyM.jpg)
 > cover picture sponsor: [gleammming.art](https://www.instagram.com/gleammming.art/?hl=zh-tw)
 
+在變數（variable）的章節，我們已經學習怎麼宣告變數並且存取變數裡面的值，眼尖的你或許會發現賦予變數的值中有數字、文字……等等不同的資料類型，而這些不同的類型我們稱呼他為資料型別（data types）。
+
 ---
 
-在變數（variable）的章節，我們已經學習怎麼宣告變數並且存取變數裡面的值，眼尖的你或許會發現裡面的數值有數字、文字……等等不同的類型，而這些不同的類型我們稱呼他為資料型別（data types）。
+> 你有發現上章節中的變數中我們曾經賦值過 `Gorilla!` 這串文字嗎？
+
+在認知心理學中的注意力（attention）研究領域裡，普遍認為是注意力是有 **選擇性** 的，而其中一個著名的實驗叫做 **看不見的大猩猩實驗（Invisible Gorilla Test）**。
+
+在大猩猩實驗中，受試者被要求觀看一則僅只有一分多鐘的 [短片](https://www.youtube.com/watch?v=vJG698U2Mvo&feature=youtu.be)，並被要求數出影片中白衣男子傳球的次數。
+
+而經由 Simons、Chabris（1999）實驗指出有半數的受試者沒有發現影片中出現了一個身穿大猩猩服裝的演員，而那隻猩猩甚至在短片中長達 9 秒多中的停留時間。
+
+後來 Simons 稱這種現象為 **不注意視盲（Inattensional blindness）**，意思即為當我們注意力放在其他焦點上時，其他的細節的部份可能會被我們省略。所以當你在專注於 `var`、`=`，`;` 這些符號與記憶體地址上的概念時，你很有可能就會忽略掉 `Gorilla!` 這串文字。
+
+而透過這個研究結果我想傳達的想法是，以往你閱讀程式時可能已經熟稔於它的 **執行結果**，但從這章節中開始到第二章節結束前，你不僅得要將注意力放在這些「符號」的樣子，還要停下來幾秒鐘的時間，試著揣摩這些「細節」對於電腦來說到底意味著什麼。
 
 ## 原始型別、非原始型別
 
-在 JavaScript 當中，資料型別主要可以分為 **原始類別** 以及 **非原始類別**：
+在 JavaScript 當中，資料型別主要可以分為 **原始型別** 以及 **非原始型別**：
 
 原始型別（primitive types）
 - 字串（String）：使用單引號 `''` 、雙引號 `""` 所包起的文字內容。
@@ -211,7 +223,7 @@ var boxB = {'origin': 'B'};
 var boxC = boxA;
 
 boxA = boxB;
-boxB = {'origin': 'B+'}
+boxB = {'origin': 'changeViaB'}
 
 console.log(boxA); // ???
 console.log(boxB); // ???
