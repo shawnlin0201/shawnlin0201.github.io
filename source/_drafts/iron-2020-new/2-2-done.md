@@ -1,5 +1,5 @@
 ---
-title: 【事前準備】2-2 變數（Variable）的含意與記憶體（Memory）
+title: 【建立模型】2-2 變數（Variable）的含意與記憶體（Memory）
 tags: 《透過認知模型認識 JavaScript》
 ---
 

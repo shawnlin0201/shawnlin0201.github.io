@@ -1,5 +1,5 @@
 ---
-title: 【事前準備】2-3 資料型別（data types）
+title: 【建立模型】2-3 資料型別（data types）
 tags: 《透過認知模型認識 JavaScript》
 ---
 
