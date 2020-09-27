@@ -1,5 +1,5 @@
 ---
-title: 【建立模型】2-5 流程與策略：敘述句（statement）上集
+title: 【建立模型】2-5 流程與計算：敘述句（statement）上集
 tags: 《透過認知模型認識 JavaScript》
 ---
 
