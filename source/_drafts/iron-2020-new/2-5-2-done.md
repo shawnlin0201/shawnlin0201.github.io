@@ -30,30 +30,27 @@ if (運算式) {
 對於 `var` 來說，這個區塊語法並不影響到他的作用域（scope），也就是說使用 `var` 所宣告的變數如同在該區塊外面宣告變數一樣：
 
 ```js
-var text = 'global value'
-
 {
-    var text = 'block value'
-    console.log('text', text) // 'block value'
+    var text = 'Hello, JavaScript!'
+    console.log('text', text) // 'Hello, JavaScript!'
 }
 
-console.log('text', text) // 'block value'
+console.log('text', text) // 'Hello, JavaScript!'
+}
 ```
 
-> #### 延伸閱讀：`let`、`const` 與區塊語法
-> 對於 `let` 以及 `const` 來說，它們如同 `var` 一樣是宣告敘述句，但差別在於他們限定於當下 **區塊敘述句以內** 的範圍：
-> 
-> ```js
-> let text = 'global value'
-> 
-> {
->     let text = 'block value'
->     console.log('text', text) // 'block value'
-> }
-> 
-> console.log('text', text) // 'global value'
-> ```
-> 
+然而，當你今天是使用 `let` 或 `const` 來宣告的話，他們則會限定於當下 **區塊敘述句以內** 的範圍：
+
+```js
+{
+    let text = 'Hello, JavaScript!'
+    console.log('text', text) // 'Hello, JavaScript!'
+}
+
+console.log('text', text) // Error: text is not defined
+}
+```
+
 
 其他關於作用域更詳細的內容我將會在第四章中提及！這裡最主要的用意是讓你知道區塊對於部分的敘述句來說是有其意義的！
 
