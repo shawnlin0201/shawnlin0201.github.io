@@ -1,0 +1,286 @@
+---
+title: 【建立模型】2-6 流程與計算：函式（function）
+tags: 《透過認知模型認識 JavaScript》
+---
+
+# 認知歷程
+
+![](https://i.imgur.com/pN7BSrQ.jpg)
+> cover picture sponsor: [gleammming.art](https://www.instagram.com/gleammming.art/?hl=zh-tw)
+
+「人類是如何知覺現實生活中的複雜形體呢？」
+
+對於這個問題，許多認知學者對此爭論不休，紛紛提出不同的想法與研究來試圖證明人類究竟是怎麼看待的。
+
+其中，有一派人認為人類是從較為低階的特徵，經由 **由下而上的認知歷程（Bottom-Up Processing）** 來組織複雜物體。
+
+例如在 1987 年，Biederman 提出了一套 **元件識別理論（recognition-by component theory）** 來解釋，他主張人類大約可以透過僅僅約 36 種幾何子（geon，如正方體、三角體、手把等等立體形狀），就可以組裝成現實生活中的各種物品；好比馬克杯即為一個圓柱體與一個手把的結合。
+
+相對於前者來說，另一派學者們則認為人類是透過 **由上而下的認知歷程（top-down processing）** 來處理複雜形體，這群學者主張了人類主要是透過 **脈絡效應（context effects）** 來協助辨識物體，強調當下情境所提供的資訊更勝過物品本身單獨的解析。
+
+例如當你開車在大馬路上，如果旁邊突然立起了一根三角形的紅邊牌子，上面如果出現數字的話我們會認為這是一個在提醒限制速度的警告標誌。
+
+綜合地來說，有學者認為這兩個認知歷程並不是互斥而是互補的概念，認為人類會在不同的情境下自動採用最適當的認知歷程來解析內容。而當我們在開發程式的過程時，同樣也會遇到認知歷程的相關概念……
+
+---
+
+# 函式 function 
+
+想要透過程式碼來表達邏輯概念時，我們除了使用敘述句來表示我們的邏輯流程之外，還能藉由變數名稱來加強我們的意圖：
+
+```js
+var catsInfo = [{
+	name: 'Orange',
+	type: 'Orange Tabby',
+	age: 3
+},{
+	name: 'Black',
+	type: 'Black',
+	age: 5
+}]
+
+var intro = 'There are ' + catsInfo.length +' cats.'
+
+for(var i = 0; i < catsInfo.length; i++) {
+	intro += '\nOne of them is the '+ catsInfo[i].type +' cat, it is '+ catsInfo[i].age +' years old.'
+}
+
+console.log(intro)
+// There are 2 cats.
+// One of them is the Orange Tabby cat, it is 3 years old.
+// One of them is the Black cat, it is 5 years old.
+```
+
+## 函式宣告 function declaration
+
+然而當我們所開發的功能越趨複雜時，如果仍只使用這樣子的方式來定義我們所有的程式碼，這些邏輯不僅會到處穿插、甚至還出現許多重複的程式碼，並且在修改上也是非常不方便，此時我們便可以透過 **函式（function）** 來重構程式碼。
+
+最簡單的方式便是透過 **函式宣告（function declaration）** 來定義該段程式碼所做的事情，並使用 `函式名稱()` 來執行其定義的區塊程式碼內容：
+
+```js
+var catsInfo = [{
+	name: 'Orange',
+	type: 'Orange Tabby',
+	age: 3
+},{
+	name: 'Black',
+	type: 'Black',
+	age: 5
+}]
+
+function introCatsInfo() {
+	var intro = 'There are ' + catsInfo.length +' cats.'
+
+	for(var i = 0; i < catsInfo.length; i++) {
+		intro += '\nOne of them is the '+ catsInfo[i].type +' cat, it is '+ catsInfo[i].age +' years old.'
+	}
+
+	return intro
+}
+
+introCatsInfo()
+// There are 2 cats.
+// One of them is the Orange Tabby cat, it is 3 years old.
+// One of them is the Black cat, it is 5 years old.
+```
+
+## 函式參數（function parameter）與函式引數（function argument）
+
+現在我們有個可以重複使用的函式了，並且也透過名稱將該區塊程式碼所作的內容描述出來，但仍還有一些問題需要解決，假如我今天要使用其他資料時，由於內部的程式碼邏輯都是引用 `catsInfo` 物件中的資料，我怎麼呼叫函式都只會得到同樣的結果。
+
+此時，我們可以將原先的處理邏輯，改成藉由 **函式參數** 來處理：
+
+```js
+var catsInfo = [{
+	name: 'Orange',
+	type: 'Orange Tabby',
+	age: 3
+},{
+	name: 'Black',
+	type: 'Black',
+	age: 5
+}]
+
+function introCatsInfo(info) { // 將資料來源改由函式參數
+	var intro = 'There are ' + info.length +' cats.'
+
+	for(var i = 0; i < info.length; i++) {
+		intro += '\nOne of them is the '+ info[i].type +' cat, it is '+ info[i].age +' years old.'
+	}
+
+	return intro
+}
+```
+
+而當我們需要使用函數中的參數時，我們便可以藉由 **函式引數** 來將資料帶入到函式當中：
+
+```js
+introCatsInfo(catsInfo) // 傳入 catsInfo 內的資料到 introCatsInfo 函式中
+// There are 2 cats.
+// One of them is the Orange Tabby cat, it is 3 years old.
+// One of them is the Black cat, it is 5 years old.
+
+introCatsInfo([{ // 你也可以選擇直接放入資料
+	name: 'Subordi',
+	type: 'White',
+	age: 2
+},{
+	name: 'Sai',
+	type: 'Siamese',
+	age: 1
+}]) 
+// There are 2 cats.
+// One of them is the White cat, it is 2 years old.
+// One of them is the Siamese cat, it is 1 years old.
+```
+
+當然，若有需求的話，你也可以設定多個函式參數使你的函式暴露更多的控制項：
+
+```js
+var catsInfo = [{
+	name: 'Orange',
+	type: 'Orange Tabby',
+	age: 3
+},{
+	name: 'Black',
+	type: 'Black',
+	age: 5
+}]
+
+function introCatsInfo(info, customIntro) { // 新增一個 customIntro
+	var intro = 'There are ' + info.length +' cats.'
+
+	for(var i = 0; i < info.length; i++) {
+		intro += '\nOne of them is the '+ info[i].type +' cat, it is '+ info[i].age +' years old.'
+	}
+
+	if (customIntro) { // 若有 customIntro 
+		intro += customIntro
+	}
+
+	return intro
+}
+
+introCatsInfo(catsInfo, '\nSo cute!')
+// There are 2 cats.
+// One of them is the Orange Tabby cat, it is 3 years old.
+// One of them is the Black cat, it is 5 years old.
+// So cute!
+```
+
+### 延伸閱讀：函式傳送參數與記憶體
+還記得我們在變數與資料型別章節中提過的記憶體概念嗎？那時我們曾經提及過其中三種狀況以及物件中賦值與修改的差異：
+1. 若將值直接賦值給變數時，不論其資料型別為何，都會指向到新的記憶體。
+2. 若透過變數賦值，如果來源資料為原始型別，則指向新的記憶體。
+3. 若透過變數賦值，如果來源資料為物件型別，則會將變數的參考地址改為賦值變數的記憶體地址。
+
+而函式中的記憶體操作，其實就如同上面的賦值狀況。差異點函式在執行的過程中，會隱性替函式參數建立預設值：
+
+```js
+var source = 1;
+function change(target) {
+	target = 2
+}
+
+change(source)
+
+console.log(source)
+```
+
+當程式執行到 `change(source)` 時，在 `change` 函式中，會先將函式參數 `target` 初始化，並賦值函式引數 `source` ：
+
+```js
+function change(target) {
+	var target = source // 隱性建立
+	target = 2
+}
+```
+
+這裡下來後續就與我們之前提過的三種狀況一致，若要驗證的話也很容易：
+
+```js
+var source = 1; // 0x00 => undefined, 0x01 => 1
+function change(target) {
+	var target = source // 隱性建立，此時 target: 0x02 => undefined, 0x03 => 1
+	console.log(source) // 0x03 => 1
+	target = 2 					// 0x04 => 2
+	console.log(source) // 0x04 => 2
+}
+
+change(source)
+console.log(source) // 找到 0x01 中的 1
+```
+
+在物件的部分也同樣遵守賦值與修改上的差異：
+
+```js
+var sourceA = {source: 'A'};
+var sourceB = {source: 'B'};
+function change(targetA, targetB){
+	targetA = {source: 'change by function'}
+	targetB.source = 'change by function'
+}
+change(sourceA, sourceB)
+
+console.log(sourceA) // {source: 'A'}
+console.log(sourceB) // {source: 'change by function'}
+```
+
+若一時無法理解的話，我們可透過隱性建立來還原函式內部的狀況：
+
+```js
+var sourceA = {source: 'A'}; // 0x00 => undefined, 0x02 => {source: 'A'}
+var sourceB = {source: 'B'}; // 0x01 => undefined, 0x03 => {source: 'B'}
+
+function change(targetA, targetB){
+	var targetA = sourceA // 0x04 => undefined, 0x02 => {source: 'A'}
+	var targetB = sourceB // 0x05 => undefined, 0x03 => {source: 'B'}
+	targetA = {source: 'change by function'} // 0x06 => {source: 'change by function'}
+	targetB.source = 'change by function' // 先找到 0x03 中的 source，並修改裡面的值
+}
+
+change(sourceA, sourceB)
+
+console.log(sourceA) // 找到 0x02 中的 {source: 'A'}
+console.log(sourceB) // 找到 0x03 中的 {source: 'change by function'}
+```
+
+函式內第一行中，由於賦予的值 `sourceA` 為物件屬於三種情況中的第三種（指向記憶體），因此是指向 `sourceA` 的記憶體位置。
+
+![](https://i.imgur.com/iB6KzOq.png)
+
+函式內第二行中，由於賦予的值 `sourceB` 為物件屬於三種情況中的第三種（指向記憶體），因此是指向 `sourceB` 的記憶體位置。
+
+![](https://i.imgur.com/2r3q01A.png)
+
+函式內第三行中，由於是將值直接賦予給 `targetA`，屬於三種情況中的第一種（直接賦值），所以更改的是 `targetA` 內的記憶體位置並給予新的值，此時 `targetA` 與 外面的 `sourceA` 所指向的記憶體位置已截然不同，最後 `console.log(sourceA)` 就會顯示 `{source: 'A'}`。
+
+![](https://i.imgur.com/oLhZT9T.png)
+
+函式內第四行中，由於是藉由點語法取得物件內的屬性，所以他屬於 **修改物件** 的情況，因此最後修改到的是指向 `sourceB` 物件中的 `source` 值，最後 `console.log(sourceB)` 就會顯示 `{source: 'change by function'}`。
+
+![](https://i.imgur.com/409Xc52.png)
+
+以上就是函式中的基礎用法與記憶體等概念，明天我們將來看看如何透過兩種不同的認知歷程（由下到上 & 由上到下）來撰寫與連結多個函式。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
