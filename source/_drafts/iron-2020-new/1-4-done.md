@@ -104,7 +104,7 @@ var currentTodos = []
 addButton.addEventListener('click', function(){
     var currentTodo = getCurrentTodo()
     currentTodos.push(currentTodo)
-    formatTodoTemplate() // 1. 新增負責整理樣板的函式
+formatTodoTemplate() // 1. 新增負責整理樣板的函式
 })
 
 function getCurrentTodo(){
