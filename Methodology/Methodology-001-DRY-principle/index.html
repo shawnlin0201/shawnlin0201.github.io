@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-tw">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Verdana:300,300italic,400,400italic,700,700italic|Noto Sans TC:300,300italic,400,400italic,700,700italic|Noto Sans TC:300,300italic,400,400italic,700,700italic|Noto Sans TC:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"/>
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+  <meta property="fb:admins" content="<user_id>"/>
+  <meta property="fb:app_id" content="<app_id>"/>
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+<meta name="google-site-verification" content="42L8oDSDuWZZ5kxxGicokb-58OYtz2Ie_mxDqR5VjZo" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-156161536-1');
+</script>
+  <meta name="description" content="DRY 原則這次要來介紹的是我覺得開發程式中最有感的避免重複原則（簡稱 DRY 原則，意思即為 Don’t repeat youself!）。 根據此篇文章所述，在 The Pragmatic Programmer 一書中，DRY 發生的原因總共可以分為四種類別：  強加的重複(Imposed duplication) 無意的重複(inadvertent duplication) 懶惰的重複(im">
+<meta property="og:type" content="article">
+<meta property="og:title" content="程式設計心法 避免重複原則（DRY principle）">
+<meta property="og:url" content="https://shawnlin0201.github.io/Methodology/Methodology-001-DRY-principle/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="DRY 原則這次要來介紹的是我覺得開發程式中最有感的避免重複原則（簡稱 DRY 原則，意思即為 Don’t repeat youself!）。 根據此篇文章所述，在 The Pragmatic Programmer 一書中，DRY 發生的原因總共可以分為四種類別：  強加的重複(Imposed duplication) 無意的重複(inadvertent duplication) 懶惰的重複(im">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-04-06T09:00:25.000Z">
+<meta property="article:modified_time" content="2020-09-29T14:32:47.947Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="w3HexSchool">
+<meta property="article:tag" content="Methodology">
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://shawnlin0201.github.io/Methodology/Methodology-001-DRY-principle/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>程式設計心法 避免重複原則（DRY principle） | 璇之又璇的網路世界</title>
+  
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId  : '<app_id>',
+        xfbml  : true,
+        version: 'v3.3'
+      });
+    };
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/zh_tw/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-156161536-1');
+    }
+  </script>
+
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">璇之又璇的網路世界</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      
+    
+    
+      <a>
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界"/>
+      </a>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切換導航欄">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首頁</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;關於我</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sideproject">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/sideproject/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-coffee&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;Side Project</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;標籤&lt;span class&#x3D;&quot;badge&quot;&gt;21&lt;&#x2F;span&gt;</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分類&lt;span class&#x3D;&quot;badge&quot;&gt;18&lt;&#x2F;span&gt;</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;歷史文章&lt;span class&#x3D;&quot;badge&quot;&gt;71&lt;&#x2F;span&gt;</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜尋</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="輸入標題、內文關鍵字..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/Methodology/Methodology-001-DRY-principle/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ShawnL 林奇璇"/>
+      <meta itemprop="description" content="我家的貓會coding"/>
+      <meta itemprop="image" content="/images/information-avatar.png"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">程式設計心法 避免重複原則（DRY principle）
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+
+              
+                
+              
+
+              <time title="創建時間：2020-04-06 17:00:25" itemprop="dateCreated datePublished" datetime="2020-04-06T17:00:25+08:00">2020-04-06</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新於</span>
+                
+                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Methodology/" itemprop="url" rel="index"><span itemprop="name">Methodology</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">評論數：</span>
+                <a href="/Methodology/Methodology-001-DRY-principle/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Methodology/Methodology-001-DRY-principle/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          <br/>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="DRY-原則"><a href="#DRY-原則" class="headerlink" title="DRY 原則"></a>DRY 原則</h1><p>這次要來介紹的是我覺得開發程式中最有感的<strong>避免重複原則</strong>（簡稱 DRY 原則，意思即為 Don’t repeat youself!）。</p>
+<p>根據此篇<a href="https://www.sharmaprakash.com.np/four-types-of-duplication-in-source-code/#" target="_blank" rel="noopener">文章</a>所述，在 The Pragmatic Programmer 一書中，DRY 發生的原因總共可以分為四種類別：</p>
+<ul>
+<li>強加的重複(Imposed duplication)</li>
+<li>無意的重複(inadvertent duplication)</li>
+<li>懶惰的重複(impatient duplication)</li>
+<li>開發者間的重複(inter-developer duplication)：</li>
+</ul>
+<p>以下是四種類別所表示的意義：</p>
+<a id="more"></a>
+
+<h2 id="強加的重複-Imposed-duplication"><a href="#強加的重複-Imposed-duplication" class="headerlink" title="強加的重複 Imposed duplication"></a>強加的重複 Imposed duplication</h2><p>這一類的重複是發生在開發者自認為是<strong>開發環境需要</strong>的、被強迫需要的重複，像是<strong>不必要的註解</strong>以及<strong>開發文件</strong>等等。</p>
+<p>例如我們寫了一些有關 cookie 用的函式，並為其加上了使用註解，但其實從函式名稱本身就能夠得知其用途：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 這是用來取得 cookie 值的函式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getCookie</span> (<span class="params">cname</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> value = <span class="string">"; "</span> + <span class="built_in">document</span>.cookie</span><br><span class="line">    <span class="keyword">let</span> parts = value.split(<span class="string">"; "</span> + cname + <span class="string">"="</span>)</span><br><span class="line">    <span class="keyword">if</span> (parts.length == <span class="number">2</span>)</span><br><span class="line">  <span class="keyword">return</span> parts.pop().split(<span class="string">";"</span>).shift()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 這是用來設定 cookie 值的函式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setCookie</span> (<span class="params">cname, cvalue, exdays</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">    d.setTime(d.getTime() + (exdays*<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>*<span class="number">1000</span>))</span><br><span class="line">    <span class="keyword">let</span> expires = <span class="string">`expires=<span class="subst">$&#123;d.toUTCString()&#125;</span>`</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">document</span>.cookie = <span class="string">`<span class="subst">$&#123;cname&#125;</span>=<span class="subst">$&#123;cvalue&#125;</span>;<span class="subst">$&#123;expires&#125;</span>`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>另一例則是撰寫開發文件上沒有即時更新的結果，使註解變成多餘；即便是撰寫文檔也與程式中的內容重疊：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* get member data via Number type Member ID.</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;number&#125;</span> </span>id member ID</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return <span class="type">&#123;object&#125;</span> </span>member data.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getMemberData</span>(<span class="params">id</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 結果裡面的處理後來需要使用到 Number 類型的 id</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>個人認為對於此分類的解決辦法便是使用<strong>清晰可辨別的命名</strong>，註解與文檔在非必要下的情況可以透過命名的方式來解決，例如第一例已經很清楚地寫出該函式的作用，就不必再重複註解；而若是使用函式的 jsDoc 註解，則應該注意內部邏輯，讓程式<strong>本身敘述正在做的事情</strong>會來得更有效率。</p>
+<h2 id="無意的重複-inadvertent-duplication"><a href="#無意的重複-inadvertent-duplication" class="headerlink" title="無意的重複 inadvertent duplication"></a>無意的重複 inadvertent duplication</h2><p>第二類是屬於開發者沒有意識到內容上的重複，通常出現在<strong>邏輯設計上</strong>的內容：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cube</span>(<span class="params">length, width, height, volumn</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.length = length</span><br><span class="line">  <span class="keyword">this</span>.width = width</span><br><span class="line">  <span class="keyword">this</span>.height = height</span><br><span class="line">  <span class="keyword">this</span>.volumn = volumn</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cube.prototype.getVolumn = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.volumn)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> sixCMcube = <span class="keyword">new</span> Cube(<span class="number">6</span>,<span class="number">6</span>,<span class="number">6</span>)</span><br><span class="line">sixCMcube.getVolumn()</span><br></pre></td></tr></table></figure>
+
+<p>在這個例子中，首先我們已知 Cube（立方體）長寬高都一樣的情況下，只要給一個邊長（length）即可；除此之外 volumn（體積）其實也就是邊長的三次方，可以由建構式內部算完即可，不應該使其成為公共變數（public variable），因此更改後如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cube</span>(<span class="params">length</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.length = length</span><br><span class="line">  <span class="keyword">this</span>.volumn = <span class="built_in">Math</span>.pow(length, <span class="number">3</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cube.prototype.getVolumn = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.volumn)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> sixCMcube = <span class="keyword">new</span> Cube(<span class="number">6</span>)</span><br><span class="line">sixCMcube.getVolumn()</span><br></pre></td></tr></table></figure>
+
+<h2 id="懶惰的重複-impatient-duplication"><a href="#懶惰的重複-impatient-duplication" class="headerlink" title="懶惰的重複 impatient duplication"></a>懶惰的重複 impatient duplication</h2><p>開發者為了節省時間上的重複，可能發生在使用 CV （複製貼上）大法的時候，尤其複製的程式碼量一大的時候，很有可能遺漏某些需要更改的東西。例如在實作多欄位的搜尋表單，有時候只是值上的替換，其程式碼模樣大同小異，就很有可能在複製貼上完後，忘記更改某個表單欄位的 id 值等等。</p>
+<p>個人解決辦法是撰寫測試程式碼或模擬（Mock）程式碼，例如單元測試（Unit test）來觀測各函式的結果是否符合預期結果；如此一來可以節省打斷點、寫 <code>console.log</code> 的時間又能同時日後對於維護程式碼的信心度。</p>
+<h2 id="開發者間的重複-inter-developer-duplication"><a href="#開發者間的重複-inter-developer-duplication" class="headerlink" title="開發者間的重複 inter-developer duplication"></a>開發者間的重複 inter-developer duplication</h2><p>最難解決也最常發生的重複議題，通常發生在開發者與開發者之間的<del>決鬥</del> 協作開發或接手開發的時候，因為在同個專案底下很容易有共同的需求，有時候沒有協調好或是接手專案對於架構不清楚時，容易開發出概念上重複的程式碼。</p>
+<p>最簡單的例子就如同上面第一則 <code>cookie</code> 實作的函式一樣，有可能前人開發時已經有實作 <code>cookie</code> 的 <code>get</code>、<code>set</code> 與 <code>delete</code> 等方法，然後自己又實作了一次相關的方法。</p>
+<h1 id="實行-DRY-時的危險之處？"><a href="#實行-DRY-時的危險之處？" class="headerlink" title="實行 DRY 時的危險之處？"></a>實行 DRY 時的危險之處？</h1><p>在遵循 DRY 原則的時候，有時得適度的拿捏這個原則的比例，避免有時為了避免 DRY 而<strong>過度抽象化（Abstraction）</strong>了某個函式的概念，反而犧牲了<strong>可讀性（readability）</strong>。因為就本質上來說其實抽象化與可讀性來說是<strong>矛盾的</strong>概念。因為我們需要抽象來簡化、避免重複程式碼，但同時我們也得兼顧程式碼的易讀性：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">symbolParser</span> (<span class="params">source = <span class="string">''</span>, splitSymbol = <span class="string">'/'</span>, filterSymbol = <span class="string">'_'</span>, reverseParseResult = false</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> parseStorage = &#123;&#125;</span><br><span class="line">    <span class="keyword">let</span> reverseResult = reverseParseResult ? [<span class="number">0</span>,<span class="number">1</span>] : [<span class="number">1</span>,<span class="number">0</span>]</span><br><span class="line">    source</span><br><span class="line">        .split(<span class="string">' '</span>)</span><br><span class="line">        .join(<span class="string">''</span>)</span><br><span class="line">        .split(splitSymbol)</span><br><span class="line">        .filter(<span class="function"><span class="params">req</span> =&gt;</span> req.indexOf(filterSymbol) &gt; <span class="number">-1</span>)</span><br><span class="line">        .forEach(<span class="function"><span class="params">req</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> parse = req.split(filterSymbol)</span><br><span class="line">            parseStorage[parse[reverseResult[<span class="number">0</span>]]] = parse[reverseResult[<span class="number">1</span>]]</span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="keyword">return</span> parseStorage</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> text = <span class="string">'firstname=Shawn&amp;lastname=Lin&amp;Age=25'</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">let</span> textAfterParse = symbolParser(text, <span class="string">'&amp;'</span>, <span class="string">'='</span>, <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(textAfterParse)     <span class="comment">// return &#123;firstname: 'Shawn', lastname: 'Lin', Age: "25"&#125;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>雖然這個函式可以應變不同種的字串（如 url 中的 parameter 或 cookie 中的值）並返回其物件形式，使在解析字串上達到了 DRY 原則，只要解析字串就用這個函式便能快速完成！<br>但是當函式有狀況需要更改調整的時候，能夠使其他開發者能<strong>快速的看出各個實作處理是為什麼要這麼做嗎？</strong></p>
+</blockquote>
+<p>另一個危險的開端則是類似於<strong>過早最佳化原則（premature-optimization）</strong>所提到的概念。在發生 DRY 的時候，我們可能會忍受不住 DRY 的原則，看到重複就忍不住想改動、優化，但是<strong>真的每次都有達到重複的涵義嗎？</strong></p>
+<p>以上方的例子來說，我們有沒有必要使用<strong>同一隻函式</strong>來解決這種解析的需求？針對 <code>cookies</code> 時，使用前面提到的 <code>getCookie</code>、<code>setCookie</code> 會不會更加的容易閱讀？使用了 <code>symbolParser</code> 函式得到了含有全部 <code>cookie</code> 的值時，是否還要再實作寫入 <code>cookies</code> 的函式？諸如此類的問題會在<strong>死命奉守 DRY 原則</strong>時陸續出現，而我們應當使我們的程式保有彈性與自由，才不會因 DRY 而被過度局限於某些情境下。</p>
+<p>因此，在遵循 DRY 心法時，仍別忘了考量到避免<strong>過度抽象化（over-abstraction）</strong>與<strong>過早最佳化（premature-optimization）</strong>等議題；適度抽象、適度避免 DRY，最後優化的部分等後續維護時真的出現問題再來解決吧！</p>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a href="https://www.itread01.com/p/1318618.html" target="_blank" rel="noopener">優秀程式設計的原則</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2013/01/abstraction_principles.html" target="_blank" rel="noopener">代码的抽象三原则</a></li>
+<li><a href="https://www.cnblogs.com/zhixin9001/p/6777608.html" target="_blank" rel="noopener">《程序员修炼之道》笔记(二)</a></li>
+<li><a href="http://www.rocidea.com/one?id=33839" target="_blank" rel="noopener">DRY原則的誤區</a></li>
+<li><a href="https://stackoverflow.com/questions/17788738/is-violation-of-dry-principle-always-bad" target="_blank" rel="noopener">Is violation of DRY principle always bad?</a></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>
+      
+        <div>
+    
+    <div style="text-align:center;color: #999;font-size:14px;">-------------本文結束，感謝你的閱讀，若有任何問題或建議都歡迎在下方留言！-------------</div>
+    <div class="trigger-for-donate" style="display:none;">
+        <a href="https://www.buymeacoffee.com/shawnlin" target="_blank">
+            <img src="https://cdn.buymeacoffee.com/buttons/arial-white.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;filter: opacity(0.7) !important;" >
+        </a>
+        <div style="text-align:center;color: #999;font-size:14px;">-------------若本文的內容對你非常有幫助的話，也歡迎贊助一杯咖啡讓我知道！-------------</div>
+    </div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/w3HexSchool/" rel="tag"># w3HexSchool</a>
+          
+            <a href="/tags/Methodology/" rel="tag"># Methodology</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+          
+          <div class="social-like">
+            
+
+            
+              <div class="fb_like">
+                <div class="fb-like" data-layout="button_count" data-share="true"></div>
+              </div>
+            
+          </div>
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Optimization/Optimization-002.performance/" rel="next" title="Chrome DevTools Performance 與畫面處理">
+                <i class="fa fa-chevron-left"></i> Chrome DevTools Performance 與畫面處理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Methodology/Methodology-002-Kiss-principle/" rel="prev" title="程式設計心法 簡單原則（KISS principle）">
+                程式設計心法 簡單原則（KISS principle） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概要
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/information-avatar.png"
+                alt="ShawnL 林奇璇"/>
+            
+              <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+              <div class="site-description motion-element" itemprop="description">我家的貓會coding</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/%20%7C%7C%20archive">
+                
+                    <span class="site-state-item-count">71</span>
+                    <span class="site-state-item-name">文章</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/%20%7C%7C%20th">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">分類</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/%20%7C%7C%20tags">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">標籤</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/shawnlin0201" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank">&lt;i class&#x3D;&quot;fa fa-fw fa-github&quot;&gt;&lt;&#x2F;i&gt;GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/profile.php?id=100004228181424" title="Facebook &amp;rarr; https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank">&lt;i class&#x3D;&quot;fa fa-fw fa-facebook&quot;&gt;&lt;&#x2F;i&gt;Facebook</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推薦閱讀
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DRY-原則"><span class="nav-number">1.</span> <span class="nav-text">DRY 原則</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#強加的重複-Imposed-duplication"><span class="nav-number">1.1.</span> <span class="nav-text">強加的重複 Imposed duplication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#無意的重複-inadvertent-duplication"><span class="nav-number">1.2.</span> <span class="nav-text">無意的重複 inadvertent duplication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#懶惰的重複-impatient-duplication"><span class="nav-number">1.3.</span> <span class="nav-text">懶惰的重複 impatient duplication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#開發者間的重複-inter-developer-duplication"><span class="nav-number">1.4.</span> <span class="nav-text">開發者間的重複 inter-developer duplication</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#實行-DRY-時的危險之處？"><span class="nav-number">2.</span> <span class="nav-text">實行 DRY 時的危險之處？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#參考資料"><span class="nav-number">3.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      <!--google_adsense-->
+      
+        <div class="links-of-blogroll-title">
+          <i class="fa fa-google"></i> AdSense
+          <ins class="adsbygoogle"
+              style="display:block"
+              data-ad-client="ca-pub-5671856325343459"
+              data-ad-slot="6653476093"
+              data-ad-format="auto"
+              data-full-width-responsive="true"></ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      
+      <!--/google_adsense-->
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+
+  
+
+  
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+    
+  
+  <script color='0,0,0' opacity='0.6' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest-nomobile.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/Methodology/Methodology-001-DRY-principle/";
+    this.page.identifier = "Methodology/Methodology-001-DRY-principle/";
+    this.page.title = '程式設計心法 避免重複原則（DRY principle）';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('複製').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('複製');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>
