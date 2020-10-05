@@ -1,6 +1,6 @@
 ---
 title: 重新解構：無瑕的程式碼（Clean Code）書序 及 Chapter 1 無暇的程式碼
-date: 2020-10-23 22:05:16
+date: 2020-9-23 22:05:16
 tags:
 - [w3HexSchool]
 - [Book]
