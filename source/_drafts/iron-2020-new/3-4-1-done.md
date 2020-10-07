@@ -206,4 +206,6 @@ fetch('https://raw.githubusercontent.com/shawnlin0201/ithelp-2020/main/3-4-1-fet
 
 接著 `method` 自然是告訴伺服器我們預期想做的事情是 `POST`（變更的含義）。
 
-除了上述的 `GET`、`POST` 之外還有 `DELETE` ⋯⋯等等不同的方法，而這些方法對於 RESTful API 來說非常的重要，而至於 RESTful API 是什麼我們將在下篇中繼續介紹。
+透過這些請求（request）的設定值，便可以使伺服器端較為清楚的瞭解我們的請求以便回覆我們對的內容並進行後續的處理。
+
+以上就是資源請求的基本介紹，明天我們將繼續深入探討幾個在做資源請求的過程中常常會遇到的問題！
