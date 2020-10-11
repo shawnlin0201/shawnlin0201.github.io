@@ -81,10 +81,93 @@ getTodayCatFood(['杜格','喜碗','優格','金罐','星球']) // 透過引數�
 
 然而依照現代網頁開發的設計，我們現在可以透過部分渲染的單頁式設計（Single Page Application）來完成我們的實作。因此，我們會需要一個函式來幫助我們渲染出不同的頁面，
 
-而預期的流程邏輯是：
+而整體預計的流程邏輯是：
 
 1. 初始化頁面
 2. 渲染主頁面
 3. 後續依照點擊的頁面
+
+因此我們按照這個順序來一步一步寫出函式。
+
+一開始我們先撰寫 **初始化頁面** 用的函式，而這個函式乘載著之後所有在第一次進入頁面時所需要的各種資源，常見的會有渲染頁面事件、綁定操作事件、初始化資料等等步驟都會在這裡出現，而這裡我們暫時先關注在渲染頁面的邏輯上即可，因此在這裡除了撰寫初始化頁面韓式之外，另外也先預期將會有個渲染頁面用的函式：
+```js
+function initPage(){
+  renderPage('mainpage') // 在初始化頁面後，這裡預期要有個渲染頁面函式
+}
+
+initPage() // 初始化頁面
+```
+
+接著，我們開始撰寫渲染頁面用的函式，在這裡我們指定了需要更新的區域，並透過 **取得樣板函式** 來取得需要渲染的樣板：
+```js
+var view = document.querySelector('.view-wrapper')
+
+function renderPage(pagename){
+  view.innerHTML = getTemplate(pagename) // 預期藉由傳入不同的頁面名稱來取得各自的樣板
+}
+```
+
+這裡你可能會覺得為什麼我不把樣板直接寫進去就好，而最大的原因是因為考量到函式的作用儘量要 **保持在做同一件事情上**，而渲染頁面與組裝樣板這件邏輯其實是可以再切分開來的，因此我選擇將它列為另一個函式，來強調各自的作用。
+
+而在負責提供樣版的函式，由於我們剛剛已經將渲染的邏輯切到 `renderPage` 函式當中，因此在 `getTemplate` 的邏輯當中，我們可以關注在於要提供什麼樣版給各自的頁面，這時我們就可以直接從 `HTML` 上拷貝需要渲染的內容：
+
+```js
+function getTemplate (pagename){
+  var template = {
+    mainpage: `
+      <div class="card-wrapper">
+        <h1 class="card-title">Today's meal</h1>
+        <div class="card-content">
+            <p class="meal-text">Gooold</p>
+        </div>
+        <div class="card-footer">
+            <div class="btn btn-get">Get Meal</div>
+        </div>
+      </div>
+    `,
+    settingpage: `
+      <div class="card-wrapper">
+        <h1 class="card-title">Menu</h1>
+        <div class="card-content">
+            <ol class="meal-list">
+                <li class="meal-item">test <div class="btn btn-delete">delete</div></li>
+            </ol>
+        </div>
+        <div class="card-footer">
+            <div class="btn btn-add">Add Meal</div>
+        </div>
+      </div>
+    `
+  }
+  return template[pagename]
+}
+```
+
+最後渲染頁面所需要的各個函式都已經撰寫完畢了，接著我們回到初始化頁面的函式中，將點擊渲染頁面的事件綁上：
+
+```js
+var btn_mainpage = document.querySelector('.tab-item.mainpage')
+var btn_setting = document.querySelector('.tab-item.setting')
+
+function initPage(){
+  renderPage('mainpage')
+
+  btn_mainpage.addEventListener('click', function(){
+    renderPage('mainpage')
+  })
+
+  btn_setting.addEventListener('click', function(){
+    renderPage('settingpage')
+  })
+}
+```
+
+完成後的程式碼大概會像 [這樣](https://codepen.io/ShawnLin0201/pen/VwjLKeX)，在這份程式碼當中你會發現我們可以透過 `initPage` 這隻函式來追查程式碼（tracing code）中的邏輯。
+
+若一開始自己嘗試撰寫時沒辦法將邏輯拆分的比較清楚也是在正常的範圍內，因為這些得要靠大量時間的練習與觀摩他人的程式碼慢慢練習而來。
+
+後續第五章節中也會提到如何藉由重構來逐步提升撰寫邏輯的技巧。
+
+而以上是在瀏覽器中實作出餐點選擇器的渲染功能部分，接下來我們會將剩下的功能逐一的完成。
 
 

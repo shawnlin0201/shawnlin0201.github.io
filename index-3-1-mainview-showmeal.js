@@ -121,6 +121,7 @@ function renderPage(pagename){
 }
 
 function initPage(){
+  currentMeal = getMeal()
   renderPage('mainpage')
   view.addEventListener('click', handleMainPageClick)
   

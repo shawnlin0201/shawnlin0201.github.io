@@ -72,7 +72,7 @@ function getTemplate (pagename){
       <div class="card-wrapper">
         <h1 class="card-title">Today's meal</h1>
         <div class="card-content">
-            <p class="meal-text">${currentMeal.content}</p>
+            <p class="meal-text">${currentMeal ? currentMeal.content : '請新增餐點' }</p>
         </div>
         <div class="card-footer">
             <div class="btn btn-get">Get Meal</div>
