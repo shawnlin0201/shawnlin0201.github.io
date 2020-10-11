@@ -1,0 +1,158 @@
+  html, body {
+    margin: 0;
+    height: 100%;
+  }
+
+  .main-wrapper {
+    position: relative;
+    height: 100%;
+    overflow: scroll;
+    background: #F1E3D3;
+  }
+
+  .view-wrapper {
+    max-height: calc(100% - 7.25rem);
+    margin: 1rem 1rem 0;
+    overflow-y: scroll;
+  }
+
+  .navbar-wrapper {
+    height: 3.75rem;
+    background: #432b26;
+    color: #F2D0A9;
+  }
+
+  .navbar-wrapper .navbar-logo {
+    font-size: 1.75rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    line-height: 3.75rem;
+    text-align: center;
+  }
+
+  .card-wrapper {
+    border: 0.25rem solid #65443e;
+    padding: 0 1rem 1rem;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .card-wrapper .card-title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .card-wrapper .card-footer {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .meal-text {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .meal-list {
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    background: #432b26;
+    color: #F2D0A9;
+    font-weight: bold;
+    height: 2rem;
+    line-height: 2rem;
+    font-size: 1.125rem;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+
+  .btn.btn-delete {
+    display: inline-block;
+    width: 4.5rem;
+  }
+
+  .tab-wrapper {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #432b26;
+    color: #F2D0A9;
+    font-size: 0;
+    font-weight: bold;
+    height: 3.75rem;
+  }
+
+  .tab-wrapper .tab-item {
+    padding: 0.25rem 0;
+    display: inline-block;
+    width: 50%;
+    font-size: 1.125rem;
+    text-align: center;
+    height: 100%;
+    border-right: 0.25rem solid #65443e;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+
+  .tab-wrapper .tab-item:last-of-type {
+    border-right: none;
+  }
+
+  @media (min-width: 320px), (max-width: 320px) {
+    html {
+      font-size: 12px;
+    }
+  }
+
+  @media (min-width: 360px) {
+    html {
+      font-size: 13.5px;
+    }
+  }
+
+  @media (min-width: 400px) {
+    html {
+      font-size: 15px;
+    }
+  }
+
+  @media (min-width: 440px) {
+    html {
+      font-size: 16.5px;
+    }
+  }
+
+  @media (min-width: 480px) {
+    html {
+      font-size: 18px;
+    }
+  }
+
+  @media (min-width: 520px) {
+    html {
+      font-size: 19.5px;
+    }
+  }
+
+  @media (min-width: 560px) {
+    html {
+      font-size: 21px;
+    }
+  }
+
+  @media (min-width: 600px) {
+    html {
+      font-size: 22.5px;
+    }
+  }
+
+  @media screen and (min-width: 640px) {
+    html {
+      font-size: 16px;
+    }
+  }
+  /*# sourceMappingURL=index.css.map */

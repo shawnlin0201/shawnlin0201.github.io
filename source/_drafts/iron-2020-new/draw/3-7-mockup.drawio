@@ -1,0 +1,100 @@
+<mxfile host="65bd71144e" modified="2020-10-11T01:07:23.803Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.49.2 Chrome/83.0.4103.122 Electron/9.2.1 Safari/537.36" etag="A7LUQS7kAUp-EhMnwl0v" version="13.6.5">
+    <diagram id="6hGFLwfOUW9BJ-s0fimq" name="Page-1">
+        <mxGraphModel dx="1070" dy="1230" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="800" pageHeight="700" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="72" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=3;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="40" width="320" height="600" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" value="" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="570" width="320" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="98" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Get Meal&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="80" y="490" width="280" height="61.25" as="geometry"/>
+                </mxCell>
+                <mxCell id="100" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Today's&lt;br&gt;Meal&lt;br&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="60" y="570" width="160" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="103" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Setting&lt;br&gt;Menu&lt;br&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="220" y="570" width="160" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="104" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=3;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="430" y="40" width="320" height="600" as="geometry"/>
+                </mxCell>
+                <mxCell id="105" value="" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="430" y="570" width="320" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="108" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Add Meal&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="450" y="490" width="280" height="61.25" as="geometry"/>
+                </mxCell>
+                <mxCell id="109" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Today's&lt;br&gt;Meal&lt;br&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="430" y="570" width="160" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="110" value="&lt;span style=&quot;font-size: 20px&quot;&gt;Setting&lt;br&gt;Menu&lt;br&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="590" y="570" width="160" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="129" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="450" y="130" width="280" height="360" as="geometry"/>
+                </mxCell>
+                <mxCell id="106" value="" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="129">
+                    <mxGeometry width="280" height="359.99999999999994" as="geometry"/>
+                </mxCell>
+                <mxCell id="107" value="&lt;span style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;Menu&lt;/b&gt;&lt;/span&gt;" style="text;html=1;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBorderColor=none;" vertex="1" parent="129">
+                    <mxGeometry width="280" height="61.71428571428571" as="geometry"/>
+                </mxCell>
+                <mxCell id="130" value="" style="group" vertex="1" connectable="0" parent="129">
+                    <mxGeometry x="20" y="61.71000000000001" width="240" height="250.00000000000003" as="geometry"/>
+                </mxCell>
+                <mxCell id="131" value="&lt;span style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;1. Dooooog&lt;/b&gt;&lt;/span&gt;" style="text;html=1;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBorderColor=none;" vertex="1" parent="130">
+                    <mxGeometry width="240" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="132" value="&lt;span style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;2. Favo Soup&lt;/b&gt;&lt;/span&gt;" style="text;html=1;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBorderColor=none;" vertex="1" parent="130">
+                    <mxGeometry y="50" width="240" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="133" value="&lt;span style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;3. YogurT&lt;/b&gt;&lt;/span&gt;" style="text;html=1;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBorderColor=none;" vertex="1" parent="130">
+                    <mxGeometry y="100" width="240" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="134" value="&lt;span style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;4. Gold Can&lt;/b&gt;&lt;/span&gt;" style="text;html=1;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBorderColor=none;" vertex="1" parent="130">
+                    <mxGeometry y="150" width="240" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="135" value="&lt;span style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;5. Planet&lt;/b&gt;&lt;/span&gt;" style="text;html=1;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBorderColor=none;" vertex="1" parent="130">
+                    <mxGeometry y="200" width="240" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="141" value="&lt;b style=&quot;font-size: 20px&quot;&gt;delete&lt;/b&gt;" style="text;html=1;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBorderColor=none;" vertex="1" parent="130">
+                    <mxGeometry x="170" width="70" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="142" value="&lt;span style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;delete&lt;/b&gt;&lt;/span&gt;" style="text;html=1;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBorderColor=none;" vertex="1" parent="130">
+                    <mxGeometry x="170" y="50" width="70" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="143" value="&lt;b style=&quot;font-size: 20px&quot;&gt;delete&lt;/b&gt;" style="text;html=1;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBorderColor=none;" vertex="1" parent="130">
+                    <mxGeometry x="170" y="100" width="70" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="144" value="&lt;b style=&quot;font-size: 20px&quot;&gt;delete&lt;/b&gt;" style="text;html=1;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBorderColor=none;" vertex="1" parent="130">
+                    <mxGeometry x="170" y="150" width="70" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="145" value="&lt;b style=&quot;font-size: 20px&quot;&gt;delete&lt;/b&gt;" style="text;html=1;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBorderColor=none;" vertex="1" parent="130">
+                    <mxGeometry x="170" y="200" width="70" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="136" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="80" y="130" width="280" height="360" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" value="" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="136">
+                    <mxGeometry width="280" height="359.99999999999994" as="geometry"/>
+                </mxCell>
+                <mxCell id="96" value="&lt;span style=&quot;font-size: 20px&quot;&gt;&lt;b&gt;Today's meal&lt;/b&gt;&lt;/span&gt;" style="text;html=1;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBorderColor=none;" vertex="1" parent="136">
+                    <mxGeometry width="280" height="65.45454545454544" as="geometry"/>
+                </mxCell>
+                <mxCell id="137" value="&lt;b style=&quot;font-size: 26px ; text-align: left&quot;&gt;Gold Can + Bonus&lt;/b&gt;" style="text;html=1;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;labelBorderColor=none;fontSize=32;" vertex="1" parent="136">
+                    <mxGeometry y="164.57142857142856" width="280" height="61.71428571428571" as="geometry"/>
+                </mxCell>
+                <mxCell id="138" value="Meow Meal" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="60" y="40" width="320" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="139" value="Meow Meal" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;" vertex="1" parent="1">
+                    <mxGeometry x="430" y="40" width="320" height="70" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
