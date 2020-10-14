@@ -1,5 +1,5 @@
 ---
-title: 【驗證模型】4-1 執行上下文（Execution Context）
+title: 【修正模型】4-1 執行上下文（Execution Context）
 tags: 《透過認知模型認識 JavaScript》
 ---
 
