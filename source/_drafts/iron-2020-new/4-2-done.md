@@ -24,43 +24,31 @@ funcA()
 console.log('func end')
 ```
 
-一開始當我們執行程式碼時，就會產生一個 `Main` 的執行上下於堆疊的下方：
+一開始當我們執行程式碼時，就會產生一個 `Main` 的執行上下文於堆疊的下方。
 
-![](https://i.imgur.com/QnIEz03.png)
+接著在 `Main` 的執行階段中，首先遇到了可呼叫的函式（`console.log('func start')`），因此產生一個執行上下文 `console.log`，並且繼續執行裡面的內容，因而拋出一個 `'func start'`。
 
-接著在 `Main` 的執行階段中，首先遇到了可呼叫的函式（`console.log('func start')`），因此產生一個執行上下文 `console.log`，並且繼續執行裡面的內容，因而拋出一個 `'func start'`：
+![https://ithelp.ithome.com.tw/upload/images/20201015/20119062zWjJkZPp7v.png](https://ithelp.ithome.com.tw/upload/images/20201015/20119062zWjJkZPp7v.png)![https://ithelp.ithome.com.tw/upload/images/20201015/20119062gBjiRBEPFx.png](https://ithelp.ithome.com.tw/upload/images/20201015/20119062gBjiRBEPFx.png)
 
-![](https://i.imgur.com/dptkEoE.png)
+當 `'func start'` 被拋出後，由於 `console.log()` 函式沒有其他事情要做了，因此將  `console.log()` 移出呼叫堆疊，接著引擎解析到 `funcA()` 後執行函式，因此又產生出一個執行上下文 `funcA`。
 
-當 `'func start'` 被拋出後，由於 `console.log()` 函式沒有其他事情要做了，因此將  `console.log()` 移出呼叫堆疊：
+![https://ithelp.ithome.com.tw/upload/images/20201015/20119062Y8mJtfFqUG.png](https://ithelp.ithome.com.tw/upload/images/20201015/20119062Y8mJtfFqUG.png)![https://ithelp.ithome.com.tw/upload/images/20201015/20119062n4hCK2ElKW.png](https://ithelp.ithome.com.tw/upload/images/20201015/20119062n4hCK2ElKW.png)
 
-![](https://i.imgur.com/QnIEz03.png)
+這時由於內部還有個可呼叫的函式（`console.log('enter')`），因此又繼續堆疊一個執行上下文 `console.log` 上去，並執行內部程式；同樣的，當 `'enter'` 被拋出後，由於 `console.log()` 函式沒有其他事情要做了，因此將  `console.log` 移出呼叫堆疊：
 
-接著引擎解析到 `funcA()` 後執行函式，因此又產生出一個執行上下文 `funcA`：
-
-![](https://i.imgur.com/iYh0tS0.png)
-
-這時由於內部還有個可呼叫的函式（`console.log('enter')`），因此又繼續堆疊一個執行上下文 `console.log` 上去，並執行內部程式：
-
-![](https://i.imgur.com/VcqwMRd.png)
-
-同樣的，當 `'enter'` 被拋出後，由於 `console.log()` 函式沒有其他事情要做了，因此將  `console.log` 移出呼叫堆疊：
-
-![](https://i.imgur.com/iYh0tS0.png)
+![https://ithelp.ithome.com.tw/upload/images/20201015/201190621iA9vWE5Xh.png](https://ithelp.ithome.com.tw/upload/images/20201015/201190621iA9vWE5Xh.png)![https://ithelp.ithome.com.tw/upload/images/20201015/20119062BbvDg4vTNC.png](https://ithelp.ithome.com.tw/upload/images/20201015/20119062BbvDg4vTNC.png)
 
 接著，執行上下文 `funcA` 也沒其他事情要做了，因此也移出呼叫堆疊：
 
-![](https://i.imgur.com/QnIEz03.png)
+![https://ithelp.ithome.com.tw/upload/images/20201015/201190626YGPgQpS09.png](https://ithelp.ithome.com.tw/upload/images/20201015/201190626YGPgQpS09.png)
 
 現在回到了 `Main` 執行上下文中，我們剩下 `console.log('func end')` 還沒執行，接著如上方一樣，堆疊一個 `console.log()` 執行上下文，拋出 `'func end'` 後將 `console.log` 執行上下文移出：
 
-![](https://i.imgur.com/coulGY1.png)
-
-![](https://i.imgur.com/QnIEz03.png)
+![https://ithelp.ithome.com.tw/upload/images/20201015/201190628G1KMOEjPl.png](https://ithelp.ithome.com.tw/upload/images/20201015/201190628G1KMOEjPl.png)![https://ithelp.ithome.com.tw/upload/images/20201015/201190625hiAHKDOtI.png](https://ithelp.ithome.com.tw/upload/images/20201015/201190625hiAHKDOtI.png)
 
 最後連 `Main` 函式也沒有其他事情要做了，因此最後將 `Main` 也移出呼叫堆疊，完成本次的程式執行：
 
-![](https://i.imgur.com/XuPpRC8.png)
+![https://ithelp.ithome.com.tw/upload/images/20201015/20119062fhlU6BzZHm.png](https://ithelp.ithome.com.tw/upload/images/20201015/20119062fhlU6BzZHm.png)
 
 在整個堆疊情況中，過程就像是我們昨天那樣一步一步的去透過執行上下文來看內部的全域物件、變數物件、執行物件、`this`、範圍鍊……等等內容，只是執行的速度非常的快速，但它仍然是有規律的在 **一行一行** 解析你的程式碼。
 
@@ -70,4 +58,4 @@ console.log('func end')
 
 > ~~「你懂海，海就會幫助你。」~~
 
-而今天已經達成三十天了，不過接下來還是會陸續再補上後續章節的部分 XD，明天我們要繼續來理解瀏覽器中事件循環的機制。
+明天我們要繼續來理解瀏覽器中事件循環的機制。
