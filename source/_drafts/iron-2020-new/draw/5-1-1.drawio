@@ -1,0 +1,40 @@
+<mxfile host="65bd71144e" modified="2020-10-22T10:56:05.861Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.50.1 Chrome/83.0.4103.122 Electron/9.2.1 Safari/537.36" etag="k2XTfS5RzB1w31KuXIY-" version="13.6.5">
+    <diagram id="6hGFLwfOUW9BJ-s0fimq" name="Page-1">
+        <mxGraphModel dx="880" dy="1320" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="800" pageHeight="400" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="148" value="var text = 'Hello!'&lt;br&gt;&lt;div&gt;console.log(text)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=微軟正黑體;fontSize=24;fontStyle=1;strokeWidth=3;shadow=0;glass=0;comic=0;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="290" y="80" width="240" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="154" value="&lt;div&gt;&lt;span style=&quot;font-size: 24px&quot;&gt;&lt;b&gt;檔案庫&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="20" width="220" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="161" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;dashed=1;" edge="1" parent="1" source="156" target="148">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="156" value="&lt;div&gt;&lt;span style=&quot;font-size: 24px&quot;&gt;&lt;b&gt;你&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="120" y="340" width="220" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="159" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" edge="1" parent="1" source="158" target="148">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="158" value="&lt;div&gt;&lt;span style=&quot;font-size: 24px&quot;&gt;&lt;b&gt;另一名同事&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="490" y="340" width="220" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="160" value="&lt;div style=&quot;text-align: center&quot;&gt;&lt;span style=&quot;font-size: 24px&quot;&gt;&lt;b&gt;更改第一行&lt;br&gt;text = 'Bye'&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="620" y="200" width="150" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="162" value="&lt;div&gt;&lt;span style=&quot;font-size: 24px&quot;&gt;&lt;b&gt;更改第一行&lt;br&gt;text = 'Welcome'&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="200" width="210" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="163" value="&lt;div style=&quot;text-align: center&quot;&gt;&lt;span style=&quot;font-size: 24px&quot;&gt;&lt;b&gt;中午 12:00 提交&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="70" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="164" value="&lt;div style=&quot;text-align: center&quot;&gt;&lt;span style=&quot;font-size: 24px&quot;&gt;&lt;b&gt;下午 1:00 提交&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="80" y="80" width="180" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
