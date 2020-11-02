@@ -1,5 +1,5 @@
 ---
-title: 【強化模型】3-1 瀏覽器中的 JavaScript
+title: 【強化模型】3-1 瀏覽器中的 JavaScript
 tags: 《透過認知模型認識 JavaScript》
 ---
 

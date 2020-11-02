@@ -1,11 +1,12 @@
 ---
 title: Vue 2.x 升級 Vue 3.0 紀錄
-date: 2000-00-00 00:00:00
+date: 2020-11-02 17:51:30
 tags:
 - [前端]
 - [JavaScript]
 - [Vue.js]
 - [Vue-cli]
+- [w3HexSchool]
 categories: 
 - [JavaScript, Vue.js]
 ---
@@ -15,11 +16,13 @@ categories:
   <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
 </div>
 
-Vue.js 底層還沒來得及摸透，在 2020 年 6 月 30 號 Vue 作者尤雨溪又發布[聲明](https://github.com/vuejs/rfcs/issues/183?fbclid=IwAR3vuDG8clxaTOAo750nyTl3f6srX-XPdVZIJ1t8bCjBizMb4goIWB13L8k)：
+Vue.js 底層還沒來得及摸透，在 2020 年 6 月 30 號 Vue 作者尤雨溪又發布[聲明](https://github.com/vuejs/rfcs/issues/183)：
 
 大致上是在說明即將在 2020 年七月中 Vue 3.0 將進入 RC 階段並且八月初官方就會釋出正式版。
 
 心想該來的還是要來，不如趁現在 branch 開下去馬上升級一波。
+
+<!-- more -->
 
 # 起始式 vue add vue-next
 
