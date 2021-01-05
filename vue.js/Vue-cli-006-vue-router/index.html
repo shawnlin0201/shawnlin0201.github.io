@@ -151,27 +151,23 @@
 
   gtag('config', 'UA-156161536-1');
 </script>
-  <meta name="description" content="Vue-cli當我們終於熟悉 Vue.js 的一些基本用法後，專案上可能會要使用 webpack 來建立專案，而今天要來介紹的 Vue-cli ，主要是提供開發者一個快速建置 Vue.js 架構的工具，並基於 webpack，提供了許多相關的功能、套件安裝協助。而這裡建議使用 Vue-cli 前可以稍微瞭解 Vue.js 一些基本的指令以及元件概念基礎，並且要有不怕操作基本終端機指令的">
+  <meta name="description" content="SPA今天要介紹的是對單頁式應用網站（SPA，Single Page Application） 非常重要的 Router， SPA 為何會需要 Router 來處理網頁路徑呢？這裡簡單介紹一下他們之間的關係： 在 SPA 技術被大肆使用之前，以前的網站多是採用多頁式網頁（MPA，Multiple Page Application），而兩者差異最大的地方在於向伺服器請求的東西不同。 一開">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue-cli 介紹與環境建置">
-<meta property="og:url" content="https://shawnlin0201.github.io/vue.js/Vue-cil-001-build/index.html">
+<meta property="og:title" content="Vue-cli Router">
+<meta property="og:url" content="https://shawnlin0201.github.io/vue.js/Vue-cli-006-vue-router/index.html">
 <meta property="og:site_name" content="璇之又璇的網路世界">
-<meta property="og:description" content="Vue-cli當我們終於熟悉 Vue.js 的一些基本用法後，專案上可能會要使用 webpack 來建立專案，而今天要來介紹的 Vue-cli ，主要是提供開發者一個快速建置 Vue.js 架構的工具，並基於 webpack，提供了許多相關的功能、套件安裝協助。而這裡建議使用 Vue-cli 前可以稍微瞭解 Vue.js 一些基本的指令以及元件概念基礎，並且要有不怕操作基本終端機指令的">
+<meta property="og:description" content="SPA今天要介紹的是對單頁式應用網站（SPA，Single Page Application） 非常重要的 Router， SPA 為何會需要 Router 來處理網頁路徑呢？這裡簡單介紹一下他們之間的關係： 在 SPA 技術被大肆使用之前，以前的網站多是採用多頁式網頁（MPA，Multiple Page Application），而兩者差異最大的地方在於向伺服器請求的東西不同。 一開">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://shawnlin0201.github.io/images/vue-logo.png">
-<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191003/20119062P4LfYSn7rD.jpg">
-<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191003/20119062KSvKqPCe8s.jpg">
-<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191003/20119062NIJtU0zTOl.png">
-<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191003/201190621ygmc1dhMd.png">
-<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191003/20119062AgkG8fqvm2.png">
-<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191003/20119062S6FmV59sIA.jpg">
-<meta property="article:published_time" content="2019-10-03T15:27:31.000Z">
-<meta property="article:modified_time" content="2020-09-29T14:32:47.957Z">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191008/20119062b1DjmDGged.jpg">
+<meta property="article:published_time" content="2019-10-08T11:00:12.000Z">
+<meta property="article:modified_time" content="2021-01-05T08:48:07.498Z">
 <meta property="article:author" content="ShawnL 林奇璇">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="JavaScript">
 <meta property="article:tag" content="Vue.js">
 <meta property="article:tag" content="Vue-cli">
+<meta property="article:tag" content="Vue-router">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://shawnlin0201.github.io/images/vue-logo.png">
 
@@ -181,7 +177,7 @@
 
   
   
-  <link rel="canonical" href="https://shawnlin0201.github.io/vue.js/Vue-cil-001-build/"/>
+  <link rel="canonical" href="https://shawnlin0201.github.io/vue.js/Vue-cli-006-vue-router/"/>
 
 
 
@@ -191,7 +187,7 @@
   };
 </script>
 
-  <title>Vue-cli 介紹與環境建置 | 璇之又璇的網路世界</title>
+  <title>Vue-cli Router | 璇之又璇的網路世界</title>
   
   <script>
     window.fbAsyncInit = function() {
@@ -422,7 +418,7 @@
       
     
 
-    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;歷史文章&lt;span class&#x3D;&quot;badge&quot;&gt;74&lt;&#x2F;span&gt;</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;歷史文章&lt;span class&#x3D;&quot;badge&quot;&gt;76&lt;&#x2F;span&gt;</a>
 
   </li>
 
@@ -505,7 +501,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/vue.js/Vue-cil-001-build/"/>
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/vue.js/Vue-cli-006-vue-router/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ShawnL 林奇璇"/>
@@ -522,7 +518,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Vue-cli 介紹與環境建置
+          <h1 class="post-title" itemprop="name headline">Vue-cli Router
 
               
             
@@ -548,7 +544,7 @@
                 
               
 
-              <time title="創建時間：2019-10-03 23:27:31" itemprop="dateCreated datePublished" datetime="2019-10-03T23:27:31+08:00">2019-10-03</time>
+              <time title="創建時間：2019-10-08 19:00:12" itemprop="dateCreated datePublished" datetime="2019-10-08T19:00:12+08:00">2019-10-08</time>
             </span>
           
 
@@ -563,7 +559,7 @@
                 
                   <span class="post-meta-item-text">更新於</span>
                 
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2021-01-05 16:48:07" itemprop="dateModified" datetime="2021-01-05T16:48:07+08:00">2021-01-05</time>
               </span>
             
           
@@ -602,8 +598,8 @@
                 </span>
             
                 <span class="post-meta-item-text">評論數：</span>
-                <a href="/vue.js/Vue-cil-001-build/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="vue.js/Vue-cil-001-build/" itemprop="commentCount"></span>
+                <a href="/vue.js/Vue-cli-006-vue-router/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="vue.js/Vue-cli-006-vue-router/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -638,56 +634,89 @@
   <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
 </div>
 
-<h2 id="Vue-cli"><a href="#Vue-cli" class="headerlink" title="Vue-cli"></a>Vue-cli</h2><p>當我們終於熟悉 Vue.js 的一些基本用法後，專案上可能會要使用 webpack 來建立專案，而今天要來介紹的 Vue-cli ，主要是提供開發者一個快速建置 Vue.js 架構的工具，並基於 webpack，提供了許多相關的功能、套件安裝協助。而這裡建議使用 Vue-cli 前可以稍微瞭解 Vue.js 一些基本的指令以及元件概念基礎，並且要有不怕操作基本終端機指令的一顆心。</p>
+<h2 id="SPA"><a href="#SPA" class="headerlink" title="SPA"></a>SPA</h2><p>今天要介紹的是對<strong>單頁式應用網站（SPA，Single Page Application）</strong> 非常重要的 Router， SPA 為何會需要 Router 來處理網頁路徑呢？這裡簡單介紹一下他們之間的關係：</p>
+<p>在 SPA 技術被大肆使用之前，以前的網站多是採用<strong>多頁式網頁（MPA，Multiple Page Application）</strong>，而兩者差異最大的地方在於<strong>向伺服器請求的東西不同</strong>。</p>
+<p>一開始不論 SPA 還是 MPA 網站都需要使用者輸入網址，透過一個叫做 DNS 的服務器找到該網站伺服器，接著經過一連串回應後，伺服器回應給使用者一個 HTML 網頁檔案。</p>
+<p>而 MPA 在後續轉換頁面上，則是<strong>藉由輸入的網址不同，重複以上動作向網站伺服器拿取每頁的網頁檔案</strong>，並且重新渲染每頁的內容，因此會造成網頁整個畫面都被刷新。</p>
+<p>SPA 則是進入入口網頁（SPA 進入點）後透過 AJAX 技術，跟伺服器拿取部分資料替換內容進去；而替換的區域，小至更新收藏狀態的按鈕，大至整個頁面都被刷新，此時網址列的路徑卻仍是我們一開始進去的那個 SPA 進入點網址。</p>
+<p>因此，SPA 網頁需要<strong>藉由 History API</strong> 來操控網址列，並且藉由<strong>前端辨識使用者輸入的網頁路徑</strong>不同，而透過前端給予使用者不同的頁面內容，這也代表著原先由後端伺服器所負責的路徑管理，將交由前端來負責辨識與處理，也使得前端的複雜度上升了一個檔次。</p>
+<p>為了使用者的品質體驗，身為前端工程師的我們當然不會因為這種小事而被擊倒，但管理路徑上確實是不容易的事情，因此工程師們逐漸發展出一系列管理路徑的方法。而在 Vue 框架中，我們可以藉由 Vue Router 來協助處理這一類的問題，這也就是今天所要提到的內容。</p>
 <a id="more"></a>
 
-<h2 id="環境建置"><a href="#環境建置" class="headerlink" title="環境建置"></a>環境建置</h2><p>要下載 Vue-cli 之前，我們會需要透過 NPM 套件管理工具來下載，而 NPM 在下載 Node.js 時就會一併包進去了，雖然安裝 Node.js 比較好的方式是依靠 NVM 來管理 Node.js 版本，但如此一來我們就要使用 NVM 來下載 Node.js，再來檢查有沒有一併安裝好 NPM 後，最後才能用 NPM 來下載 Vue-cli。（好饒口）</p>
-<p>但如果大家真的只是在家體驗玩看看的話，其實也不彷直接載 Node.js 就是了。</p>
-<p>首先，我們到 <a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a> 官方網站下載 Node.js，接著打開這個黑色的視窗，window 系統叫他<strong>命令提示字元（cmd）</strong>，而 Mac 電腦要找到他則可搜尋<strong>終端機（Terminal）</strong>。</p>
-<p><img src="https://ithelp.ithome.com.tw/upload/images/20191003/20119062P4LfYSn7rD.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20191003/20119062P4LfYSn7rD.jpg"></p>
-<p>打開它之後會看到全黑的視窗，以 Windows 系統的為例會看到這個：</p>
-<p><img src="https://ithelp.ithome.com.tw/upload/images/20191003/20119062KSvKqPCe8s.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20191003/20119062KSvKqPCe8s.jpg"></p>
-<p>接著在裡面輸入<code>node -v</code>，如果有出現 Node.js 版本號表示有下載到 Node.js：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$</span> node <span class="literal">-v</span></span><br></pre></td></tr></table></figure>
+<h2 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h2><p>在 Vue.js 中，可以單獨在頁面中引入 script 檔使用：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="actionscript">https:<span class="comment">//unpkg.com/vue-router@2.0.0/dist/vue-router.js</span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>NPM 的部分同樣可以輸入 <code>npm -v</code> 來查詢：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$</span> npm <span class="literal">-v</span></span><br></pre></td></tr></table></figure>
+<p>而在 Vue-cli 中，我們可以在一開始建立檔案時，將 Router 模組安裝進去，安裝完畢後會在 <code>/src</code> 路徑底下看到一隻 router.js 設定檔案，這也就是我們今天主要會操作到的檔案。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">├── dist/               </span><br><span class="line">├── node_modules/       </span><br><span class="line">├── public/             </span><br><span class="line">│   ├── favicon.ico     </span><br><span class="line">│   └── index.html      </span><br><span class="line">├── src/                </span><br><span class="line">│   ├── assets/         </span><br><span class="line">│   ├── components/     </span><br><span class="line">│   ├── views/          </span><br><span class="line">│   ├── App.vue         </span><br><span class="line">│   ├── main.js         </span><br><span class="line">│   ├── router.js       // 在這裡</span><br><span class="line">│   └── store.js        </span><br><span class="line">├── .gitignore          </span><br><span class="line">├── package.json        </span><br><span class="line">└── vue.config.js</span><br></pre></td></tr></table></figure>
 
-<p>確認同樣有跳出版本號後，我們就可以來使用 NPM 來下載 Vue-cli 啦！而這裡 Windows 系統與 Mac 會略有一點差別：</p>
-<p>Windows 在 cmd 中直接輸入 <code>npm install -g @vue/cli</code> 來下載，<code>npm install @vue/cli</code> 表示藉由 npm 來下載 <code>@vue/cli</code>，而 <code>-g</code> 則表示此套件將會下載到全域環境之中，也就是說接下來你在任何資料夾路徑中都可以使用這個套件。</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$</span> npm install <span class="literal">-g</span> @vue/cli</span><br></pre></td></tr></table></figure>
+<p>而打開 router.js 後我們可以看到下列檔案：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> Router <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="keyword">import</span> Home <span class="keyword">from</span> <span class="string">'./views/Home.vue'</span></span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Router(&#123;</span><br><span class="line">  mode: <span class="string">'history'</span>,</span><br><span class="line">  base: process.env.BASE_URL,</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/'</span>,</span><br><span class="line">      name: <span class="string">'home'</span>,</span><br><span class="line">      component: Home</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/about'</span>,</span><br><span class="line">      name: <span class="string">'about'</span>,</span><br><span class="line">      component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'./views/About.vue'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 
-<p>Mac 用戶下載全域(<code>global</code>)套件的部分會受到一些限制，第一個是需要在指令前面多加 <code>sudo</code> 來執行，並且會要求你提供 Mac 帳戶密碼，如果帳戶沒設置密碼的話會沒辦法使用，因此得替帳戶設定一組密碼：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$</span> sudo npm install <span class="literal">-g</span> @vue/cli</span><br></pre></td></tr></table></figure>
+<p>首先我們先來關注放在 Router 裡面所回傳的物件可放入的屬性，第一個屬性 <code>mode</code> 模式可以切換為：</p>
+<ul>
+<li><code>hash</code> ：默認值，在這種模式下路徑會以 hash 來模擬路徑，藉由 hash 特性使切換路徑時頁面不會刷新。</li>
+<li><code>history</code> ：history 模式，則是利用前面提到的 history API 來達成切換路徑的效果。</li>
+</ul>
+<p>以本機伺服器為例子切換到 /about 的話兩者差異如下：</p>
+<ul>
+<li>hash<ul>
+<li><a href="http://localhost:8080/#/" target="_blank" rel="noopener">http://localhost:8080/#/</a></li>
+<li><a href="http://localhost:8080/#/about" target="_blank" rel="noopener">http://localhost:8080/#/about</a></li>
+</ul>
+</li>
+<li>history<ul>
+<li><a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a></li>
+<li><a href="http://localhost:8080/about" target="_blank" rel="noopener">http://localhost:8080/about</a></li>
+</ul>
+</li>
+</ul>
+<p>第二個屬性 <code>base</code> 則是決定好根目錄的名稱，建立環境如果在特定路徑下需要更改。</p>
+<p>第三個屬性 <code>routes</code> 則可以設定頁面路徑等相關設定，以下列出幾個較常用的項目：</p>
+<h3 id="path"><a href="#path" class="headerlink" title="path"></a>path</h3><p>用來核對網址路徑使用，若符合該路徑則會渲染出對應的元件（component），並且支援多種比對的方法。<br>路徑          | 涵義<br>————- | ————-<br>/             | 根目錄網址<br>/*             | 所有網址都符合此路徑，會攔截所有網址，要謹慎使用。<br>/member       | 網址剛好為 /member 才符合<br>/member-*       | 開頭為 /member 皆符合條件<br>/member/*       |  /member/ 底下網址都符合此條件<br>/member/:id       | 網址為 <code>/member/9527</code> 的話，可在該頁面透過 this.$route.params 取到 <code>{id:9527}</code><br>/member?       | 網址為 <code>/member?from=ithome</code> 的話，可在該頁面透過 this.$route.query 取到 <code>{from:ithome}</code> </p>
+<h3 id="component"><a href="#component" class="headerlink" title="component"></a>component</h3><p>path 條件符合時，渲染該頁面對應的單一元件檔（.vue）。</p>
+<p>透過 import 方式我們可以在使用者開啟網站時就先導入該頁面的資源，而透過放在 component 裡的 callback function 則可以達到 lazy loading 載入元件的效果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'./views/About.vue'</span>)</span><br></pre></td></tr></table></figure>
 
-<p>安裝完畢之後，可以輸入指令來確認 Vue-cli 是否有安裝成功：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$</span> vue -<span class="literal">-version</span></span><br></pre></td></tr></table></figure>
+<p>另外在執行 <code>npm run build</code> 建置靜態檔案準備上傳伺服器前，可在 import 內放入 webpackChunkName 來設定包裝元件檔的模組名稱，而該模組名稱主要是用來執行異步載入用，避免元件檔數量太多而造成載入時受影響。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: "about" */</span> <span class="string">'./views/About.vue'</span>)</span><br></pre></td></tr></table></figure>
 
-<p>下載完成後，若是熟悉終端機指令的朋友可以下面方案一的方式創建，若不熟悉終端機操作的人，Vue-cli 也很貼心地推出介面的管理方式，可以參考底下方案二的方式管理（但我還是推薦大家可以多熟悉終端機指令啦 XD）。</p>
-<h2 id="方案一-終端機"><a href="#方案一-終端機" class="headerlink" title="方案一 終端機"></a>方案一 終端機</h2><p>將終端機切換到存放管理的資料夾執行指令：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$</span> vue create *你的專案名稱*</span><br></pre></td></tr></table></figure>
 
-<p>接著他會顯示要安裝哪種預設套裝，默認 <code>default</code> 設定可以快速建立一個基本原型，而實際專案較常會使用下方的手動設定 <code>Manually</code> 來調整想要使用的內容，如官網圖所示：</p>
+<h3 id="name"><a href="#name" class="headerlink" title="name"></a>name</h3><p>識別該頁面的名稱，如在元件中可透過方法切換到指定的頁面名稱：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$router.push(&#123;<span class="attr">name</span>: <span class="string">'about'</span>&#125;) <span class="comment">// 使用 Vue router 切換到 about 頁面</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="redirect"><a href="#redirect" class="headerlink" title="redirect"></a>redirect</h3><p>將進入到符合到 path 路徑條件的網址，重新轉向 redirect 所指定的網址：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">path</span>: <span class="string">'/a'</span>, <span class="attr">redirect</span>: <span class="string">'/b'</span> &#125; <span class="comment">// 此設定將會使進入 /a 網址的使用者，被導向到 /b 網址並使用符合 /b path 路徑的元件</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h3><p>將進入到符合到 path 路徑條件的網址，改成 alias 所指定的網址：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">path</span>: <span class="string">'/a'</span>, <span class="attr">alias</span>: <span class="string">'/b'</span>, <span class="attr">component</span>:A &#125;    <span class="comment">// 此設定將會使進入 /a 並使用符合 /a 路徑的元件，但網址會轉換成 /b</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="切換頁面"><a href="#切換頁面" class="headerlink" title="切換頁面"></a>切換頁面</h2><p>在設定完頁面相關資訊之後，我們現在已經擁有了一個網址路徑比對的工具了，現在我們要在頁面中執行切換頁面的效果。</p>
+<p>最簡單的方式，是透過 Vue router 所提供的 <code>&lt;router-link&gt;</code>：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/about"</span>&gt;</span>About<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>最後會轉譯成：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/about"</span>&gt;</span>About<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>而特地要使用 <code>&lt;router-link&gt;</code> 而不是 <code>&lt;a&gt;</code> 的原因在於，他在有設定 base 路徑的情況下，可以直接使用 <code>to</code> 來導向網域底下的頁面，並且防止頁面重新載入以及遇到不支援 history 模式的瀏覽器時會自動降級成 hash 模式的路徑。</p>
+<p><strong>此外也可以傳入一個 router 物件：</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"&#123; path: 'about'&#125;"</span>&gt;</span>About<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"&#123; name: 'user', params: &#123; userId: 9527 &#125;&#125;"</span>&gt;</span>User<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line">以上等同於</span><br><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/about"</span>&gt;</span>User<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/user?userId=9527"</span>&gt;</span>User<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>以 JavaScript 轉頁：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$router.push(&#123; <span class="attr">path</span>: <span class="string">'about'</span>&#125;&#125;)  <span class="comment">// 網址 /about</span></span><br><span class="line"><span class="keyword">this</span>.$router.push(&#123; <span class="attr">name</span>: <span class="string">'user'</span>, <span class="attr">params</span>: &#123; <span class="attr">userId</span>: <span class="number">9527</span> &#125;)  <span class="comment">// 網址 /user?userId=9527</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>針對歷史紀錄切換頁：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$router.go(<span class="number">1</span>)    <span class="comment">// 下一頁</span></span><br><span class="line"><span class="keyword">this</span>.$router.go(<span class="number">-1</span>)   <span class="comment">// 上一頁</span></span><br><span class="line"><span class="keyword">this</span>.$router.go(<span class="number">9527</span>) <span class="comment">// 若跳轉頁面數量不構，會發生錯誤，需自行處理</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="顯示頁面"><a href="#顯示頁面" class="headerlink" title="顯示頁面"></a>顯示頁面</h2><p>Vue router 提供了 <code>&lt;router-view&gt;</code> 標籤供我們使用，只要符合路徑，而在標籤使用區塊須注意 router 中所設定的 route 層級，以下方為例：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">App.vue </span><br><span class="line">├── Home.vue</span><br><span class="line">└── About.vue</span><br><span class="line">    ├── Info.vue</span><br><span class="line">    └── Contact.vue</span><br></pre></td></tr></table></figure>
+
+<p>若在 App.vue 中所使用的話，路徑可比對到 <code>Home.vue</code> 以及 <code>About.vue</code>。</p>
+<p>但若想要在 About.vue 中嵌套顯示底下的 <code>Info.vue</code> 或 <code>Contact.vue</code> 則需在 About.vue 裡面也放置 <code>&lt;router-view&gt;</code>標籤，並在 router 中設定 children 路徑配對：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attribute">path</span>: <span class="string">'/about'</span>,</span><br><span class="line">  name: <span class="string">'AboutPage'</span>,</span><br><span class="line">  component: () =&gt; <span class="built_in">import</span>(/* webpackChunkName: <span class="string">"About"</span> */ <span class="string">'./views/About.vue'</span>),</span><br><span class="line">  children: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: <span class="string">'/about/info'</span>,</span><br><span class="line">      component: () =&gt; <span class="built_in">import</span>(/* webpackChunkName: <span class="string">"About"</span> */ <span class="string">'./views/Info.vue'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attribute">path</span>: <span class="string">'/about/contact'</span>,</span><br><span class="line">      component: () =&gt; <span class="built_in">import</span>(/* webpackChunkName: <span class="string">"About"</span> */ <span class="string">'./views/Contact.vue'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如此一來首先會從 <code>App.vue</code> 的 <code>&lt;router-view&gt;</code> 配對到 about 頁面並載入 <code>About.vue</code> 後，在透過連結配對到 info 頁面或 contact 頁面，切換 About.vue 頁面當中的 <code>&lt;router-view&gt;</code> ，載入 <code>Info.vue</code> 或 <code>Contact.vue</code>。</p>
+<p>以上就是 Vue-cli Router 中一些最基礎的用法！基本上依靠這幾個 API 切換加上之前所介紹到的 Vue.js 指令與 Vue-cli .vue 檔案，已經能做出完整的應用程式了，而其中還有少數幾個 API 沒有講到的，不過這都可以待需要使用時再繼續深入研究，希望大家會喜歡這個系列！</p>
 <blockquote>
-<p><img src="https://ithelp.ithome.com.tw/upload/images/20191003/20119062NIJtU0zTOl.png" alt="https://ithelp.ithome.com.tw/upload/images/20191003/20119062NIJtU0zTOl.png"></p>
-</blockquote>
-<p>而手動設定的部分我一般是選用 Router、Vuex、CSS Pre-processors 以及 Linter。</p>
-<h2 id="方案二-介面安裝法"><a href="#方案二-介面安裝法" class="headerlink" title="方案二 介面安裝法"></a>方案二 介面安裝法</h2><p>雖然 Vue-cli 幫大家做了一個介面來管理，但第一行還是要請大家到終端機去輸入指令：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$</span> vue ui</span><br></pre></td></tr></table></figure>
-
-<p>這樣一來他就會開啟一個瀏覽器頁面來幫助建立專案的流程，最後一樣會建立一個以你專案名稱為名字的資料夾。</p>
-<p><img src="https://ithelp.ithome.com.tw/upload/images/20191003/201190621ygmc1dhMd.png" alt="https://ithelp.ithome.com.tw/upload/images/20191003/201190621ygmc1dhMd.png"></p>
-<p>設定完畢啟動後，我們透過終端機 <code>cd</code> 指令切換到我們的專案資料夾中，再使用 <code>npm run serve</code> 來啟用本地伺服器：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$</span> cd <span class="string">'你的專案夾名稱'</span></span><br><span class="line"><span class="variable">$</span> npm run serve</span><br></pre></td></tr></table></figure>
-
-<p>最後啟動後將可以看到 Vue.js 大大的 LOGO 以及 <code>Welcome to Your Vue.js App</code> 字樣出現在網頁上了。</p>
-<p><img src="https://ithelp.ithome.com.tw/upload/images/20191003/20119062AgkG8fqvm2.png" alt="https://ithelp.ithome.com.tw/upload/images/20191003/20119062AgkG8fqvm2.png"></p>
-<h2 id="結構目錄"><a href="#結構目錄" class="headerlink" title="結構目錄"></a>結構目錄</h2><p>在專案資料夾被創立之後，Vue-cli 會在裡面建立一些預設檔案，而產生的目錄如下，可以先稍微了解大概檔案的目的是什麼：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">├── dist/               // 使用 npm run build 會在此處建立一個靜態檔案</span><br><span class="line">├── node_modules/       // 使用 npm 下載管理的模組會集中在此</span><br><span class="line">├── public/             // 放在此處的公共檔案可以使用絕對路徑取得，並且不會經過編譯壓縮處理</span><br><span class="line">│   ├── favicon.ico     // 範例用的圖片檔</span><br><span class="line">│   └── index.html      // 網站入口</span><br><span class="line">├── src/                // 前端開發的原始檔案，基本上要寫的程式都是放在此處</span><br><span class="line">│   ├── assets/         // 放在此處的公共檔案可以使用相對路徑取得，並且會經過編譯壓縮處理</span><br><span class="line">│   ├── components/     // Vue 元件檔案</span><br><span class="line">│   ├── views/          // Vue rounter 頁面檔案</span><br><span class="line">│   ├── App.vue         // Vue 專案的進入點</span><br><span class="line">│   ├── main.js         // Vue 專案的設定檔</span><br><span class="line">│   ├── router.js       // Vue rounter設定</span><br><span class="line">│   └── store.js        // Vuex設定</span><br><span class="line">├── .gitignore          // git 設定檔案</span><br><span class="line">├── package.json        // npm 產生的專案文件</span><br><span class="line">└── vue.config.js       // Vue 設定文件 ( 需手動建立 )</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>環境建置的章節就到這裡結束囉，下一章會來介紹一下 Vue-cli 裡面的 .vue 檔案究竟是什麼東西？<br><img src="https://ithelp.ithome.com.tw/upload/images/20191003/20119062S6FmV59sIA.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20191003/20119062S6FmV59sIA.jpg"></p>
+<p>接下來我們就有緣再相見啦！<br><img src="https://ithelp.ithome.com.tw/upload/images/20191008/20119062b1DjmDGged.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20191008/20119062b1DjmDGged.jpg"></p>
 </blockquote>
 
       
@@ -739,6 +768,8 @@
           
             <a href="/tags/Vue-cli/" rel="tag"># Vue-cli</a>
           
+            <a href="/tags/Vue-router/" rel="tag"># Vue-router</a>
+          
         </div>
       
 
@@ -769,8 +800,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/d3.js/D3-013-geojson-topojson/" rel="next" title="D3.js 繪製臺灣地圖">
-                <i class="fa fa-chevron-left"></i> D3.js 繪製臺灣地圖
+              <a href="/vue.js/Vue-cli-005-vuex/" rel="next" title="Vue-cli What is Vuex? Why do we need Vuex?">
+                <i class="fa fa-chevron-left"></i> Vue-cli What is Vuex? Why do we need Vuex?
               </a>
             
           </div>
@@ -779,8 +810,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/vue.js/Vue-cil-002-vue-file/" rel="prev" title="Vue-cli 單一元件檔 （.vue 檔）">
-                Vue-cli 單一元件檔 （.vue 檔） <i class="fa fa-chevron-right"></i>
+              <a href="/mocha.js/Mocha-001-intro/" rel="prev" title="Mocha.js 入門、環境建置與範例（Install, Build environment）">
+                Mocha.js 入門、環境建置與範例（Install, Build environment） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -861,7 +892,7 @@
                 
                   <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">74</span>
+                    <span class="site-state-item-count">76</span>
                     <span class="site-state-item-name">文章</span>
                   </a>
                 </div>
@@ -1055,7 +1086,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-cli"><span class="nav-number">1.</span> <span class="nav-text">Vue-cli</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#環境建置"><span class="nav-number">2.</span> <span class="nav-text">環境建置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方案一-終端機"><span class="nav-number">3.</span> <span class="nav-text">方案一 終端機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方案二-介面安裝法"><span class="nav-number">4.</span> <span class="nav-text">方案二 介面安裝法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#結構目錄"><span class="nav-number">5.</span> <span class="nav-text">結構目錄</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SPA"><span class="nav-number">1.</span> <span class="nav-text">SPA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Router"><span class="nav-number">2.</span> <span class="nav-text">Router</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#path"><span class="nav-number">2.1.</span> <span class="nav-text">path</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#component"><span class="nav-number">2.2.</span> <span class="nav-text">component</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#name"><span class="nav-number">2.3.</span> <span class="nav-text">name</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redirect"><span class="nav-number">2.4.</span> <span class="nav-text">redirect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alias"><span class="nav-number">2.5.</span> <span class="nav-text">alias</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切換頁面"><span class="nav-number">3.</span> <span class="nav-text">切換頁面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顯示頁面"><span class="nav-number">4.</span> <span class="nav-text">顯示頁面</span></a></li></ol></div>
             
 
           </div>
@@ -1100,7 +1131,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1240,9 +1271,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://shawnlin0201.github.io/vue.js/Vue-cil-001-build/";
-    this.page.identifier = "vue.js/Vue-cil-001-build/";
-    this.page.title = 'Vue-cli 介紹與環境建置';
+    this.page.url = "https://shawnlin0201.github.io/vue.js/Vue-cli-006-vue-router/";
+    this.page.identifier = "vue.js/Vue-cli-006-vue-router/";
+    this.page.title = 'Vue-cli Router';
     };
   function loadComments() {
     var d = document, s = d.createElement('script');
