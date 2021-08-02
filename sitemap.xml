@@ -163,7 +163,7 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/vue.js/Vue-013-dynamic-component/</loc>
+    <loc>https://shawnlin0201.github.io/vue.js/Vue-011-event/</loc>
     
     <lastmod>2020-09-29T14:32:47.956Z</lastmod>
     
@@ -177,21 +177,21 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/vue.js/Vue-011-event/</loc>
+    <loc>https://shawnlin0201.github.io/vue.js/Vue-013-dynamic-component/</loc>
     
     <lastmod>2020-09-29T14:32:47.956Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/vue.js/Vue-007-component/</loc>
+    <loc>https://shawnlin0201.github.io/vue.js/Vue-008-component-child/</loc>
     
     <lastmod>2020-09-29T14:32:47.955Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/vue.js/Vue-008-component-child/</loc>
+    <loc>https://shawnlin0201.github.io/vue.js/Vue-007-component/</loc>
     
     <lastmod>2020-09-29T14:32:47.955Z</lastmod>
     
@@ -226,13 +226,6 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/vue.js/Vue-005-options/</loc>
-    
-    <lastmod>2020-09-29T14:32:47.954Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://shawnlin0201.github.io/vue.js/Vue-004-modifier/</loc>
     
     <lastmod>2020-09-29T14:32:47.954Z</lastmod>
@@ -247,14 +240,21 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/mocha.js/Mocha-002-run-cycle/</loc>
+    <loc>https://shawnlin0201.github.io/vue.js/Vue-005-options/</loc>
+    
+    <lastmod>2020-09-29T14:32:47.954Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://shawnlin0201.github.io/vue.js/Vue-001-why-do-I-need-vue/</loc>
     
     <lastmod>2020-09-29T14:32:47.953Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/vue.js/Vue-001-why-do-I-need-vue/</loc>
+    <loc>https://shawnlin0201.github.io/mocha.js/Mocha-002-run-cycle/</loc>
     
     <lastmod>2020-09-29T14:32:47.953Z</lastmod>
     
@@ -289,14 +289,14 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/d3.js/D3-009-d3-data-processing/</loc>
+    <loc>https://shawnlin0201.github.io/d3.js/D3-008-d3-in-vue/</loc>
     
     <lastmod>2020-09-29T14:32:47.951Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/d3.js/D3-008-d3-in-vue/</loc>
+    <loc>https://shawnlin0201.github.io/d3.js/D3-009-d3-data-processing/</loc>
     
     <lastmod>2020-09-29T14:32:47.951Z</lastmod>
     
@@ -331,14 +331,14 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/d3.js/D3-006-selection-data-datum/</loc>
+    <loc>https://shawnlin0201.github.io/d3.js/D3-007-enter-exit-update/</loc>
     
     <lastmod>2020-09-29T14:32:47.950Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/d3.js/D3-007-enter-exit-update/</loc>
+    <loc>https://shawnlin0201.github.io/d3.js/D3-006-selection-data-datum/</loc>
     
     <lastmod>2020-09-29T14:32:47.950Z</lastmod>
     
@@ -359,13 +359,6 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/d3.js/D3-003-recognize-chart/</loc>
-    
-    <lastmod>2020-09-29T14:32:47.949Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://shawnlin0201.github.io/d3.js/D3-004-how-d3-draw/</loc>
     
     <lastmod>2020-09-29T14:32:47.949Z</lastmod>
@@ -373,14 +366,21 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/Methodology/Methodology-003-YAGNI-principle/</loc>
+    <loc>https://shawnlin0201.github.io/d3.js/D3-003-recognize-chart/</loc>
+    
+    <lastmod>2020-09-29T14:32:47.949Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://shawnlin0201.github.io/Methodology/Methodology-002-Kiss-principle/</loc>
     
     <lastmod>2020-09-29T14:32:47.948Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/Methodology/Methodology-002-Kiss-principle/</loc>
+    <loc>https://shawnlin0201.github.io/Methodology/Methodology-003-YAGNI-principle/</loc>
     
     <lastmod>2020-09-29T14:32:47.948Z</lastmod>
     
@@ -408,14 +408,14 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/Jest.js/Jest-004-setup-teardown/</loc>
+    <loc>https://shawnlin0201.github.io/Methodology/Methodology-001-DRY-principle/</loc>
     
     <lastmod>2020-09-29T14:32:47.947Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/Methodology/Methodology-001-DRY-principle/</loc>
+    <loc>https://shawnlin0201.github.io/Jest.js/Jest-004-setup-teardown/</loc>
     
     <lastmod>2020-09-29T14:32:47.947Z</lastmod>
     
@@ -425,20 +425,6 @@
     <loc>https://shawnlin0201.github.io/Jest.js/Jest-005-test-double-and-mocks/</loc>
     
     <lastmod>2020-09-29T14:32:47.947Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-synchronous-and-asynchronous/</loc>
-    
-    <lastmod>2020-09-29T14:32:47.946Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-this/</loc>
-    
-    <lastmod>2020-09-29T14:32:47.946Z</lastmod>
     
   </url>
   
@@ -458,6 +444,20 @@
   
   <url>
     <loc>https://shawnlin0201.github.io/Jest.js/Jest-003-async-test/</loc>
+    
+    <lastmod>2020-09-29T14:32:47.946Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-synchronous-and-asynchronous/</loc>
+    
+    <lastmod>2020-09-29T14:32:47.946Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-this/</loc>
     
     <lastmod>2020-09-29T14:32:47.946Z</lastmod>
     
@@ -492,14 +492,14 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Promise/</loc>
+    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Pure-Function/</loc>
     
     <lastmod>2020-09-29T14:32:47.944Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Pure-Function/</loc>
+    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Promise/</loc>
     
     <lastmod>2020-09-29T14:32:47.944Z</lastmod>
     
@@ -548,6 +548,13 @@
   </url>
   
   <url>
+    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Closure/</loc>
+    
+    <lastmod>2020-09-29T14:32:47.942Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Call-Stack/</loc>
     
     <lastmod>2020-09-29T14:32:47.942Z</lastmod>
@@ -562,21 +569,14 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Closure/</loc>
-    
-    <lastmod>2020-09-29T14:32:47.942Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Arrow-function/</loc>
+    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Array-methods/</loc>
     
     <lastmod>2020-09-29T14:32:47.941Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Array-methods/</loc>
+    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Arrow-function/</loc>
     
     <lastmod>2020-09-29T14:32:47.941Z</lastmod>
     
