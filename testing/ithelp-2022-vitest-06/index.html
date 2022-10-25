@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文序上篇提到了測試價值的部分，瞭解了導入測試能夠帶來什麼樣的價值。然而，若我們想發揮測試的最大效用，我們需要試著在合適的時機來加入測試。 本文接下來會分成兩種探討的方向來說明我心目中加入測試的時機：  專案性質 產品階段">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【概念ノ章】測試價值：加入測試的時機">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-06/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="本文序上篇提到了測試價值的部分，瞭解了導入測試能夠帶來什麼樣的價值。然而，若我們想發揮測試的最大效用，我們需要試著在合適的時機來加入測試。 本文接下來會分成兩種探討的方向來說明我心目中加入測試的時機：  專案性質 產品階段">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+<meta property="article:published_time" content="2022-09-21T13:02:27.000Z">
+<meta property="article:modified_time" content="2022-10-24T08:49:50.836Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Vitest">
+<meta property="article:tag" content="Vue Test Utils">
+<meta property="article:tag" content="Unit Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-06/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【概念ノ章】測試價值：加入測試的時機 | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-06/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【概念ノ章】測試價值：加入測試的時機
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-09-21 21:02:27" itemprop="dateCreated datePublished" datetime="2022-09-21T21:02:27+08:00">2022-09-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 16:49:50" itemprop="dateModified" datetime="2022-10-24T16:49:50+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-06/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-06/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>上篇提到了測試價值的部分，瞭解了導入測試能夠帶來什麼樣的價值。然而，若我們想發揮測試的最大效用，我們需要試著在合適的時機來加入測試。</p>
+<p>本文接下來會分成兩種探討的方向來說明我心目中加入測試的時機：</p>
+<ul>
+<li>專案性質</li>
+<li>產品階段</li>
+</ul>
+<a id="more"></a>
+
+<hr>
+<h2 id="依據專案性質選擇加入測試"><a href="#依據專案性質選擇加入測試" class="headerlink" title="依據專案性質選擇加入測試"></a>依據專案性質選擇加入測試</h2><p>「為什麼平常開發時都很順利，感覺不需要加入測試啊？」會發生這種情況，很有可能就是因為該專案的性質，加入測試的效益不高，所以才會發生這件事情。</p>
+<p>但是每家公司的產業別不同，關注的焦點也就不同；甚至，同公司中不同專案之間重視的程度也會有所差別，因此我以幾個指標來供大家自行權衡哪些專案加入測試對是有益處的：</p>
+<h3 id="生命週期：一個產品從創建後到維護，最後消亡的時間。"><a href="#生命週期：一個產品從創建後到維護，最後消亡的時間。" class="headerlink" title="生命週期：一個產品從創建後到維護，最後消亡的時間。"></a>生命週期：一個產品從創建後到維護，最後消亡的時間。</h3><p>專案稍縱即逝：<br>有時候我們可能會承接到來至行銷部門的廣告宣傳頁。而對於廣告宣傳的走期來說很有可能只有短短的兩週不到，這種專案加入測試後可能還沒有機會被測試守護到，線上的頁面就要銷毀了。</p>
+<p>專案會長達一段時間：<br>假若處理的專案是屬於平台類型的網站或產品，撇除掉一開始開發的期間，往往上線後可能就進入長達數年的維運期，這類型的專案由於在產品生命週期中的維運期較長，非常有可能會遇到經手維護人員的更換、既有功能的調整甚至於共用元件邏輯異動等情境，此時除了仰賴規格書來傳承專案中的領域知識之外，就可以藉由測試來防禦意外發生的錯誤。</p>
+<h3 id="維護頻率：專案初步開發完成後，後續維護的頻率。"><a href="#維護頻率：專案初步開發完成後，後續維護的頻率。" class="headerlink" title="維護頻率：專案初步開發完成後，後續維護的頻率。"></a>維護頻率：專案初步開發完成後，後續維護的頻率。</h3><p>近乎不需維護：<br>有些專案放上線後⋯⋯對，沒有然後了，這種專案甚至不在公司的戰略目標上，只因為「某些特殊理由」需要存在，比起測試我更懷疑將來打開後會啟動不了專案的可能性還高一些，因此補足必須的專案文件（如 <a href="http://Readme.md" target="_blank" rel="noopener">Readme.md</a> 該如何啟動專案）都比測試更為需要。</p>
+<p>維護頻率適量：<br>假若一個專案上線後，每個月都仍有改善服務功能等等需求，那麼加入測試就可以鞏固既有的部分不會被牽連到。</p>
+<h3 id="專案規模：產品在規劃需求階段後，所評估出來的專案規模大小。"><a href="#專案規模：產品在規劃需求階段後，所評估出來的專案規模大小。" class="headerlink" title="專案規模：產品在規劃需求階段後，所評估出來的專案規模大小。"></a>專案規模：產品在規劃需求階段後，所評估出來的專案規模大小。</h3><p>小如芝麻：<br>一頁式的活動頁等等，如果內容都純屬文案與圖片，比起測試我可能會請相關業務單位仔細審查其文案是否正確、該有的連結有無放錯等素材確認，畢竟寫了測試去對照連結是否錯誤，結果一開始給的就是錯的，以解決問題的觀點來看，此時測試的效益就會低。</p>
+<p>功能多到需要安排多人協作：<br>有些專案非一己之利能夠完成時，或是遇到需要團隊配合的情況，這時候品質佳的測試能夠防止雙方無意中更改彼此共用的邏輯。</p>
+<h3 id="需求穩定度：需求衝突時的間隔時間。"><a href="#需求穩定度：需求衝突時的間隔時間。" class="headerlink" title="需求穩定度：需求衝突時的間隔時間。"></a>需求穩定度：需求衝突時的間隔時間。</h3><p>方案上午剛確認，下午又變更：<br>偶爾公司應戰略目標考量，在看不到終點雛形的狀態下就要開始開發了，且戰且走的情況下，就會容易因各種原因導致需求不斷變更，更甚者推翻之前的規則，此時加入測試就得衡量其他要素看看是否真的需要，否則很容易遇到測試程式碼不斷被拋棄的狀況。</p>
+<h3 id="資源分配：進行開發前的前置期需求規劃是否足夠、開發人員配置與時間是否充沛。"><a href="#資源分配：進行開發前的前置期需求規劃是否足夠、開發人員配置與時間是否充沛。" class="headerlink" title="資源分配：進行開發前的前置期需求規劃是否足夠、開發人員配置與時間是否充沛。"></a>資源分配：進行開發前的前置期需求規劃是否足夠、開發人員配置與時間是否充沛。</h3><p>資源嚴重不足：<br>因應需要得在有限的情況快速開發，光是開發產品程式碼本身就快來不及的情況下，必要時先捨棄撰寫測試程式碼是一種考量，但如果後續想加入測試就會遇到重重困難。</p>
+<p>有喘息的空間：<br>開發期給予的時間合適，若有需要就可以考慮加入測試。而熟練測試後，導入測試所增加的開發時間就可以降低不少。</p>
+<h2 id="產品階段"><a href="#產品階段" class="headerlink" title="產品階段"></a>產品階段</h2><p>把專案以產品的規格來看待的話我們能加入測試的環節主要是落在初期開發與上線後的維運階段：</p>
+<h3 id="專案本身剛進入開發階段"><a href="#專案本身剛進入開發階段" class="headerlink" title="專案本身剛進入開發階段"></a>專案本身剛進入開發階段</h3><p>若是產品剛進入開發階段的話，此時要加入測試是非常容易的，甚至透過像是前一篇文章的所採用的測試驅動開發（TDD, Test-Driven Development）的開發模式能從測試中得到更多回饋。</p>
+<p>然而這階段可能比較容易遇到的就是需求不穩定的情況，即便在需求規劃期開發者可能與整理需求的人員已有過會議討論可行性，但難免還是會有部分需求要在實際執行時才會發現需要變更作法，因此測試程式碼需隨著產品程式碼不斷調整是可預期的狀況。</p>
+<h3 id="專案本身已進入維運階段"><a href="#專案本身已進入維運階段" class="headerlink" title="專案本身已進入維運階段"></a>專案本身已進入維運階段</h3><p>若產品本身已經開發了一段時間，此時很多功能都是沒有受到測試保護的，根據 《Kent Beck 的測試驅動開發》一書中， Kent Beck 對於這種情況則是表示<em>我們不應該為所有產品程式碼都補上測試，對於沒有需求更動的地方我們應該保留原始的狀態</em>。</p>
+<p>因此，我們能做到的應該是對將來需求更動所影響到的地方開始慢慢加入測試，或是依靠其他可信賴的方式，比方透過團隊成員 code review 等等方式逐步前進。</p>
+<hr>
+<p>以上便是目前我衡量何時該加入測試的基準，也歡迎大家留言提供自己是如何決策何時該加入測試的方式。</p>
+<p>而在確認測試的價值也已經做出決策要在哪些專案加入測試之後，明天我們將開始關注在思考如何撰寫測試的流程，並從測試類型與對應的測試工具開始分析。</p>
+<blockquote>
+<p>作者悄悄話：其實測試寫熟了之後大部分比較像是你願不願意寫</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+              <a href="/tags/Vitest/" rel="tag"># Vitest</a>
+              <a href="/tags/Vue-Test-Utils/" rel="tag"># Vue Test Utils</a>
+              <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-05/" rel="prev" title="【概念ノ章】測試價值：為什麼我需要測試">
+      <i class="fa fa-chevron-left"></i> 【概念ノ章】測試價值：為什麼我需要測試
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-07/" rel="next" title="【概念ノ章】測試脈絡－1. 決定測試類型">
+      【概念ノ章】測試脈絡－1. 決定測試類型 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文序"><span class="nav-number">1.</span> <span class="nav-text">本文序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#依據專案性質選擇加入測試"><span class="nav-number">1.1.</span> <span class="nav-text">依據專案性質選擇加入測試</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生命週期：一個產品從創建後到維護，最後消亡的時間。"><span class="nav-number">1.1.1.</span> <span class="nav-text">生命週期：一個產品從創建後到維護，最後消亡的時間。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#維護頻率：專案初步開發完成後，後續維護的頻率。"><span class="nav-number">1.1.2.</span> <span class="nav-text">維護頻率：專案初步開發完成後，後續維護的頻率。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#專案規模：產品在規劃需求階段後，所評估出來的專案規模大小。"><span class="nav-number">1.1.3.</span> <span class="nav-text">專案規模：產品在規劃需求階段後，所評估出來的專案規模大小。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#需求穩定度：需求衝突時的間隔時間。"><span class="nav-number">1.1.4.</span> <span class="nav-text">需求穩定度：需求衝突時的間隔時間。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#資源分配：進行開發前的前置期需求規劃是否足夠、開發人員配置與時間是否充沛。"><span class="nav-number">1.1.5.</span> <span class="nav-text">資源分配：進行開發前的前置期需求規劃是否足夠、開發人員配置與時間是否充沛。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#產品階段"><span class="nav-number">1.2.</span> <span class="nav-text">產品階段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#專案本身剛進入開發階段"><span class="nav-number">1.2.1.</span> <span class="nav-text">專案本身剛進入開發階段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#專案本身已進入維運階段"><span class="nav-number">1.2.2.</span> <span class="nav-text">專案本身已進入維運階段</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/ithelp-2022-vitest-06/";
+    this.page.identifier = "testing/ithelp-2022-vitest-06/";
+    this.page.title = "【概念ノ章】測試價值：加入測試的時機";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

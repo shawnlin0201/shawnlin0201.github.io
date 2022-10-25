@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="容器方法（Wrapper methods）到目前為止容器方法的部分我們已經學到如何選擇目標與取得目標屬性等相關資料後，今天我們要著重學習如何模擬觸發 DOM 所發生的各種事件（Event），而常見的 DOM 事件有下列幾種：  滑鼠事件：點擊（click） 鍵盤事件：按下某鍵（keydown）、鬆開某鍵（keyup） 表單事件：針對 &lt;input&gt; 輸入內容、checkbo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【語法ノ章】元件測試：容器方法（Wrapper methods）－模擬事件">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-21/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="容器方法（Wrapper methods）到目前為止容器方法的部分我們已經學到如何選擇目標與取得目標屬性等相關資料後，今天我們要著重學習如何模擬觸發 DOM 所發生的各種事件（Event），而常見的 DOM 事件有下列幾種：  滑鼠事件：點擊（click） 鍵盤事件：按下某鍵（keydown）、鬆開某鍵（keyup） 表單事件：針對 &lt;input&gt; 輸入內容、checkbo">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20221006/20119062C3G2LJAWCj.png">
+<meta property="article:published_time" content="2022-10-06T11:21:33.000Z">
+<meta property="article:modified_time" content="2022-10-24T11:13:34.559Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Vitest">
+<meta property="article:tag" content="Vue Test Utils">
+<meta property="article:tag" content="Unit Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-21/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【語法ノ章】元件測試：容器方法（Wrapper methods）－模擬事件 | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-21/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【語法ノ章】元件測試：容器方法（Wrapper methods）－模擬事件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-10-06 19:21:33" itemprop="dateCreated datePublished" datetime="2022-10-06T19:21:33+08:00">2022-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 19:13:34" itemprop="dateModified" datetime="2022-10-24T19:13:34+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-21/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-21/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="容器方法（Wrapper-methods）"><a href="#容器方法（Wrapper-methods）" class="headerlink" title="容器方法（Wrapper methods）"></a>容器方法（Wrapper methods）</h1><p>到目前為止容器方法的部分我們已經學到如何選擇目標與取得目標屬性等相關資料後，今天我們要著重學習如何模擬觸發 DOM 所發生的各種事件（Event），而常見的 DOM 事件有下列幾種：</p>
+<ul>
+<li>滑鼠事件：點擊（click）</li>
+<li>鍵盤事件：按下某鍵（keydown）、鬆開某鍵（keyup）</li>
+<li>表單事件：針對 <code>&lt;input&gt;</code> 輸入內容、<code>checkbox</code> 與 <code>radio</code> 勾選或 <code>&lt;select&gt;</code> 中的選擇內容。</li>
+</ul>
+<a id="more"></a>
+
+<p>首先，語法方面除了表單事件之外，要模擬大部分的事件我們可以透過容器方法中的 <code>trigger</code> 方法即可觸發事件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wrapper.trigger(event, options)</span><br></pre></td></tr></table></figure>
+
+<p>用法是在第一個參數中傳入要觸發的 <code>DOM</code> 事件名稱（e.g. <code>click</code>, <code>drag</code>），如果有需要補充觸發事件的條件，比方像是按下哪個鍵盤，就可以透過第二個參數帶入資訊（e.g. <code>{ keyCode: 65 }</code>）。</p>
+<p>而要注意到的是由於這些事件基本上都會是非同步的用法，所以在撰寫測試案例時可以使用 <code>async/await</code> 來讓斷言（Assertion）保持正確的結果：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'...'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="comment">// Arrange</span></span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Act</span></span><br><span class="line">    <span class="keyword">await</span> wrapper.trigger(event, options)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Assert</span></span><br><span class="line">    expect(<span class="comment">/* ... */</span>).toBe(<span class="comment">/* ... */</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>有了這個概念之後，接下來便可以快速來看看實際上各個事件觸發的實際案例與事件名稱，並且著重關注要特別注意的地方。</p>
+<hr>
+<h2 id="滑鼠事件"><a href="#滑鼠事件" class="headerlink" title="滑鼠事件"></a>滑鼠事件</h2><ul>
+<li>點擊： <code>click</code></li>
+<li>雙擊： <code>dblclick</code></li>
+<li>指定點擊： <code>click.left</code>, <code>click.middle</code>, <code>click.right</code></li>
+</ul>
+<h3 id="點擊與雙擊"><a href="#點擊與雙擊" class="headerlink" title="點擊與雙擊"></a>點擊與雙擊</h3><p>點擊與雙擊的部分最主要需要注意的部分是，以事件來說的概念「雙擊（dblclick）」是一個事件，並非「兩個」「點擊（click）」事件：</p>
+<p>元件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">'vue'</span></span></span><br><span class="line"><span class="actionscript"><span class="keyword">const</span> count = ref(<span class="number">0</span>)</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">data-test</span>=<span class="string">"content"</span>&gt;</span>&#123;&#123; count &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-test</span>=<span class="string">"button"</span> @<span class="attr">click</span>=<span class="string">"count++"</span>&gt;</span>Add<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>測試程式碼：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'after click button should display correct content'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="button"]'</span>).trigger(<span class="string">'click'</span>)</span><br><span class="line">  expect(wrapper.find(<span class="string">'[data-test="content"]'</span>).text()).toBe(<span class="string">'1'</span>)</span><br><span class="line">  <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="button"]'</span>).trigger(<span class="string">'click'</span>)</span><br><span class="line">  expect(wrapper.find(<span class="string">'[data-test="content"]'</span>).text()).toBe(<span class="string">'2'</span>)</span><br><span class="line">  <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="button"]'</span>).trigger(<span class="string">'dblclick'</span>) <span class="comment">// 觸發不到 @click 事件</span></span><br><span class="line">  expect(wrapper.find(<span class="string">'[data-test="content"]'</span>).text()).toBe(<span class="string">'4'</span>) <span class="comment">// AssertionError</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="指定按鍵點擊"><a href="#指定按鍵點擊" class="headerlink" title="指定按鍵點擊"></a>指定按鍵點擊</h3><p>有時候你可以會想要指定滑鼠的按鍵來觸發事件，這時就可以使用類似修飾符（modifier）一樣的方式來觸發事件：</p>
+<ul>
+<li><code>click.left</code></li>
+<li><code>click.middle</code></li>
+<li><code>click.right</code></li>
+</ul>
+<p>元件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript"><span class="keyword">const</span> result = ref(<span class="string">''</span>)</span></span><br><span class="line"><span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">scirpt</span>&gt;</span></span></span></span><br><span class="line"></span><br><span class="line"><span class="handlebars"><span class="xml"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-test</span>=<span class="string">"button"</span> @<span class="attr">click.right</span>=<span class="string">"result = 'here we go!'"</span>&gt;</span>Are You ready?<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">data-test</span>=<span class="string">"target"</span>&gt;</span></span><span class="template-variable">&#123;&#123; result &#125;&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span></span></span><br></pre></td></tr></table></figure>
+
+<p>測試程式碼：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should be display correct text'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line">  <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="button"]'</span>).trigger(<span class="string">'click.right'</span>)</span><br><span class="line">  expect(wrapper.find(<span class="string">'[data-test="target"]'</span>).text()).toBe(<span class="string">'here we go!'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>除此之外，鍵盤與滑鼠的操作也可以融合再一起：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">trigger(<span class="string">'click.ctrl.left'</span>) <span class="comment">// 左鍵點擊時同時按著 ctrl 鍵</span></span><br><span class="line">trigger(<span class="string">'click.alt.right'</span>) <span class="comment">// 右鍵點擊時同時按著 alt 鍵</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="鍵盤事件"><a href="#鍵盤事件" class="headerlink" title="鍵盤事件"></a>鍵盤事件</h2><p>鍵盤最常見的核心事件主要為：</p>
+<ul>
+<li>按下某個按鈕 <code>keydown</code></li>
+<li>鬆開某個按鈕 <code>keyup</code></li>
+</ul>
+<p>上述事件如同指定滑鼠按鍵的寫法，一樣擁有修飾符的相關語法，而後方帶的修飾符主要為按鍵的名稱：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">trigger(<span class="string">'keydown.enter'</span>) <span class="comment">// 按下 enter 鍵</span></span><br><span class="line">trigger(<span class="string">'keyup.up'</span>) <span class="comment">// 鬆開 上方向鍵</span></span><br></pre></td></tr></table></figure>
+
+<p>同樣地，鍵盤事件也支援多重的組合修飾符寫法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trigger(<span class="string">'keydown.ctrl.tab'</span>) <span class="comment">// 按下 ctrl 鍵 + tab 鍵</span></span><br></pre></td></tr></table></figure>
+
+<p>若你想要更靈活的使用鍵盤事件，也可以用 <code>trigger</code> 方法的第二個參數帶入鍵盤的名稱，而目前有支援的寫法主要有下列三種：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">trigger(<span class="string">'事件名稱'</span>, &#123;</span><br><span class="line">    code?: event.code;</span><br><span class="line">    key?: event.key;</span><br><span class="line">    keyCode?: event.keycode;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>若不清楚鍵盤對應的代號也沒有關係，有不少網站專門提供類似的服務供查詢，比方像這個 <a href="https://www.toptal.com/developers/keycode/for/enter" target="_blank" rel="noopener">網站</a> 只要按下任一按鍵就會即時顯示鍵盤對應的代號、名稱等等相關資訊：</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20221006/20119062C3G2LJAWCj.png" alt="https://ithelp.ithome.com.tw/upload/images/20221006/20119062C3G2LJAWCj.png"></p>
+<p>在查到代號後我們就可以將其帶入剛才的方法中：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trigger(<span class="string">'keydown'</span>, &#123; <span class="attr">keyCode</span>: <span class="number">13</span> &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>至於要選擇哪種寫法就看場景本身的需求來做決定囉！</p>
+<hr>
+<h2 id="表單事件"><a href="#表單事件" class="headerlink" title="表單事件"></a>表單事件</h2><ul>
+<li>input 輸入</li>
+<li><code>checkbox</code> / <code>radio</code> 勾選</li>
+<li><code>&lt;select&gt;</code> 中的選擇內容</li>
+</ul>
+<blockquote>
+<p>原先為了針對不同表單類型，Vue Test Utils 1 版（for Vue2）工具提供了一個專屬的 <code>setChecked</code> 的來對應 <code>checkbox</code> / <code>radio</code> 勾選狀態（checked）；除此之外替 <code>&lt;select&gt;</code> 元素的選擇提供了 <code>setSelected</code> 方法來模擬選擇行為。</p>
+</blockquote>
+<p>而在 Vue Test utils 2 版時，我們將只要統一使用 <code>setValue</code> 即可自動對應所有表單的行為！</p>
+<h3 id="模擬-input-輸入"><a href="#模擬-input-輸入" class="headerlink" title="模擬 input 輸入"></a>模擬 input 輸入</h3><p>輸入表單或是操作日期選擇器：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">"textResult"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">data-test</span>=<span class="string">"text"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">data-test</span>=<span class="string">"result_text"</span>&gt;</span>&#123;&#123;textResult&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">"dateResult"</span> <span class="attr">type</span>=<span class="string">"date"</span> <span class="attr">data-test</span>=<span class="string">"date"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">data-test</span>=<span class="string">"result_date"</span>&gt;</span>&#123;&#123;dateResult&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>文字輸入：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'模擬 input 輸入'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line">    <span class="keyword">await</span> wrapper.find([data-test=<span class="string">"text"</span>]).setValue(<span class="string">'Hello, World!'</span>)</span><br><span class="line">    expect(wrapper.find([data-test=<span class="string">"result_text"</span>]).text()).toBe(<span class="string">'Hello, World!'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>選擇日期：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'模擬 日期 輸入'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line">    <span class="keyword">await</span> wrapper.find([data-test=<span class="string">"date"</span>]).setValue(<span class="string">'2022/10/06'</span>)</span><br><span class="line">    expect(wrapper.find([data-test=<span class="string">"result_date"</span>]).text()).toBe(<span class="string">'2022/10/06'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="模擬-radio-勾選"><a href="#模擬-radio-勾選" class="headerlink" title="模擬 radio 勾選"></a>模擬 <code>radio</code> 勾選</h3><p>元件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">data-test</span>=<span class="string">"radio_1"</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">v-model</span>=<span class="string">"radioResult"</span> <span class="attr">value</span>=<span class="string">"1"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">data-test</span>=<span class="string">"radio_2"</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">v-model</span>=<span class="string">"radioResult"</span> <span class="attr">value</span>=<span class="string">"2"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">data-test</span>=<span class="string">"result"</span>&gt;</span>&#123;&#123; radioResult &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>測試程式碼：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'模擬 radio 勾選行為'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line">  <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="radio_1"]'</span>).setValue(<span class="literal">true</span>)</span><br><span class="line">  expect(wrapper.find(<span class="string">'[data-test="result"]'</span>).text()).toEqual(<span class="string">'1'</span>)</span><br><span class="line">  <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="radio_2"]'</span>).setValue(<span class="literal">true</span>)</span><br><span class="line">  expect(wrapper.find(<span class="string">'[data-test="result"]'</span>).text()).toEqual(<span class="string">'2'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="模擬-checkbox-勾選"><a href="#模擬-checkbox-勾選" class="headerlink" title="模擬 checkbox 勾選"></a>模擬 <code>checkbox</code> 勾選</h3><p>元件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">data-test</span>=<span class="string">"checkbox_1"</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">v-model</span>=<span class="string">"checkboxResult"</span> <span class="attr">value</span>=<span class="string">"1"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">data-test</span>=<span class="string">"checkbox_2"</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">v-model</span>=<span class="string">"checkboxResult"</span> <span class="attr">value</span>=<span class="string">"2"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">data-test</span>=<span class="string">"result"</span>&gt;</span>&#123;&#123; checkboxResult.join(',') &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>測試程式碼：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'模擬 checkbox 勾選行為'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line">  <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="checkbox_1"]'</span>).setValue(<span class="literal">true</span>)</span><br><span class="line">  expect(wrapper.find(<span class="string">'[data-test="result"]'</span>).text()).toBe(<span class="string">'1'</span>)</span><br><span class="line">  <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="checkbox_2"]'</span>).setValue(<span class="literal">true</span>)</span><br><span class="line">  expect(wrapper.find(<span class="string">'[data-test="result"]'</span>).text()).toEqual(<span class="string">'1,2'</span>)</span><br><span class="line">  <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="checkbox_1"]'</span>).setValue(<span class="literal">false</span>)</span><br><span class="line">  expect(wrapper.find(<span class="string">'[data-test="result"]'</span>).text()).toEqual(<span class="string">'2'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="模擬-select-選擇"><a href="#模擬-select-選擇" class="headerlink" title="模擬 select 選擇"></a>模擬 select 選擇</h3><p>元件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">select</span> <span class="attr">data-test</span>=<span class="string">"target"</span> <span class="attr">v-model</span>=<span class="string">"result"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"orange"</span>&gt;</span>Orange<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"black"</span>&gt;</span>Black<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">data-test</span>=<span class="string">"result"</span>&gt;</span>&#123;&#123; result &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>測試程式碼：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'模擬 select 選擇'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line">  <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="target"]'</span>).setValue(<span class="string">'orange'</span>)</span><br><span class="line">  expect(wrapper.find(<span class="string">'[data-test="result"]'</span>).text()).toEqual(<span class="string">'orange'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>今天所介紹的模擬事件中，表單事件是筆者個人最喜歡的部分，因為表單若透過手動測試必須要準備大量的測試資料以及繁複的來回測試，萬一測到有問題等到修復好之後又得再重新來過一次，因此若能把這部分轉為自動化測試將能夠感受到非常多的好處。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+              <a href="/tags/Vitest/" rel="tag"># Vitest</a>
+              <a href="/tags/Vue-Test-Utils/" rel="tag"># Vue Test Utils</a>
+              <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-20/" rel="prev" title="【語法ノ章】元件測試：容器方法（Wrapper methods）－取得目標資訊">
+      <i class="fa fa-chevron-left"></i> 【語法ノ章】元件測試：容器方法（Wrapper methods）－取得目標資訊
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-22/" rel="next" title="【語法ノ章】元件測試：模擬 Vue APIs（data, props）">
+      【語法ノ章】元件測試：模擬 Vue APIs（data, props） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#容器方法（Wrapper-methods）"><span class="nav-number">1.</span> <span class="nav-text">容器方法（Wrapper methods）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#滑鼠事件"><span class="nav-number">1.1.</span> <span class="nav-text">滑鼠事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#點擊與雙擊"><span class="nav-number">1.1.1.</span> <span class="nav-text">點擊與雙擊</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指定按鍵點擊"><span class="nav-number">1.1.2.</span> <span class="nav-text">指定按鍵點擊</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#鍵盤事件"><span class="nav-number">1.2.</span> <span class="nav-text">鍵盤事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表單事件"><span class="nav-number">1.3.</span> <span class="nav-text">表單事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模擬-input-輸入"><span class="nav-number">1.3.1.</span> <span class="nav-text">模擬 input 輸入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模擬-radio-勾選"><span class="nav-number">1.3.2.</span> <span class="nav-text">模擬 radio 勾選</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模擬-checkbox-勾選"><span class="nav-number">1.3.3.</span> <span class="nav-text">模擬 checkbox 勾選</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模擬-select-選擇"><span class="nav-number">1.3.4.</span> <span class="nav-text">模擬 select 選擇</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/ithelp-2022-vitest-21/";
+    this.page.identifier = "testing/ithelp-2022-vitest-21/";
+    this.page.title = "【語法ノ章】元件測試：容器方法（Wrapper methods）－模擬事件";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

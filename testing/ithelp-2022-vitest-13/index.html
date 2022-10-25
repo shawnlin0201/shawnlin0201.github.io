@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="準備（Setup）與清理（Teardown）經過了基本的測試情境與測試案例語法，加上簡單的斷言語法 expect().toBe() 就能夠測試許多簡單的東西了，然而在測試過程中有時會遇到大量重複的「前置操作」或是每次測試後「需要清理測試中的環境」，這時我們可以透過 Vitest 提供的 Setup &amp; Teardown API 來處理：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【語法ノ章】Setup &amp; Teardown：beforeAll, beforeEach, AfterAll &amp; AfterEach">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-13/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="準備（Setup）與清理（Teardown）經過了基本的測試情境與測試案例語法，加上簡單的斷言語法 expect().toBe() 就能夠測試許多簡單的東西了，然而在測試過程中有時會遇到大量重複的「前置操作」或是每次測試後「需要清理測試中的環境」，這時我們可以透過 Vitest 提供的 Setup &amp; Teardown API 來處理：">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220928/20119062ywW29eVn1i.png">
+<meta property="article:published_time" content="2022-09-28T13:38:45.000Z">
+<meta property="article:modified_time" content="2022-10-24T08:55:27.973Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Vitest">
+<meta property="article:tag" content="Vue Test Utils">
+<meta property="article:tag" content="Unit Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-13/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【語法ノ章】Setup & Teardown：beforeAll, beforeEach, AfterAll & AfterEach | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【語法ノ章】Setup & Teardown：beforeAll, beforeEach, AfterAll & AfterEach
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-09-28 21:38:45" itemprop="dateCreated datePublished" datetime="2022-09-28T21:38:45+08:00">2022-09-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 16:55:27" itemprop="dateModified" datetime="2022-10-24T16:55:27+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-13/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-13/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h2 id="準備（Setup）與清理（Teardown）"><a href="#準備（Setup）與清理（Teardown）" class="headerlink" title="準備（Setup）與清理（Teardown）"></a>準備（Setup）與清理（Teardown）</h2><p>經過了基本的測試情境與測試案例語法，加上簡單的斷言語法 <code>expect().toBe()</code> 就能夠測試許多簡單的東西了，然而在測試過程中有時會遇到大量重複的「前置操作」或是每次測試後「需要清理測試中的環境」，這時我們可以透過 <code>Vitest</code> 提供的 Setup &amp; Teardown API 來處理：</p>
+<a id="more"></a>
+
+<ul>
+<li>beforeEach：在每個測試案例執行前呼叫一次</li>
+<li>beforeAll：在所有測試案例執行前呼叫一次</li>
+<li>afterEach：在每個測試案例執行後呼叫一次</li>
+<li>afterAll：在所有測試案例執行後呼叫一次</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 針對測試案例重新初始化</span></span><br><span class="line">    initTestEnv()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Setup-amp-Teardown-API-的範疇"><a href="#Setup-amp-Teardown-API-的範疇" class="headerlink" title="Setup &amp; Teardown API 的範疇"></a>Setup &amp; Teardown API 的範疇</h2><p>Setup &amp; Teardown API 「所有」的定義是根據當下的範疇（context）來決定，除了測試檔案本身之外，使用 <code>describe</code> 來定義測試情境也會形成一個 <code>context</code>，因此假如測試情境有巢狀的情況如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> history = []</span><br><span class="line">describe(<span class="string">'父層情境'</span>, () =&gt; &#123;</span><br><span class="line">  beforeAll(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    history.push(<span class="string">'beforeAll - 父層情境'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    history.push(<span class="string">'beforeEach - 父層情境'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  afterAll(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    history.push(<span class="string">'afterAll - 父層情境'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  afterEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    history.push(<span class="string">'afterEach - 父層情境'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  describe(<span class="string">'子層情境 A'</span>, () =&gt; &#123;</span><br><span class="line">    beforeAll(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      history.push(<span class="string">'beforeAll - 子層情境 A'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      history.push(<span class="string">'beforeEach - 子層情境 A'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    afterAll(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      history.push(<span class="string">'afterAll - 子層情境 A'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    afterEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      history.push(<span class="string">'afterEach - 子層情境 A'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">'案例 1'</span>, () =&gt; &#123;</span><br><span class="line">      history.push(<span class="string">'子層情境 A 案例 1'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">'案例 2'</span>, () =&gt; &#123;</span><br><span class="line">      history.push(<span class="string">'子層情境 A 案例 2'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">  describe(<span class="string">'子層情境 B'</span>, () =&gt; &#123;</span><br><span class="line">    beforeAll(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      history.push(<span class="string">'beforeAll - 子層情境 B'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      history.push(<span class="string">'beforeEach - 子層情境 B'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    afterAll(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      history.push(<span class="string">'afterAll - 子層情境 B'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    afterEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      history.push(<span class="string">'afterEach - 子層情境 B'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">'案例 1'</span>, () =&gt; &#123;</span><br><span class="line">      history.push(<span class="string">'子層情境 B 案例 1'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">'案例 2'</span>, () =&gt; &#123;</span><br><span class="line">      history.push(<span class="string">'子層情境 B 案例 2'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>此時將透過 <code>console.log(history)</code> 查看並歸納整理就能得到以下結果：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">--- 進入測試程式碼本身的 Context</span><br><span class="line">--- 進入父層情境的 Context</span><br><span class="line"><span class="keyword">beforeAll </span>- 父層情境</span><br><span class="line">--- 進入子層情境 A 的 Context</span><br><span class="line"><span class="keyword">beforeAll </span>- 子層情境 A</span><br><span class="line"><span class="keyword">beforeEach </span>- 父層情境</span><br><span class="line"><span class="keyword">beforeEach </span>- 子層情境 A</span><br><span class="line">子層情境 A 案例 <span class="number">1</span> // 執行 情境 A 案例 <span class="number">1</span> 的時間點</span><br><span class="line"><span class="symbol">afterEach</span> - 子層情境 A</span><br><span class="line"><span class="symbol">afterEach</span> - 父層情境</span><br><span class="line"><span class="keyword">beforeEach </span>- 父層情境</span><br><span class="line"><span class="keyword">beforeEach </span>- 子層情境 A</span><br><span class="line">子層情境 A 案例 <span class="number">2</span> // 執行 情境 A 案例 <span class="number">2</span> 的時間點</span><br><span class="line"><span class="symbol">afterEach</span> - 子層情境 A</span><br><span class="line"><span class="symbol">afterEach</span> - 父層情境</span><br><span class="line"><span class="symbol">afterAll</span> - 子層情境 A</span><br><span class="line">--- 離開子層情境 A 的 Context</span><br><span class="line"></span><br><span class="line">--- 進入子層情境 <span class="keyword">B </span>的 Context</span><br><span class="line"><span class="keyword">beforeAll </span>- 子層情境 <span class="keyword">B</span></span><br><span class="line"><span class="keyword">beforeEach </span>- 父層情境</span><br><span class="line"><span class="keyword">beforeEach </span>- 子層情境 <span class="keyword">B</span></span><br><span class="line"><span class="keyword">子層情境 </span><span class="keyword">B </span>案例 <span class="number">1</span> // 執行 情境 <span class="keyword">B </span>案例 <span class="number">1</span> 的時間點</span><br><span class="line"><span class="symbol">afterEach</span> - 子層情境 <span class="keyword">B</span></span><br><span class="line"><span class="keyword">afterEach </span>- 父層情境</span><br><span class="line"><span class="keyword">beforeEach </span>- 父層情境</span><br><span class="line"><span class="keyword">beforeEach </span>- 子層情境 <span class="keyword">B</span></span><br><span class="line"><span class="keyword">子層情境 </span><span class="keyword">B </span>案例 <span class="number">2</span> // 執行 情境 <span class="keyword">B </span>案例 <span class="number">2</span> 的時間點</span><br><span class="line"><span class="symbol">afterEach</span> - 子層情境 <span class="keyword">B</span></span><br><span class="line"><span class="keyword">afterEach </span>- 父層情境</span><br><span class="line"><span class="symbol">afterAll</span> - 子層情境 <span class="keyword">B</span></span><br><span class="line"><span class="keyword">--- </span>離開子層情境 <span class="keyword">B </span>的 Context</span><br><span class="line"><span class="symbol">afterAll</span> - 父層情境</span><br><span class="line">--- 離開父層情境的 Context</span><br><span class="line">--- 離開測試程式碼本身的 Context</span><br></pre></td></tr></table></figure>
+
+<p>因此我們在使用這類 API 時要注意當下 context 所包含的範圍。</p>
+<h2 id="避免誤區：在-expect-後做清掃處理"><a href="#避免誤區：在-expect-後做清掃處理" class="headerlink" title="避免誤區：在 expect 後做清掃處理"></a>避免誤區：在 expect 後做清掃處理</h2><p>除了上面的用法，有時候你可能會認為既然要清掃，那我何不在斷言後處理就好呢：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">''</span>, () =&gt; &#123;</span><br><span class="line">    it(<span class="string">''</span>, () =&gt; &#123;</span><br><span class="line">        expect().toBe()</span><br><span class="line">        <span class="comment">// 在這裡做清除</span></span><br><span class="line">        resetTestingEnv()</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>這麼做當你在測試案例都是通過的情況下都沒有問題，但是一但某個測試案例發生了錯誤，由於測試案例就會在斷言時拋出 <code>AssertionError</code> 後停止，因此很有可能因為一個測試案例壞了導致接下來所有測試都受到影響：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">''</span>, () =&gt; &#123;</span><br><span class="line">    it(<span class="string">''</span>, () =&gt; &#123;</span><br><span class="line">        expect().toBe() <span class="comment">// AssertionError，這個測試案例就停在這了</span></span><br><span class="line">        resetTestingEnv() </span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">''</span>, () =&gt; &#123;</span><br><span class="line">        <span class="comment">// 在沒有經過 `resetTestingEnv()` 下進行測試</span></span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">''</span>, () =&gt; &#123;</span><br><span class="line">        <span class="comment">// 在沒有經過 `resetTestingEnv()` 下進行測試</span></span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">''</span>, () =&gt; &#123;</span><br><span class="line">        <span class="comment">// 在沒有經過 `resetTestingEnv()` 下進行測試</span></span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">''</span>, () =&gt; &#123;</span><br><span class="line">        <span class="comment">// 在沒有經過 `resetTestingEnv()` 下進行測試</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>因此較佳的作法還是使用 Setup &amp; Teardown API 來處理會比較好：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">''</span>, () =&gt; &#123;</span><br><span class="line">    beforeEach(<span class="string">''</span>, () =&gt; &#123;</span><br><span class="line">        setupTestingEnv()</span><br><span class="line">    &#125;)</span><br><span class="line">    afterEach(<span class="string">''</span>, () =&gt; &#123;</span><br><span class="line">        resetTestingEnv() </span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">''</span>, () =&gt; &#123;&#125;)</span><br><span class="line">    it(<span class="string">''</span>, () =&gt; &#123;&#125;)</span><br><span class="line">    it(<span class="string">''</span>, () =&gt; &#123;&#125;)</span><br><span class="line">    it(<span class="string">''</span>, () =&gt; &#123;&#125;)</span><br><span class="line">    it(<span class="string">''</span>, () =&gt; &#123;&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="避免過度使用-Setup-amp-Teardown-API"><a href="#避免過度使用-Setup-amp-Teardown-API" class="headerlink" title="避免過度使用 Setup &amp; Teardown API"></a>避免過度使用 Setup &amp; Teardown API</h2><blockquote>
+<p>才剛介紹完 API，馬上又叫人不要用未免也太機車了（？），但凡事有原因請聽我娓娓道來。</p>
+</blockquote>
+<p>一名對於測試領域頗有研究的 Kent C. Dodds 在 twitter 上發表：</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220928/20119062ywW29eVn1i.png" alt="https://ithelp.ithome.com.tw/upload/images/20220928/20119062ywW29eVn1i.png"></p>
+<p>許多人一看了紛紛表示中槍，心想這不就是我在寫的東西嗎？因此發文一出不少人就好奇那麼到底為什麼上方的用法會比較好呢？且讓我們從抽象光譜介紹起。</p>
+<h3 id="抽象光譜（The-Spectrum-of-Abstraction）"><a href="#抽象光譜（The-Spectrum-of-Abstraction）" class="headerlink" title="抽象光譜（The Spectrum of Abstraction）"></a>抽象光譜（The Spectrum of Abstraction）</h3><p>Kent C. Dodds <a href="https://kentcdodds.com/blog/aha-testing" target="_blank" rel="noopener">提出</a>在抽象光譜中主要分成了三種概念：</p>
+<ul>
+<li>ANA：Absolutely No Abstraction</li>
+<li>AHA：Avoid Hasty Abstraction</li>
+<li>DRY：Don’t Repeat Yourself</li>
+</ul>
+<p>而後並將此概念應用在 Testing 身上並分別解說了三種抽象型態下的測試的優劣分析。</p>
+<p>其中我們往往一開始學習可能因為對語法不熟稔，因此可能會寫出 ANA Testing 形式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">''</span>, () =&gt; &#123;</span><br><span class="line">    it(<span class="string">''</span> , () =&gt; &#123;</span><br><span class="line">        <span class="comment">// 準備</span></span><br><span class="line">        <span class="comment">// 操作</span></span><br><span class="line">        <span class="comment">// 斷言</span></span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">''</span> , () =&gt; &#123;</span><br><span class="line">        <span class="comment">// 準備：重複的準備類似的內容</span></span><br><span class="line">        <span class="comment">// 操作</span></span><br><span class="line">        <span class="comment">// 斷言</span></span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">''</span> , () =&gt; &#123;</span><br><span class="line">        <span class="comment">// 準備：重複的準備類似的內容</span></span><br><span class="line">        <span class="comment">// 操作</span></span><br><span class="line">        <span class="comment">// 斷言</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>而隨著測試經驗越來越熟稔之後，我們可能會想盡各種方法來「節省」撰寫測試上的時間，甚至參考 DRY 心法寫出這樣的測試：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">''</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 統一的事前準備</span></span><br><span class="line">    <span class="keyword">const</span> testEnv = <span class="keyword">new</span> TestEnv()</span><br><span class="line">    beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        testEnv.init()</span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">''</span> , <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 直接操作事先準備好的內容</span></span><br><span class="line">        <span class="comment">// 斷言</span></span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">''</span> , <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 直接操作事先準備好的內容</span></span><br><span class="line">        <span class="comment">// 斷言</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>而這樣的下場將會在複雜的巢狀測試情境下越來越難以閱讀與調整：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">''</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    const testEnv = <span class="keyword">new</span> TestEnv()</span><br><span class="line">    beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        testEnv.init()</span><br><span class="line">    &#125;)</span><br><span class="line">    describe(<span class="string">''</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        const testEnv = <span class="keyword">new</span> TestEnv()</span><br><span class="line">        beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            testEnv.init()</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="regexp">//</span> ...</span><br><span class="line">    &#125;)</span><br><span class="line">    describe(<span class="string">''</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        const testEnv = <span class="keyword">new</span> TestEnv()</span><br><span class="line">        beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            testEnv.init()</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="regexp">//</span> ... 等等 這裡的初始準備有什麼 ？？？</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="regexp">//</span> ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>而除了巢狀情境本身是個議題之外，Kent C. Dodds 認為我們應該兼容的方式去看待他，也就是說他不排斥我們去做抽象這件事情，但是首先要做的應該是先保持單純，直到我們看到足夠多共同的案例來分析能抽取出的部分，如果不夠多那甚至原先 <code>inline</code> 的測試案例版本也比過多抽象的版本要好得多。</p>
+<blockquote>
+<p><a href="https://kentcdodds.com/blog/avoid-nesting-when-youre-testing" target="_blank" rel="noopener">避免過度巢狀情境</a></p>
+</blockquote>
+<p>最後，共用的部分除非真的有必要透過 setup &amp; teardown 實作處理，否則共用的部分大多也可以透過諸如工廠模式（factory pattern）的形式產生。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 擷取自我某個專案內的元件測試 */</span></span><br><span class="line"><span class="keyword">const</span> factory = (</span><br><span class="line">  options = &#123;</span><br><span class="line">    createSpy: vi.fn,</span><br><span class="line">  &#125;,</span><br><span class="line">) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">    global: &#123;</span><br><span class="line">      plugins: [createTestingPinia(options)],</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">const</span> store = useMainStore()</span><br><span class="line">  <span class="keyword">return</span> &#123; wrapper, store &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以往後若有使用到這類 API 時不仿先思考一下我們真的需要嗎，還是有更加優雅的方式能夠解決重複的問題呢。</p>
+<p>以上便是今日 Setup &amp; Teardown API 的介紹，明天再見~</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+              <a href="/tags/Vitest/" rel="tag"># Vitest</a>
+              <a href="/tags/Vue-Test-Utils/" rel="tag"># Vue Test Utils</a>
+              <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-12/" rel="prev" title="【語法ノ章】案例與情境：describe & it 與輔助 API">
+      <i class="fa fa-chevron-left"></i> 【語法ノ章】案例與情境：describe & it 與輔助 API
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-14/" rel="next" title="【語法ノ章】斷言（Assertion）上篇：斷言語法與 Matchers">
+      【語法ノ章】斷言（Assertion）上篇：斷言語法與 Matchers <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#準備（Setup）與清理（Teardown）"><span class="nav-number">1.</span> <span class="nav-text">準備（Setup）與清理（Teardown）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Setup-amp-Teardown-API-的範疇"><span class="nav-number">2.</span> <span class="nav-text">Setup &amp; Teardown API 的範疇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免誤區：在-expect-後做清掃處理"><span class="nav-number">3.</span> <span class="nav-text">避免誤區：在 expect 後做清掃處理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免過度使用-Setup-amp-Teardown-API"><span class="nav-number">4.</span> <span class="nav-text">避免過度使用 Setup &amp; Teardown API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象光譜（The-Spectrum-of-Abstraction）"><span class="nav-number">4.1.</span> <span class="nav-text">抽象光譜（The Spectrum of Abstraction）</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/ithelp-2022-vitest-13/";
+    this.page.identifier = "testing/ithelp-2022-vitest-13/";
+    this.page.title = "【語法ノ章】Setup & Teardown：beforeAll, beforeEach, AfterAll & AfterEach";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

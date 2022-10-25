@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">76</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -198,7 +198,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/Methodology/Methodology-001-DRY-principle/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-05/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -212,7 +212,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Methodology/Methodology-001-DRY-principle/" class="post-title-link" itemprop="url">程式設計心法 避免重複原則（DRY principle）</a>
+            <a href="/testing/ithelp-2022-vitest-05/" class="post-title-link" itemprop="url">【概念ノ章】測試價值：為什麼我需要測試</a>
         </h2>
 
         <div class="post-meta">
@@ -222,24 +222,15 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2020-04-06 17:00:25" itemprop="dateCreated datePublished" datetime="2020-04-06T17:00:25+08:00">2020-04-06</time>
+              <time title="創建時間：2022-09-20 20:55:16" itemprop="dateCreated datePublished" datetime="2022-09-20T20:55:16+08:00">2022-09-20</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2022-10-24 16:49:01" itemprop="dateModified" datetime="2022-10-24T16:49:01+08:00">2022-10-24</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Methodology/" itemprop="url" rel="index"><span itemprop="name">Methodology</span></a>
-                </span>
-            </span>
 
           
   
@@ -250,8 +241,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/Methodology/Methodology-001-DRY-principle/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Methodology/Methodology-001-DRY-principle/" itemprop="commentCount"></span>
+    <a title="disqus" href="/testing/ithelp-2022-vitest-05/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-05/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -266,453 +257,108 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="DRY-原則"><a href="#DRY-原則" class="headerlink" title="DRY 原則"></a>DRY 原則</h1><p>這次要來介紹的是我覺得開發程式中最有感的<strong>避免重複原則</strong>（簡稱 DRY 原則，意思即為 Don’t repeat youself!）。</p>
-<p>根據此篇<a href="https://www.sharmaprakash.com.np/four-types-of-duplication-in-source-code/#" target="_blank" rel="noopener">文章</a>所述，在 The Pragmatic Programmer 一書中，DRY 發生的原因總共可以分為四種類別：</p>
+          <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>本文將從實作測試的過程中開始，使讀者逐步瞭解基本的測試大概包含了哪些環節，並從中理解到測試工具的好處以及寫了測試後開發的過程或將來能獲得什麼樣的價值。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/testing/ithelp-2022-vitest-05/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/testing/ithelp-2022-vitest-04/" class="post-title-link" itemprop="url">【初始ノ章】測試建置：Vitest Config Setting</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-09-19 15:33:53" itemprop="dateCreated datePublished" datetime="2022-09-19T15:33:53+08:00">2022-09-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 16:48:20" itemprop="dateModified" datetime="2022-10-24T16:48:20+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-04/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-04/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>開發的過程中，有時候工具原先的設定並不符合當下開發的需求，因此本章節將來看看要如何調整 Vitest 設定，段落的部分將分為：</p>
 <ul>
-<li>強加的重複(Imposed duplication)</li>
-<li>無意的重複(inadvertent duplication)</li>
-<li>懶惰的重複(impatient duplication)</li>
-<li>開發者間的重複(inter-developer duplication)：</li>
-</ul>
-<p>以下是四種類別所表示的意義：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Methodology/Methodology-001-DRY-principle/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/Optimization/Optimization-002.performance/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/information-avatar.png">
-      <meta itemprop="name" content="ShawnL 林奇璇">
-      <meta itemprop="description" content="我家的貓會coding">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="璇之又璇的網路世界">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Optimization/Optimization-002.performance/" class="post-title-link" itemprop="url">Chrome DevTools Performance 與畫面處理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2020-03-30 15:16:21" itemprop="dateCreated datePublished" datetime="2020-03-30T15:16:21+08:00">2020-03-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Optimization/" itemprop="url" rel="index"><span itemprop="name">Optimization</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Optimization/Chrome-DevTools/" itemprop="url" rel="index"><span itemprop="name">Chrome DevTools</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/Optimization/Optimization-002.performance/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Optimization/Optimization-002.performance/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/google/chrome-devtools-logo.png' width='200px' height='200px' />
-</div>
-
-<p>之前有文章寫到在替網頁進行優化時會使用到像是 Google Chrome 瀏覽器的 Lighthouse 網頁檢測工具，並且會給予一些可行方案與提示來協助我們優化。而其中指標（Metrics）提示可能會要我們去觀察像是第一次內容繪製（FCP，First Contentful Paint）或是第一次有意義的繪製（FMP，First Meaningful Paint）等等。</p>
-<p>但這些指標名詞代表更實際的意義在哪裡？這篇文章就要來整理一下這些東西：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Optimization/Optimization-002.performance/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/Optimization/Optimization-001-lighthouse/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/information-avatar.png">
-      <meta itemprop="name" content="ShawnL 林奇璇">
-      <meta itemprop="description" content="我家的貓會coding">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="璇之又璇的網路世界">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Optimization/Optimization-001-lighthouse/" class="post-title-link" itemprop="url">網路優化不可不知的測評工具 Lighthouse, PageSpeed Insights & Web.dev</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2020-03-23 09:57:41" itemprop="dateCreated datePublished" datetime="2020-03-23T09:57:41+08:00">2020-03-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Optimization/" itemprop="url" rel="index"><span itemprop="name">Optimization</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Optimization/lighthouse/" itemprop="url" rel="index"><span itemprop="name">lighthouse</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/Optimization/Optimization-001-lighthouse/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Optimization/Optimization-001-lighthouse/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="lighthouse-logo" src='/images/Lighthosue/lighthouse-logo.png' width='200px' height='200px' />
-</div>
-
-<h1 id="Lighthouse、PageSpeed-Insights"><a href="#Lighthouse、PageSpeed-Insights" class="headerlink" title="Lighthouse、PageSpeed Insights"></a>Lighthouse、PageSpeed Insights</h1><p>Lighthouse 是由 Google 團隊所開發的檢測工具，主要用來檢測網站使用者體驗、效能與 SEO 等等網站優化的部分，若沒有聽過 Lighthouse，那麼應該有聽過同樣為 Google 為所開發的 <a href="https://developers.google.com/speed/pagespeed/insights/?hl=zh-TW" target="_blank" rel="noopener">PageSpeed Insights</a> 檢測網站，而 PageSpeed Insights 也在 2018 年的某次改版中將 Lighthouse 評分整併到 PageSpeed Insights 中。</p>
-<p>而兩者相較之下， PageSpeed Insights 整併後主要是增加了較多視覺報表呈現的部分，並且可以選擇語系來看分析後的優化方案；而 Lighthouse 則有多個管道可以查看檢測後的結果：</p>
-<ul>
-<li>Google DevTools</li>
-<li>Google Extensions Lighthouse</li>
-<li>Web.dev</li>
-</ul>
-<p>接下來便介紹這三個工具的用法與差異：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Optimization/Optimization-001-lighthouse/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/Jest.js/Jest-005-test-double-and-mocks/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/information-avatar.png">
-      <meta itemprop="name" content="ShawnL 林奇璇">
-      <meta itemprop="description" content="我家的貓會coding">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="璇之又璇的網路世界">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Jest.js/Jest-005-test-double-and-mocks/" class="post-title-link" itemprop="url">Jest.js 測試替身 Test double & Mocks Functions</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2020-03-16 13:23:17" itemprop="dateCreated datePublished" datetime="2020-03-16T13:23:17+08:00">2020-03-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Jest-js/" itemprop="url" rel="index"><span itemprop="name">Jest.js</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/Jest.js/Jest-005-test-double-and-mocks/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Jest.js/Jest-005-test-double-and-mocks/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="jest-logo" src='/images/Jest/jest-logo.png' width='200px' height='200px' />
-</div>
-
-<h1 id="Test-double-測試替身"><a href="#Test-double-測試替身" class="headerlink" title="Test double 測試替身"></a>Test double 測試替身</h1><p>測試替身最主要是透過封裝好的函式來協助開發者模擬一些函式、功能、模組所返回的值。</p>
-<p>像是 Mocha.js 就會搭配像是 Sinon.js 這一類的隔離庫來使用測試替身。而 Jest 本身核心概念是屬於 <strong>batteries-included</strong> 類型的框架（即為你需要的功能，框架都盡量幫你準備好了），因此 Jest 在模擬測試替身上則是看 Jest 本身的 Mock API 即可！</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Jest.js/Jest-005-test-double-and-mocks/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/Jest.js/Jest-004-setup-teardown/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/information-avatar.png">
-      <meta itemprop="name" content="ShawnL 林奇璇">
-      <meta itemprop="description" content="我家的貓會coding">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="璇之又璇的網路世界">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Jest.js/Jest-004-setup-teardown/" class="post-title-link" itemprop="url">Jest.js 設定、拆除與作用域（setup、teardown & scope）、執行順序</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2020-03-09 09:49:51" itemprop="dateCreated datePublished" datetime="2020-03-09T09:49:51+08:00">2020-03-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Jest-js/" itemprop="url" rel="index"><span itemprop="name">Jest.js</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Testing/" itemprop="url" rel="index"><span itemprop="name">Testing</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/Jest.js/Jest-004-setup-teardown/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Jest.js/Jest-004-setup-teardown/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="jest-logo" src='/images/Jest/jest-logo.png' width='200px' height='200px' />
-</div>
-
-
-<h1 id="setup、teardown"><a href="#setup、teardown" class="headerlink" title="setup、teardown"></a>setup、teardown</h1><p>在執行測試時，有時候會需要初始化一些基本資料以供測試進行，並且在測試完畢的時候要讓測試後的資料復原、整理。</p>
-<p>而 Jest 在這方面提供的 API 如下：</p>
-<ul>
-<li><strong>describe()</strong>：測試套件，可以針對測試鉤子形成作用域（scope）並描述該部分的測試情境。</li>
-<li><strong>test()</strong>：測試案例，用以描述該筆正在進行的測試內容與設定相關測試條件。（也可以使用別名 <code>it()</code>）</li>
-<li><strong>beforeAll()</strong>：針對該<strong>測試套件</strong>的作用域，在<strong>第一筆</strong>測試案例<strong>開始前</strong>執行一次。</li>
-<li><strong>afterAll()</strong>：針對該<strong>測試套件</strong>的作用域，在<strong>最後一筆</strong>測試案例<strong>結束後</strong>執行一次。</li>
-<li><strong>beforeEach()</strong>：針對該<strong>測試套件</strong>的作用域，在<strong>每個</strong>測試案例<strong>開始前</strong>執行一次。</li>
-<li><strong>afterEach()</strong>：針對該<strong>測試套件</strong>的作用域，在<strong>每個</strong>測試案例<strong>結束前</strong>執行一次。</li>
+<li>Vitest Config 設定方式</li>
+<li>瀏覽常見的 Vitest Config Option</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/Jest.js/Jest-004-setup-teardown/#more" rel="contents">
+              <a class="btn" href="/testing/ithelp-2022-vitest-04/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -736,7 +382,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/Jest.js/Jest-003-async-test/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-03/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -750,7 +396,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Jest.js/Jest-003-async-test/" class="post-title-link" itemprop="url">Jest.js 異步測試（Asynchronous Test）</a>
+            <a href="/testing/ithelp-2022-vitest-03/" class="post-title-link" itemprop="url">【初始ノ章】測試建置：在自己的專案加入單元測試來學測試</a>
         </h2>
 
         <div class="post-meta">
@@ -760,32 +406,15 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2020-03-02 11:20:56" itemprop="dateCreated datePublished" datetime="2020-03-02T11:20:56+08:00">2020-03-02</time>
+              <time title="創建時間：2022-09-18 18:30:27" itemprop="dateCreated datePublished" datetime="2022-09-18T18:30:27+08:00">2022-09-18</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2022-10-24 16:48:17" itemprop="dateModified" datetime="2022-10-24T16:48:17+08:00">2022-10-24</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Jest-js/" itemprop="url" rel="index"><span itemprop="name">Jest.js</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Testing/" itemprop="url" rel="index"><span itemprop="name">Testing</span></a>
-                </span>
-            </span>
 
           
   
@@ -796,8 +425,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/Jest.js/Jest-003-async-test/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Jest.js/Jest-003-async-test/" itemprop="commentCount"></span>
+    <a title="disqus" href="/testing/ithelp-2022-vitest-03/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-03/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -813,21 +442,108 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="jest-logo" src='/images/Jest/jest-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
 </div>
 
-<h1 id="Asynchronous"><a href="#Asynchronous" class="headerlink" title="Asynchronous"></a>Asynchronous</h1><p>由於 JavaScript 在瀏覽器的宿主環境裡擁有單線程（single thread）的特性，使得在程式執行時期（Run time）中一些有關非同步（Asynchronous）的操作會等到主線程（Main thread）整個操作結束後才會回來執行處在任務序列（Event queue）中的非同步操作。</p>
-<p>因此在測試中，如果遇到有關非同步的操作時，測試程式碼的執行順序（主線程）會先於任務序列，造成測試還未來得及收到非同步執行後的結果，進而導致測試失敗的產出。</p>
-<p>我們能做的做法便是要將測試程式碼運行結束的時間，拖延至任務序列當中，讓測試套件（Test suit）中非同步的結果產出之後，才來進行測試中的斷言。</p>
-<p>而在 Jest.js 解決這一類非同步測試的問題時，有提供了實際 API 的作法以供參考：</p>
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>不論是之後看完系列文有興趣想要加入測試到實際的專案中，或是有經驗的開發者現在就想嘗試自己建立一個屬於自己的專案來測試，本文底下將會根據「剛初始化的專案」與「既有專案」兩種情境分別說明要如何安裝單元測試與需要注意的事項！</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/testing/ithelp-2022-vitest-03/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/testing/ithelp-2022-vitest-02/" class="post-title-link" itemprop="url">【初始ノ章】測試建置：跟著系列文一起學測試</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-09-17 17:49:06" itemprop="dateCreated datePublished" datetime="2022-09-17T17:49:06+08:00">2022-09-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 16:45:26" itemprop="dateModified" datetime="2022-10-24T16:45:26+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-02/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-02/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>在進入測試的正文前，本文將帶著讀者一起來安裝系列文專用的測試專案，這份專案內含後續文章會介紹到的測試程式碼以及各元件基本的視覺操作介面，接下來的幾天就可以一邊看著文章一邊操作，同時如果想修改測試程式碼來觀看差異也非常方便。</p>
+<p>本文章提供兩種安裝指南供讀者閱讀，可視讀者的需求來選擇觀看唷：</p>
 <ul>
-<li>callback function 類</li>
-<li>promise 類</li>
-<li>async / await 類</li>
+<li>若讀者本身電腦已安裝並熟悉 <code>NVM</code> 與 <code>Git</code> 操作，請參考【快速通道】指南。</li>
+<li>若尚未接觸過 <code>NVM</code> 或 <code>Git</code> 的讀者，想一步一步操作，請參考【詳細安裝說明】指南。</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/Jest.js/Jest-003-async-test/#more" rel="contents">
+              <a class="btn" href="/testing/ithelp-2022-vitest-02/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -851,7 +567,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/Jest.js/Jest-002-matchers-assertion/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -865,7 +581,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Jest.js/Jest-002-matchers-assertion/" class="post-title-link" itemprop="url">Jest.js 配對器（Matchers）a.k.a. 斷言（Assertion）</a>
+            <a href="/testing/ithelp-2022-vitest-01/" class="post-title-link" itemprop="url">【初始ノ章】前言與 TOC</a>
         </h2>
 
         <div class="post-meta">
@@ -875,32 +591,15 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2020-02-24 14:55:38" itemprop="dateCreated datePublished" datetime="2020-02-24T14:55:38+08:00">2020-02-24</time>
+              <time title="創建時間：2022-09-16 12:00:27" itemprop="dateCreated datePublished" datetime="2022-09-16T12:00:27+08:00">2022-09-16</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2022-10-24 16:44:06" itemprop="dateModified" datetime="2022-10-24T16:44:06+08:00">2022-10-24</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Jest-js/" itemprop="url" rel="index"><span itemprop="name">Jest.js</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Testing/" itemprop="url" rel="index"><span itemprop="name">Testing</span></a>
-                </span>
-            </span>
 
           
   
@@ -911,8 +610,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/Jest.js/Jest-002-matchers-assertion/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Jest.js/Jest-002-matchers-assertion/" itemprop="commentCount"></span>
+    <a title="disqus" href="/testing/ithelp-2022-vitest-01/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-01/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -928,15 +627,17 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="jest-logo" src='/images/Jest/jest-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
 </div>
 
-<h1 id="斷言-Assertion"><a href="#斷言-Assertion" class="headerlink" title="斷言 Assertion"></a>斷言 Assertion</h1><p>在測試庫中，斷言（assertion）是一個很重要的概念，意思即為開發程式中執行完畢時，程式碼執行結果應與斷言所設定的結果一致，否則該處斷言碼會拋出錯誤的意思。你可能已經在某些情況下「斷言」過好幾次了，例如在 JavaScript 裡面使用全等比較（<code>===</code>）來比較兩者的資料類型是否一致，這便是斷言。而在 Jest.js 框架中，Jest 選擇的是使用 Matchers 配對器這個名稱，兩者其實在概念上是差不多的東西。</p>
-<p>Jest.js 中的配對器（Matchers），主要採用的是 <code>expect()</code> 的方法，但 Jest.js 中的 expect 與 Node.js 和其他斷言庫（如 Chai.js）中的 <code>expect()</code> 是不一樣的，別搞混了！XD，我自認為比較好辨識 Jest 方法是當斷言中出現了 <code>expect().toBe()</code> 這個東西，基本上看到這個可以確認大概率是使用 Jest.js 了。</p>
-<p>而為什麼辨識文件中是用誰家的斷言有一點小重要的點是，當你試著按照例如 Vue.js 的測試文件 Vue-test-utils 測試時，可能會遇到斷言方法 API 不一樣的情況，那麼你可能得回去翻翻其他斷言庫本身的斷言 API 文件了。</p>
+<h1 id="序"><a href="#序" class="headerlink" title="序"></a>序</h1><p>進入公司後已有一段時間，交手過林林總總的專案，除了新專案的開發之外，免不了會碰到既有服務的維護需求。而這些服務當中，年紀輕則有三、四年歷史，更不用提那些年邁的部分了；這些程式碼本身是沒什麼問題，但剛進入公司的我年少輕狂，天真的以為改動程式碼是件簡單的事情，結果一不小心就落入「依賴」的陷阱之中。</p>
+<p>過了一年後，我雖然從依賴的泥沼中（？）爬了出來，但回想身在其中時的過程難免感嘆，一邊思考要怎麼樣才能主動防止這種事情發生呢？與此同時，我正好專注於如何整潔（clean）程式碼、重構（refactor）等等心法與技術的應用，因此迫切的需要一樣東西來保證更動的地方沒有出錯，碰巧從相關的資訊文章中看到了「測試」這個詞彙，稍微搜尋了一下，令人嘆為觀止，剛好它填補了我需要的一切。</p>
+<p>因此，我迫不及待地踏上了研究測試的道路，深刻的記得當時我最早是看到了保哥分享不同測試之間差異的<a href="[https://blog.miniasp.com/post/2019/02/18/Unit-testing-Integration-testing-e2e-testing](https://blog.miniasp.com/post/2019/02/18/Unit-testing-Integration-testing-e2e-testing)">文章</a>，慢慢瞭解到原來測試還能面向不同的需要，近而拆分成不同的測試類型，甚至根據測試類型搭配的工具也可能有所不同。</p>
+<p>然而，研究的過程不如我一開始所想的那樣簡單，我慢慢地陷入了另一個「泥沼」——關鍵字地獄。「斷言是什麼玩意⋯⋯？」、「Dummy Object 又是什麼⋯⋯？」，為了搞清楚這些東西只好一步一步嗑文章與書籍。從單元測試中會玩到的 Mocha + chai + sinon 或 Jest，甚至透過 Cypress 進行端對端測試與視覺回歸測試，然後又遇到不同設備導致快照上出現差異等等想都沒想過的問題⋯⋯。</p>
+<p>而這篇系列文的誕生，主要是希望能幫助到那些也想瞭解測試的讀者，透過文章的引導，有脈絡的從單元測試開始學習，並快速瞭解不同的測試工具各自的用途，提供一個魚竿後續再依照自己的需求去改造它；次要的部分則是藉由系列文重新梳理一下目前研究測試的成果，轉化既有的知識為可保存可閱讀的文字；最後則是想與已經在寫測試的開發者們交流心得。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/Jest.js/Jest-002-matchers-assertion/#more" rel="contents">
+              <a class="btn" href="/testing/ithelp-2022-vitest-01/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -960,7 +661,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/Jest.js/Jest-001-intro/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/vue.js/Vue-cli-007-update-3-0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -974,7 +675,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/Jest.js/Jest-001-intro/" class="post-title-link" itemprop="url">Jest.js 入門、環境建置與範例（Install, Build environment）</a>
+            <a href="/vue.js/Vue-cli-007-update-3-0/" class="post-title-link" itemprop="url">Vue 2.x 升級 Vue 3.0 紀錄</a>
         </h2>
 
         <div class="post-meta">
@@ -984,14 +685,14 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2020-02-17 09:53:17" itemprop="dateCreated datePublished" datetime="2020-02-17T09:53:17+08:00">2020-02-17</time>
+              <time title="創建時間：2020-11-02 17:51:30" itemprop="dateCreated datePublished" datetime="2020-11-02T17:51:30+08:00">2020-11-02</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2021-01-05 16:48:07" itemprop="dateModified" datetime="2021-01-05T16:48:07+08:00">2021-01-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1003,11 +704,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Jest-js/" itemprop="url" rel="index"><span itemprop="name">Jest.js</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Testing/" itemprop="url" rel="index"><span itemprop="name">Testing</span></a>
+                  <a href="/categories/JavaScript/Vue-js/" itemprop="url" rel="index"><span itemprop="name">Vue.js</span></a>
                 </span>
             </span>
 
@@ -1020,8 +717,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/Jest.js/Jest-001-intro/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Jest.js/Jest-001-intro/" itemprop="commentCount"></span>
+    <a title="disqus" href="/vue.js/Vue-cli-007-update-3-0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="vue.js/Vue-cli-007-update-3-0/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1037,13 +734,15 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="jest-logo" src='/images/Jest/jest-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
 </div>
 
-<h1 id="What-is-Jest-js"><a href="#What-is-Jest-js" class="headerlink" title="What is Jest.js"></a>What is Jest.js</h1><p>Jest.js 是由 Facebook, Inc 公司所維護的測試框架，並且支援了 Babel、TypeScript、Node.js、Vue.js、React.js、Angular.js，基本上支援了全部的現代框架，而 Jest 的核心概念 <strong>batteries-included</strong>，使得我們在使用測試要找一些資源時不太需要費力，因為，Jest 都幫你準備好了！</p>
+<p>Vue.js 底層還沒來得及摸透，在 2020 年 6 月 30 號 Vue 作者尤雨溪又發布<a href="https://github.com/vuejs/rfcs/issues/183" target="_blank" rel="noopener">聲明</a>：</p>
+<p>大致上是在說明即將在 2020 年七月中 Vue 3.0 將進入 RC 階段並且八月初官方就會釋出正式版。</p>
+<p>心想該來的還是要來，不如趁現在 branch 開下去馬上升級一波。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/Jest.js/Jest-001-intro/#more" rel="contents">
+              <a class="btn" href="/vue.js/Vue-cli-007-update-3-0/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -1067,7 +766,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/mocha.js/Mocha-002-run-cycle/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-005-function-statement/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -1081,7 +780,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/mocha.js/Mocha-002-run-cycle/" class="post-title-link" itemprop="url">Mocha.js 運行週期、週期鉤子（Run cycle, Hook）</a>
+            <a href="/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-005-function-statement/" class="post-title-link" itemprop="url">重新解構：無瑕的程式碼（Clean Code） Chapter 3 函式－函式語句（下）</a>
         </h2>
 
         <div class="post-meta">
@@ -1091,14 +790,14 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2020-02-10 10:00:17" itemprop="dateCreated datePublished" datetime="2020-02-10T10:00:17+08:00">2020-02-10</time>
+              <time title="創建時間：2020-10-26 10:01:01" itemprop="dateCreated datePublished" datetime="2020-10-26T10:01:01+08:00">2020-10-26</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2021-01-05 16:48:07" itemprop="dateModified" datetime="2021-01-05T16:48:07+08:00">2021-01-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1106,15 +805,11 @@
               </span>
               <span class="post-meta-item-text">分類於</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                  <a href="/categories/Book/" itemprop="url" rel="index"><span itemprop="name">Book</span></a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Mocha-js/" itemprop="url" rel="index"><span itemprop="name">Mocha.js</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Testing/" itemprop="url" rel="index"><span itemprop="name">Testing</span></a>
+                  <a href="/categories/Book/Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship/" itemprop="url" rel="index"><span itemprop="name">Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship</span></a>
                 </span>
             </span>
 
@@ -1127,8 +822,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/mocha.js/Mocha-002-run-cycle/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="mocha.js/Mocha-002-run-cycle/" itemprop="commentCount"></span>
+    <a title="disqus" href="/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-005-function-statement/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-005-function-statement/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1144,13 +839,25 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="mocha-logo" src='/images/Mocha/mocha-logo.svg' width='200px' height='200px' />
+  <img style="object-fit:cover;" src='/images/Book/Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship.jpg' width='200px' height='200px' />
 </div>
 
-<h1 id="Run-Cycle-運行週期"><a href="#Run-Cycle-運行週期" class="headerlink" title="Run Cycle 運行週期"></a>Run Cycle 運行週期</h1><p>Mocha.js 在執行測試時，會遵循它的運行週期，只要瞭解了它的運行週期，我們便能快速掌握撰寫測試程式碼的基本架構：</p>
+<p>在上篇文章中，我們將<strong>函式（function）</strong>拆成了三個部分：</p>
+<ul>
+<li>函式名稱（naming）：以供辨識、呼叫用的名稱。</li>
+<li>函式參數（parameter）：提供連結外部變數，傳送到內部語句的傳送參數。</li>
+<li>函式語句（statements）：實際函式所執行的區域。</li>
+</ul>
+<p>其中<strong>函式語句（statements）</strong>的部分又可以拆為：</p>
+<ul>
+<li>語句類別（type）：探討函式是怎麼被開發者使用的。</li>
+<li>語句結構（structure）：探討內部語句的寬度與深度。</li>
+<li>語句脈絡（context）：探討內部語句的長度與敘述。</li>
+</ul>
+<p>而這篇文章將延續上篇文章繼續介紹語句脈絡的概念。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/mocha.js/Mocha-002-run-cycle/#more" rel="contents">
+              <a class="btn" href="/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-005-function-statement/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -1174,7 +881,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/mocha.js/Mocha-001-intro/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-004-function-statement/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -1188,7 +895,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/mocha.js/Mocha-001-intro/" class="post-title-link" itemprop="url">Mocha.js 入門、環境建置與範例（Install, Build environment）</a>
+            <a href="/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-004-function-statement/" class="post-title-link" itemprop="url">重新解構：無瑕的程式碼（Clean Code） Chapter 3 函式－函式語句（上）</a>
         </h2>
 
         <div class="post-meta">
@@ -1197,31 +904,21 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
+              
 
-              <time title="創建時間：2020-02-03 07:01:19" itemprop="dateCreated datePublished" datetime="2020-02-03T07:01:19+08:00">2020-02-03</time>
+              <time title="創建時間：2020-10-19 00:31:42 / 修改時間：00:42:33" itemprop="dateCreated datePublished" datetime="2020-10-19T00:31:42+08:00">2020-10-19</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分類於</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                  <a href="/categories/Book/" itemprop="url" rel="index"><span itemprop="name">Book</span></a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Mocha-js/" itemprop="url" rel="index"><span itemprop="name">Mocha.js</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Testing/" itemprop="url" rel="index"><span itemprop="name">Testing</span></a>
+                  <a href="/categories/Book/Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship/" itemprop="url" rel="index"><span itemprop="name">Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship</span></a>
                 </span>
             </span>
 
@@ -1234,8 +931,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/mocha.js/Mocha-001-intro/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="mocha.js/Mocha-001-intro/" itemprop="commentCount"></span>
+    <a title="disqus" href="/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-004-function-statement/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-004-function-statement/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1251,13 +948,216 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="mocha-logo" src='/images/Mocha/mocha-logo.svg' width='200px' height='200px' />
+  <img style="object-fit:cover;" src='/images/Book/Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship.jpg' width='200px' height='200px' />
 </div>
 
-<h1 id="What-is-Mocha-js"><a href="#What-is-Mocha-js" class="headerlink" title="What is Mocha.js"></a>What is Mocha.js</h1><p>Mocha.js 是一款基於 Node.js 的 JavaScript 測試框架，用意在於使開發人員可以寫出更優雅且容易閱讀的測試程式碼，並且支援不同斷言庫來判斷程式。而彈性、多樣的配置是 Mocha.js 最大的特點，不同於像是 Jest.js 的 <strong>batteries-included</strong> 的概念，Mocha.js 只提供了最基本的測試環境，而斷言與隔離的選擇，都可以自由地搭配其他的函式庫來使用。例如：選配 Chai.js 斷言庫以及 Sinon.js 隔離庫。如此一來就能使用較自由的測試風格來撰寫測試程式碼。</p>
+<p>上回我們探討了命名的技巧，緊接著要來討論所有程式與語言幾乎都不可避免的函式！</p>
+<p>這回我們要來重新檢視我們長期以來使用的函式方式，並重新解構函式本身的原貌，來探討可以怎麼使用函式會更好！</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/mocha.js/Mocha-001-intro/#more" rel="contents">
+              <a class="btn" href="/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-004-function-statement/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-003-naming-rule/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-003-naming-rule/" class="post-title-link" itemprop="url">重新解構：無瑕的程式碼（Clean Code） Chapter 2 有意義的命名（下）－命名規則</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-10-12 12:41:30" itemprop="dateCreated datePublished" datetime="2020-10-12T12:41:30+08:00">2020-10-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-10-19 00:41:55" itemprop="dateModified" datetime="2020-10-19T00:41:55+08:00">2020-10-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Book/" itemprop="url" rel="index"><span itemprop="name">Book</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Book/Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship/" itemprop="url" rel="index"><span itemprop="name">Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-003-naming-rule/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-003-naming-rule/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/Book/Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship.jpg' width='200px' height='200px' />
+</div>
+
+<p>上一章節整理了偏向心法方面的命名設計理念，本篇將會整理有關於命名實際上的規則與做法。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-003-naming-rule/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-002-naming-methodology/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-002-naming-methodology/" class="post-title-link" itemprop="url">重新解構：無瑕的程式碼（Clean Code） Chapter 2 有意義的命名（上）－命名心法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2020-10-05 14:52:11 / 修改時間：23:24:58" itemprop="dateCreated datePublished" datetime="2020-10-05T14:52:11+08:00">2020-10-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Book/" itemprop="url" rel="index"><span itemprop="name">Book</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Book/Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship/" itemprop="url" rel="index"><span itemprop="name">Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-002-naming-methodology/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-002-naming-methodology/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/Book/Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship.jpg' width='200px' height='200px' />
+</div>
+
+<p>命名，對於工程師來說是一門重要的學問，因為它無所不在。不僅除了變數與函式，廣泛到連圖片、資料夾、甚至是文章標題、標籤都得經過命名的環節。</p>
+<p>好的命名，可以讓其他人清楚的瞭解它的作用、功能；壞的命名，則會讓人擁有錯誤的印象，得花更多時間來釐清原本所該敘述的內容。</p>
+<p>那麼，我們要怎麼取出有意義的命名呢？</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-002-naming-methodology/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -1280,7 +1180,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
 
 
@@ -1348,7 +1248,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">76</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -1359,7 +1259,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -1424,7 +1324,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

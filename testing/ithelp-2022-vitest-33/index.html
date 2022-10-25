@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="程式碼覆蓋率（Code Coverage）在測試領域中，覆蓋率（Coverage）一詞泛指的是以百分比表示測試程式碼能夠涵蓋多少產品程式碼的範圍，而依據不同的覆蓋率種類，其細微的定義也會有所不同。 接下來我們以覆蓋率工具庫 c8 來說明覆蓋率的概念與如何透過 c8 在 Vitest 測試環境中檢視當下的測試覆蓋率，最後再來談談有關於覆蓋率的相關議題。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【進階ノ章】覆蓋率（Coverage）">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-33/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="程式碼覆蓋率（Code Coverage）在測試領域中，覆蓋率（Coverage）一詞泛指的是以百分比表示測試程式碼能夠涵蓋多少產品程式碼的範圍，而依據不同的覆蓋率種類，其細微的定義也會有所不同。 接下來我們以覆蓋率工具庫 c8 來說明覆蓋率的概念與如何透過 c8 在 Vitest 測試環境中檢視當下的測試覆蓋率，最後再來談談有關於覆蓋率的相關議題。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20221018/20119062lKkr6nTtkH.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20221018/20119062H4yYnGfHBS.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20221018/201190627GKM0l78fQ.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20221018/20119062Kt7ISm9g3h.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20221018/2011906268egcXCSuM.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20221018/20119062lC3REV70h1.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20221018/20119062DxhbP4mmbR.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20221018/20119062cbZHth4wOw.png">
+<meta property="article:published_time" content="2022-10-18T09:40:05.000Z">
+<meta property="article:modified_time" content="2022-10-24T11:26:23.156Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Vitest">
+<meta property="article:tag" content="Vue Test Utils">
+<meta property="article:tag" content="Unit Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-33/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【進階ノ章】覆蓋率（Coverage） | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-33/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【進階ノ章】覆蓋率（Coverage）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-10-18 17:40:05" itemprop="dateCreated datePublished" datetime="2022-10-18T17:40:05+08:00">2022-10-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 19:26:23" itemprop="dateModified" datetime="2022-10-24T19:26:23+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-33/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-33/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="程式碼覆蓋率（Code-Coverage）"><a href="#程式碼覆蓋率（Code-Coverage）" class="headerlink" title="程式碼覆蓋率（Code Coverage）"></a>程式碼覆蓋率（Code Coverage）</h1><p>在測試領域中，覆蓋率（Coverage）一詞泛指的是以百分比表示測試程式碼能夠涵蓋多少產品程式碼的範圍，而依據不同的覆蓋率種類，其細微的定義也會有所不同。</p>
+<p>接下來我們以覆蓋率工具庫 c8 來說明覆蓋率的概念與如何透過 c8 在 Vitest 測試環境中檢視當下的測試覆蓋率，最後再來談談有關於覆蓋率的相關議題。</p>
+<a id="more"></a>
+
+<h2 id="c8"><a href="#c8" class="headerlink" title="c8"></a>c8</h2><p>要在 Vitest 測試環境中使用 c8 產生覆蓋率報告，我們首先需要安裝 <code>@vitest/coverage-c8</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D @vitest/coverage-c8</span><br></pre></td></tr></table></figure>
+
+<p>接著就可以在 <code>package.json</code> 中新增指令：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"test:coverage"</span>: <span class="string">"vitest --environment jsdom --coverage"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>執行 <code>npm run test:coverage</code> 後，預設會在終端機產生出覆蓋率報告：</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20221018/20119062lKkr6nTtkH.png" alt="https://ithelp.ithome.com.tw/upload/images/20221018/20119062lKkr6nTtkH.png"></p>
+<p>而 c8 覆蓋率報告總共有四種類型：</p>
+<ul>
+<li>行數覆蓋率（line coverage）：以行數為單位來計算。</li>
+<li>函式覆蓋率（function coverage）：以內部的函式為單位來計算。</li>
+<li>分枝覆蓋率（branch coverage）：以每個判斷式為單位來計算。</li>
+<li>語句覆蓋率（statement coverage）：以每個語句（statement）為單位計算。</li>
+</ul>
+<p>測試程式碼涵蓋多少範圍的產品程式碼，甚至於每行程式碼個被執行了幾次</p>
+<p>並且若有未覆蓋行數的情況， c8 則會在 Uncovered Line 中顯示未涵蓋的行數範圍，如下圖中的 <code>13-17,19-28</code></p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20221018/20119062H4yYnGfHBS.png" alt="https://ithelp.ithome.com.tw/upload/images/20221018/20119062H4yYnGfHBS.png"></p>
+<p>躺若你覺得這種報告形式不方便觀看，或是希望將它製作成文件，則可以在 config.js 檔中設定 <code>coverage.reporter</code> 的形式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vite.config.js or vitest.config.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> defineConfig(&#123;</span><br><span class="line">  test: &#123;</span><br><span class="line">    coverage: &#123;</span><br><span class="line">      reporter: [<span class="string">'text'</span>, <span class="string">'json'</span>, <span class="string">'html'</span>],</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>其中 c8 提供的報告（reporter）選項有以下三種：</p>
+<ul>
+<li><code>text</code>： 在終端機中呈現覆蓋率報告。</li>
+</ul>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20221018/201190627GKM0l78fQ.png" alt="https://ithelp.ithome.com.tw/upload/images/20221018/201190627GKM0l78fQ.png"></p>
+<ul>
+<li><code>json</code>： 以 JSON 格式產生覆蓋率報告。</li>
+</ul>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20221018/20119062Kt7ISm9g3h.png" alt="https://ithelp.ithome.com.tw/upload/images/20221018/20119062Kt7ISm9g3h.png"></p>
+<ul>
+<li><code>html</code>： 產生一個可互動的 HTML 覆蓋率報告。</li>
+</ul>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20221018/2011906268egcXCSuM.png" alt="https://ithelp.ithome.com.tw/upload/images/20221018/2011906268egcXCSuM.png"></p>
+<p>其中 HTML 的版本中，我們還可以點擊測試檔案來查看未覆蓋的行數有哪些，相較終端機的版本，我們就不必再拿著行數去對程式碼了：</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20221018/20119062lC3REV70h1.png" alt="https://ithelp.ithome.com.tw/upload/images/20221018/20119062lC3REV70h1.png"></p>
+<h2 id="覆蓋率目標"><a href="#覆蓋率目標" class="headerlink" title="覆蓋率目標"></a>覆蓋率目標</h2><p>而在瞭解怎麼查看覆蓋率報告後，那麼究竟覆蓋率目標要達到多少才是合理呢？</p>
+<p>以 《可測試的 JavaScript》一書作者 Mark Ethan Trostler 提供的答案是單元測試大約要介於 80 % 左右。</p>
+<p>以 Martin Fowler 於 <a href="https://martinfowler.com/bliki/TestCoverage.html" target="_blank" rel="noopener">Test Coverage</a> 一文中，則是指出大約會在於 80 至 90 % 附近。</p>
+<p>至於為什麼不是達到百分之百呢？接下來我們來探討有關於覆蓋率相關的議題。</p>
+<h2 id="覆蓋率議題"><a href="#覆蓋率議題" class="headerlink" title="覆蓋率議題"></a>覆蓋率議題</h2><h3 id="覆蓋率與付出的心力"><a href="#覆蓋率與付出的心力" class="headerlink" title="覆蓋率與付出的心力"></a>覆蓋率與付出的心力</h3><p>雖然以理論上來說盡可能得達到高覆蓋率，測試程式碼將涵蓋的越完全，然而為了追求 100 % 的覆蓋率所要付出的心理將會截然不同。</p>
+<p>Jeroen Mols 在 <a href="https://jeroenmols.com/blog/2017/11/28/coveragproblem/" target="_blank" rel="noopener">The 100% code coverage problem</a> 一文中的提到了心力付出與覆蓋率的關係表。</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20221018/20119062DxhbP4mmbR.png" alt="https://ithelp.ithome.com.tw/upload/images/20221018/20119062DxhbP4mmbR.png"></p>
+<blockquote>
+<p>引用自 Jeroen Mols 《The 100% code coverage problem》一文中的圖</p>
+</blockquote>
+<p>從上圖中可以看見，在覆蓋率從 0 提升至 80% 我們僅需要付出一些心力就可以輕易達成，然而要將 90% 提升至接近 100% 我們則幾乎要投入兩到三倍以上的心力才能完成。</p>
+<p>因此，有些人雖然會認為 100% 的覆蓋率是一個不錯的目標，但是在實際上，我們可能會因為追求 100% 的覆蓋率而付出過多的心力，而導致測試程式碼的品質反而變差。</p>
+<h3 id="覆蓋率-100-的誤區"><a href="#覆蓋率-100-的誤區" class="headerlink" title="覆蓋率 100% 的誤區"></a>覆蓋率 100% 的誤區</h3><p>在費盡千辛萬苦後，我們終於達到了 100% 覆蓋率的情況了。</p>
+<p>然而，100 % 的覆蓋率僅能代表測試程式碼完整（Complete）的覆蓋了產品程式碼，並非代表測試程式碼的品質達到完美（Perfect），接下來我們用個簡單的例子來說明：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> max = <span class="function">(<span class="params">x, y</span>) =&gt;</span> <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">test(<span class="string">'max'</span>, () =&gt; &#123;</span><br><span class="line">  expect(max(<span class="number">2</span>, <span class="number">1</span>)).toBe(<span class="number">2</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>在上方案例中，我們可以看見 <code>max</code> 測試案例基本上已經完全覆蓋了 <code>max</code> 函式的實作情況，而我們可以從這個案例中看出兩個問題：</p>
+<ul>
+<li>產品程式碼本身有問題，即便測試程式碼覆蓋了 100% 的情況下，產品程式碼本身仍然是有問題的。</li>
+<li>測試程式碼案例與路徑不足，導致覆蓋率為 100% 的情況下，並沒有測出產品程式碼中的問題與邊際案例（edge case）。</li>
+</ul>
+<p>因此覆蓋率 100% 充其量只是一個指標，用來告訴我們測試程式碼是否完整的覆蓋了產品程式碼，而非「完全沒有問題」。</p>
+<p>倘若我們想要盡可能避免這種情況的發生，這時我們就可以透過突變測試（Mutation Testing）來協助我們。</p>
+<h2 id="突變測試（mutation-testing）"><a href="#突變測試（mutation-testing）" class="headerlink" title="突變測試（mutation testing）"></a>突變測試（mutation testing）</h2><p>突變測試（Mutation Testing）是一種驗證與改善測試程式碼的測試方法，概念上來說，他會盡可能的抽換產品程式碼中的每個角落，接著依照抽換規則來預期測試程式碼的檢測結果。</p>
+<p>假設我們有個比較函式如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> greaterThan = <span class="function">(<span class="params">x, y</span>) =&gt;</span> x &gt; y</span><br></pre></td></tr></table></figure>
+
+<p>而這時我們測試程式碼可能會這麼處理：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should return true if x is greater than y'</span>, () =&gt; &#123;</span><br><span class="line">  expect(greaterThan(<span class="number">2</span>, <span class="number">1</span>)).toBe(<span class="literal">true</span>)</span><br><span class="line">  expect(greaterThan(<span class="number">0</span>, <span class="number">-1</span>)).toBe(<span class="literal">true</span>)</span><br><span class="line">  expect(greaterThan(<span class="number">100</span>, <span class="number">0</span>)).toBe(<span class="literal">true</span>)</span><br><span class="line">&#125;)</span><br><span class="line">it(<span class="string">'should return false if x is less than y'</span>, () =&gt; &#123;</span><br><span class="line">  expect(greaterThan(<span class="number">1</span>, <span class="number">2</span>)).toBe(<span class="literal">false</span>)</span><br><span class="line">  expect(greaterThan(<span class="number">-1</span>, <span class="number">0</span>)).toBe(<span class="literal">false</span>)</span><br><span class="line">  expect(greaterThan(<span class="number">0</span>, <span class="number">100</span>)).toBe(<span class="literal">false</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>接著突變測試可能會將 <code>greaterThan</code> 函式中的 <code>&gt;</code> 符號替換成 <code>&gt;=</code> 符號，此時理論上來說應該會有測試案例失敗，但是實際上測試程式碼卻沒有檢測到這個問題，那就表示我們的測試程式碼並沒有覆蓋到這個案例。</p>
+<p>此時我們就可以針對這種情況，再補上對應的測試案例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should return true if x is greater than y'</span>, () =&gt; &#123;</span><br><span class="line">  expect(greaterThan(<span class="number">2</span>, <span class="number">1</span>)).toBe(<span class="literal">true</span>)</span><br><span class="line">  expect(greaterThan(<span class="number">0</span>, <span class="number">-1</span>)).toBe(<span class="literal">true</span>)</span><br><span class="line">  expect(greaterThan(<span class="number">100</span>, <span class="number">0</span>)).toBe(<span class="literal">true</span>)</span><br><span class="line">&#125;)</span><br><span class="line">it(<span class="string">'should return false if x is less than y'</span>, () =&gt; &#123;</span><br><span class="line">  expect(greaterThan(<span class="number">1</span>, <span class="number">2</span>)).toBe(<span class="literal">false</span>)</span><br><span class="line">  expect(greaterThan(<span class="number">-1</span>, <span class="number">0</span>)).toBe(<span class="literal">false</span>)</span><br><span class="line">  expect(greaterThan(<span class="number">0</span>, <span class="number">100</span>)).toBe(<span class="literal">false</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 新增案例</span></span><br><span class="line">it(<span class="string">'should return false if x is equal y'</span>, () =&gt; &#123;</span><br><span class="line">  expect(greaterThan(<span class="number">1</span>, <span class="number">1</span>)).toBe(<span class="literal">false</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>接著突變測試再度將 <code>&gt;</code> 符號替換成各種符號（e.g. <code>&lt;=</code>），甚至是將 <code>{}</code> 語句（statement）清空，而諸如此類的手法，就是突變測試的核心概念。</p>
+<blockquote>
+<p>若想手動置換產品程式碼中的符號，可以從這些方法下手</p>
+<ul>
+<li>operator: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code></li>
+<li>condition: <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>==</code>, <code>===</code>, <code>!=</code>, <code>!==</code></li>
+<li>statement: <code>{}</code>, <code>if</code>, <code>else</code>, <code>for</code>, <code>return</code>, <code>throw</code>, <code>try</code>, <code>catch</code></li>
+<li>expression: <code>&amp;&amp;</code>, <code>||</code>, <code>!</code><br>…, etc.</li>
+</ul>
+</blockquote>
+<h3 id="突變測試的工具"><a href="#突變測試的工具" class="headerlink" title="突變測試的工具"></a>突變測試的工具</h3><p>雖然說我們可以手動置換產品程式碼中的各種符號，但是這樣的作法會讓我們的工作量變得非常龐大，因此我們可以透過工具來協助我們完成這些工作。</p>
+<p>以前端領域來說，我們可以透過 <a href="https://stryker-mutator.io/" target="_blank" rel="noopener">Stryker Mutator</a> 底下的 <a href="https://github.com/stryker-mutator/stryker-js" target="_blank" rel="noopener"><code>stryker-js</code></a> 工具來完成這些工作。</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20221018/20119062cbZHth4wOw.png" alt="https://ithelp.ithome.com.tw/upload/images/20221018/20119062cbZHth4wOw.png"></p>
+<p>Stryker Mutator 的概念就是透過替換不同的符號產生出突變的內容，而我們的測試程式碼應該要捕捉到那些不合理的情況，藉此來保證我們的測試案例有一定的穩固性。</p>
+<p>然而，可惜的是 <code>stryker-js</code> 目前僅支援到 Jest 環境，尚未支援 Vitest 的環境，因此我這邊就暫不做介紹了，有興趣者可以追蹤該 <a href="https://github.com/stryker-mutator/stryker-js/issues/3465" target="_blank" rel="noopener">issue</a> 目前的最新進度。</p>
+<hr>
+<p>以上便是有關於覆蓋率的基本概念與如何在 Vitest 中透過 c8 查看目前覆蓋率的介紹，雖然突變測試工具目前尚未支援 Vitest，因此暫時只能透過手動替換來增加穩固度，但是確實是個能夠增強我們測試案例的好方法，若你有更好提升測試案例的穩定性的方法與工具，歡迎在下方留言分享與討論！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+              <a href="/tags/Vitest/" rel="tag"># Vitest</a>
+              <a href="/tags/Vue-Test-Utils/" rel="tag"># Vue Test Utils</a>
+              <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-32/" rel="prev" title="【進階ノ章】Vitest UI">
+      <i class="fa fa-chevron-left"></i> 【進階ノ章】Vitest UI
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-34/" rel="next" title="【進階ノ章】寫測試的最佳實踐（Testing Best Practice）">
+      【進階ノ章】寫測試的最佳實踐（Testing Best Practice） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#程式碼覆蓋率（Code-Coverage）"><span class="nav-number">1.</span> <span class="nav-text">程式碼覆蓋率（Code Coverage）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#c8"><span class="nav-number">1.1.</span> <span class="nav-text">c8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆蓋率目標"><span class="nav-number">1.2.</span> <span class="nav-text">覆蓋率目標</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆蓋率議題"><span class="nav-number">1.3.</span> <span class="nav-text">覆蓋率議題</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#覆蓋率與付出的心力"><span class="nav-number">1.3.1.</span> <span class="nav-text">覆蓋率與付出的心力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#覆蓋率-100-的誤區"><span class="nav-number">1.3.2.</span> <span class="nav-text">覆蓋率 100% 的誤區</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#突變測試（mutation-testing）"><span class="nav-number">1.4.</span> <span class="nav-text">突變測試（mutation testing）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#突變測試的工具"><span class="nav-number">1.4.1.</span> <span class="nav-text">突變測試的工具</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/ithelp-2022-vitest-33/";
+    this.page.identifier = "testing/ithelp-2022-vitest-33/";
+    this.page.title = "【進階ノ章】覆蓋率（Coverage）";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文序不論是之後看完系列文有興趣想要加入測試到實際的專案中，或是有經驗的開發者現在就想嘗試自己建立一個屬於自己的專案來測試，本文底下將會根據「剛初始化的專案」與「既有專案」兩種情境分別說明要如何安裝單元測試與需要注意的事項！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【初始ノ章】測試建置：在自己的專案加入單元測試來學測試">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-03/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="本文序不論是之後看完系列文有興趣想要加入測試到實際的專案中，或是有經驗的開發者現在就想嘗試自己建立一個屬於自己的專案來測試，本文底下將會根據「剛初始化的專案」與「既有專案」兩種情境分別說明要如何安裝單元測試與需要注意的事項！">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220918/20119062rdNgwTXQMd.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220918/20119062rdNgwTXQMd.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220918/201190624NAdnXTuax.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220918/201190624NAdnXTuax.png">
+<meta property="article:published_time" content="2022-09-18T10:30:27.000Z">
+<meta property="article:modified_time" content="2022-10-24T08:48:17.651Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Vitest">
+<meta property="article:tag" content="Vue Test Utils">
+<meta property="article:tag" content="Unit Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-03/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【初始ノ章】測試建置：在自己的專案加入單元測試來學測試 | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【初始ノ章】測試建置：在自己的專案加入單元測試來學測試
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-09-18 18:30:27" itemprop="dateCreated datePublished" datetime="2022-09-18T18:30:27+08:00">2022-09-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 16:48:17" itemprop="dateModified" datetime="2022-10-24T16:48:17+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-03/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-03/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>不論是之後看完系列文有興趣想要加入測試到實際的專案中，或是有經驗的開發者現在就想嘗試自己建立一個屬於自己的專案來測試，本文底下將會根據「剛初始化的專案」與「既有專案」兩種情境分別說明要如何安裝單元測試與需要注意的事項！</p>
+<a id="more"></a>
+<hr>
+<h1 id="【在初始化專案過程加入單元測試】"><a href="#【在初始化專案過程加入單元測試】" class="headerlink" title="【在初始化專案過程加入單元測試】"></a>【在初始化專案過程加入單元測試】</h1><p>建立專案時若要加入單元測試要注意到的是，Node.js 版本必須為 14 以上，否則 Vitest 會無法順利執行！</p>
+<blockquote>
+<p>若不清楚怎麼調整或確認 Node.js 版本的朋友可以參考上一章節唷。</p>
+</blockquote>
+<p>確認 Node.js 版本後，在要建立專案的父層路徑底下透過終端機指令輸入 <code>npm create vite@latest</code> 來建立一個基於 Vite 所建構的專案，接著終端機會出現一些問題，視專案需求選擇：</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220918/20119062rdNgwTXQMd.png" alt="https://ithelp.ithome.com.tw/upload/images/20220918/20119062rdNgwTXQMd.png"></p>
+<ul>
+<li>Project name： 輸入自訂的專案名稱後按下 Enter</li>
+<li>Select a framework ⇒ 選擇 <code>Vue</code> 後按下 Enter</li>
+<li>Select a variant ⇒ 選擇 <code>Customize with create-vue</code> 後按下 Enter</li>
+<li>中間可能還會有 TypeScript, ESLint⋯⋯等等問題，請視專案需要加入</li>
+<li>Add Vitest for Unit Testing(y/n) ⇒ 選擇 <code>Yes</code> 後按下 Enter（最重要的部分</li>
+</ul>
+<p>回答完上面的問題後，建構工具就會依據剛才答覆的內容，自動生成需要的部分。</p>
+<p>比方在 <code>Add Vitest for Unit Testing</code> 問題回答 <code>Yes</code> 的話，這時建構工具就會在專案中生成單元測試所需要的相關內容如下：</p>
+<ul>
+<li>一個位於 <code>~專案根目錄/src/components/__test__/HelloWorld.spec.js</code> 的測試範例</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; describe, it, expect &#125; <span class="keyword">from</span> <span class="string">'vitest'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; mount &#125; <span class="keyword">from</span> <span class="string">'@vue/test-utils'</span></span><br><span class="line"><span class="keyword">import</span> HelloWorld <span class="keyword">from</span> <span class="string">'../HelloWorld.vue'</span></span><br><span class="line"></span><br><span class="line">describe(<span class="string">'HelloWorld'</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="string">'renders properly'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(HelloWorld, &#123; <span class="attr">props</span>: &#123; <span class="attr">msg</span>: <span class="string">'Hello Vitest'</span> &#125; &#125;)</span><br><span class="line">    expect(wrapper.text()).toContain(<span class="string">'Hello Vitest'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在 <code>~專案根目錄/package.json</code> 自動新增一個啟動單元測試的 scripts 指令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"test:unit"</span>: <span class="string">"vitest --environment jsdom"</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在 <code>~專案根目錄/package.json</code> 自動新增單元測試所需要的工具們</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"devDependencies"</span>: &#123;</span><br><span class="line">    <span class="string">"@vue/test-utils"</span>: <span class="string">"^2.0.2"</span>,</span><br><span class="line">    <span class="string">"jsdom"</span>: <span class="string">"^20.0.0"</span>,</span><br><span class="line">    <span class="string">"vitest"</span>: <span class="string">"^0.23.0"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接著如剛剛終端機後方的提示：</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220918/20119062rdNgwTXQMd.png" alt="https://ithelp.ithome.com.tw/upload/images/20220918/20119062rdNgwTXQMd.png"></p>
+<ul>
+<li>執行 <code>cd {剛才專案名稱}</code> 切換到專案目錄底下</li>
+<li>執行 <code>npm install</code> 安裝專案所需要的內容</li>
+</ul>
+<p>安裝完畢後，接著就可以執行 <code>npm run dev</code> 確認環境，後續要執行測試的話，執行 <code>npm run test:unit</code> 就能立即運作了。</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220918/201190624NAdnXTuax.png" alt="https://ithelp.ithome.com.tw/upload/images/20220918/201190624NAdnXTuax.png"></p>
+<hr>
+<h1 id="【在既有專案中加入單元測試】"><a href="#【在既有專案中加入單元測試】" class="headerlink" title="【在既有專案中加入單元測試】"></a>【在既有專案中加入單元測試】</h1><p>在既有專案中加入 <code>Vitest</code> 來作為執行測試的環境時，需確認專案本身是由 <code>Vite</code>（<code>2.7.10</code> 版本以上）所建構的之外，其 <code>Node.js</code> 版本也必須為 <code>14</code> 以上，否則會無法順利執行測試！</p>
+<blockquote>
+<p>若目前想加入的專案不是由 <code>Vite</code> 所建立的，後續也有章節會提到要如何替換對應的測試工具。</p>
+</blockquote>
+<p>確認好必要條件後就可以開始安裝測試工具：</p>
+<ul>
+<li><code>vitest</code>：單元測試框架（提供了執行測試的環境、斷言、隔離庫⋯⋯等等功能與 API）</li>
+<li><code>@vue/test-utils</code>：測試 <code>Vue</code> 元件的工具</li>
+<li><code>jsdom</code>：讓我們可以在 <code>Node</code> 環境模擬出瀏覽器中的 <code>DOM</code> 環境（方便測試）</li>
+</ul>
+<ol>
+<li><p>在專案根目錄下執行：<br><code>npm install -D vitest @vue/test-utils jsdom</code>  </p>
+</li>
+<li><p>新增 <code>npm</code> 執行單元測試的指令</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"test:unit"</span>: <span class="string">"vitest --environment jsdom"</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>這時若心急的執行 <code>npm run test:unit</code> 會發現終端機告訴你 <code>No test files found, exiting with code 1</code> ，原因是你尚未加入任何一個測試案例。</p>
+<p>而一開始 <code>Vitest</code> 預設測試的比對規則是 <code>*/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}</code> ，簡單來說你在專案底下使用 <code>A.test.js</code> 或是 <code>B.spec.ts</code> 的方式都會被 Vitest 認為是測試程式檔。</p>
+<p>這時，我們可以在 <code>~專案根目錄/src/components/__test__/</code> 底下新建 <code>HelloWorld.spec.js</code> ：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; describe, it, expect &#125; <span class="keyword">from</span> <span class="string">'vitest'</span></span><br><span class="line"></span><br><span class="line">describe(<span class="string">'HelloWorld'</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="string">'1 + 1 should be 2'</span>, () =&gt; &#123;</span><br><span class="line">    expect(<span class="number">1</span> + <span class="number">1</span>).toBe(<span class="number">2</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>再次執行 <code>npm run test:unit</code> 終端機就會顯示：</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220918/201190624NAdnXTuax.png" alt="https://ithelp.ithome.com.tw/upload/images/20220918/201190624NAdnXTuax.png"></p>
+<p>到這裡就算是成功安裝好囉，接下來明天我們會在把 Vitest Config 初期需要設定的部分調整好後，建置的部分就完成了。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+              <a href="/tags/Vitest/" rel="tag"># Vitest</a>
+              <a href="/tags/Vue-Test-Utils/" rel="tag"># Vue Test Utils</a>
+              <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-02/" rel="prev" title="【初始ノ章】測試建置：跟著系列文一起學測試">
+      <i class="fa fa-chevron-left"></i> 【初始ノ章】測試建置：跟著系列文一起學測試
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-04/" rel="next" title="【初始ノ章】測試建置：Vitest Config Setting">
+      【初始ノ章】測試建置：Vitest Config Setting <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文序"><span class="nav-number">1.</span> <span class="nav-text">本文序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【在初始化專案過程加入單元測試】"><span class="nav-number">2.</span> <span class="nav-text">【在初始化專案過程加入單元測試】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【在既有專案中加入單元測試】"><span class="nav-number">3.</span> <span class="nav-text">【在既有專案中加入單元測試】</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/ithelp-2022-vitest-03/";
+    this.page.identifier = "testing/ithelp-2022-vitest-03/";
+    this.page.title = "【初始ノ章】測試建置：在自己的專案加入單元測試來學測試";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

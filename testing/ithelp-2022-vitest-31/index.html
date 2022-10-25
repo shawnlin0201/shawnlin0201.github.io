@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Pinia 測試 Pinia 簡介 Pinia 測試關注點 Pinia 測試實作 測試 Store 本身行為 測試 Store 與 Vue 元件之間的互動">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【語法ノ章】Vue Ecosystem 篇：Pinia 測試">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-31/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="Pinia 測試 Pinia 簡介 Pinia 測試關注點 Pinia 測試實作 測試 Store 本身行為 測試 Store 與 Vue 元件之間的互動">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+<meta property="article:published_time" content="2022-10-16T12:59:18.000Z">
+<meta property="article:modified_time" content="2022-10-24T11:24:45.507Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Vitest">
+<meta property="article:tag" content="Vue Test Utils">
+<meta property="article:tag" content="Unit Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-31/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【語法ノ章】Vue Ecosystem 篇：Pinia 測試 | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-31/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【語法ノ章】Vue Ecosystem 篇：Pinia 測試
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-10-16 20:59:18" itemprop="dateCreated datePublished" datetime="2022-10-16T20:59:18+08:00">2022-10-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 19:24:45" itemprop="dateModified" datetime="2022-10-24T19:24:45+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-31/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-31/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="Pinia-測試"><a href="#Pinia-測試" class="headerlink" title="Pinia 測試"></a>Pinia 測試</h1><ul>
+<li>Pinia 簡介</li>
+<li>Pinia 測試關注點</li>
+<li>Pinia 測試實作<ul>
+<li>測試 Store 本身行為</li>
+<li>測試 Store 與 Vue 元件之間的互動</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="Pinia-簡介"><a href="#Pinia-簡介" class="headerlink" title="Pinia 簡介"></a>Pinia 簡介</h2><p>隨著專案規模越大，在管理共用狀態上就越不容易，這時後就會需要一個狀態管理工具來協助我們處理這些問題。</p>
+<p>而 Pinia 便是一個以 Vuex 的概念為基礎的狀態管理工具，它除了沿用了部分 Vuex 概念之外，還兼容了 Vue 3 中的 Composition API 的語法，讓我們在專案中可以更方便的管理狀態之外，還能讓專案中的程式碼風格統一。</p>
+<h2 id="Pinia-測試關注點"><a href="#Pinia-測試關注點" class="headerlink" title="Pinia 測試關注點"></a>Pinia 測試關注點</h2><p>根據不同專案中的設計與應用，測試 Pinia 的難度與複雜度也會有所不同，而依據受測物的不同我們大概能分為兩類：</p>
+<ul>
+<li>以 Pinia 作為受測物，測試本身行為所影響的狀態結果是否正確</li>
+<li>以 Vue 元件作為受測物，測試與 Pinia 互動的行為是否正確</li>
+</ul>
+<p>接著底下實作的部分就以這兩個關注點為主，來介紹如何測試 Pinia。</p>
+<h2 id="Pinia-測試實作"><a href="#Pinia-測試實作" class="headerlink" title="Pinia 測試實作"></a>Pinia 測試實作</h2><h3 id="測試-Store-本身行為"><a href="#測試-Store-本身行為" class="headerlink" title="測試 Store 本身行為"></a>測試 Store 本身行為</h3><p>在測試 Pinia 本身行為時，由於我們會使用到真實的 Store 來進行操作，因此在測試案例前我們必須先透過 <code>setActivePinia</code> 來活化（active）Pinia 實體：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; setActivePinia, createPinia &#125; <span class="keyword">from</span> <span class="string">'pinia'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> store</span><br><span class="line">beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  setActivePinia(createPinia())</span><br><span class="line">  store = useStore()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>接著就可以根據我們 Store 的設計來撰寫測試案例：</p>
+<p>Store</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineStore &#125; <span class="keyword">from</span> <span class="string">'pinia'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useCounterStore = defineStore(<span class="string">'counter'</span>, &#123;</span><br><span class="line">  state: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    count: <span class="number">0</span>,</span><br><span class="line">  &#125;),</span><br><span class="line">  getters: &#123;</span><br><span class="line">    doubleCount() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.count * <span class="number">2</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  actions: &#123;</span><br><span class="line">    increment() &#123;</span><br><span class="line">      <span class="keyword">this</span>.count++</span><br><span class="line">    &#125;,</span><br><span class="line">    decrement() &#123;</span><br><span class="line">      <span class="keyword">this</span>.count--</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>在撰寫測試案例時，要注意到我們只關注在 state 的預期變化，也就是說：</p>
+<ul>
+<li>操作 action 後 state 最後的變化是否正確</li>
+<li>使用 getter 取值時，最後預期的結果是否正確</li>
+</ul>
+<p>Counter.spec.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; setActivePinia, createPinia &#125; <span class="keyword">from</span> <span class="string">'pinia'</span></span><br><span class="line"><span class="keyword">import</span> &#123; useCounterStore &#125; <span class="keyword">from</span> <span class="string">'@/stores/counter'</span></span><br><span class="line"></span><br><span class="line">describe(<span class="string">'Counter Store'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> store</span><br><span class="line">  beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    setActivePinia(createPinia())</span><br><span class="line">    store = useCounterStore()</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  it(<span class="string">'should increment count'</span>, () =&gt; &#123;</span><br><span class="line">    store.increment()</span><br><span class="line">    expect(store.count).toBe(<span class="number">1</span>)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  it(<span class="string">'should decrement count'</span>, () =&gt; &#123;</span><br><span class="line">    store.decrement()</span><br><span class="line">    expect(store.count).toBe(<span class="number">-1</span>)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">it(<span class="string">'should return double count'</span>, () =&gt; &#123;</span><br><span class="line">    expect(store.doubleCount).toBe(<span class="number">0</span>)</span><br><span class="line">    store.increment() <span class="comment">// count = 1</span></span><br><span class="line">    expect(store.doubleCount).toBe(<span class="number">2</span>)</span><br><span class="line">    store.increment() <span class="comment">// count = 2</span></span><br><span class="line">    store.increment() <span class="comment">// count = 3</span></span><br><span class="line">    expect(store.doubleCount).toBe(<span class="number">6</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="測試-Store-與-Vue-元件之間的互動"><a href="#測試-Store-與-Vue-元件之間的互動" class="headerlink" title="測試 Store 與 Vue 元件之間的互動"></a>測試 Store 與 Vue 元件之間的互動</h3><p>在進行 Pinia 與 Vue 元件互動時，由於我們受測物主要為 Vue 元件，因此我們要使用到 <code>@pinia/testing</code> 提供的 <code>createTestingPinia</code> 方法來幫助我們建立模擬 Pinia 實體，方便我們從中得到有關 store 的呼叫紀錄與參數等。</p>
+<p>因此，首先我們要先下載 <code>@pinia/testing</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -D @pinia/testing</span><br></pre></td></tr></table></figure>
+
+<p>接著在撰寫測試案例時，由於現在我們是使用模擬的 Pinia 實體，因此我們不需要再使用 <code>setActivePinia</code> 來活化 Pinia，而是直接使用 <code>createTestingPinia</code> 來建立模擬實體，所以在測試案例建立容器時，我們可以透過 <code>globals.plugins</code> 來載入它：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">    globals: &#123;</span><br><span class="line">        plugins: [createTestingPinia()],</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><code>createTestingPinia</code> 本身除了回傳 Pinia 實體讓我們不需要在測試案例中活化 Pinia 之外，還有提供了參數讓我們操作與改變 Store 的行為：</p>
+<ul>
+<li>initialState</li>
+<li>stubActions</li>
+<li>createSpy</li>
+<li>plugins</li>
+</ul>
+<h4 id="initialState"><a href="#initialState" class="headerlink" title="initialState"></a>initialState</h4><p><code>initialState</code> 可以讓我們在測試案例中，將 Store 的 state 初始化為我們指定的值。</p>
+<p>而在使用 <code>initialState</code> 時，要帶入欲初始化 Store 的名稱，再傳入要模擬的 State 值：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">    global: &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">        createTestingPinia(&#123;</span><br><span class="line">            initialState: &#123;</span><br><span class="line">                <span class="comment">// 將 counter store 的 state 初始化為 10</span></span><br><span class="line">                counter: &#123;</span><br><span class="line">                    count: <span class="number">0</span>,</span><br><span class="line">                &#125;,</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;),</span><br><span class="line">    ],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="stubActions"><a href="#stubActions" class="headerlink" title="stubActions"></a>stubActions</h4><p>在孤立型的測試風格中，由於 Vue 元件與 Pinia 互動之間，我們比較在意的會是操作 Vue 元件時，有無呼叫到 Store 中的 Action，而不會在意 Action 內部的邏輯是否正確。</p>
+<p>因此使用 <code>createTestingPinia</code> 作為測試案例的 Pinia 實體時，<strong>「預設」</strong> 會將所有的 Action 都以模擬替身（stub）的型態替換掉，改為回傳預設值。</p>
+<p>所以在測試案例中無論怎麼操作 Store，都不會影響到 Store 本身的 State 值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">    global: &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">        createTestingPinia(),</span><br><span class="line">    ],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> store = useCounterStore() <span class="comment">// state: &#123; count: 0 &#125;</span></span><br><span class="line">store.increment() <span class="comment">// add 1 to count</span></span><br><span class="line">expect(store.count).toBe(<span class="number">0</span>) <span class="comment">// state: &#123; count: 0 &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>倘若你希望能在測試案例中能真實交互 Store 的行為，可以透過 <code>stubActions: false</code> 來關閉對 Store Action 的隔離：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">    global: &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">        createTestingPinia(&#123;</span><br><span class="line">            stubActions: <span class="literal">false</span>,</span><br><span class="line">        &#125;),</span><br><span class="line">    ],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> store = useCounterStore() <span class="comment">// state: &#123; count: 0 &#125;</span></span><br><span class="line">store.increment() <span class="comment">// add 1 to count</span></span><br><span class="line">expect(store.count).toBe(<span class="number">1</span>) <span class="comment">// state: &#123; count: 1 &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="createSpy"><a href="#createSpy" class="headerlink" title="createSpy"></a>createSpy</h4><p>在使用 Vitest 或 Jest 作為測試環境時，根據設定 <code>createTestingPinia</code> 會自動透過 <code>vi.fn</code> 或 <code>jest.fn</code> 來建立 Action 的模擬替身。</p>
+<p>假如你有想要使用其他隔離庫（e.g. Sinon.js）中的測試替身函數就可以透過 <code>createSpy</code> 帶入：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sinon <span class="keyword">from</span> <span class="string">'sinon'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">    global: &#123;</span><br><span class="line">        plugins: [</span><br><span class="line">            createTestingPinia(&#123;</span><br><span class="line">                createSpy: sinon.spy,</span><br><span class="line">            &#125;),</span><br><span class="line">        ],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="plugins"><a href="#plugins" class="headerlink" title="plugins"></a>plugins</h4><p>若在使用 Pinia 時有使用到插件（plugins）來擴充 Pinia 的功能，由於活化 Pinia 機制不同，因此我們需要透過 <code>plugins</code> 參數來顯性的將插件加入到 <code>createTestingPinia</code> 中：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; myPlugin &#125; <span class="keyword">from</span> <span class="string">'./stores/plugins'</span></span><br><span class="line"><span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">    global: &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">        createTestingPinia(&#123;</span><br><span class="line">            plugins: [myPlugin],</span><br><span class="line">        &#125;),</span><br><span class="line">    ],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>而綜合以上 <code>createTestingPinia</code> 的參數，最後若我們想要撰寫孤立型測試風格的測試案例，就會像是這樣：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should increment'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">    global: &#123;</span><br><span class="line">      plugins: [</span><br><span class="line">        createTestingPinia(&#123;</span><br><span class="line">          initialState: &#123;</span><br><span class="line">            counter: &#123;</span><br><span class="line">              count: <span class="number">0</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;),</span><br><span class="line">      ],</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">const</span> store = useCounterStore()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="button_increment"]'</span>).trigger(<span class="string">'click'</span>)</span><br><span class="line">  <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="button_increment"]'</span>).trigger(<span class="string">'click'</span>)</span><br><span class="line"></span><br><span class="line">  expect(store.increment).toHaveBeenCalledTimes(<span class="number">2</span>)</span><br><span class="line">  expect(wrapper.find(<span class="string">'[data-test="content_count"]'</span>).text()).toBe(<span class="string">'1'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>若想要撰寫社交型風格的測試，則會像這樣撰寫：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should increment'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">      global: &#123;</span><br><span class="line">        plugins: [</span><br><span class="line">          createTestingPinia(&#123;</span><br><span class="line">            initialState: &#123;</span><br><span class="line">              counter: &#123;</span><br><span class="line">                count: <span class="number">0</span>,</span><br><span class="line">              &#125;,</span><br><span class="line">            &#125;,</span><br><span class="line">            stubActions: <span class="literal">false</span>,</span><br><span class="line">          &#125;),</span><br><span class="line">        ],</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="button_increment"]'</span>).trigger(<span class="string">'click'</span>)</span><br><span class="line"></span><br><span class="line">    expect(wrapper.find(<span class="string">'[data-test="content_count"]'</span>).text()).toBe(<span class="string">'1'</span>)</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>但要注意到的是，如此一來將來在 Store 發生變更時，元件中的測試案例也會因此發生錯誤，因此在撰寫測試案例時，要適度的取捨與規劃。</p>
+<p>以上就是有關於在 Vue 3 中，若使用 Pinia 作為狀態管理工具時，要如何撰寫有關於 Pinia 的測試案例！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+              <a href="/tags/Vitest/" rel="tag"># Vitest</a>
+              <a href="/tags/Vue-Test-Utils/" rel="tag"># Vue Test Utils</a>
+              <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-30/" rel="prev" title="【語法ノ章】Vue Ecosystem 篇：Vue Router 測試">
+      <i class="fa fa-chevron-left"></i> 【語法ノ章】Vue Ecosystem 篇：Vue Router 測試
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-32/" rel="next" title="【進階ノ章】Vitest UI">
+      【進階ノ章】Vitest UI <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pinia-測試"><span class="nav-number">1.</span> <span class="nav-text">Pinia 測試</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pinia-簡介"><span class="nav-number">1.1.</span> <span class="nav-text">Pinia 簡介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pinia-測試關注點"><span class="nav-number">1.2.</span> <span class="nav-text">Pinia 測試關注點</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pinia-測試實作"><span class="nav-number">1.3.</span> <span class="nav-text">Pinia 測試實作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#測試-Store-本身行為"><span class="nav-number">1.3.1.</span> <span class="nav-text">測試 Store 本身行為</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#測試-Store-與-Vue-元件之間的互動"><span class="nav-number">1.3.2.</span> <span class="nav-text">測試 Store 與 Vue 元件之間的互動</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#initialState"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">initialState</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stubActions"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">stubActions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#createSpy"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">createSpy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#plugins"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">plugins</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/ithelp-2022-vitest-31/";
+    this.page.identifier = "testing/ithelp-2022-vitest-31/";
+    this.page.title = "【語法ノ章】Vue Ecosystem 篇：Pinia 測試";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

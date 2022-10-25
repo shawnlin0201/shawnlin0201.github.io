@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">76</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -198,7 +198,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/vue.js/Vue-cli-006-vue-router/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-001-intro/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -212,7 +212,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/vue.js/Vue-cli-006-vue-router/" class="post-title-link" itemprop="url">Vue-cli Router</a>
+            <a href="/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-001-intro/" class="post-title-link" itemprop="url">重新解構：無瑕的程式碼（Clean Code）書序 及 Chapter 1 無暇的程式碼</a>
         </h2>
 
         <div class="post-meta">
@@ -222,14 +222,14 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2019-10-08 19:00:12" itemprop="dateCreated datePublished" datetime="2019-10-08T19:00:12+08:00">2019-10-08</time>
+              <time title="創建時間：2020-09-23 22:05:16" itemprop="dateCreated datePublished" datetime="2020-09-23T22:05:16+08:00">2020-09-23</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2021-01-05 16:48:07" itemprop="dateModified" datetime="2021-01-05T16:48:07+08:00">2021-01-05</time>
+                <time title="修改時間：2020-10-05 23:24:58" itemprop="dateModified" datetime="2020-10-05T23:24:58+08:00">2020-10-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -237,11 +237,11 @@
               </span>
               <span class="post-meta-item-text">分類於</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                  <a href="/categories/Book/" itemprop="url" rel="index"><span itemprop="name">Book</span></a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Vue-js/" itemprop="url" rel="index"><span itemprop="name">Vue.js</span></a>
+                  <a href="/categories/Book/Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship/" itemprop="url" rel="index"><span itemprop="name">Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship</span></a>
                 </span>
             </span>
 
@@ -254,8 +254,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/vue.js/Vue-cli-006-vue-router/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="vue.js/Vue-cli-006-vue-router/" itemprop="commentCount"></span>
+    <a title="disqus" href="/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-001-intro/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-001-intro/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -271,19 +271,13 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" src='/images/Book/Clean-Code-A-Handbook-of-Agile-Software-Craftsmanship.jpg' width='200px' height='200px' />
 </div>
 
-<h2 id="SPA"><a href="#SPA" class="headerlink" title="SPA"></a>SPA</h2><p>今天要介紹的是對<strong>單頁式應用網站（SPA，Single Page Application）</strong> 非常重要的 Router， SPA 為何會需要 Router 來處理網頁路徑呢？這裡簡單介紹一下他們之間的關係：</p>
-<p>在 SPA 技術被大肆使用之前，以前的網站多是採用<strong>多頁式網頁（MPA，Multiple Page Application）</strong>，而兩者差異最大的地方在於<strong>向伺服器請求的東西不同</strong>。</p>
-<p>一開始不論 SPA 還是 MPA 網站都需要使用者輸入網址，透過一個叫做 DNS 的服務器找到該網站伺服器，接著經過一連串回應後，伺服器回應給使用者一個 HTML 網頁檔案。</p>
-<p>而 MPA 在後續轉換頁面上，則是<strong>藉由輸入的網址不同，重複以上動作向網站伺服器拿取每頁的網頁檔案</strong>，並且重新渲染每頁的內容，因此會造成網頁整個畫面都被刷新。</p>
-<p>SPA 則是進入入口網頁（SPA 進入點）後透過 AJAX 技術，跟伺服器拿取部分資料替換內容進去；而替換的區域，小至更新收藏狀態的按鈕，大至整個頁面都被刷新，此時網址列的路徑卻仍是我們一開始進去的那個 SPA 進入點網址。</p>
-<p>因此，SPA 網頁需要<strong>藉由 History API</strong> 來操控網址列，並且藉由<strong>前端辨識使用者輸入的網頁路徑</strong>不同，而透過前端給予使用者不同的頁面內容，這也代表著原先由後端伺服器所負責的路徑管理，將交由前端來負責辨識與處理，也使得前端的複雜度上升了一個檔次。</p>
-<p>為了使用者的品質體驗，身為前端工程師的我們當然不會因為這種小事而被擊倒，但管理路徑上確實是不容易的事情，因此工程師們逐漸發展出一系列管理路徑的方法。而在 Vue 框架中，我們可以藉由 Vue Router 來協助處理這一類的問題，這也就是今天所要提到的內容。</p>
+<h1 id="序"><a href="#序" class="headerlink" title="序"></a>序</h1><p>經過一段時間終於有機會再把它拿出來拜讀了！這本由 <strong>Robert C. Martin（Uncle Bob）</strong> 所撰寫的著作，為 《Agile software development principles patterns and practices.》（敏捷軟件開發）一書的前傳。而無暇的程式碼（Clean Code）究竟表示的是什麼？我想推薦序一文做了非常良好的解釋：</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/vue.js/Vue-cli-006-vue-router/#more" rel="contents">
+              <a class="btn" href="/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-001-intro/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -307,7 +301,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/vue.js/Vue-cli-005-vuex/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-Pure-Function/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -321,7 +315,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/vue.js/Vue-cli-005-vuex/" class="post-title-link" itemprop="url">Vue-cli What is Vuex? Why do we need Vuex?</a>
+            <a href="/JavaScript/JavaScript-Pure-Function/" class="post-title-link" itemprop="url">JavaScript 深入淺出 Pure Function & Side Effect 純函數與副作用</a>
         </h2>
 
         <div class="post-meta">
@@ -331,526 +325,7 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2019-10-07 19:08:53" itemprop="dateCreated datePublished" datetime="2019-10-07T19:08:53+08:00">2019-10-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2021-01-05 16:48:07" itemprop="dateModified" datetime="2021-01-05T16:48:07+08:00">2021-01-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Vue-js/" itemprop="url" rel="index"><span itemprop="name">Vue.js</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/vue.js/Vue-cli-005-vuex/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="vue.js/Vue-cli-005-vuex/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
-</div>
-
-<h2 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h2><p>這幾天陸陸續續講解了 Vue.js 在 Vue-cli 裡偏向實作的說明，而目前我們也已經完成了一個簡單的元件，可以透過父層引用這個元件時，將需要的資料傳遞給元件，使子元件可以在不同頁面、區塊重複使用。</p>
-<p>然而昨天有提出了一個問題，<strong>「假設今天不同頁面（不同 .vue 檔案），都要使用共同的狀態時，我們應該如何處理？」</strong></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/vue.js/Vue-cli-005-vuex/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/vue.js/Vue-cli-004-vue-file-sample-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/information-avatar.png">
-      <meta itemprop="name" content="ShawnL 林奇璇">
-      <meta itemprop="description" content="我家的貓會coding">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="璇之又璇的網路世界">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/vue.js/Vue-cli-004-vue-file-sample-2/" class="post-title-link" itemprop="url">Vue-cli 單一元件檔（ 以 iT 邦幫忙鐵人賽檔案當作開發範例）續</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2019-10-06 20:30:33" itemprop="dateCreated datePublished" datetime="2019-10-06T20:30:33+08:00">2019-10-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2021-01-05 16:48:07" itemprop="dateModified" datetime="2021-01-05T16:48:07+08:00">2021-01-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Vue-js/" itemprop="url" rel="index"><span itemprop="name">Vue.js</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/vue.js/Vue-cli-004-vue-file-sample-2/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="vue.js/Vue-cli-004-vue-file-sample-2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
-</div>
-
-<h2 id="單一元件檔-props"><a href="#單一元件檔-props" class="headerlink" title="單一元件檔 props"></a>單一元件檔 props</h2><p>今天要來把昨天製作好的元件檔案拆分的更乾淨一點，昨天我們的資料都還放在<strong>元件自己本身中的 data 裡面</strong>，這樣子在 View 頁面使用時套用該元件都只會讀到元件自己本身中的資料，而我們今天要來將元件中的 data 清除乾淨，透過父層在決定要使用這個元件時，才將要輸入的資料傳遞進去。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/vue.js/Vue-cli-004-vue-file-sample-2/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/vue.js/Vue-cli-003-vue-file-sample-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/information-avatar.png">
-      <meta itemprop="name" content="ShawnL 林奇璇">
-      <meta itemprop="description" content="我家的貓會coding">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="璇之又璇的網路世界">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/vue.js/Vue-cli-003-vue-file-sample-1/" class="post-title-link" itemprop="url">Vue-cli 單一元件檔（ 以 iT 邦幫忙鐵人賽檔案當作開發範例）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2019-10-05 23:21:00" itemprop="dateCreated datePublished" datetime="2019-10-05T23:21:00+08:00">2019-10-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2021-01-05 16:48:07" itemprop="dateModified" datetime="2021-01-05T16:48:07+08:00">2021-01-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Vue-js/" itemprop="url" rel="index"><span itemprop="name">Vue.js</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/vue.js/Vue-cli-003-vue-file-sample-1/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="vue.js/Vue-cli-003-vue-file-sample-1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
-</div>
-
-<p>今天要來以 iT 邦幫忙的鐵人賽檔案當作開發範例啦！</p>
-<p>首先我們先來看看<strong>正版</strong>的鐵人賽檔案長什麼樣子：</p>
-<p><img src="https://ithelp.ithome.com.tw/upload/images/20191005/201190626f3Cl5S3qh.jpg" alt="https://ithelp.ithome.com.tw/upload/images/20191005/201190626f3Cl5S3qh.jpg"></p>
-<p>忽略左上角之後，我們可以看到下方的這個區塊非常適合來開發成一個元件，而這個元件要考慮到哪些地方呢？假如今天大雄有參與<strong>不同年度的鐵人賽</strong>，並且又報名<strong>不同組別</strong>等等，加上文章本身就會有<strong>標題</strong>、<strong>鐵人是否練成</strong>、<strong>發了幾篇文章</strong>、<strong>有多少人訂閱</strong>等等，有許多控制項目可以玩，我們挑選其中幾個項目之後，在這裡發揮我們工程師的技能</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/vue.js/Vue-cli-003-vue-file-sample-1/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/vue.js/Vue-cli-002-vue-file/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/information-avatar.png">
-      <meta itemprop="name" content="ShawnL 林奇璇">
-      <meta itemprop="description" content="我家的貓會coding">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="璇之又璇的網路世界">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/vue.js/Vue-cli-002-vue-file/" class="post-title-link" itemprop="url">Vue-cli 單一元件檔 （.vue 檔）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2019-10-04 23:45:14" itemprop="dateCreated datePublished" datetime="2019-10-04T23:45:14+08:00">2019-10-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2021-01-05 16:48:07" itemprop="dateModified" datetime="2021-01-05T16:48:07+08:00">2021-01-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Vue-js/" itemprop="url" rel="index"><span itemprop="name">Vue.js</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/vue.js/Vue-cli-002-vue-file/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="vue.js/Vue-cli-002-vue-file/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
-</div>
-
-<h2 id="單一元件檔"><a href="#單一元件檔" class="headerlink" title="單一元件檔"></a>單一元件檔</h2><p>今天要來介紹的是<strong>單一元件檔</strong>，單一元件檔在 Vue-cli 中被大量地使用，算是寫 Vue-cli 不可不知的一環，而在昨天我們安裝好 Vue-cli 環境後，可以看見 src 資料夾底下充滿著大量 .vue 結尾的檔案，大家或許會滿臉疑惑，因為前一兩周寫 Vue.js 根本沒有提到這個東西啊？那他到底是什麼呢？</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/vue.js/Vue-cli-002-vue-file/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/vue.js/Vue-cli-001-build/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/information-avatar.png">
-      <meta itemprop="name" content="ShawnL 林奇璇">
-      <meta itemprop="description" content="我家的貓會coding">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="璇之又璇的網路世界">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/vue.js/Vue-cli-001-build/" class="post-title-link" itemprop="url">Vue-cli 介紹與環境建置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2019-10-03 23:27:31" itemprop="dateCreated datePublished" datetime="2019-10-03T23:27:31+08:00">2019-10-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2021-01-05 16:48:07" itemprop="dateModified" datetime="2021-01-05T16:48:07+08:00">2021-01-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/Vue-js/" itemprop="url" rel="index"><span itemprop="name">Vue.js</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/vue.js/Vue-cli-001-build/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="vue.js/Vue-cli-001-build/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="vue-logo" src='/images/vue-logo.png' width='200px' height='200px' />
-</div>
-
-<h2 id="Vue-cli"><a href="#Vue-cli" class="headerlink" title="Vue-cli"></a>Vue-cli</h2><p>當我們終於熟悉 Vue.js 的一些基本用法後，專案上可能會要使用 webpack 來建立專案，而今天要來介紹的 Vue-cli ，主要是提供開發者一個快速建置 Vue.js 架構的工具，並基於 webpack，提供了許多相關的功能、套件安裝協助。而這裡建議使用 Vue-cli 前可以稍微瞭解 Vue.js 一些基本的指令以及元件概念基礎，並且要有不怕操作基本終端機指令的一顆心。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/vue.js/Vue-cli-001-build/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/d3.js/D3-013-geojson-topojson/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/information-avatar.png">
-      <meta itemprop="name" content="ShawnL 林奇璇">
-      <meta itemprop="description" content="我家的貓會coding">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="璇之又璇的網路世界">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/d3.js/D3-013-geojson-topojson/" class="post-title-link" itemprop="url">D3.js 繪製臺灣地圖</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2019-10-02 18:11:42" itemprop="dateCreated datePublished" datetime="2019-10-02T18:11:42+08:00">2019-10-02</time>
+              <time title="創建時間：2020-09-21 00:19:00" itemprop="dateCreated datePublished" datetime="2020-09-21T00:19:00+08:00">2020-09-21</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -869,7 +344,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/D3-js/" itemprop="url" rel="index"><span itemprop="name">D3.js</span></a>
+                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
                 </span>
             </span>
 
@@ -882,8 +357,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/d3.js/D3-013-geojson-topojson/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="d3.js/D3-013-geojson-topojson/" itemprop="commentCount"></span>
+    <a title="disqus" href="/JavaScript/JavaScript-Pure-Function/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-Pure-Function/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -899,14 +374,15 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="d3-logo" src='/images/d3js/d3.png' width='300px' height='300px' />
+  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
 </div>
 
-<h2 id="D3-js-地圖"><a href="#D3-js-地圖" class="headerlink" title="D3.js 地圖"></a>D3.js 地圖</h2><p>今天我們要來繪製 D3.js 人人必<strong>繪</strong>的地圖啦！</p>
-<p>我們首先到臺灣 <a href="https://data.gov.tw/dataset/7442" target="_blank" rel="noopener">政府資料開放平臺</a> 的網站中下載以縣市為界的台灣地圖 SHP 檔案：</p>
+<p>來點純一點的貨吧！</p>
+<p>為什麼函式還有分純不純的呢？有副作用的函式又是怎麼一回事？</p>
+<p>讓我們一起來瞭解純函數與副作用到底是什麼吧！</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/d3.js/D3-013-geojson-topojson/#more" rel="contents">
+              <a class="btn" href="/JavaScript/JavaScript-Pure-Function/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -930,7 +406,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/d3.js/D3-012-scatter-chart-and-line-chart/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-call-by-value/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -944,7 +420,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/d3.js/D3-012-scatter-chart-and-line-chart/" class="post-title-link" itemprop="url">D3.js 繪製散點圖與折線圖 scatter chart & line chart</a>
+            <a href="/JavaScript/JavaScript-call-by-value/" class="post-title-link" itemprop="url">JavaScript 深入淺出 call by value（call by address）</a>
         </h2>
 
         <div class="post-meta">
@@ -954,7 +430,7 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2019-10-01 22:15:51" itemprop="dateCreated datePublished" datetime="2019-10-01T22:15:51+08:00">2019-10-01</time>
+              <time title="創建時間：2020-09-14 10:00:52" itemprop="dateCreated datePublished" datetime="2020-09-14T10:00:52+08:00">2020-09-14</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -973,7 +449,11 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/D3-js/" itemprop="url" rel="index"><span itemprop="name">D3.js</span></a>
+                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/ECMAScript/" itemprop="url" rel="index"><span itemprop="name">ECMAScript</span></a>
                 </span>
             </span>
 
@@ -986,8 +466,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/d3.js/D3-012-scatter-chart-and-line-chart/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="d3.js/D3-012-scatter-chart-and-line-chart/" itemprop="commentCount"></span>
+    <a title="disqus" href="/JavaScript/JavaScript-call-by-value/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-call-by-value/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1003,14 +483,15 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="d3-logo" src='/images/d3js/d3.png' width='300px' height='300px' />
+  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
 </div>
 
-<h2 id="繪製散點圖-scatter-chart"><a href="#繪製散點圖-scatter-chart" class="headerlink" title="繪製散點圖 scatter chart"></a>繪製散點圖 scatter chart</h2><p>昨天我們已經繪製出座標軸了，而接下來要繪製散點圖就非常的容易了，繪製散點圖的原理與繪製座標軸的原理類似，並且更簡單，我們只要在圖表內生成 SVG 圓形標籤時，藉由其屬性 <code>cx</code> 與 <code>cy</code> 定義圓形標籤的位置之後，即可將圓點產生在資料對應的位置。</p>
-<p>以下範例用昨天已繪製好的座標軸繼續延伸：</p>
+
+<p>最近經過一年的淬鍊再回頭看看有關於傳值這篇文<br><a href="https://blog.techbridge.cc/2018/06/23/javascript-call-by-value-or-reference/" target="_blank" rel="noopener">https://blog.techbridge.cc/2018/06/23/javascript-call-by-value-or-reference/</a></p>
+<p>我覺得 call by value(address) 的解釋法應該是最接近且一致的心理模型了，來分享一下我對 JavaScript 中賦值、存取與修改的看法。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/d3.js/D3-012-scatter-chart-and-line-chart/#more" rel="contents">
+              <a class="btn" href="/JavaScript/JavaScript-call-by-value/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -1034,7 +515,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/d3.js/D3-011-axis/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-Arrow-function/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -1048,7 +529,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/d3.js/D3-011-axis/" class="post-title-link" itemprop="url">D3.js 繪製座標軸 axis</a>
+            <a href="/JavaScript/JavaScript-Arrow-function/" class="post-title-link" itemprop="url">JavaScript 深入淺出 Arrow Function 箭頭函式</a>
         </h2>
 
         <div class="post-meta">
@@ -1058,7 +539,7 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2019-09-30 21:57:01" itemprop="dateCreated datePublished" datetime="2019-09-30T21:57:01+08:00">2019-09-30</time>
+              <time title="創建時間：2020-09-07 19:03:56" itemprop="dateCreated datePublished" datetime="2020-09-07T19:03:56+08:00">2020-09-07</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -1077,7 +558,11 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/D3-js/" itemprop="url" rel="index"><span itemprop="name">D3.js</span></a>
+                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/ECMAScript/" itemprop="url" rel="index"><span itemprop="name">ECMAScript</span></a>
                 </span>
             </span>
 
@@ -1090,8 +575,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/d3.js/D3-011-axis/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="d3.js/D3-011-axis/" itemprop="commentCount"></span>
+    <a title="disqus" href="/JavaScript/JavaScript-Arrow-function/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-Arrow-function/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1107,14 +592,13 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="d3-logo" src='/images/d3js/d3.png' width='300px' height='300px' />
+  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
 </div>
 
-<h2 id="繪製座標軸"><a href="#繪製座標軸" class="headerlink" title="繪製座標軸"></a>繪製座標軸</h2><p>透過 D3.js 比例尺後，我們現在已經可以透過資料得到對應比例尺的數值了，而今天要緊接著透過這個數值來繪製座標軸，並且一樣採用 Vue.js 框架來說明。</p>
-<p>而在 Vue.js 中的實體設定基本上與前幾天差不多，最主要我們將資料集換成<strong>每筆資料各有兩個屬性資料</strong>的格式：</p>
+<p>箭頭函式算是 ECMAScript 中常見的用法之一，但他與一般的函式差別在哪？就讓我們一起來瞭解箭頭函式到底是什麼吧。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/d3.js/D3-011-axis/#more" rel="contents">
+              <a class="btn" href="/JavaScript/JavaScript-Arrow-function/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -1138,7 +622,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/d3.js/D3-010-scale/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-Exception-Handling/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -1152,7 +636,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/d3.js/D3-010-scale/" class="post-title-link" itemprop="url">D3.js 繪製比例尺 scale</a>
+            <a href="/JavaScript/JavaScript-Exception-Handling/" class="post-title-link" itemprop="url">JavaScript 深入淺出 Error & Exception-Handling 錯誤與例外處理</a>
         </h2>
 
         <div class="post-meta">
@@ -1162,7 +646,7 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2019-09-29 23:46:23" itemprop="dateCreated datePublished" datetime="2019-09-29T23:46:23+08:00">2019-09-29</time>
+              <time title="創建時間：2020-08-31 11:56:40" itemprop="dateCreated datePublished" datetime="2020-08-31T11:56:40+08:00">2020-08-31</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -1181,7 +665,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/D3-js/" itemprop="url" rel="index"><span itemprop="name">D3.js</span></a>
+                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
                 </span>
             </span>
 
@@ -1194,8 +678,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/d3.js/D3-010-scale/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="d3.js/D3-010-scale/" itemprop="commentCount"></span>
+    <a title="disqus" href="/JavaScript/JavaScript-Exception-Handling/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-Exception-Handling/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1211,15 +695,537 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="d3-logo" src='/images/d3js/d3.png' width='300px' height='300px' />
+  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
 </div>
 
-<blockquote>
-<p>在圖表當中不可或缺的除了基本的<strong>資料</strong>與<strong>圖表</strong>之外，另一項就是<strong>比例尺</strong>的部分。在 D3.js 中，開發者可以透過比例尺<strong>將一段範圍的某個數值對應到另一段範圍的數值</strong>，這麼做的好處在於我們可以將資料轉換成一個具有比例意義的圖表，並且依比例縮放成我們所要的大小而不是毫無比例根據的作圖。</p>
-</blockquote>
+<p>在程式開發中不免會遇到一些錯誤以及例外的狀況，而在 JavaScript 中又是要如何處理錯誤與例外呢？</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/d3.js/D3-010-scale/#more" rel="contents">
+              <a class="btn" href="/JavaScript/JavaScript-Exception-Handling/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-Automatic-Semicolon-Insertion/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/JavaScript/JavaScript-Automatic-Semicolon-Insertion/" class="post-title-link" itemprop="url">JavaScript 深入淺出 Automatic Semicolon Insertion 自動插入分號機制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-08-24 13:16:12" itemprop="dateCreated datePublished" datetime="2020-08-24T13:16:12+08:00">2020-08-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/ECMAScript/" itemprop="url" rel="index"><span itemprop="name">ECMAScript</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/JavaScript/JavaScript-Automatic-Semicolon-Insertion/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-Automatic-Semicolon-Insertion/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
+</div>
+
+<p>在 JavaScript 當中 <code>;</code> 被用來作為分隔表達式語句（statement）符號；然而，你知道在 2000 年時的 ECMAScript（ES3）中，有自動插入分號機制（Automatic Semicolon Insertion）會幫你自動插入分號嗎？</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/JavaScript/JavaScript-Automatic-Semicolon-Insertion/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-Statement-Expression/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/JavaScript/JavaScript-Statement-Expression/" class="post-title-link" itemprop="url">JavaScript 深入淺出 Statement & Expression 陳述式與表達式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-08-17 09:48:11" itemprop="dateCreated datePublished" datetime="2020-08-17T09:48:11+08:00">2020-08-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/ECMAScript/" itemprop="url" rel="index"><span itemprop="name">ECMAScript</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/JavaScript/JavaScript-Statement-Expression/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-Statement-Expression/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
+</div>
+
+<p>你有想過為什麼變數可以儲存 <code>3</code> 卻沒有辦法儲存 <code>if/else</code> 語句，可是卻又能儲存整個 <code>function</code> 嗎？</p>
+<p>一起來看看陳述式與表達式的概念就能馬上瞭解！</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/JavaScript/JavaScript-Statement-Expression/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-Array-methods/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/JavaScript/JavaScript-Array-methods/" class="post-title-link" itemprop="url">JavaScript 深入淺出 陣列處理迴圈的方法（forEach、map、filter、reduce）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-08-10 10:02:56" itemprop="dateCreated datePublished" datetime="2020-08-10T10:02:56+08:00">2020-08-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/JavaScript/JavaScript-Array-methods/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-Array-methods/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
+</div>
+
+<p>今天要來介紹四個陣列中處理迴圈的常見方法，還在用 <code>for</code> 迴圈打天下嗎？來看看這些 cool 東西吧 (?)</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/JavaScript/JavaScript-Array-methods/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-this/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/JavaScript/JavaScript-this/" class="post-title-link" itemprop="url">JavaScript 深入淺出 This</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-08-03 10:39:10" itemprop="dateCreated datePublished" datetime="2020-08-03T10:39:10+08:00">2020-08-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/JavaScript/JavaScript-this/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-this/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
+</div>
+
+<p><code>this</code> 可以在 JavaScript 當中可以說是比 <code>prototype</code> 還要更難懂的概念，但今天要來嘗試以簡潔的方式來說明 <code>this</code> 到底是誰。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/JavaScript/JavaScript-this/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-prototype/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/JavaScript/JavaScript-prototype/" class="post-title-link" itemprop="url">JavaScript 深入淺出 prototype</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-07-27 10:03:14" itemprop="dateCreated datePublished" datetime="2020-07-27T10:03:14+08:00">2020-07-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/JavaScript/JavaScript-prototype/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-prototype/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
+</div>
+
+<p><code>prototype</code> 一直是個 JavaScript 核心裡面最難以解釋的概念，因為光是提到 <code>prototype</code>，就不得不提相關的概念：<code>constructor</code>、<code>__proto__</code>、<code>Function.prototype</code>、<code>Object.prototype</code> ……等等，所以等了一段時間我覺得是時候來講講他了。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/JavaScript/JavaScript-prototype/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -1242,7 +1248,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
 
 
@@ -1310,7 +1316,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">76</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -1321,7 +1327,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -1386,7 +1392,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

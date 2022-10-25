@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文序前幾天測試替身相關章節最主要的強項主要都是在當我們專案實作過程中有依賴外部模組或工具時，我們可以透過替身的方式來測試我們的邏輯，而不需要真的去執行外部模組或工具，這樣可以減少測試時間，也可以避免測試時因為外部模組或工具的問題而造成測試失敗。 因此測試替身我們必須先走過一次概念，才能更好的理解替身本身要做的事情；接著語法的部分則要瞭解到 Vue Test Utils 與 Vites">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【語法ノ章】Vue Ecosystem 篇：Vue Router 測試">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-30/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="本文序前幾天測試替身相關章節最主要的強項主要都是在當我們專案實作過程中有依賴外部模組或工具時，我們可以透過替身的方式來測試我們的邏輯，而不需要真的去執行外部模組或工具，這樣可以減少測試時間，也可以避免測試時因為外部模組或工具的問題而造成測試失敗。 因此測試替身我們必須先走過一次概念，才能更好的理解替身本身要做的事情；接著語法的部分則要瞭解到 Vue Test Utils 與 Vites">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+<meta property="article:published_time" content="2022-10-15T15:00:42.000Z">
+<meta property="article:modified_time" content="2022-10-24T11:23:58.936Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Vitest">
+<meta property="article:tag" content="Vue Test Utils">
+<meta property="article:tag" content="Unit Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-30/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【語法ノ章】Vue Ecosystem 篇：Vue Router 測試 | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-30/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【語法ノ章】Vue Ecosystem 篇：Vue Router 測試
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-10-15 23:00:42" itemprop="dateCreated datePublished" datetime="2022-10-15T23:00:42+08:00">2022-10-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 19:23:58" itemprop="dateModified" datetime="2022-10-24T19:23:58+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-30/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-30/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>前幾天測試替身相關章節最主要的強項主要都是在當我們專案實作過程中有依賴外部模組或工具時，我們可以透過替身的方式來測試我們的邏輯，而不需要真的去執行外部模組或工具，這樣可以減少測試時間，也可以避免測試時因為外部模組或工具的問題而造成測試失敗。</p>
+<p>因此測試替身我們必須先走過一次概念，才能更好的理解替身本身要做的事情；接著語法的部分則要瞭解到 Vue Test Utils 與 Vitest 提供了哪些語法可以供我們選擇使用；最後，在測試的部分我們才能透過洽當的概念和語法來撰寫出更好的測試案例。</p>
+<p>所以今天我們就要來看看當我們在使用 Vue 周邊工具時，我們要如何利用測試替身來撰寫測試案例！</p>
+<a id="more"></a>
+
+<h1 id="Vue-Router-測試"><a href="#Vue-Router-測試" class="headerlink" title="Vue Router 測試"></a>Vue Router 測試</h1><ul>
+<li>Vue Router 簡介</li>
+<li>Vue Router 測試關注點</li>
+<li>Vue Router 測試實作<ul>
+<li>孤立型測試：以 Mocked Router 作為受測物</li>
+<li>社交型測試：以專案中的 Router 作為受測物</li>
+</ul>
+</li>
+</ul>
+<h2 id="Vue-Router-簡介"><a href="#Vue-Router-簡介" class="headerlink" title="Vue Router 簡介"></a>Vue Router 簡介</h2><p>Vue Router 提供了 SPA 類型專案一個良好管理路由的工具，並與 Vue 有良好的整合，讓我們在開發以 Vue 為基底的專案，處理路由時能更加的輕鬆愜意。</p>
+<p>而在使用 Vue Router 時，我們主要會一個基本的路由設定：</p>
+<p>router.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createRouter, createWebHistory &#125; <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="keyword">import</span> Home <span class="keyword">from</span> <span class="string">'../views/Home.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">'/'</span>,</span><br><span class="line">    name: <span class="string">'Home'</span>,</span><br><span class="line">    component: Home,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ... more routes</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = createRouter(&#123;</span><br><span class="line">  history: createWebHistory(process.env.BASE_URL),</span><br><span class="line">  routes</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
+
+<p>接著再將設定引入到我們的 Vue 專案中：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App.vue'</span></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">'./router'</span></span><br><span class="line"></span><br><span class="line">createApp(App).use(router).mount(<span class="string">'#app'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>如此一來，在元件開發的過程中就能透過 Vue Router APIs 來做路由上的處理：</p>
+<p>App.vue:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/"</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/about"</span>&gt;</span>About<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"goToContactPage"</span>&gt;</span>Contact Me<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-view</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRouter &#125; <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  setup() &#123;</span><br><span class="line">    <span class="keyword">const</span> $router = useRouter()</span><br><span class="line">    <span class="keyword">const</span> goToContactPage = <span class="function"><span class="params">()</span> =&gt;</span> $router.push(<span class="string">'/contact'</span>)</span><br><span class="line">    <span class="keyword">return</span> &#123; goToContactPage &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Vue-Router-測試關注點"><a href="#Vue-Router-測試關注點" class="headerlink" title="Vue Router 測試關注點"></a>Vue Router 測試關注點</h2><p>在撰寫有關 Vue Router 的測試時，我們主要會關注在模擬 End User 操作過程中，是否有正確的觸發 Vue Router 的 API，比方像是：</p>
+<ul>
+<li>使用者點擊 <code>&lt;router-link&gt;</code> 時，是否有正確的觸發 <code>router.push()</code> 等 API？</li>
+<li>根據行為在觸發 Router APIs 時所帶的參數是否正確？</li>
+<li>根據我們所設定的「潛在規則」最後所導向的路由是否正確？</li>
+</ul>
+<p>而我們只要確保這部分能正確的被測試到，基本上就能確保我們大部分的 Vue Router 相關內容。</p>
+<h2 id="Vue-Router-測試實作"><a href="#Vue-Router-測試實作" class="headerlink" title="Vue Router 測試實作"></a>Vue Router 測試實作</h2><p>在撰寫 Vue Router 測試時，我們主要可以分為兩種類型：</p>
+<ul>
+<li>孤立型測試：以 Mocked Router 作為受測物</li>
+<li>社交型測試：以專案中的 Router 作為受測物</li>
+</ul>
+<p>這兩種類型的差異純屬於測試的觀察角度不同，對應實作上的差異則在於測試案例中我們要如何取得 Router 實例。</p>
+<p>而接下來我們以部落格當中常見的編輯文章按鈕為例，並以 options API 與 composition API 版本來分別撰寫兩種類型的測試。</p>
+<h3 id="Options-API"><a href="#Options-API" class="headerlink" title="Options API"></a>Options API</h3><p>在 options API 風格中，我們主要是透過 <code>this.$router</code> &amp; <code>this.$route</code> 來取得 Router 相關資訊與控制方法：</p>
+<p>App.vue</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 元件某處 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-test</span>=<span class="string">"button"</span> @<span class="attr">click</span>=<span class="string">"goToEditPage"</span>&gt;</span>編輯文章<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    props: &#123;</span><br><span class="line">        isUserLogin: <span class="literal">false</span> <span class="comment">// 這裡為了理解方便單純模擬判斷使用者是否登入，並非最佳實踐</span></span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        goToEditPage() &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">this</span>.isUserLogin)&#123;</span><br><span class="line">                <span class="keyword">this</span>.$router.push(<span class="string">`/articles/<span class="subst">$&#123;<span class="keyword">this</span>.$route.params.id&#125;</span>/edit`</span>)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.$router.push(<span class="string">`/login`</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="在-Options-API-中以孤立型測試撰寫-Vue-Router-測試"><a href="#在-Options-API-中以孤立型測試撰寫-Vue-Router-測試" class="headerlink" title="在 Options API 中以孤立型測試撰寫 Vue Router 測試"></a>在 Options API 中以孤立型測試撰寫 Vue Router 測試</h4><p>在孤立型測試中，我們可以透過 Vue Test Utils 中的容器（Wrapper）中的選項 <code>global.mocks</code> 來模擬 <code>vue-router</code> 中的 <code>$route</code> &amp; <code>$routes</code> 操作：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> wrapper = mount(App, &#123;</span><br><span class="line">  global: &#123;</span><br><span class="line">    mocks: &#123;</span><br><span class="line">      $route: &#123;</span><br><span class="line">        params: &#123;</span><br><span class="line">          id: <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      $router: &#123;</span><br><span class="line">        push: vi.fn()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>而在 <code>$router</code> 中的 <code>push</code> 方法，我們可以透過 <code>vi.fn()</code> 來模擬呼叫行為，如此一來我們就可以捕捉到相關資訊。</p>
+<p>最後，我們就可以根據 <code>isUserLogin</code> 選項，產生 Happy Path 與 Sad Path 的測試案例：</p>
+<ul>
+<li>若使用者登錄狀況下點擊編輯文章按鈕，則應該要導向 <code>/articles/{根據路由取得文章的 id}/edit</code> 的路由</li>
+<li>若使用者未登錄狀況下點擊編輯文章按鈕，則應該要導向 <code>/login</code> 的路由<br>App.spec.js:<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; mount &#125; <span class="keyword">from</span> <span class="string">'@vue/test-utils'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'@/App.vue'</span></span><br><span class="line"></span><br><span class="line">describe(<span class="string">'App.vue'</span>, () =&gt; &#123;</span><br><span class="line">    it(<span class="string">'should go to edit page when click button if user is Login'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        <span class="comment">// Arrange</span></span><br><span class="line">        <span class="keyword">const</span> mockRoute = &#123;</span><br><span class="line">            params: &#123;</span><br><span class="line">                id: <span class="number">10308907</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> mockRouter = &#123;</span><br><span class="line">            push: vi.fn(),</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> wrapper = mount(App, &#123;</span><br><span class="line">            props: &#123;</span><br><span class="line">                isUserLogin: <span class="literal">true</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">            global: &#123;</span><br><span class="line">                mocks: &#123;</span><br><span class="line">                    $route: mockRoute,</span><br><span class="line">                    $router: mockRouter,</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="comment">// Act</span></span><br><span class="line">        <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="button"]'</span>).trigger(<span class="string">'click'</span>) <span class="comment">// 點擊後應觸發 router.push() 事件</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Assert</span></span><br><span class="line">        expect(mockRouter.push).toHaveBeenCalledTimes(<span class="number">1</span>)</span><br><span class="line">        expect(mockRouter.push).toHaveBeenCalledWith(<span class="string">'/articles/10308907/edit'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">'should go to login page when click button if user is not Login'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> mockRoute = &#123;</span><br><span class="line">            params: &#123;</span><br><span class="line">                id: <span class="number">10308907</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> mockRouter = &#123;</span><br><span class="line">            push: vi.fn(),</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> wrapper = mount(App, &#123;</span><br><span class="line">            props: &#123;</span><br><span class="line">                isUserLogin: <span class="literal">false</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">            global: &#123;</span><br><span class="line">                mocks: &#123;</span><br><span class="line">                    $route: mockRoute,</span><br><span class="line">                    $router: mockRouter,</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="button"]'</span>).trigger(<span class="string">'click'</span>)</span><br><span class="line"></span><br><span class="line">        expect(mockRouter.push).toHaveBeenCalledTimes(<span class="number">1</span>)</span><br><span class="line">        expect(mockRouter.push).toHaveBeenCalledWith(<span class="string">'/login'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="在-Options-API-中以社交型測試撰寫-Vue-Router-測試"><a href="#在-Options-API-中以社交型測試撰寫-Vue-Router-測試" class="headerlink" title="在 Options API 中以社交型測試撰寫 Vue Router 測試"></a>在 Options API 中以社交型測試撰寫 Vue Router 測試</h4><p>在社交型測試中，我們會直接在測試案例中引入 Route 設定，並真實透過 Vue Router 創造一個 Router 來進行測試：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createRouter, createWebHistory &#125; <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="keyword">import</span> &#123; routes &#125; <span class="keyword">from</span> <span class="string">"@/router"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = createRouter(&#123;</span><br><span class="line">    history: createWebHistory(),</span><br><span class="line">    routes</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>而在測試案例中，我們則要改由用容器選項中的 <code>global.plugins</code> 來注入 <code>router</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> wrapper = mount(App, &#123;</span><br><span class="line">  global: &#123;</span><br><span class="line">    plugins: [router]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>另外，撰寫測試案例中若有透過 <code>router.push()</code> 來導向路由，則需要透過 <code>router.isReady()</code> 來確保路由已經準備好：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">router.push(<span class="string">'/articles/10308907/edit'</span>)</span><br><span class="line"><span class="keyword">await</span> router.isReady()</span><br></pre></td></tr></table></figure>
+
+<p>除此之外，若有需要斷言網頁內容的資訊時，則需要透過 Vue Test Utils 所提供的 <code>flushPromises</code> 來確保所有非同步的行為都已經完成：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> flushPromises()</span><br><span class="line">expect(wrapper.html()).toContain(<span class="string">'After async action'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>最後我們將上述內容組裝起來，完整的社交型 options API 的測試案例如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createRouter, createWebHistory &#125; <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="keyword">import</span> &#123; routes &#125; <span class="keyword">from</span> <span class="string">"@/router"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = createRouter(&#123;</span><br><span class="line">    history: createWebHistory(),</span><br><span class="line">    routes</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">describe(<span class="string">'App.vue'</span>, () =&gt; &#123;</span><br><span class="line">    beforeEach( <span class="keyword">async</span>() =&gt; &#123;</span><br><span class="line">        <span class="comment">// 在每個測試案例執行前，都會先將路由準備好</span></span><br><span class="line">        router.push(<span class="string">'/'</span>)</span><br><span class="line">        <span class="keyword">await</span> router.isReady()</span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">'should go to edit page when click button if user is Login'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        <span class="comment">// Arrange</span></span><br><span class="line">        <span class="keyword">const</span> wrapper = mount(App, &#123;</span><br><span class="line">            props: &#123;</span><br><span class="line">                isUserLogin: <span class="literal">true</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">            global: &#123;</span><br><span class="line">                plugins: [router]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Act</span></span><br><span class="line">        <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="button"]'</span>).trigger(<span class="string">'click'</span>) <span class="comment">// 點擊後應觸發 router.push() 事件</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Assert</span></span><br><span class="line">        expect(router.push).toHaveBeenCalledWith(<span class="string">'/articles/10308907/edit'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">'should go to login page when click button if user is not Login'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> wrapper = mount(App, &#123;</span><br><span class="line">            props: &#123;</span><br><span class="line">                isUserLogin: <span class="literal">false</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">            global: &#123;</span><br><span class="line">                plugins: [router]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="button"]'</span>).trigger(<span class="string">'click'</span>)</span><br><span class="line"></span><br><span class="line">        expect(mockRouter.push).toHaveBeenCalledWith(<span class="string">'/login'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Composition-API"><a href="#Composition-API" class="headerlink" title="Composition API"></a>Composition API</h3><p>在 Composition API 風格中，我們主要是在 <code>setup</code> 函式，透過 <code>useRouter</code>、<code>useRoute</code> 來取得 Vue Router 的相關資訊與操作方法：</p>
+<p>App.vue</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 元件某處 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-test</span>=<span class="string">"button"</span> @<span class="attr">click</span>=<span class="string">"goToEditPage"</span>&gt;</span>編輯文章<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRouter &#125; <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    props: &#123;</span><br><span class="line">        isUserLogin: <span class="literal">false</span> <span class="comment">// 這裡為了理解方便單純模擬判斷使用者是否登入，並非最佳實踐</span></span><br><span class="line">    &#125;,</span><br><span class="line">    setup(props)&#123;</span><br><span class="line">        <span class="keyword">const</span> $router = useRouter()</span><br><span class="line">        goToEditPage() &#123;</span><br><span class="line">            <span class="keyword">if</span>(props.isUserLogin)&#123;</span><br><span class="line">                $router.push(<span class="string">`/articles/<span class="subst">$&#123;<span class="keyword">this</span>.$route.params.id&#125;</span>/edit`</span>)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                $router.push(<span class="string">`/login`</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            goToEditPage</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="在-Composition-API-中以社交型測試撰寫-Vue-Router-測試"><a href="#在-Composition-API-中以社交型測試撰寫-Vue-Router-測試" class="headerlink" title="在 Composition API 中以社交型測試撰寫 Vue Router 測試"></a>在 Composition API 中以社交型測試撰寫 Vue Router 測試</h4><p>與 options API 相同，在社交型測試中我們一樣需要在測試案例準備好 Router 的相關設定，並且引入 <code>createRouter</code>、<code>createWebHistory</code> 來建立 Router 實體：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; vi &#125; <span class="keyword">from</span> <span class="string">'vitest'</span></span><br><span class="line"><span class="keyword">import</span> &#123; createRouter, createWebHistory &#125; <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="keyword">import</span> &#123; routes &#125; <span class="keyword">from</span> <span class="string">'@/router'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = createRouter(&#123;</span><br><span class="line">    history: createWebHistory(),</span><br><span class="line">    routes,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>但由於這次我們是使用了真實的 Router 來當作測試對象，因此這時後我們若想要捕捉 Push 的行為，就必須透過 <code>vi.spyOn</code> 來替身出 <code>router.push</code> 方法，最後我們才能透過這個替身斷言結果：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> spyPush = vi.spyOn(router, <span class="string">'push'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>完整的測試案例如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; vi &#125; <span class="keyword">from</span> <span class="string">'vitest'</span></span><br><span class="line"><span class="keyword">import</span> &#123; createRouter, createWebHistory &#125; <span class="keyword">from</span> <span class="string">'vue-router'</span></span><br><span class="line"><span class="keyword">import</span> &#123; routes &#125; <span class="keyword">from</span> <span class="string">'@/router'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = createRouter(&#123;</span><br><span class="line">    history: createWebHistory(),</span><br><span class="line">    routes,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">describe(<span class="string">'App.vue'</span>, () =&gt; &#123;</span><br><span class="line">    beforeEach( <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        router.push(<span class="string">'/'</span>)</span><br><span class="line">        <span class="keyword">await</span> router.isReady()</span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">'should go to edit page when click button if user is Login'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        <span class="comment">// Arrange</span></span><br><span class="line">        <span class="keyword">const</span> wrapper = mount(App, &#123;</span><br><span class="line">            props: &#123;</span><br><span class="line">                isUserLogin: <span class="literal">true</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">            global: &#123;</span><br><span class="line">                plugins: [router],</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Act</span></span><br><span class="line">        <span class="keyword">const</span> spyPush = vi.spyOn(router, <span class="string">'push'</span>)</span><br><span class="line">        <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="button"]'</span>).trigger(<span class="string">'click'</span>) <span class="comment">// 點擊後應觸發 router.push() 事件</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Assert</span></span><br><span class="line">        expect(spyPush).toHaveBeenCalledWith(<span class="string">'/articles/10308907/edit'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    it(<span class="string">'should go to login page when click button if user is not Login'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> wrapper = mount(App, &#123;</span><br><span class="line">            props: &#123;</span><br><span class="line">                isUserLogin: <span class="literal">false</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">            global: &#123;</span><br><span class="line">                plugins: [router],</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> spyPush = vi.spyOn(router, <span class="string">'push'</span>)</span><br><span class="line">        <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="button"]'</span>).trigger(<span class="string">'click'</span>)</span><br><span class="line"></span><br><span class="line">        expect(spyPush).toHaveBeenCalledWith(<span class="string">'/login'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>以上便是我們在進行 Vue Router 測試中，針對不同風格時的撰寫測試案例與技巧，相信看到這邊你應該會對於測試替身的應用有更深層的認知了，往後遇到其他第三方套件的測試時就可以應用這些技巧來撰寫測試案例。</p>
+<p>而雖然以天數來說今天系列文已經完賽了，但我們還有一些東西可以繼續來看看哩，而明天我們將會來看看要如何撰寫新一代的 Vue Store 工具 Pinia 要如何來進行測試，敬請期待！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+              <a href="/tags/Vitest/" rel="tag"># Vitest</a>
+              <a href="/tags/Vue-Test-Utils/" rel="tag"># Vue Test Utils</a>
+              <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-29/" rel="prev" title="【語法ノ章】測試替身（Test Double）feat. Vitest Mocking API（Function, Globals & Modules）">
+      <i class="fa fa-chevron-left"></i> 【語法ノ章】測試替身（Test Double）feat. Vitest Mocking API（Function, Globals & Modules）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-31/" rel="next" title="【語法ノ章】Vue Ecosystem 篇：Pinia 測試">
+      【語法ノ章】Vue Ecosystem 篇：Pinia 測試 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文序"><span class="nav-number">1.</span> <span class="nav-text">本文序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue-Router-測試"><span class="nav-number">2.</span> <span class="nav-text">Vue Router 測試</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-Router-簡介"><span class="nav-number">2.1.</span> <span class="nav-text">Vue Router 簡介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-Router-測試關注點"><span class="nav-number">2.2.</span> <span class="nav-text">Vue Router 測試關注點</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-Router-測試實作"><span class="nav-number">2.3.</span> <span class="nav-text">Vue Router 測試實作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Options-API"><span class="nav-number">2.3.1.</span> <span class="nav-text">Options API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在-Options-API-中以孤立型測試撰寫-Vue-Router-測試"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">在 Options API 中以孤立型測試撰寫 Vue Router 測試</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在-Options-API-中以社交型測試撰寫-Vue-Router-測試"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">在 Options API 中以社交型測試撰寫 Vue Router 測試</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Composition-API"><span class="nav-number">2.3.2.</span> <span class="nav-text">Composition API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在-Composition-API-中以社交型測試撰寫-Vue-Router-測試"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">在 Composition API 中以社交型測試撰寫 Vue Router 測試</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/ithelp-2022-vitest-30/";
+    this.page.identifier = "testing/ithelp-2022-vitest-30/";
+    this.page.title = "【語法ノ章】Vue Ecosystem 篇：Vue Router 測試";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

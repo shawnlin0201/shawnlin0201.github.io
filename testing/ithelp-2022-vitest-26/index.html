@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文序目前有關測試相關文章幾乎都會提及的 測試替身（Test Double） 一詞，主要可追溯自 Gerard Meszaros 於 2007 年所寫的《xUnit Test Patterns》。 在書中的測試替身模式（Test Double Patterns）章節裡。作者詳細描述測試替身在做的事情，並根據測試替身所模擬的環節再進一步細分出五種不同測試替身各自能做的事情，而本文主要將參">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【概念ノ章】測試替身（Test Double）：Dummy, Stub, Spy, Fake &amp; Mock">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-26/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="本文序目前有關測試相關文章幾乎都會提及的 測試替身（Test Double） 一詞，主要可追溯自 Gerard Meszaros 於 2007 年所寫的《xUnit Test Patterns》。 在書中的測試替身模式（Test Double Patterns）章節裡。作者詳細描述測試替身在做的事情，並根據測試替身所模擬的環節再進一步細分出五種不同測試替身各自能做的事情，而本文主要將參">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20221011/20119062N17Kuqdtxl.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20221011/201190626HAgRbrP7V.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20221011/20119062mc0g2WHPpS.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20221011/20119062JtEfErRYBf.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20221011/20119062rj1rMnx4ip.png">
+<meta property="article:published_time" content="2022-10-11T15:44:02.000Z">
+<meta property="article:modified_time" content="2022-10-24T11:20:05.244Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Vitest">
+<meta property="article:tag" content="Vue Test Utils">
+<meta property="article:tag" content="Unit Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-26/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【概念ノ章】測試替身（Test Double）：Dummy, Stub, Spy, Fake & Mock | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-26/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【概念ノ章】測試替身（Test Double）：Dummy, Stub, Spy, Fake & Mock
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-10-11 23:44:02" itemprop="dateCreated datePublished" datetime="2022-10-11T23:44:02+08:00">2022-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 19:20:05" itemprop="dateModified" datetime="2022-10-24T19:20:05+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-26/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-26/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>目前有關測試相關文章幾乎都會提及的 <strong>測試替身（Test Double）</strong> 一詞，主要可追溯自 Gerard Meszaros 於 2007 年所寫的<a href="https://www.tenlong.com.tw/products/9780131495050" target="_blank" rel="noopener">《xUnit Test Patterns》</a>。</p>
+<p>在書中的測試替身模式（Test Double Patterns）章節裡。作者詳細描述測試替身在做的事情，並根據測試替身所模擬的環節再進一步細分出五種不同測試替身各自能做的事情，而本文主要將參照該書中所提及的內容，以前端測試的角度來詮釋測試替身的概念。</p>
+<a id="more"></a>
+
+<hr>
+<h1 id="受測物（SUT）與依賴物（DOC）"><a href="#受測物（SUT）與依賴物（DOC）" class="headerlink" title="受測物（SUT）與依賴物（DOC）"></a>受測物（SUT）與依賴物（DOC）</h1><p>要認識測試替身最有效的方式，要從觀察受測物（System Under Test，SUT）與依賴物（Depended-On Component，DOC）在測試案例中的關係開始。</p>
+<p>首先，我們假設專案中有 <code>SectionBlock</code> 與 <code>SectionBlockTitle</code> 兩個元件可供我們使用：</p>
+<p>SectionBlock.vue：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">section-block-title</span> <span class="attr">:title</span>=<span class="string">"title"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">slot</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>SectionBlockTitle.vue：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span> &#123;&#123; title &#125;&#125; <span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>SectionBlock</code> 在樣版中使用了 <code>SectionBlockTitle</code> 元件。</p>
+<p>後續若針對 <code>SectionBlock</code> 元件在撰寫元件測試的時候，我們可能會遇到下列這種情況：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> component <span class="keyword">from</span> <span class="string">'./SectionBlock.vue'</span></span><br><span class="line"></span><br><span class="line">it(<span class="string">'should ...'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component) <span class="comment">// 實際上依賴於 SectionBlockTitle 元件</span></span><br><span class="line"></span><br><span class="line">    expect(wrapper.html()).toMatchInlineSnapshot()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>在這個測試案例中，我們測試目標主要是以 <code>SectionBlock</code> 元件為主，因此 <code>SectionBlock</code> 即為受測物（SUT），而受測物本身依賴的 <code>SectionBlockTitle</code> 元件即為依賴物（DOC）。</p>
+<p>然而，由於我們現在尚未把依賴物給取代掉，因此測試結果會受到依賴物的影響；也就是說，未來若 <code>SectionBlockTitle</code> 元件的更動了，都會有機會間接導致 <code>SectionBlock</code> 的相關測試案例失敗。</p>
+<p>這時，若我們想要使測試案例更加的單純，讓測試結果更加地專注在受測物身上，此時我們就會需要測試替身來隔離我們的依賴物。</p>
+<hr>
+<h1 id="測試替身"><a href="#測試替身" class="headerlink" title="測試替身"></a>測試替身</h1><p><img src="https://ithelp.ithome.com.tw/upload/images/20221011/20119062N17Kuqdtxl.png" alt="https://ithelp.ithome.com.tw/upload/images/20221011/20119062N17Kuqdtxl.png"></p>
+<blockquote>
+<p>上圖參考《xUnit Test Patterns》一書重新繪製</p>
+</blockquote>
+<p>測試替身（Test Double）最主要的概念，就是以不同的模仿程度與模仿方式替代我們的依賴物（DOC），而最終目標之一則在於使我們的測試流程能夠更加單純。</p>
+<p>以上方的測試案例來說，若我們想更專注於 <code>SectionBlock</code> 元件本身的行為時，這時可以透過先前提過的 <code>shallowMount</code> 容器來隔離子層元件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should ...'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = shallowMount(component) <span class="comment">// 透過 shallowMount 底下的元件將強迫渲染成 &lt;-stub&gt; 元件</span></span><br><span class="line"></span><br><span class="line">    expect(wrapper.html()).toMatchInlineSnapshot()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>經由 <code>shallowMount</code> 的幫助，現在 <code>SectionBlockTitle</code> 將會被固定渲染為 <code>&lt;section-block-title-stub&gt;</code> 元素，因此接下來在測試案例中我們就不用時時刻刻擔心 <code>SectionBlockTitle</code> 元件所帶來的任何影響，而這個 <code>&lt;-stub&gt;</code> 元件，即是測試替身的其中一種類型的呈現。</p>
+<p>現在我們已經瞭解測試替身在整個測試中大致上的定位了，然而我們還有什麼時候會需要他呢？</p>
+<h2 id="使用時機"><a href="#使用時機" class="headerlink" title="使用時機"></a>使用時機</h2><p>當我們在使用測試替身時，此時可能意味著我們在撰寫測試案例時有下列需求：</p>
+<ul>
+<li><a href="https://ithelp.ithome.com.tw/articles/10296174" target="_blank" rel="noopener">孤立型（Solitary）</a> 門派的單元測試寫法會想將受測物本身邏輯隔離出來，盡可能不受依賴物影響。</li>
+<li>觀察並斷言受測物與依賴物之間的互動，但是沒有可以紀錄的方式。</li>
+<li>想查看依賴物所產生的結果，但依賴物本身並不會直接返回結果，因此無法斷言。</li>
+<li>依賴物需要執行較長一段時間才會回應受測物需要的內容，固定將其假扮成某個特定回傳值來減少等待時間。（遵循優良測試 <a href="https://ithelp.ithome.com.tw/articles/10298760" target="_blank" rel="noopener">F.I.R.S.T</a>中的快速原則）</li>
+</ul>
+<p>只要有上面的需求，基本上我們就可以透過測試替身來協助我們達成，而我們要做的事情，便是根據不同的使用時機與目的來挑選合適的測試替身。</p>
+<h2 id="測試替身種類與用法"><a href="#測試替身種類與用法" class="headerlink" title="測試替身種類與用法"></a>測試替身種類與用法</h2><p>測試替身型態百百種，而依據 Gerard Meszaros 於《xUnit Test Patterns》一書所劃分的版本，測試替身根據概念來說，總共可以分為以下五大種類型：</p>
+<ul>
+<li>Dummy Object</li>
+<li>Test Stub</li>
+<li>Test Spy</li>
+<li>Mock Object</li>
+<li>Fake Object</li>
+</ul>
+<p>接下來，我們將參考自 Martin Fowler 在 <a href="https://martinfowler.com/bliki/TestDouble.html" target="_blank" rel="noopener">Test Double</a>一文中對 Meszaros 五種測試替身的概念解說，配著 Gerard Meszaros 的測試替身概念圖，來瞭解各種測試替身的用法。</p>
+<hr>
+<h3 id="Dummy-Object"><a href="#Dummy-Object" class="headerlink" title="Dummy Object"></a>Dummy Object</h3><p>在整個測試案例過程中，有時候我們可能會遇到某些方法因為參數、介面需要，一定要填入某個資料，但是該資訊跟測試案例中的邏輯完全沒有關聯。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should showing when props isShow = true'</span> , () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">        props: &#123;</span><br><span class="line">            isShow: <span class="literal">true</span>, <span class="comment">// 真正要測試的項目</span></span><br><span class="line">            content: <span class="string">'test'</span> <span class="comment">// 此項在 component 被設為 require 選項，所以一定要填內容。</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 斷言時用不到 content 中的內容，我們關注在 isShow 參數與視覺上的呈現</span></span><br><span class="line">    expect(wrapper.get(<span class="string">'[data-test="target"]'</span>).exists()).toBe(<span class="literal">true</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Stub"><a href="#Stub" class="headerlink" title="Stub"></a>Stub</h3><p><img src="https://ithelp.ithome.com.tw/upload/images/20221011/201190626HAgRbrP7V.png" alt="https://ithelp.ithome.com.tw/upload/images/20221011/201190626HAgRbrP7V.png"></p>
+<blockquote>
+<p>上圖參考《xUnit Test Patterns》一書重新繪製</p>
+</blockquote>
+<p>在撰寫測試時，有時候我們可能會遇到針對受測物斷言時，會受到依賴物的干擾，此時我們可以透過 <code>Stub</code> 的測試替身種類來替換掉我們不在意的部分。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should stubs by custom component'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> StubComponent = &#123;</span><br><span class="line">    name: <span class="string">'StubComponent'</span>,</span><br><span class="line">    template: <span class="string">'&lt;p&gt;stub content&lt;/p&gt;'</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> wrapper = mount(Component, &#123;</span><br><span class="line">    global: &#123;</span><br><span class="line">      stubs: &#123; <span class="attr">TargetComponent</span>: StubComponent &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  expect(wrapper.html()).toEqual(<span class="string">'&lt;div&gt;&lt;p&gt;stub content&lt;/p&gt;&lt;/div&gt;'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Spy"><a href="#Spy" class="headerlink" title="Spy"></a>Spy</h3><p><img src="https://ithelp.ithome.com.tw/upload/images/20221011/20119062mc0g2WHPpS.png" alt="https://ithelp.ithome.com.tw/upload/images/20221011/20119062mc0g2WHPpS.png"></p>
+<blockquote>
+<p>上圖參考《xUnit Test Patterns》一書重新繪製</p>
+</blockquote>
+<p>類似於 <code>Stub</code> 的測試替身情況，但這次我們關注在受測物原先要與依賴物互動的詳細資訊，而這一部分會由測試替身來代替我們捕捉。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'...'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> getApples = vi.fn(<span class="function"><span class="params">()</span> =&gt;</span> <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> collectFruit = <span class="function"><span class="params">()</span> =&gt;</span> getApples()</span><br><span class="line"></span><br><span class="line">  collectFruit()</span><br><span class="line">  collectFruit()</span><br><span class="line"></span><br><span class="line">  expect(getApples).toHaveBeenCalledTimes(<span class="number">2</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Mock"><a href="#Mock" class="headerlink" title="Mock"></a>Mock</h3><p><img src="https://ithelp.ithome.com.tw/upload/images/20221011/20119062JtEfErRYBf.png" alt="https://ithelp.ithome.com.tw/upload/images/20221011/20119062JtEfErRYBf.png"></p>
+<blockquote>
+<p>上圖參考《xUnit Test Patterns》一書重新繪製</p>
+</blockquote>
+<p>當我們使用 Mock Object 這類型的測試替身來捕捉受測物的行為時，這時我們測試所關注的焦點會改為放在受測物是否如我們預期般的使用測試替身，間接證明原先使用依賴物時是否正確。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line"><span class="keyword">import</span> &#123; fetchSomething &#125; <span class="keyword">from</span> <span class="string">'./servce'</span></span><br><span class="line"></span><br><span class="line">vi.mock(<span class="string">'axios'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="keyword">default</span>: &#123;</span><br><span class="line">      <span class="keyword">get</span>: vi.fn(),</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">it('fetch something and axios.<span class="keyword">get</span> should have been called', async () =&gt; &#123;</span><br><span class="line">  <span class="keyword">await</span> fetchSomething()</span><br><span class="line"></span><br><span class="line">  expect(axios.get).toHaveBeenCalledTimes(<span class="number">1</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Fake"><a href="#Fake" class="headerlink" title="Fake"></a>Fake</h3><p><img src="https://ithelp.ithome.com.tw/upload/images/20221011/20119062rj1rMnx4ip.png" alt="https://ithelp.ithome.com.tw/upload/images/20221011/20119062rj1rMnx4ip.png"></p>
+<blockquote>
+<p>上圖參考《xUnit Test Patterns》一書重新繪製</p>
+</blockquote>
+<p>Fake 這一類的測試替身，基本上可以看作是依賴物的輕量版本，基本上會實作出與依賴物原先差不多的功能，但多半會為了方便測試而調整實作的內容。</p>
+<p>比方在 <code>Vitest</code> 中有提供一個 API 叫 <code>vi.useFakeTimers</code>，若我們在測試案例中使用它時，我們就可以操弄有關於 <code>setTimeout</code> 或 <code>setInterval</code> 等等原先計時相關的 API。（e.g. 控制 <code>setTimeout</code> 固定幾秒回傳）</p>
+<hr>
+<p>看到這裡，相信讀者應該對於測試替身有個基礎的認知了，而明天開始我們將要來介紹到在 Vitest 或 Vue Test Utils 有哪些關於測試替身的語法部分，並結合今天學到的概念，完善我們的測試案例，讓測試更加的簡潔！</p>
+<blockquote>
+<p>最近變天有點小感冒，差點來不及發文 （怕爆</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+              <a href="/tags/Vitest/" rel="tag"># Vitest</a>
+              <a href="/tags/Vue-Test-Utils/" rel="tag"># Vue Test Utils</a>
+              <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-25/" rel="prev" title="【試験ノ章】第二個測驗：容器（Wrapper）與容器方法（Wrapper methods）">
+      <i class="fa fa-chevron-left"></i> 【試験ノ章】第二個測驗：容器（Wrapper）與容器方法（Wrapper methods）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-27/" rel="next" title="【語法ノ章】測試替身（Test Double）feat. Vue Test Utils">
+      【語法ノ章】測試替身（Test Double）feat. Vue Test Utils <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文序"><span class="nav-number">1.</span> <span class="nav-text">本文序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#受測物（SUT）與依賴物（DOC）"><span class="nav-number">2.</span> <span class="nav-text">受測物（SUT）與依賴物（DOC）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#測試替身"><span class="nav-number">3.</span> <span class="nav-text">測試替身</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用時機"><span class="nav-number">3.1.</span> <span class="nav-text">使用時機</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#測試替身種類與用法"><span class="nav-number">3.2.</span> <span class="nav-text">測試替身種類與用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dummy-Object"><span class="nav-number">3.2.1.</span> <span class="nav-text">Dummy Object</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stub"><span class="nav-number">3.2.2.</span> <span class="nav-text">Stub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spy"><span class="nav-number">3.2.3.</span> <span class="nav-text">Spy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mock"><span class="nav-number">3.2.4.</span> <span class="nav-text">Mock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fake"><span class="nav-number">3.2.5.</span> <span class="nav-text">Fake</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/ithelp-2022-vitest-26/";
+    this.page.identifier = "testing/ithelp-2022-vitest-26/";
+    this.page.title = "【概念ノ章】測試替身（Test Double）：Dummy, Stub, Spy, Fake & Mock";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

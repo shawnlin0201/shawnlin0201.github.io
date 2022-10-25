@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="容器方法（Wrapper methods）在進行測試時，前面章節有提到我們會使用 mount 或 shallowMount 來包裹元件，從而得到一個 VueWrapper，而在這個 VueWrapper 裡頭有許多實用的容器方法（Wrapper methods），雖然官方文件中並沒有特意分類，但大意上可分為幾種方法：  查詢、選擇指定的元素、元件等選擇器 取得目標屬性或內容（class">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【語法ノ章】元件測試：容器方法（Wrapper methods）－選擇器與陷阱">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-19/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="容器方法（Wrapper methods）在進行測試時，前面章節有提到我們會使用 mount 或 shallowMount 來包裹元件，從而得到一個 VueWrapper，而在這個 VueWrapper 裡頭有許多實用的容器方法（Wrapper methods），雖然官方文件中並沒有特意分類，但大意上可分為幾種方法：  查詢、選擇指定的元素、元件等選擇器 取得目標屬性或內容（class">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+<meta property="article:published_time" content="2022-10-04T11:16:43.000Z">
+<meta property="article:modified_time" content="2022-10-24T11:14:18.700Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Vitest">
+<meta property="article:tag" content="Vue Test Utils">
+<meta property="article:tag" content="Unit Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-19/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【語法ノ章】元件測試：容器方法（Wrapper methods）－選擇器與陷阱 | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-19/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【語法ノ章】元件測試：容器方法（Wrapper methods）－選擇器與陷阱
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-10-04 19:16:43" itemprop="dateCreated datePublished" datetime="2022-10-04T19:16:43+08:00">2022-10-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 19:14:18" itemprop="dateModified" datetime="2022-10-24T19:14:18+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-19/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-19/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="容器方法（Wrapper-methods）"><a href="#容器方法（Wrapper-methods）" class="headerlink" title="容器方法（Wrapper methods）"></a>容器方法（Wrapper methods）</h1><p>在進行測試時，前面章節有提到我們會使用 <code>mount</code> 或 <code>shallowMount</code> 來包裹元件，從而得到一個 <code>VueWrapper</code>，而在這個 <code>VueWrapper</code> 裡頭有許多實用的容器方法（Wrapper methods），雖然官方文件中並沒有特意分類，但大意上可分為幾種方法：</p>
+<ul>
+<li>查詢、選擇指定的元素、元件等選擇器</li>
+<li>取得目標屬性或內容（class, attribute）</li>
+<li>觸發 DOM 事件（如滑鼠點擊、鍵盤輸入與按鍵⋯⋯等）</li>
+<li>取得 emit 事件、設置 data 或 prop、甚至觸發元件 <code>unmmount</code> 等 Vue API 相關的方法</li>
+</ul>
+<p>而今天要著重在於介紹選擇器的方法使用與測試應用，最後補上相關的討論：</p>
+<ul>
+<li>元素、元件選擇器</li>
+<li>判斷目標是否存在：<code>exists</code> 與 <code>isVisible</code></li>
+<li>使用 <code>data-*</code> attribute</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="選擇器"><a href="#選擇器" class="headerlink" title="選擇器"></a>選擇器</h2><p>在進行元件測試（component testing）的過程中，有時我們可能只想關注在某個特定 DOM 或元件的相關資訊時，這時我們就可以透過容器中的選擇器方法來尋找，而選擇器根據選取對象的不同，主要分為：</p>
+<ul>
+<li>元素（element）選擇器</li>
+<li>元件（component）選擇器</li>
+</ul>
+<h3 id="元素選擇器"><a href="#元素選擇器" class="headerlink" title="元素選擇器"></a>元素選擇器</h3><p>元素選擇器語法基本上有兩種寫法，一種是基於元素的 <code>refs</code>，另一種則是 <code>querySelector</code>：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">ref</span>=<span class="string">"dogcat"</span>&gt;</span>???<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"dog"</span>&gt;</span>科基<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"cat"</span>&gt;</span>橘貓<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"cat"</span>&gt;</span>黑黑<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ref */</span></span><br><span class="line">wrapper.find(&#123; <span class="attr">ref</span>: <span class="string">'span'</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/* querySelector */</span></span><br><span class="line">wrapper.find(<span class="string">'#dog'</span>)</span><br><span class="line">wrapper.find(<span class="string">'.cat'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>而容器方法有關選取元素的選擇器一共分為三種：</p>
+<ul>
+<li>find</li>
+<li>findAll</li>
+<li>get</li>
+</ul>
+<p>這三種選擇器在選取到目標後主要都是返回 <code>DOMWrapper</code>，此時我們就可以在串連其他容器方法（Wrapper methods）如 <code>classes</code> 或 <code>text</code> 等等來取得屬性或內容資訊，只是返回的結果內容會有些差異。</p>
+<p>比方 <code>find</code>、<code>findAll</code> 的部分主要差別在於 <code>findAll</code> 返回的內容會被放置於陣列當中：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"dog"</span>&gt;</span>科基<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"cat"</span>&gt;</span>橘貓<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"cat"</span>&gt;</span>黑黑<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>而我們可以透過像這樣的方式取得陣列內的資訊：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should be display correct content'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line">    <span class="keyword">const</span> target= wrapper.find(<span class="string">'#dog'</span>) <span class="comment">// &lt;DOMWrapper&gt; </span></span><br><span class="line">    expect(target.text()).toBe(<span class="string">'科基'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">it(<span class="string">'should be display correct content'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line">    <span class="keyword">const</span> target= wrapper.findAll(<span class="string">'.cat'</span>) <span class="comment">// &lt;DOMWrapper&gt;[]</span></span><br><span class="line"></span><br><span class="line">    expect(target[<span class="number">0</span>].text()).toBe(<span class="string">'橘貓'</span>)</span><br><span class="line">    expect(target[<span class="number">1</span>].text()).toBe(<span class="string">'黑黑'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：透過 <code>findAll</code> 斷言時是「有序」的，很容易受到順序改變而導致測試案例失敗，除非撰寫測試案例目標之一就是要確保順序不會調動，否則改用 <code>find</code> 斷言會比較不容易受影響。</p>
+</blockquote>
+<p>而 <code>find</code> 與 <code>get</code> 的差別在於 <code>find</code> 找不到目標時返回的是 <code>{}</code> 後續若仍繼續操作、斷言時才會由拋出錯誤（由 <code>ErrorWrapper</code> 提供）；然而 <code>get</code> 一開始若找不到目標時就直接拋出錯誤（throw <code>Error</code>）了。</p>
+<p>根據 <code>ErrorWrapper</code> <a href="https://github.com/vuejs/test-utils/blob/f61b8aeb84352b29e29666326939531cd81c3bd6/src/errorWrapper.ts" target="_blank" rel="noopener">原始碼</a>，可以看見他主要是針對容器方法中的 <code>exists()</code> 會返回 <code>false</code>。</p>
+<p>因此在針對找不到元素的測試案例合法的寫法可以這麼做：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">expect(<span class="function"><span class="params">()</span> =&gt;</span> wrapper.get(<span class="string">'.something-that-does-not-exist'</span>)).toThrowError()</span><br><span class="line">expect(wrapper.find(<span class="string">'.something-that-does-not-exist'</span>).exists()).toBeFalsy()</span><br></pre></td></tr></table></figure>
+
+<h4 id="find-判斷元素陷阱"><a href="#find-判斷元素陷阱" class="headerlink" title="find 判斷元素陷阱"></a>find 判斷元素陷阱</h4><p>魔鬼藏在細節裡，或許你可能會想說為什麼不直接用 <code>find</code> 還要再另外透過 <code>exists</code> 判斷呢，讓我們看看一個案例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>無關緊要的東西<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果這時你這麼寫了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">expect(wrapper.find(<span class="string">'.something-that-does-not-exist'</span>)).toBeTruthy()</span><br><span class="line"><span class="comment">// 通過 ！？</span></span><br></pre></td></tr></table></figure>
+
+<p>原因在於 <code>find</code> 在找不到的情況下目標的情況所返回的值會是 <code>ErrorWrapper</code> 物件，所以透過 <code>toBeTruthy</code> 斷言就會通過。</p>
+<blockquote>
+<p>而為了避免這種情況發生，官方文件其實只有<a href="https://test-utils.vuejs.org/api/#get" target="_blank" rel="noopener">輕描淡述</a>地說道：</p>
+<blockquote>
+<p><strong>As a rule of thumb</strong>, always use <code>get</code> except when you are asserting something doesn’t exist. In that case use <code>find</code>.</p>
+</blockquote>
+<p>但上方經驗考量在哪，只有在追了他們相關的 issue 才會逐漸明白考量的根據，而關於這部分，甚至開發團隊未來可能也會考慮將 <code>find</code> 方法給<a href="https://github.com/vuejs/test-utils/issues/138" target="_blank" rel="noopener">拔掉</a>，剩下 <code>exists</code> 本身，但礙於這會是個 breaking change 的做法，所以在 <code>vue-test-utils</code> 跳大版本號之前應該都會暫時維持原樣。 </p>
+</blockquote>
+<hr>
+<h3 id="元件（component）選擇器"><a href="#元件（component）選擇器" class="headerlink" title="元件（component）選擇器"></a>元件（component）選擇器</h3><ul>
+<li>findComponent</li>
+<li>findAllfindComponents (注意有個 s）</li>
+<li>getComponent</li>
+</ul>
+<p>原則上使用方式與元素選擇器差不多，只是選取語法上除了 <code>refs</code> 與 <code>querySelector</code> 語法之外，還多了：</p>
+<ul>
+<li>Component name： <code>findComponent({name: &#39;元件名稱&#39;})</code></li>
+<li>將 import SFC 直接放入方法中： <code>findComponent(Component)</code></li>
+</ul>
+<p>但由於使用 <code>querySelector</code> 上也有一些<a href="https://test-utils.vuejs.org/api/#findcomponent" target="_blank" rel="noopener">小陷阱</a>（怎麼又是陷阱？），所以個人建議以 SFC 方式引入或是乾脆透過 <code>shallowMount</code> 將子層元件 stub 掉也是一種方式。</p>
+<hr>
+<h2 id="判斷目標存在"><a href="#判斷目標存在" class="headerlink" title="判斷目標存在"></a>判斷目標存在</h2><p>經由剛剛陷阱的部分大家應該都很清楚 <code>exists()</code> 的存在了，而判斷選取目標其實他還有個好朋友就是 <code>isVisible()</code>，但他們判斷存在的定義上有一些差別：</p>
+<p><code>exists()</code> 主要判斷的是該目標存不存在 DOM 上：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">it(exist, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(Component)</span><br><span class="line">    expect(wrapper.find(<span class="string">'p'</span>).exists()).toBe(<span class="literal">true</span>)</span><br><span class="line">    expect(wrapper.find(<span class="string">'span'</span>).exists()).toBe(<span class="literal">false</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><code>isVisable()</code> 主要判斷的是該目標存在 DOM 上之外，視覺上有無顯示在畫面中：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">"false"</span> <span class="attr">class</span>=<span class="string">"dog"</span>&gt;</span>科基<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-show</span>=<span class="string">"true"</span> <span class="attr">class</span>=<span class="string">"orange-cat"</span>&gt;</span>橘貓<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-show</span>=<span class="string">"false"</span> <span class="attr">class</span>=<span class="string">"black-cat"</span>&gt;</span>黑黑<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'v-if false'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line">  expect(wrapper.find(<span class="string">'.dog'</span>).isVisible()).toBeFalsy() <span class="comment">// Error： 直接噴錯</span></span><br><span class="line">&#125;)</span><br><span class="line">it(<span class="string">'v-show true'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line">  expect(wrapper.find(<span class="string">'.orange-cat'</span>).isVisible()).toBeTruthy() <span class="comment">// 測試通過</span></span><br><span class="line">&#125;)</span><br><span class="line">it(<span class="string">'v-show false'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line">  expect(wrapper.find(<span class="string">'.black-cat'</span>).isVisible()).toBeFalsy() <span class="comment">// 測試通過</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>關於 <code>isVibile</code> 更為詳細的判斷如下：</p>
+<ul>
+<li>CSS style 中 含有 display: none =&gt; <code>false</code></li>
+<li>CSS style 中 含有 visibility: hidden =&gt; <code>false</code></li>
+<li>CSS style 中 含有 opacity :0 =&gt; <code>false</code></li>
+<li><detail> 元素中 hidden 屬性為 <code>true</code> =&gt; <code>false</code></li>
+</ul>
+<p>綜合結論上方陷阱與判斷方法：</p>
+<ul>
+<li>若要判斷元素是否存在 或 <code>v-if</code>：使用 <code>get</code> 方法是最保險的，真的要用 <code>find</code> 則一定要搭配 <code>exists</code></li>
+<li>若要判斷 <code>v-show</code>：使用 <code>find().isVisible()</code></li>
+</ul>
+<h2 id="使用-data-attribute"><a href="#使用-data-attribute" class="headerlink" title="使用 data-* attribute"></a>使用 <code>data-*</code> attribute</h2><p>在撰寫測試情境時，若依照上面的 <code>querySelector</code> 選了元素、id 或 class 時，初期一定會很開心，因為不會遇到太多困難，但往後在開發的過程執行測試時就很容易有機會遇到各種問題。</p>
+<p>原先：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"content"</span>&gt;</span>content<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>改成：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"content"</span> <span class="attr">data-test</span>=<span class="string">"content"</span>&gt;</span>content<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>data-*</code> 作為選擇目標好處最主要在於顯著標記測試內容，而這影響到的範圍有：</p>
+<ul>
+<li>開發期，過程不用擔心會影響到測試，如上方所見，我只要變更 <code>data-test</code> 以外的內容，預期應該不會影響到測試選擇的目標，使測試案例錯誤能更專注在斷言的目標上，而非選擇目標被替換導致的錯誤。</li>
+<li>重構（refactor）過程，能清楚比較範圍，若將來調整結構，只要將屬性轉移到對應的位置即可。</li>
+<li>生產期，能夠針對特定的屬性移除，避免留下各種測試痕跡，對於像是輔助閱讀裝置等技術來說就不會被影響到。</li>
+</ul>
+<h3 id="在生產環境刪除-data-attribute"><a href="#在生產環境刪除-data-attribute" class="headerlink" title="在生產環境刪除 data-* attribute"></a>在生產環境刪除 <code>data-*</code> attribute</h3><p>若想在 <code>vitest</code> 中移除 <code>data-*</code> 也非常的簡單，我們只需要在 <code>vite.config.js</code> 設定中，針對 Vue 底下的編譯選項做一些調整即可（底下示範的版本為移除 <code>data-test</code>，若使用其他命名請自行調整囉）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isProd = process.env.NODE_ENV === <span class="string">'production'</span></span><br><span class="line"><span class="keyword">const</span> removeDataTestAttrs = <span class="function">(<span class="params">node</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> NodeTypes = <span class="built_in">Object</span>.freeze(&#123;</span><br><span class="line">    ELEMENT: <span class="number">1</span>,</span><br><span class="line">    ATTRIBUTE: <span class="number">6</span>,</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">if</span> (node.type === NodeTypes[<span class="string">'ELEMENT'</span>]) &#123;</span><br><span class="line">    node.props = node.props.filter(<span class="function">(<span class="params">prop</span>) =&gt;</span> (prop.type === NodeTypes[<span class="string">'ATTRIBUTE'</span>] ? prop.name !== <span class="string">'data-test'</span> : <span class="literal">true</span>)) <span class="comment">// 請自行替換命名 data-test </span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> defineConfig(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">      vue(&#123;</span><br><span class="line">        template: &#123;</span><br><span class="line">          compilerOptions: &#123;</span><br><span class="line">            nodeTransforms: isProd ? [removeDataTestAttrs] : [],</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;),</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>以上內容便是容器方法（Wrapper Methods）中有關選擇器的用法與相關議題，明天我們將繼續來看其他容器方法！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+              <a href="/tags/Vitest/" rel="tag"># Vitest</a>
+              <a href="/tags/Vue-Test-Utils/" rel="tag"># Vue Test Utils</a>
+              <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-18/" rel="prev" title="【語法ノ章】元件測試：容器（Wrapper）">
+      <i class="fa fa-chevron-left"></i> 【語法ノ章】元件測試：容器（Wrapper）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-20/" rel="next" title="【語法ノ章】元件測試：容器方法（Wrapper methods）－取得目標資訊">
+      【語法ノ章】元件測試：容器方法（Wrapper methods）－取得目標資訊 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#容器方法（Wrapper-methods）"><span class="nav-number">1.</span> <span class="nav-text">容器方法（Wrapper methods）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#選擇器"><span class="nav-number">1.1.</span> <span class="nav-text">選擇器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#元素選擇器"><span class="nav-number">1.1.1.</span> <span class="nav-text">元素選擇器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#find-判斷元素陷阱"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">find 判斷元素陷阱</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元件（component）選擇器"><span class="nav-number">1.1.2.</span> <span class="nav-text">元件（component）選擇器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判斷目標存在"><span class="nav-number">1.2.</span> <span class="nav-text">判斷目標存在</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-data-attribute"><span class="nav-number">1.3.</span> <span class="nav-text">使用 data-* attribute</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在生產環境刪除-data-attribute"><span class="nav-number">1.3.1.</span> <span class="nav-text">在生產環境刪除 data-* attribute</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/ithelp-2022-vitest-19/";
+    this.page.identifier = "testing/ithelp-2022-vitest-19/";
+    this.page.title = "【語法ノ章】元件測試：容器方法（Wrapper methods）－選擇器與陷阱";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

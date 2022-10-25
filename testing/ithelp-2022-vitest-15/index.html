@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文序昨天有關斷言（Assertion）的部分我們已經瞭解到「斷言風格」（Assertion Style）在寫法上有非常大的差異，並且也從裡頭選擇介紹了 Jest 的斷言 expect 相關的 Matcher：  常用：toBe, not 純值比對（Primitive）類型: String, Number, Boolean…, etc. 陣列比對與檢查 物件比對與檢查  而剩下還沒介紹">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【語法ノ章】斷言（Assertion）下篇： 替身、快照（Snapshot）與拋出錯誤">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-15/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="本文序昨天有關斷言（Assertion）的部分我們已經瞭解到「斷言風格」（Assertion Style）在寫法上有非常大的差異，並且也從裡頭選擇介紹了 Jest 的斷言 expect 相關的 Matcher：  常用：toBe, not 純值比對（Primitive）類型: String, Number, Boolean…, etc. 陣列比對與檢查 物件比對與檢查  而剩下還沒介紹">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+<meta property="article:published_time" content="2022-09-30T11:40:18.000Z">
+<meta property="article:modified_time" content="2022-10-24T10:46:49.310Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Vitest">
+<meta property="article:tag" content="Vue Test Utils">
+<meta property="article:tag" content="Unit Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-15/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【語法ノ章】斷言（Assertion）下篇： 替身、快照（Snapshot）與拋出錯誤 | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-15/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【語法ノ章】斷言（Assertion）下篇： 替身、快照（Snapshot）與拋出錯誤
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-09-30 19:40:18" itemprop="dateCreated datePublished" datetime="2022-09-30T19:40:18+08:00">2022-09-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 18:46:49" itemprop="dateModified" datetime="2022-10-24T18:46:49+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-15/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-15/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>昨天有關斷言（Assertion）的部分我們已經瞭解到「斷言風格」（Assertion Style）在寫法上有非常大的差異，並且也從裡頭選擇介紹了 Jest 的斷言 <code>expect</code> 相關的 <code>Matcher</code>：</p>
+<ul>
+<li>常用：<code>toBe</code>, <code>not</code></li>
+<li>純值比對（Primitive）類型: <code>String</code>, <code>Number</code>, <code>Boolean</code>…, etc.</li>
+<li>陣列比對與檢查</li>
+<li>物件比對與檢查</li>
+</ul>
+<p>而剩下還沒介紹到的 <code>Matcher</code> ，每個部分除了語法本身之外，都有一些值得一提的地方，因此特地拆成另一篇來介紹他們有哪些不同之處！</p>
+<a id="more"></a>
+
+<h2 id="再戰-Jest-expect-Matchers"><a href="#再戰-Jest-expect-Matchers" class="headerlink" title="再戰 Jest expect Matchers"></a>再戰 Jest expect Matchers</h2><ul>
+<li>監聽函式</li>
+<li>快照</li>
+<li>Error</li>
+</ul>
+<h3 id="監聽函式"><a href="#監聽函式" class="headerlink" title="監聽函式"></a>監聽函式</h3><p>在測試的過程中，有時候我們不僅只是斷言受測物（SUT, System Under Test）的狀態，有時候可能會對受測目標的「依賴物」（DOC, Depended-on Component）狀態有興趣，而這時我們就無法單純以 Matchers 來斷言，因為我們需要監聽依賴物前後的變化。</p>
+<p>而在程式測試領域中，測試替身（<code>test double</code>）主要就是負責處理這一類非受測物本身所做的事情，並且在需要時還能幫我們紀錄必要的資訊</p>
+<p>假若我們今天測試案例受測物本身會去呼叫到的依賴目標是個「函式」時，這時我們可以透過 <code>Vitest</code> 所提供的 <code>vi.fn()</code> 來模仿（spy）函式。</p>
+<p><code>vi.fn()</code> 本身會回傳一個實體（<code>CallableMockInstance</code>），在這個實體中會記錄著有關測試函式時會需要的資料與方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(vi.fn())</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  called: false,</span></span><br><span class="line"><span class="comment">  callCount: 0,</span></span><br><span class="line"><span class="comment">  results: [],</span></span><br><span class="line"><span class="comment">  calls: [],</span></span><br><span class="line"><span class="comment">  impl: [Function (anonymous)],</span></span><br><span class="line"><span class="comment">  reset: [Function: i],</span></span><br><span class="line"><span class="comment">  nextError: [Function (anonymous)],</span></span><br><span class="line"><span class="comment">  nextResult: [Function (anonymous)],</span></span><br><span class="line"><span class="comment">  restore: [Function: w],</span></span><br><span class="line"><span class="comment">  ...</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>因此將受測的目標函式放入 <code>vi.fn</code> 中，後續只要測試過程中如果測試目標去調用了已被 Spy 過的函式時，<code>CallableMockInstance</code> 就會幫我們紀錄相關的資訊，接著我們就可以使用斷言語法相關的 Matcher 去比對我們預期的結果，比方說：</p>
+<ul>
+<li><p><code>toHaveBeenCalled</code>：斷言函式有被呼叫過</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sayHi = <span class="function">(<span class="params">something</span>) =&gt;</span> something</span><br><span class="line"><span class="keyword">const</span> spyOnSayHi = vi.fn(sayHi)</span><br><span class="line"></span><br><span class="line">spyOnSayHi()</span><br><span class="line">expect(spyOnSayHi).toHaveBeenCalled()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>toHaveBeenCalledTimes</code>：斷言函式被呼叫過幾次</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sayHi = <span class="function">(<span class="params">something</span>) =&gt;</span> something</span><br><span class="line"><span class="keyword">const</span> spyOnSayHi = vi.fn(sayHi)</span><br><span class="line"></span><br><span class="line">spyOnSayHi()</span><br><span class="line">spyOnSayHi()</span><br><span class="line">spyOnSayHi()</span><br><span class="line"></span><br><span class="line">expect(spyOnSayHi).toHaveBeenCalledTimes(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>toHaveBeenCalledWith</code>：斷言函式被呼叫時所帶的參數</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sayHi = <span class="function">(<span class="params">something</span>) =&gt;</span> something</span><br><span class="line"><span class="keyword">const</span> spyOnSayHi = vi.fn(sayHi)</span><br><span class="line"></span><br><span class="line">spyOnSayHi(<span class="string">'Hello, Unit-Test!'</span>)</span><br><span class="line"></span><br><span class="line">expect(spyOnSayHi).toHaveBeenCalledWith(<span class="string">'Hello, Unit-Test!'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>toHaveReturned</code>：斷言函式呼叫後應該至少要返回值一次</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sayHi = <span class="function">(<span class="params">something</span>) =&gt;</span> something + <span class="string">' Hello, Spy!'</span></span><br><span class="line"><span class="keyword">const</span> spyOnSayHi = vi.fn(<span class="function">(<span class="params">val</span>) =&gt;</span> sayHi(val))</span><br><span class="line"></span><br><span class="line">spyOnSayHi(<span class="string">'Hello, Unit-Test!'</span>)</span><br><span class="line"></span><br><span class="line">expect(spyOnSayHi).toHaveReturned()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>toHaveReturnedTimes</code>：斷言函式經過操作後應該要返回值幾次</p>
+</li>
+<li><p><code>toHaveLastReturnedWith</code>：斷言函式經過操作後最後應該要返回的值</p>
+</li>
+<li><p><code>toHaveNthReturnedWith</code>：斷言函式經過操作後第 N 次應該要返回的值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sayHi = <span class="function">(<span class="params">something</span>) =&gt;</span> something</span><br><span class="line"><span class="keyword">const</span> spyOnSayHi = vi.fn(<span class="function">(<span class="params">val</span>) =&gt;</span> sayHi(val))</span><br><span class="line"></span><br><span class="line">spyOnSayHi(<span class="string">'Nice to meet you!'</span>)</span><br><span class="line">spyOnSayHi(<span class="string">'See you again!'</span>)</span><br><span class="line"></span><br><span class="line">expect(spyOnSayHi).toHaveReturnedTimes(<span class="number">2</span>)</span><br><span class="line">expect(spyOnSayHi).toHaveLastReturnedWith(<span class="string">'See you again!'</span>)</span><br><span class="line">expect(spyOnSayHi).toHaveNthReturnedWith(<span class="number">1</span>, <span class="string">'Nice to meet you!'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>toHaveReturnedWith</code>：斷言函式呼叫後返回的值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sayHi = <span class="function">(<span class="params">something</span>) =&gt;</span> something + <span class="string">' Hello, Spy!'</span></span><br><span class="line"><span class="keyword">const</span> spyOnSayHi = vi.fn(<span class="function">(<span class="params">val</span>) =&gt;</span> sayHi(val))</span><br><span class="line"></span><br><span class="line">spyOnSayHi(<span class="string">'Hello, Unit-Test!'</span>)</span><br><span class="line"></span><br><span class="line">expect(spyOnSayHi).toHaveReturnedWith(<span class="string">'Hello, Unit-Test! Hello, Spy!'</span>)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>而測試替身（test double）除了像是 <code>vi.fn()</code> 這類間諜類型（Spy）之外，還有許多不同的測試替身，它們在測試中都有各自的用途來協助我們更好的測試，後續將會有一篇專門來解說不同測試替身概念與相關的語法。</p>
+<h3 id="快照測試（Snapshot-Testing）與快照-matchers"><a href="#快照測試（Snapshot-Testing）與快照-matchers" class="headerlink" title="快照測試（Snapshot Testing）與快照 matchers"></a>快照測試（Snapshot Testing）與快照 matchers</h3><p>在<a href="https://ithelp.ithome.com.tw/articles/10296174" target="_blank" rel="noopener">測試金字塔</a>一文中我們有提到，Edd Yerburgh 在規劃測試類型時除了單元測試外最多佔比的部分就是快照測試（Snapshot Testing），可見快照測試的重要性如此之高，那麼快照測試是什麼呢？</p>
+<h4 id="Jest-Snapshot"><a href="#Jest-Snapshot" class="headerlink" title="Jest Snapshot"></a>Jest Snapshot</h4><p>在 Jest 的 <a href="https://jestjs.io/docs/snapshot-testing" target="_blank" rel="noopener">Snapshot Testing</a> 說明文件的定義中主要指的是用來防止 UI 出現尚未預期的變化：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">data-test</span>=<span class="string">"link"</span> <span class="attr">href</span>=<span class="string">"http://ithelp.ithome.com.tw"</span>&gt;</span> Ithelp  <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; mount &#125; <span class="keyword">from</span> <span class="string">'@vue/test-utils'</span></span><br><span class="line">it(<span class="string">'渲染連結'</span>, () =&gt; &#123;</span><br><span class="line">  const <span class="keyword">wrapper</span> = mount(component)</span><br><span class="line">  expect(<span class="keyword">wrapper</span>.find([data-test="link"]).toMatchSnapshot();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>然而這邊的變化，並非你所想像的把視覺畫面給照相下來比對像素或比例的那種視覺回歸測試（Visual Regression Testing），而是藉由將目標元件透過渲染（Render）元件產生了一個 DOM 結構的文字，並在測試程式檔路徑底下的 <code>__snapshots__</code> 資料夾生成一個 <code>.snap</code> 檔案來做紀錄：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">exports[<span class="string">`渲染連結`</span>] = <span class="string">`</span></span><br><span class="line"><span class="string">&lt;a</span></span><br><span class="line"><span class="string">    data-test="link"</span></span><br><span class="line"><span class="string">    href="http://ithelp.ithome.com.tw"</span></span><br><span class="line"><span class="string">&gt;</span></span><br><span class="line"><span class="string">    Ithelp</span></span><br><span class="line"><span class="string">&lt;/a&gt;</span></span><br><span class="line"><span class="string">`</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>截至 Jest Snapshot 頁面中的[程式碼]<a href="https://jestjs.io/docs/snapshot-testing" target="_blank" rel="noopener">https://jestjs.io/docs/snapshot-testing</a>)</p>
+</blockquote>
+<p>在第二次執行測試的時候，就會再次做一次同樣的流程，而這次所產生的結果會與先前的 <code>.snap</code> 紀錄做比對。</p>
+<p>假設比對上有落差就會拋出錯誤：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- Snapshot - 1</span><br><span class="line">+ Received + 1</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span></span></span><br><span class="line"><span class="tag"><span class="attr">-</span>  <span class="attr">href</span>=<span class="string">"http://ithelp.ithome.com.tw"</span></span></span><br><span class="line"><span class="tag">+  <span class="attr">href</span>=<span class="string">"https://ithelp.ithome.com.tw"</span></span></span><br><span class="line"><span class="tag">&gt;</span> Ithelp</span><br><span class="line"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>藉由這個比對機制從而實現「防止 UI 出現尚未預期的變化」的功能。</p>
+<h4 id="Vitest-Snapshot"><a href="#Vitest-Snapshot" class="headerlink" title="Vitest Snapshot"></a>Vitest Snapshot</h4><p>而前面有提到 <code>Vitest</code> 本身兼容了 <code>Jest</code> 的斷言（assertion）語法，所以快照（Snapshot）的 matcher 自然也是不能放過。</p>
+<p>在 <code>Vitest</code> 中主要兼容的 matcher 部分有：</p>
+<ul>
+<li><code>toMatchSnapshot</code></li>
+<li><code>toMatchInlineSnapshot</code></li>
+</ul>
+<p>基本上概念與 Jest Snapshot 相似，都是在做結構快照這件事情，然而 <code>Vitest</code> 文件部分則是沒有特地強調 UI 的部分，而是關注在值（<code>value</code>）的比對。</p>
+<p>因此我們單純放入一個陣列物件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'cat snapshot'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> target = [</span><br><span class="line">    &#123;</span><br><span class="line">      name: <span class="string">'Orange'</span>,</span><br><span class="line">      age: <span class="number">4</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      name: <span class="string">'Blank'</span>,</span><br><span class="line">      age: <span class="number">6</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  ]</span><br><span class="line">  expect(target).toMatchSnapshot()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><code>.snap</code> 的結果：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">exports[<span class="string">`component &gt; cat snapshot 1`</span>] = <span class="string">`</span></span><br><span class="line"><span class="string">    [</span></span><br><span class="line"><span class="string">        &#123;</span></span><br><span class="line"><span class="string">          "age": 4,</span></span><br><span class="line"><span class="string">          "name": "Orange",</span></span><br><span class="line"><span class="string">        &#125;,</span></span><br><span class="line"><span class="string">        &#123;</span></span><br><span class="line"><span class="string">          "age": 6,</span></span><br><span class="line"><span class="string">          "name": "Blank",</span></span><br><span class="line"><span class="string">        &#125;,</span></span><br><span class="line"><span class="string">    ]</span></span><br><span class="line"><span class="string">`</span>;</span><br></pre></td></tr></table></figure>
+<p>甚至也可以引入 JSON 檔案來做快照：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Area <span class="keyword">from</span> <span class="string">'./area.json'</span></span><br><span class="line">it(<span class="string">'static json snapshot'</span>, () =&gt; &#123;</span><br><span class="line">expect(Area).toMatchSnapshot()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>當然元件快照也是能做的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; mount &#125; <span class="keyword">from</span> <span class="string">'@vue/test-utils'</span></span><br><span class="line">it(<span class="string">'snapshot'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line">    <span class="keyword">const</span> target = wrapper.find(<span class="string">'[data-test="content"]'</span>)</span><br><span class="line">    expect(target).toMatchSnapshot()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>而以上快照部分如果你覺得要生成一個檔案來管理有點囉唆，那麼你可以透過 <code>toMatchInlineSnapshot</code> 來處理這類的需求，其差別在於生成的位置會是在 <code>toMatchInlineSnapshot()</code> 函式本身裡面：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'cat snapshot'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> target = [</span><br><span class="line">    &#123;</span><br><span class="line">      name: <span class="string">'Orange'</span>,</span><br><span class="line">      age: <span class="number">4</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      name: <span class="string">'Blank'</span>,</span><br><span class="line">      age: <span class="number">6</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 原先 toMatchInlineSnapshot 內沒有任何東西</span></span><br><span class="line">  <span class="comment">// 在執行測試後就會將快照內容自動生成在 toMatchInlineSnapshot 裡</span></span><br><span class="line">  expect(target).toMatchInlineSnapshot(<span class="string">`</span></span><br><span class="line"><span class="string">    [</span></span><br><span class="line"><span class="string">      &#123;</span></span><br><span class="line"><span class="string">        "age": 4,</span></span><br><span class="line"><span class="string">        "name": "Orange",</span></span><br><span class="line"><span class="string">      &#125;,</span></span><br><span class="line"><span class="string">      &#123;</span></span><br><span class="line"><span class="string">        "age": 6,</span></span><br><span class="line"><span class="string">        "name": "Blank",</span></span><br><span class="line"><span class="string">      &#125;,</span></span><br><span class="line"><span class="string">    ]</span></span><br><span class="line"><span class="string">  `</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>最後，如果遇到變更的部分是我們所預期的時候，此時就需要更新快照的部分，可以在執行測試的 <code>watch</code> 模式時按下 <code>u</code> 鍵，就將新的快照保存起來，或是透過新增 <code>npm scripts</code> 指令來執行命令：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"test:update"</span>: <span class="string">"vitest -u"</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>總結一下快照部分，若有需要預防未預期變更的靜態檔案如「JSON 檔」、「UI 元件」⋯⋯等，都可以透過快照來處理，如果不想特地開一個檔案來管理，可以透過 <code>toMatchInlineSnapshot</code> 來斷言。</p>
+<h3 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h3><p>最後想介紹到的則是錯誤類型的 Matcher：</p>
+<ul>
+<li><code>toThrowError</code></li>
+<li><code>toThrowErrorMatchingSnapshot</code></li>
+<li><code>toThrowErrorMatchingInlineSnapshot</code></li>
+</ul>
+<p>先前我們有提到測試案例預想的<a href="https://ithelp.ithome.com.tw/articles/10297571" target="_blank" rel="noopener">三個路徑</a>（Happy path, sad Path &amp; Bad Path），<code>Bad Path</code> 從產品角度上來說 End-User 使用上的錯誤，應該考慮從產品使用角度上去思考要怎麼協助他們去使用，所以不應該為了拋出錯誤而拋出。</p>
+<p>但假設今天拋出錯誤的情境是較為合理的部分，比方是針對開發人員在開發時期誤用導致的錯誤⋯⋯等等情況，這時我們就可以透過這一類 Matcher 來處理。</p>
+<p>而使用上要比較小心的是，受測目標若會拋出錯誤則要透過 wrap function 的形式來處理，否則拋出的錯誤會造成測試案例的斷言錯誤：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">''</span>, ()=&gt;&#123;</span><br><span class="line">    <span class="keyword">const</span> food = <span class="function">(<span class="params">name</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">      <span class="keyword">if</span>(name === <span class="string">'小黃瓜'</span>)&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'我不吃小黃瓜'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    expect(food(<span class="string">'小黃瓜'</span>)).toThrowError(<span class="string">'我不吃小黃瓜'</span>) <span class="comment">// 若這樣寫的話裡頭的 Error 會導致測試案例失敗</span></span><br><span class="line">    expect(<span class="function"><span class="params">()</span> =&gt;</span> food(<span class="string">'小黃瓜'</span>)).toThrowError(<span class="string">'我不吃小黃瓜'</span>) <span class="comment">// 需要透過這種方式才能正確斷言</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>以上包含昨天的部分，主要就是將來我們在撰寫測試案例中的斷言（Assert）時會用到的 Matcher 概念與使用方法，而由於 Matchers 真的有不少東西，所以還有些許部分沒介紹到，若有興趣查看的話可以到 Vitest expect API <a href="https://vitest.dev/api/#expect" target="_blank" rel="noopener">文件</a>中查閱。</p>
+<p>而明天的部分我們將要來綜合這三天所習得的語法來個小小的測驗，畢竟學習最快的方式就是動手直接下去做哩！那麼我們明天見！祝大家週末愉快。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+              <a href="/tags/Vitest/" rel="tag"># Vitest</a>
+              <a href="/tags/Vue-Test-Utils/" rel="tag"># Vue Test Utils</a>
+              <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-14/" rel="prev" title="【語法ノ章】斷言（Assertion）上篇：斷言語法與 Matchers">
+      <i class="fa fa-chevron-left"></i> 【語法ノ章】斷言（Assertion）上篇：斷言語法與 Matchers
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-16/" rel="next" title="【試験ノ章】第一個測驗：測試情境案例、Setup & Teardown 與 Matchers">
+      【試験ノ章】第一個測驗：測試情境案例、Setup & Teardown 與 Matchers <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文序"><span class="nav-number">1.</span> <span class="nav-text">本文序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#再戰-Jest-expect-Matchers"><span class="nav-number">1.1.</span> <span class="nav-text">再戰 Jest expect Matchers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#監聽函式"><span class="nav-number">1.1.1.</span> <span class="nav-text">監聽函式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快照測試（Snapshot-Testing）與快照-matchers"><span class="nav-number">1.1.2.</span> <span class="nav-text">快照測試（Snapshot Testing）與快照 matchers</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Jest-Snapshot"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">Jest Snapshot</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vitest-Snapshot"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">Vitest Snapshot</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Error"><span class="nav-number">1.1.3.</span> <span class="nav-text">Error</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/ithelp-2022-vitest-15/";
+    this.page.identifier = "testing/ithelp-2022-vitest-15/";
+    this.page.title = "【語法ノ章】斷言（Assertion）下篇： 替身、快照（Snapshot）與拋出錯誤";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

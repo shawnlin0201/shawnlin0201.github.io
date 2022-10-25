@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Vue API今天要開始介紹的部分是如何透過 Vue Test Utils 工具所提供的 API 來模擬元件的使用，接著我們就可以依照需求模擬出各種情境來測試我們的元件，而今天我們要介紹的部分主要有 data 與 props：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【語法ノ章】元件測試：模擬 Vue APIs（data, props）">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-22/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="Vue API今天要開始介紹的部分是如何透過 Vue Test Utils 工具所提供的 API 來模擬元件的使用，接著我們就可以依照需求模擬出各種情境來測試我們的元件，而今天我們要介紹的部分主要有 data 與 props：">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+<meta property="article:published_time" content="2022-10-07T11:25:39.000Z">
+<meta property="article:modified_time" content="2022-10-24T11:15:25.848Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Vitest">
+<meta property="article:tag" content="Vue Test Utils">
+<meta property="article:tag" content="Unit Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-22/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【語法ノ章】元件測試：模擬 Vue APIs（data, props） | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-22/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【語法ノ章】元件測試：模擬 Vue APIs（data, props）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-10-07 19:25:39" itemprop="dateCreated datePublished" datetime="2022-10-07T19:25:39+08:00">2022-10-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 19:15:25" itemprop="dateModified" datetime="2022-10-24T19:15:25+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-22/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-22/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="Vue-API"><a href="#Vue-API" class="headerlink" title="Vue API"></a>Vue API</h1><p>今天要開始介紹的部分是如何透過 Vue Test Utils 工具所提供的 API 來模擬元件的使用，接著我們就可以依照需求模擬出各種情境來測試我們的元件，而今天我們要介紹的部分主要有 <code>data</code> 與 <code>props</code>：</p>
+<a id="more"></a>
+
+<h2 id="data"><a href="#data" class="headerlink" title="data"></a>data</h2><p>注意：在模擬 data 之前需要注意的是，在大部分的測試時我們通常不必特意去模擬 data，應該讓其與元件本身的私有方法（private method）自然互動即可，若會需要透過模擬 data 來操作元件則要觀察是否資料與元件本身耦合了，這種情況下可能造成元件本身無法高度重複利用。</p>
+<blockquote>
+<p><strong>私有方法（private method）</strong><br>封閉在元件、物件⋯⋯等等中的函式，在外部無法存取得到。<br>e.g.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add5</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> add = <span class="function">(<span class="params">x,y,</span>) =&gt;</span> x + y</span><br><span class="line">    <span class="keyword">return</span> add5(<span class="number">5</span>, x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>裡頭的 <code>add</code> 函式即為私有方法。</p>
+</blockquote>
+<p>若是真的有需要用到模擬 <code>data</code> 屬性時，首先要注意元件是用何種方式（options API /composition API 與 <code>&lt;script setup&gt;</code>）來使用 <code>data</code>，因為寫法上將會有所不同；且依照設定的時機還可分為「初始狀態」與「後續操作」。</p>
+<h3 id="data（options-API）"><a href="#data（options-API）" class="headerlink" title="data（options API）"></a>data（options API）</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">data-test</span>=<span class="string">"target"</span>&gt;</span>&#123;&#123; content &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">    data() &#123;</span><br><span class="line"><span class="actionscript">        <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="actionscript">            content: <span class="string">''</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>data（option API）初始狀態模擬，可透過容器（wrapper）的第二個參數帶入：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 測試程式碼 */</span></span><br><span class="line"><span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">    data()&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            content: <span class="string">'test'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">expect(wrapper.find(<span class="string">'[data-test="target"]'</span>).text()).toEqual(<span class="string">'test'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>若要模擬後續才設定 data（option API），則可以透過容器方法中的 <code>setData()</code> 設置，此外由於是非同步的方法，要記得 <code>async/await</code> 才能確保斷言正確：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'...'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> wrapper.setData(&#123;</span><br><span class="line">        content: <span class="string">'test'</span></span><br><span class="line">    &#125;)</span><br><span class="line">    expect(wrapper.find(<span class="string">'[data-test="target"]'</span>).text()).toEqual(<span class="string">'test'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="data（composition-API-lt-script-setup-gt-語法糖）"><a href="#data（composition-API-lt-script-setup-gt-語法糖）" class="headerlink" title="data（composition API, &lt;script setup&gt; 語法糖）"></a>data（composition API, <code>&lt;script setup&gt;</code> 語法糖）</h3><p>composition API：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">    setup() &#123;</span><br><span class="line"><span class="actionscript">        <span class="keyword">const</span> content = ref(<span class="string">''</span>)</span></span><br><span class="line"><span class="actionscript">        <span class="keyword">return</span> &#123;</span></span><br><span class="line">            content</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>&lt;script setup&gt;</code> 語法糖：</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span></span></span><br><span class="line"><span class="xml">import </span><span class="template-variable">&#123; ref &#125;</span><span class="xml"> from 'vue'</span></span><br><span class="line"><span class="xml">const content = ref('')</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>這一類透過 <code>setup()</code> 所處理的資料，若要模擬會遇到不少問題。</p>
+<p>在容器方法中的第二個參數所提供的方式，原先是供應給 <code>options</code> API 中的 <code>data</code> 屬性所使用，所以我們必須改以注入的方式嵌入 <code>setup()</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 測試程式碼 */</span></span><br><span class="line"><span class="keyword">const</span> wrapper = monut(component, &#123;</span><br><span class="line">    setup()&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            content:<span class="string">''</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>但如此一來，元件中原先其他寫在 <code>setup()</code> 內的狀態等就必須一起模擬，還記得好的元件測試守則之一嗎？沒錯，就是不要重複實踐實作。</p>
+<p>那比較好的方式之一就是透過容器方法中（wrapper）取得實體來設置變數，並且透過 <code>nextTick</code> 方法確保渲染結果：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'...'</span> , <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="comment">/* 測試程式碼 */</span></span><br><span class="line">    <span class="keyword">const</span> wrapper = monut(component)</span><br><span class="line">    wrapper.vm.content = <span class="string">'text'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 版本1: 直接使用 vm 內的 $nextTick</span></span><br><span class="line">    <span class="keyword">await</span> wrapper.vm.$nextTick()</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 版本2: import &#123; nextTick &#125; from 'vue' */</span></span><br><span class="line">     * <span class="keyword">await</span> nextTick()</span><br><span class="line">     *<span class="regexp">/</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    expect(wrapper.find('[data-test="target"]').text()).toEqual('test')</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br></pre></td></tr></table></figure>
+
+<p>而關於私有方法或變數的模擬，或許將來 Vue Test Utils 開發團隊會對此有些改觀提供一些逃生艙的方法，不過目前比較一致的角度是盡量別對這一類的私有環境才有的變數與方法去做模擬，即時的相關討論可見於<a href="https://github.com/vuejs/test-utils/pulls?q=composition" target="_blank" rel="noopener">這裡</a>。而本系列文後續相關內容也基於此因素不再提供有關與私有環境要如何模擬，避免讀者搞混。</p>
+<h2 id="props"><a href="#props" class="headerlink" title="props"></a>props</h2><p>在不模擬私有情境的前提之下，prop 相較起來單純多了，而關於測試 props 的部分主要有：</p>
+<ul>
+<li>模擬 props 傳入後，斷言「後續的狀態」。</li>
+<li>斷言「是否傳入對的參數給子元件」。</li>
+</ul>
+<h3 id="模擬-props-傳入"><a href="#模擬-props-傳入" class="headerlink" title="模擬 props 傳入"></a>模擬 props 傳入</h3><p>要模擬 props 傳入的方法依照時機可分為「初始狀態」與「後續操作」：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">data-test</span>=<span class="string">"target"</span>&gt;</span>&#123;&#123; content &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>初始狀態同樣是藉由容器（Wrapper）中的第二個參數傳入：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">''</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">        props: &#123;</span><br><span class="line">            content: <span class="string">'Hello'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    expect(wrapper.find(<span class="string">'[data-test="target"]'</span>).text()).toEqual(<span class="string">'Hello'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>若想要後續才傳入 <code>props</code> 則可以透過容器方法 <code>setProps</code>模擬，並且一樣要小心非同步的問題，記得補上 <code>async</code> / <code>await</code> ：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'...'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">        props: &#123;</span><br><span class="line">            content: <span class="string">'Hello'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    expect(wrapper.find(<span class="string">'[data-test="target"]'</span>).text()).toEqual(<span class="string">'Hello'</span>)</span><br><span class="line">    <span class="keyword">await</span> wrapper.setProps(&#123; <span class="attr">content</span>: <span class="string">'Good bye'</span> &#125;)</span><br><span class="line">    expect(wrapper.find(<span class="string">'[data-test="target"]'</span>).text()).toEqual(<span class="string">'Good bye'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="斷言是否傳入對-props-參數給子元件"><a href="#斷言是否傳入對-props-參數給子元件" class="headerlink" title="斷言是否傳入對 props 參數給子元件"></a>斷言是否傳入對 props 參數給子元件</h3><p>既然有接收的一方，那就至少會有給予的一方。</p>
+<p>在 props 驗證中的另一種方式就是驗證給予其他元件的參數是否正確：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">template</span>&gt;</span><br><span class="line">    &lt;BaseLightbox content<span class="string">"Hello"</span> enableMask=<span class="string">"true"</span> /&gt;</span><br><span class="line">&lt;/<span class="keyword">template</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>首先我們要做的是透過之前學的選擇器方法選到特定的元件，接著透過容器方法底下的 <code>props()</code> 來取的傳送資訊，接著就可以透過斷言 Matcher 來比對 props 給元件的資訊是否正確：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; BaseLightbox &#125; <span class="keyword">from</span> <span class="string">'./BaseLightbox.vue'</span></span><br><span class="line">it(<span class="string">''</span>, async () =&gt; &#123;</span><br><span class="line">    const <span class="keyword">wrapper</span> = mount(component)</span><br><span class="line">    const target = <span class="keyword">wrapper</span>.<span class="keyword">get</span>(BaseLightbox)</span><br><span class="line">    </span><br><span class="line">    expect(target.props(content)).toEqual(<span class="string">'Hello'</span>)</span><br><span class="line">    expect(target.props(enableMask)).toEqual(<span class="keyword">true</span>)</span><br><span class="line">    expect(target.props()).toEqual(&#123;</span><br><span class="line">        content: <span class="string">'Hello'</span>,</span><br><span class="line">        enableMask: <span class="keyword">true</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<hr>
+<p>以上是今日有關於如何在測試案例中模擬元件 <code>data</code> 與 <code>props</code> 的介紹。</p>
+<p><a href="https://ithelp.ithome.com.tw/articles/10302568" target="_blank" rel="noopener">如先前所提</a>，針對元件在進行測試時，我們所關注的點主要在於「元件溝通介面後續所造成的影響」，比方受測元件做為子層元件的角色時，接收到 <code>prop</code> 、 <code>slot</code> 或 <code>inject</code> 時，是否有「渲染（render）出正確的結果」、「回傳（emit event）預期的內容給父層」等等行為，因此後續寫這方面的測試案例時要多注意是否是因為邏輯設計上的關係，導致必須要用奇形怪狀的方式來寫測試。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+              <a href="/tags/Vitest/" rel="tag"># Vitest</a>
+              <a href="/tags/Vue-Test-Utils/" rel="tag"># Vue Test Utils</a>
+              <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-21/" rel="prev" title="【語法ノ章】元件測試：容器方法（Wrapper methods）－模擬事件">
+      <i class="fa fa-chevron-left"></i> 【語法ノ章】元件測試：容器方法（Wrapper methods）－模擬事件
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-23/" rel="next" title="【語法ノ章】元件測試：模擬 Vue APIs（emit, provide/inject）">
+      【語法ノ章】元件測試：模擬 Vue APIs（emit, provide/inject） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue-API"><span class="nav-number">1.</span> <span class="nav-text">Vue API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#data"><span class="nav-number">1.1.</span> <span class="nav-text">data</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#data（options-API）"><span class="nav-number">1.1.1.</span> <span class="nav-text">data（options API）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data（composition-API-lt-script-setup-gt-語法糖）"><span class="nav-number">1.1.2.</span> <span class="nav-text">data（composition API, &lt;script setup&gt; 語法糖）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#props"><span class="nav-number">1.2.</span> <span class="nav-text">props</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模擬-props-傳入"><span class="nav-number">1.2.1.</span> <span class="nav-text">模擬 props 傳入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#斷言是否傳入對-props-參數給子元件"><span class="nav-number">1.2.2.</span> <span class="nav-text">斷言是否傳入對 props 參數給子元件</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/ithelp-2022-vitest-22/";
+    this.page.identifier = "testing/ithelp-2022-vitest-22/";
+    this.page.title = "【語法ノ章】元件測試：模擬 Vue APIs（data, props）";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

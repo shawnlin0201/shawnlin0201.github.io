@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">76</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -198,7 +198,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-Automatic-Semicolon-Insertion/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-25/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -212,7 +212,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/JavaScript/JavaScript-Automatic-Semicolon-Insertion/" class="post-title-link" itemprop="url">JavaScript 深入淺出 Automatic Semicolon Insertion 自動插入分號機制</a>
+            <a href="/testing/ithelp-2022-vitest-25/" class="post-title-link" itemprop="url">【試験ノ章】第二個測驗：容器（Wrapper）與容器方法（Wrapper methods）</a>
         </h2>
 
         <div class="post-meta">
@@ -222,32 +222,15 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2020-08-24 13:16:12" itemprop="dateCreated datePublished" datetime="2020-08-24T13:16:12+08:00">2020-08-24</time>
+              <time title="創建時間：2022-10-10 19:41:31" itemprop="dateCreated datePublished" datetime="2022-10-10T19:41:31+08:00">2022-10-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2022-10-24 19:17:51" itemprop="dateModified" datetime="2022-10-24T19:17:51+08:00">2022-10-24</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/ECMAScript/" itemprop="url" rel="index"><span itemprop="name">ECMAScript</span></a>
-                </span>
-            </span>
 
           
   
@@ -258,8 +241,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/JavaScript/JavaScript-Automatic-Semicolon-Insertion/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-Automatic-Semicolon-Insertion/" itemprop="commentCount"></span>
+    <a title="disqus" href="/testing/ithelp-2022-vitest-25/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-25/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -275,13 +258,27 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
 </div>
 
-<p>在 JavaScript 當中 <code>;</code> 被用來作為分隔表達式語句（statement）符號；然而，你知道在 2000 年時的 ECMAScript（ES3）中，有自動插入分號機制（Automatic Semicolon Insertion）會幫你自動插入分號嗎？</p>
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>回顧第一次測驗內容，我們已經學會如何利用測試情境與案例（<code>describe</code>, <code>it</code>）的語法並參考測試路徑（test path）寫出基本的測試結構，最後也使用了對應的測試 Matcher 來做最後的斷言（Assertion）。</p>
+<p>而第二次測驗將著重在學習容器（Wrapper）中要怎麼透過容器方法（Wrapper methods）與透過容器函式的第二個參數來模擬各種元件中的內容。</p>
+<p>另外，我們今天使用的測試檔案要接續先前<a href="https://ithelp.ithome.com.tw/articles/10302202" target="_blank" rel="noopener">第一次測驗</a>中完成的檔案來進行測試！</p>
+<p>同樣的測驗章節我們將會做以下的流程：</p>
+<ul>
+<li>閱讀故事與題目，釐清需求與規則。</li>
+<li>規劃測試情境與測試案例，並列好描述的部分。</li>
+<li>撰寫測試程式碼（Testing Code），並執行測試時得到測試案例失敗。</li>
+<li>按照題目要求完成產品程式碼（Production Code）</li>
+<li>再次執行測試確保測試通過。</li>
+</ul>
+<blockquote>
+<p>本文一樣可利用<a href="https://ithelp.ithome.com.tw/articles/10292537" target="_blank" rel="noopener">系列文專案</a>來一邊學習，幫你準備好測試所需要的環境，快來安裝吧！</p>
+</blockquote>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20221010/20119062IVcelQZ7d1.png" alt="https://ithelp.ithome.com.tw/upload/images/20221010/20119062IVcelQZ7d1.png"></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/JavaScript/JavaScript-Automatic-Semicolon-Insertion/#more" rel="contents">
+              <a class="btn" href="/testing/ithelp-2022-vitest-25/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -305,7 +302,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-Statement-Expression/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-24/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -319,7 +316,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/JavaScript/JavaScript-Statement-Expression/" class="post-title-link" itemprop="url">JavaScript 深入淺出 Statement & Expression 陳述式與表達式</a>
+            <a href="/testing/ithelp-2022-vitest-24/" class="post-title-link" itemprop="url">【語法ノ章】元件測試：模擬 Vue APIs（slots, custom directives）</a>
         </h2>
 
         <div class="post-meta">
@@ -329,32 +326,15 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2020-08-17 09:48:11" itemprop="dateCreated datePublished" datetime="2020-08-17T09:48:11+08:00">2020-08-17</time>
+              <time title="創建時間：2022-10-09 22:41:08" itemprop="dateCreated datePublished" datetime="2022-10-09T22:41:08+08:00">2022-10-09</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2022-10-24 19:16:55" itemprop="dateModified" datetime="2022-10-24T19:16:55+08:00">2022-10-24</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/ECMAScript/" itemprop="url" rel="index"><span itemprop="name">ECMAScript</span></a>
-                </span>
-            </span>
 
           
   
@@ -365,8 +345,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/JavaScript/JavaScript-Statement-Expression/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-Statement-Expression/" itemprop="commentCount"></span>
+    <a title="disqus" href="/testing/ithelp-2022-vitest-24/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-24/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -382,14 +362,18 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
 </div>
 
-<p>你有想過為什麼變數可以儲存 <code>3</code> 卻沒有辦法儲存 <code>if/else</code> 語句，可是卻又能儲存整個 <code>function</code> 嗎？</p>
-<p>一起來看看陳述式與表達式的概念就能馬上瞭解！</p>
+<h1 id="slots"><a href="#slots" class="headerlink" title="slots"></a>slots</h1><p>在開發的過程中，有時候我們可能為了畫面上的彈性，會在元件中透過 <code>&lt;slot&gt;</code> 讓父層來決定要填入什麼內容。</p>
+<p>而在針對 <code>slots</code> 撰寫測試時，要注意的地方有：</p>
+<ul>
+<li><code>slots</code> 至少會有預設未傳入的狀態與傳入資料後的狀態兩種，斷言時應該至少包含這兩種狀態。</li>
+<li>以 <code>slots</code> 行為作為案例斷言時，斷言內容要專注在 <code>slots</code> 所影響範圍內，否則可能會受其他因素干擾。</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/JavaScript/JavaScript-Statement-Expression/#more" rel="contents">
+              <a class="btn" href="/testing/ithelp-2022-vitest-24/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -413,7 +397,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-Array-methods/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-23/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -427,7 +411,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/JavaScript/JavaScript-Array-methods/" class="post-title-link" itemprop="url">JavaScript 深入淺出 陣列處理迴圈的方法（forEach、map、filter、reduce）</a>
+            <a href="/testing/ithelp-2022-vitest-23/" class="post-title-link" itemprop="url">【語法ノ章】元件測試：模擬 Vue APIs（emit, provide/inject）</a>
         </h2>
 
         <div class="post-meta">
@@ -437,28 +421,15 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2020-08-10 10:02:56" itemprop="dateCreated datePublished" datetime="2020-08-10T10:02:56+08:00">2020-08-10</time>
+              <time title="創建時間：2022-10-08 22:59:35" itemprop="dateCreated datePublished" datetime="2022-10-08T22:59:35+08:00">2022-10-08</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2022-10-24 19:16:17" itemprop="dateModified" datetime="2022-10-24T19:16:17+08:00">2022-10-24</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
-                </span>
-            </span>
 
           
   
@@ -469,8 +440,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/JavaScript/JavaScript-Array-methods/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-Array-methods/" itemprop="commentCount"></span>
+    <a title="disqus" href="/testing/ithelp-2022-vitest-23/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-23/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -486,13 +457,13 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
 </div>
 
-<p>今天要來介紹四個陣列中處理迴圈的常見方法，還在用 <code>for</code> 迴圈打天下嗎？來看看這些 cool 東西吧 (?)</p>
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>今天我們要來繼續學習元件中若有使用到 Vue API 中的 <code>emit</code>、<code>provide</code> 與 <code>inject</code> 時要怎麼來進行測試並且模擬他們的行為。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/JavaScript/JavaScript-Array-methods/#more" rel="contents">
+              <a class="btn" href="/testing/ithelp-2022-vitest-23/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -516,7 +487,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-this/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-22/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -530,7 +501,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/JavaScript/JavaScript-this/" class="post-title-link" itemprop="url">JavaScript 深入淺出 This</a>
+            <a href="/testing/ithelp-2022-vitest-22/" class="post-title-link" itemprop="url">【語法ノ章】元件測試：模擬 Vue APIs（data, props）</a>
         </h2>
 
         <div class="post-meta">
@@ -540,28 +511,15 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2020-08-03 10:39:10" itemprop="dateCreated datePublished" datetime="2020-08-03T10:39:10+08:00">2020-08-03</time>
+              <time title="創建時間：2022-10-07 19:25:39" itemprop="dateCreated datePublished" datetime="2022-10-07T19:25:39+08:00">2022-10-07</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2022-10-24 19:15:25" itemprop="dateModified" datetime="2022-10-24T19:15:25+08:00">2022-10-24</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
-                </span>
-            </span>
 
           
   
@@ -572,8 +530,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/JavaScript/JavaScript-this/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-this/" itemprop="commentCount"></span>
+    <a title="disqus" href="/testing/ithelp-2022-vitest-22/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-22/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -589,13 +547,13 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
 </div>
 
-<p><code>this</code> 可以在 JavaScript 當中可以說是比 <code>prototype</code> 還要更難懂的概念，但今天要來嘗試以簡潔的方式來說明 <code>this</code> 到底是誰。</p>
+<h1 id="Vue-API"><a href="#Vue-API" class="headerlink" title="Vue API"></a>Vue API</h1><p>今天要開始介紹的部分是如何透過 Vue Test Utils 工具所提供的 API 來模擬元件的使用，接著我們就可以依照需求模擬出各種情境來測試我們的元件，而今天我們要介紹的部分主要有 <code>data</code> 與 <code>props</code>：</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/JavaScript/JavaScript-this/#more" rel="contents">
+              <a class="btn" href="/testing/ithelp-2022-vitest-22/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -619,7 +577,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-prototype/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-21/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -633,7 +591,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/JavaScript/JavaScript-prototype/" class="post-title-link" itemprop="url">JavaScript 深入淺出 prototype</a>
+            <a href="/testing/ithelp-2022-vitest-21/" class="post-title-link" itemprop="url">【語法ノ章】元件測試：容器方法（Wrapper methods）－模擬事件</a>
         </h2>
 
         <div class="post-meta">
@@ -643,28 +601,15 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2020-07-27 10:03:14" itemprop="dateCreated datePublished" datetime="2020-07-27T10:03:14+08:00">2020-07-27</time>
+              <time title="創建時間：2022-10-06 19:21:33" itemprop="dateCreated datePublished" datetime="2022-10-06T19:21:33+08:00">2022-10-06</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2022-10-24 19:13:34" itemprop="dateModified" datetime="2022-10-24T19:13:34+08:00">2022-10-24</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
-                </span>
-            </span>
 
           
   
@@ -675,8 +620,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/JavaScript/JavaScript-prototype/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-prototype/" itemprop="commentCount"></span>
+    <a title="disqus" href="/testing/ithelp-2022-vitest-21/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-21/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -692,13 +637,18 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
 </div>
 
-<p><code>prototype</code> 一直是個 JavaScript 核心裡面最難以解釋的概念，因為光是提到 <code>prototype</code>，就不得不提相關的概念：<code>constructor</code>、<code>__proto__</code>、<code>Function.prototype</code>、<code>Object.prototype</code> ……等等，所以等了一段時間我覺得是時候來講講他了。</p>
+<h1 id="容器方法（Wrapper-methods）"><a href="#容器方法（Wrapper-methods）" class="headerlink" title="容器方法（Wrapper methods）"></a>容器方法（Wrapper methods）</h1><p>到目前為止容器方法的部分我們已經學到如何選擇目標與取得目標屬性等相關資料後，今天我們要著重學習如何模擬觸發 DOM 所發生的各種事件（Event），而常見的 DOM 事件有下列幾種：</p>
+<ul>
+<li>滑鼠事件：點擊（click）</li>
+<li>鍵盤事件：按下某鍵（keydown）、鬆開某鍵（keyup）</li>
+<li>表單事件：針對 <code>&lt;input&gt;</code> 輸入內容、<code>checkbox</code> 與 <code>radio</code> 勾選或 <code>&lt;select&gt;</code> 中的選擇內容。</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/JavaScript/JavaScript-prototype/#more" rel="contents">
+              <a class="btn" href="/testing/ithelp-2022-vitest-21/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -722,7 +672,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-Closure/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-20/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -736,7 +686,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/JavaScript/JavaScript-Closure/" class="post-title-link" itemprop="url">JavaScript 深入淺出 Closure 閉包</a>
+            <a href="/testing/ithelp-2022-vitest-20/" class="post-title-link" itemprop="url">【語法ノ章】元件測試：容器方法（Wrapper methods）－取得目標資訊</a>
         </h2>
 
         <div class="post-meta">
@@ -746,28 +696,15 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2020-07-20 10:41:02" itemprop="dateCreated datePublished" datetime="2020-07-20T10:41:02+08:00">2020-07-20</time>
+              <time title="創建時間：2022-10-05 18:41:53" itemprop="dateCreated datePublished" datetime="2022-10-05T18:41:53+08:00">2022-10-05</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2022-10-24 19:14:22" itemprop="dateModified" datetime="2022-10-24T19:14:22+08:00">2022-10-24</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
-                </span>
-            </span>
 
           
   
@@ -778,8 +715,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/JavaScript/JavaScript-Closure/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-Closure/" itemprop="commentCount"></span>
+    <a title="disqus" href="/testing/ithelp-2022-vitest-20/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-20/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -795,14 +732,18 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
 </div>
 
-<p>常常聽到閉包卻不知道是指什麼？看看文章又覺得是在講作用域（Scope）？就算知道他是什麼也不知道用他能做什麼？</p>
-<p>如果你有以上的問題，那就讓我們一起來看看閉包吧！</p>
+<h2 id="容器方法（Wrapper-methods）"><a href="#容器方法（Wrapper-methods）" class="headerlink" title="容器方法（Wrapper methods）"></a>容器方法（Wrapper methods）</h2><p>元件經由容器（Wrapper）包裝後，我們就能在測試案例中透過容器方法（Wrapper methods）來測試各種跟元件有關的資訊，而昨天我們主要介紹到了要如何選定到特定的元素、元件，接著介紹了判斷目標物是否「存在(exists)」與是否「顯示（isVisible）」等相關方法。</p>
+<p>今天我們主要來介紹其餘有關資訊的部分：</p>
+<ul>
+<li>取得屬性（attribute）</li>
+<li>取得內容物（content）</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/JavaScript/JavaScript-Closure/#more" rel="contents">
+              <a class="btn" href="/testing/ithelp-2022-vitest-20/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -826,7 +767,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-Scope/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-19/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -840,7 +781,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/JavaScript/JavaScript-Scope/" class="post-title-link" itemprop="url">JavaScript 深入淺出 Scope</a>
+            <a href="/testing/ithelp-2022-vitest-19/" class="post-title-link" itemprop="url">【語法ノ章】元件測試：容器方法（Wrapper methods）－選擇器與陷阱</a>
         </h2>
 
         <div class="post-meta">
@@ -850,28 +791,15 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2020-07-13 10:10:20" itemprop="dateCreated datePublished" datetime="2020-07-13T10:10:20+08:00">2020-07-13</time>
+              <time title="創建時間：2022-10-04 19:16:43" itemprop="dateCreated datePublished" datetime="2022-10-04T19:16:43+08:00">2022-10-04</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2022-10-24 19:14:18" itemprop="dateModified" datetime="2022-10-24T19:14:18+08:00">2022-10-24</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
-                </span>
-            </span>
 
           
   
@@ -882,8 +810,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/JavaScript/JavaScript-Scope/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-Scope/" itemprop="commentCount"></span>
+    <a title="disqus" href="/testing/ithelp-2022-vitest-19/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-19/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -899,14 +827,25 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
 </div>
 
-<p>為什麼 <code>console.log</code> 出來的結果跟你想的不一樣？</p>
-<p>瞭解 <code>Scope</code> 後，你將會大幅提升閱 code 能力！</p>
+<h1 id="容器方法（Wrapper-methods）"><a href="#容器方法（Wrapper-methods）" class="headerlink" title="容器方法（Wrapper methods）"></a>容器方法（Wrapper methods）</h1><p>在進行測試時，前面章節有提到我們會使用 <code>mount</code> 或 <code>shallowMount</code> 來包裹元件，從而得到一個 <code>VueWrapper</code>，而在這個 <code>VueWrapper</code> 裡頭有許多實用的容器方法（Wrapper methods），雖然官方文件中並沒有特意分類，但大意上可分為幾種方法：</p>
+<ul>
+<li>查詢、選擇指定的元素、元件等選擇器</li>
+<li>取得目標屬性或內容（class, attribute）</li>
+<li>觸發 DOM 事件（如滑鼠點擊、鍵盤輸入與按鍵⋯⋯等）</li>
+<li>取得 emit 事件、設置 data 或 prop、甚至觸發元件 <code>unmmount</code> 等 Vue API 相關的方法</li>
+</ul>
+<p>而今天要著重在於介紹選擇器的方法使用與測試應用，最後補上相關的討論：</p>
+<ul>
+<li>元素、元件選擇器</li>
+<li>判斷目標是否存在：<code>exists</code> 與 <code>isVisible</code></li>
+<li>使用 <code>data-*</code> attribute</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/JavaScript/JavaScript-Scope/#more" rel="contents">
+              <a class="btn" href="/testing/ithelp-2022-vitest-19/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -930,7 +869,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-Variable-Object-and-Activation-Object/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-18/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -944,7 +883,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/JavaScript/JavaScript-Variable-Object-and-Activation-Object/" class="post-title-link" itemprop="url">JavaScript 深入淺出 Variable Object & Activation Object</a>
+            <a href="/testing/ithelp-2022-vitest-18/" class="post-title-link" itemprop="url">【語法ノ章】元件測試：容器（Wrapper）</a>
         </h2>
 
         <div class="post-meta">
@@ -954,28 +893,15 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2020-07-06 15:52:59" itemprop="dateCreated datePublished" datetime="2020-07-06T15:52:59+08:00">2020-07-06</time>
+              <time title="創建時間：2022-10-03 19:42:51" itemprop="dateCreated datePublished" datetime="2022-10-03T19:42:51+08:00">2022-10-03</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2022-10-24 19:09:26" itemprop="dateModified" datetime="2022-10-24T19:09:26+08:00">2022-10-24</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
-                </span>
-            </span>
 
           
   
@@ -986,8 +912,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/JavaScript/JavaScript-Variable-Object-and-Activation-Object/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-Variable-Object-and-Activation-Object/" itemprop="commentCount"></span>
+    <a title="disqus" href="/testing/ithelp-2022-vitest-18/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-18/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1003,14 +929,14 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
 </div>
 
-<p>理解變數物件（Variable Object，簡稱 VO）與執行物件（Activation Object）的概念對於理解作用域（Scope）、提升（Hoisting）、垃圾回收機制（Garbage collection）、閉包（Closure）與執行環境（Execution context）等等至關重要。</p>
-<p>究竟變數物件到底指的是什麼？為何理解它會可以快速打通任督二脈？就讓我們一來看看它吧！</p>
+<h1 id="容器-Wrapper"><a href="#容器-Wrapper" class="headerlink" title="容器(Wrapper)"></a>容器(Wrapper)</h1><h2 id="mount"><a href="#mount" class="headerlink" title="mount"></a>mount</h2><p>當我們需要在測試案例中引入元件時，我們可以透過 Vue Test Utils 提供的方法 <code>mount</code> 來包裹 Vue 元件。而 <code>mount</code> 所返回的內容除了 Vue 實體之外，還包含了一些方法（Wrapper methods）可以讓我們操作元件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> component <span class="keyword">from</span> <span class="string">'@/component/BaseButton.vue'</span></span><br><span class="line"></span><br><span class="line">it(<span class="string">'should emit clicked event after clicking button'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="comment">// Arrange</span></span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Act</span></span><br><span class="line">    wrapper.trigger(<span class="string">'click'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Assert</span></span><br><span class="line">    <span class="keyword">export</span>(wrapper.emitted()).toHaveProperty(<span class="string">'clicked'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/JavaScript/JavaScript-Variable-Object-and-Activation-Object/#more" rel="contents">
+              <a class="btn" href="/testing/ithelp-2022-vitest-18/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -1034,7 +960,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-Async-Await/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-17/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -1048,7 +974,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/JavaScript/JavaScript-Async-Await/" class="post-title-link" itemprop="url">JavaScript 深入淺出 Async & Await</a>
+            <a href="/testing/ithelp-2022-vitest-17/" class="post-title-link" itemprop="url">【概念ノ章】測試工具： Vue Test Utils 與元件測試</a>
         </h2>
 
         <div class="post-meta">
@@ -1058,28 +984,15 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2020-06-30 01:34:55" itemprop="dateCreated datePublished" datetime="2020-06-30T01:34:55+08:00">2020-06-30</time>
+              <time title="創建時間：2022-10-02 14:58:24" itemprop="dateCreated datePublished" datetime="2022-10-02T14:58:24+08:00">2022-10-02</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2022-10-24 19:07:49" itemprop="dateModified" datetime="2022-10-24T19:07:49+08:00">2022-10-24</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
-                </span>
-            </span>
 
           
   
@@ -1090,8 +1003,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/JavaScript/JavaScript-Async-Await/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-Async-Await/" itemprop="commentCount"></span>
+    <a title="disqus" href="/testing/ithelp-2022-vitest-17/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-17/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1107,13 +1020,20 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
 </div>
 
-<p>上次看完 Promise 如何快速解決 callback hell 之後這次要來介紹 ES7 的兄弟檔 <code>Async</code> &amp; <code>Await</code>。</p>
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>經過昨天的練習後，我們現在已經可以對一些透過預設匯出（default export）或具名匯出（named export）的函式、方法或類別等等邏輯進行單元測試了。</p>
+<p>接著，若我們想進一步在專案中測試 Vue 元件的話，我們除了基於前面的概念與語法之外，還得依靠能夠幫助能夠解析 Vue 元件並與其模擬互動的工具：</p>
+<ul>
+<li>Vue Test Utils</li>
+<li>Cypress</li>
+<li>Vue Testing Library</li>
+</ul>
+<p>而本系列文將著重在介紹要怎麼透過 Vue Test Utils 來進行與 Vue 元件有關的「元件測試」，因此本文要來介紹一下 Vue Test Utils 與元件測試是在做什麼，又這又跟單元測試有什麼關係呢。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/JavaScript/JavaScript-Async-Await/#more" rel="contents">
+              <a class="btn" href="/testing/ithelp-2022-vitest-17/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -1137,7 +1057,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/JavaScript/JavaScript-Promise/">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-16/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/information-avatar.png">
@@ -1151,7 +1071,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/JavaScript/JavaScript-Promise/" class="post-title-link" itemprop="url">JavaScript 深入淺出 Promise</a>
+            <a href="/testing/ithelp-2022-vitest-16/" class="post-title-link" itemprop="url">【試験ノ章】第一個測驗：測試情境案例、Setup & Teardown 與 Matchers</a>
         </h2>
 
         <div class="post-meta">
@@ -1161,28 +1081,15 @@
               </span>
               <span class="post-meta-item-text">發表於</span>
 
-              <time title="創建時間：2020-06-22 10:07:53" itemprop="dateCreated datePublished" datetime="2020-06-22T10:07:53+08:00">2020-06-22</time>
+              <time title="創建時間：2022-10-01 23:24:15" itemprop="dateCreated datePublished" datetime="2022-10-01T23:24:15+08:00">2022-10-01</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-09-29 22:32:47" itemprop="dateModified" datetime="2020-09-29T22:32:47+08:00">2020-09-29</time>
+                <time title="修改時間：2022-10-24 18:48:01" itemprop="dateModified" datetime="2022-10-24T18:48:01+08:00">2022-10-24</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/%E6%B7%B1%E5%85%A5%E6%B7%BA%E5%87%BA/" itemprop="url" rel="index"><span itemprop="name">深入淺出</span></a>
-                </span>
-            </span>
 
           
   
@@ -1193,8 +1100,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/JavaScript/JavaScript-Promise/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="JavaScript/JavaScript-Promise/" itemprop="commentCount"></span>
+    <a title="disqus" href="/testing/ithelp-2022-vitest-16/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-16/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1210,15 +1117,28 @@
 
       
           <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" src='/images/JavaScript/JavaScript-logo.png' width='200px' height='200px' />
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
 </div>
 
-<p>繼回呼地獄（Callback Hell）之後，ES 6 推了一個令人振奮的功能，那就是 <code>Promise</code>！</p>
-<p>Promise 解決了使用回呼時會產生的回呼地獄，讓整個程式平坦化之外，更多了一些 <code>Promise.all</code> 、 <code>Promise.race</code> 使許多非同步處理能更加的簡潔，</p>
-<p>今天就讓我們一起來看看 <code>Promise</code> 要怎麼使用吧！</p>
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>回顧目前語法章節的部分我們已經學了有關於：</p>
+<ul>
+<li>測試案例與情境：<code>describe</code>、<code>it</code></li>
+<li>測試案例中 Setup 與 Teardown 環節有關的語法： <code>beforeEach</code>、<code>beforeAll</code>、<code>afterEach</code> 與 <code>beforeAll</code></li>
+<li>測試斷言中的各種 <code>Matchers</code> 與快照</li>
+</ul>
+<p>而基於上述幾個語法加上先前的測試概念，我們已經滿足了撰寫基本單元測試的條件了！所以現在是⋯⋯測驗時間！！！</p>
+<p>在測驗章節我們主要流程將會是：</p>
+<ul>
+<li>閱讀故事與題目，釐清需求與規則。</li>
+<li>規劃測試情境與測試案例，並列好描述的部分。</li>
+<li>撰寫測試程式碼（Testing Code），並執行測試時得到測試案例失敗。</li>
+<li>按照題目要求完成產品程式碼（Production Code）</li>
+<li>再次執行測試確保測試通過。</li>
+</ul>
+<p>而本文撰寫測試程式碼與產品程式碼的環節我也會提供 demo 的範例供參考與撰寫思路，那麼就讓我們開始吧！</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/JavaScript/JavaScript-Promise/#more" rel="contents">
+              <a class="btn" href="/testing/ithelp-2022-vitest-16/#more" rel="contents">
                 閱讀全文 &raquo;
               </a>
             </div>
@@ -1241,7 +1161,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
 
 
@@ -1309,7 +1229,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">76</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -1320,7 +1240,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -1385,7 +1305,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="user"></i>
   </span>

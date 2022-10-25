@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文序回顧目前我們經歷過的測試脈絡章節，我們一路上談到了：  根據測試金字塔模型思考測試類型 根據測試類型透過需求表單選擇好測試工具 瞭解測試情境與測試案例的結構思維 瞭解測試案例內部應有的架構  為什麼要大費周章提測試脈絡呢？ 主要是單純的學習測試程式碼只會讓你學到如何用測試程式碼來測試你的實作，但是有脈絡的學習測試將概念與語法抽離開來，才不會在撰寫測試遇到各種心境上的阻礙，所以我們">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【概念ノ章】測試脈絡－5. 撰寫測試碼 FIRST 法則與學習步驟">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-11/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="本文序回顧目前我們經歷過的測試脈絡章節，我們一路上談到了：  根據測試金字塔模型思考測試類型 根據測試類型透過需求表單選擇好測試工具 瞭解測試情境與測試案例的結構思維 瞭解測試案例內部應有的架構  為什麼要大費周章提測試脈絡呢？ 主要是單純的學習測試程式碼只會讓你學到如何用測試程式碼來測試你的實作，但是有脈絡的學習測試將概念與語法抽離開來，才不會在撰寫測試遇到各種心境上的阻礙，所以我們">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+<meta property="article:published_time" content="2022-09-26T12:31:53.000Z">
+<meta property="article:modified_time" content="2022-10-24T08:53:43.120Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Vitest">
+<meta property="article:tag" content="Vue Test Utils">
+<meta property="article:tag" content="Unit Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-11/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【概念ノ章】測試脈絡－5. 撰寫測試碼 FIRST 法則與學習步驟 | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【概念ノ章】測試脈絡－5. 撰寫測試碼 FIRST 法則與學習步驟
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-09-26 20:31:53" itemprop="dateCreated datePublished" datetime="2022-09-26T20:31:53+08:00">2022-09-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 16:53:43" itemprop="dateModified" datetime="2022-10-24T16:53:43+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-11/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-11/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>回顧目前我們經歷過的測試脈絡章節，我們一路上談到了：</p>
+<ol>
+<li>根據測試金字塔模型思考測試類型</li>
+<li>根據測試類型透過需求表單選擇好測試工具</li>
+<li>瞭解測試情境與測試案例的結構思維</li>
+<li>瞭解測試案例內部應有的架構</li>
+</ol>
+<p>為什麼要大費周章提測試脈絡呢？</p>
+<p>主要是單純的學習測試程式碼只會讓你學到如何用測試程式碼來測試你的實作，但是有脈絡的學習測試將概念與語法抽離開來，才不會在撰寫測試遇到各種心境上的阻礙，所以我們要先排除心魔，確認測試是對我們有益的，那麼接下來就能放心的學習測試語法了。</p>
+<p>而今天要來談談最後一部分，那就是關於撰寫測試程式碼前須知的基本觀念！</p>
+<a id="more"></a>
+
+<h2 id="撰寫測試程式碼的須保持的心境"><a href="#撰寫測試程式碼的須保持的心境" class="headerlink" title="撰寫測試程式碼的須保持的心境"></a>撰寫測試程式碼的須保持的心境</h2><p>談到撰寫測試，不得不提到 Robert Cecil Martin 有本經典的《無瑕的程式碼：敏捷軟體開發技巧守則》，作者在其中針對了程式碼的部分提了很多優良的建議，不論是撰寫程式碼中的命名、函式參數等等做探討，也在實際的案例中做一些討論與重構，最後回顧那些程式碼中的氣味、清理程式碼，一氣呵成。</p>
+<p>而其中有一個章節最主要就是在講有關「單元測試」的部分，也就是系列文前言提到「被推坑」的部分，我把裡面的概念結合我的經驗來重新闡述一次：</p>
+<p>若帶著單純學習的心態來看待測試程式碼，其實很容易把它當作一項輔助工具在處理，覺得沒有也沒什麼關係，甚至礙手礙腳的，甚至可能覺得還要特地花了不少心力來瞭解它，但這是一體兩面的。</p>
+<p>若你把它當作產品中的一部分就會發現，雖然開發時會受到測試程式碼的「限制」，但同時他其實也是在做「守護」產品程式碼這件事情；甚至因為有了「可信賴的測試」，所以當我們在進行「重構」等等調整時也才能更有信心地去處理。</p>
+<p>因此只要確保我們在適當的時機加入它，那麼它就能夠帶來可觀的後續效益，而既然他能夠替我們帶來效益，那我們對待測試程式碼的態度其實也應該要同理產品程式碼，可是除了讓測試程式碼如同產品程式碼一樣保持「整潔」與「可讀性」之外，我們還有什麼辦法呢？</p>
+<p>對於這個問題 Martin 給了一個撰寫測試碼的優良準則，那就是 F.I.R.S.T 法則。</p>
+<h2 id="F-I-R-S-T-法則"><a href="#F-I-R-S-T-法則" class="headerlink" title="F.I.R.S.T 法則"></a>F.I.R.S.T 法則</h2><p>F.I.R.S.T 法則顧名思義其實就是五個英文單字的縮寫，他們分別是：</p>
+<ul>
+<li>Fast</li>
+<li>Independent</li>
+<li>Repeatable</li>
+<li>Self-Validating</li>
+<li>Timely</li>
+</ul>
+<h3 id="Fast：快"><a href="#Fast：快" class="headerlink" title="Fast：快"></a>Fast：快</h3><p>簡單來說就是快，因為快才能讓我們快速重複大量地檢驗產品程式碼；這意味著我們在測試程式碼中有可能會遇到要 call API 的情況，那麼我們可以將其隔離並立刻回傳我們預定好的資料來減少等待回應的時間。</p>
+<h3 id="Independent：獨立"><a href="#Independent：獨立" class="headerlink" title="Independent：獨立"></a>Independent：獨立</h3><p>如我們上一篇文章所提到的，每個測試案例應該要互相獨立，彼此不受干擾之外，甚至連執行順序上都不會影響到最終結果。</p>
+<h3 id="Repeatable：可重複"><a href="#Repeatable：可重複" class="headerlink" title="Repeatable：可重複"></a>Repeatable：可重複</h3><p>可重複性主要提的就是不論在什麼設備狀況下，應該都要保持著一致的結果，這樣我們才能排除掉其他不必要的原因，專注在發生問題的程式碼上。</p>
+<h3 id="Self-Validating：能自我驗證"><a href="#Self-Validating：能自我驗證" class="headerlink" title="Self-Validating：能自我驗證"></a>Self-Validating：能自我驗證</h3><p>測試的最終狀態應該要能夠顯示「通過與否」，而這一部分測試工具或框架都會幫我們處理好，甚至都還有提供額外的 diff 差異讓我們快速查看錯誤的地方。</p>
+<h3 id="Timely：即時"><a href="#Timely：即時" class="headerlink" title="Timely：即時"></a>Timely：即時</h3><p>測試程式碼要盡可能的與產品程式碼同進退，如果測試程式碼落後產品程式碼太多，測試程式碼會越來越難跟上產品程式碼的步調。</p>
+<p>而根據對待測試程式碼的心態以及一些前輩給予的優良法則，在撰寫測試程式碼時就能更容易體會到他的魅力。</p>
+<h2 id="語法學習段落"><a href="#語法學習段落" class="headerlink" title="語法學習段落"></a>語法學習段落</h2><p>在概念的部分結束後，接下來我們將專注於如何寫好測試程式碼的語法，而語法這一部分將系統的規劃成下列部分：</p>
+<ul>
+<li>測試情境與測試案例</li>
+<li>測試容器與相關的方法</li>
+<li>模擬瀏覽器行為</li>
+<li>模擬 Vue 元件</li>
+<li>學習各種仿造替身技巧</li>
+<li>處理 Vue 周邊生態工具測試（Router, Pinia）</li>
+</ul>
+<p>同時別忘了明天開始要來利用系列文前面所安裝好的<a href="https://ithelp.ithome.com.tw/articles/10292537" target="_blank" rel="noopener">專案</a>啦！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+              <a href="/tags/Vitest/" rel="tag"># Vitest</a>
+              <a href="/tags/Vue-Test-Utils/" rel="tag"># Vue Test Utils</a>
+              <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-10/" rel="prev" title="【概念ノ章】測試脈絡－4. 測試案例中的 3A 模式">
+      <i class="fa fa-chevron-left"></i> 【概念ノ章】測試脈絡－4. 測試案例中的 3A 模式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-12/" rel="next" title="【語法ノ章】案例與情境：describe & it 與輔助 API">
+      【語法ノ章】案例與情境：describe & it 與輔助 API <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文序"><span class="nav-number">1.</span> <span class="nav-text">本文序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#撰寫測試程式碼的須保持的心境"><span class="nav-number">1.1.</span> <span class="nav-text">撰寫測試程式碼的須保持的心境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#F-I-R-S-T-法則"><span class="nav-number">1.2.</span> <span class="nav-text">F.I.R.S.T 法則</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fast：快"><span class="nav-number">1.2.1.</span> <span class="nav-text">Fast：快</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Independent：獨立"><span class="nav-number">1.2.2.</span> <span class="nav-text">Independent：獨立</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repeatable：可重複"><span class="nav-number">1.2.3.</span> <span class="nav-text">Repeatable：可重複</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Self-Validating：能自我驗證"><span class="nav-number">1.2.4.</span> <span class="nav-text">Self-Validating：能自我驗證</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Timely：即時"><span class="nav-number">1.2.5.</span> <span class="nav-text">Timely：即時</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#語法學習段落"><span class="nav-number">1.3.</span> <span class="nav-text">語法學習段落</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/ithelp-2022-vitest-11/";
+    this.page.identifier = "testing/ithelp-2022-vitest-11/";
+    this.page.title = "【概念ノ章】測試脈絡－5. 撰寫測試碼 FIRST 法則與學習步驟";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

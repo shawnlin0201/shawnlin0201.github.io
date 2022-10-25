@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文序在進入測試的正文前，本文將帶著讀者一起來安裝系列文專用的測試專案，這份專案內含後續文章會介紹到的測試程式碼以及各元件基本的視覺操作介面，接下來的幾天就可以一邊看著文章一邊操作，同時如果想修改測試程式碼來觀看差異也非常方便。 本文章提供兩種安裝指南供讀者閱讀，可視讀者的需求來選擇觀看唷：  若讀者本身電腦已安裝並熟悉 NVM 與 Git 操作，請參考【快速通道】指南。 若尚未接觸過">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【初始ノ章】測試建置：跟著系列文一起學測試">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-02/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="本文序在進入測試的正文前，本文將帶著讀者一起來安裝系列文專用的測試專案，這份專案內含後續文章會介紹到的測試程式碼以及各元件基本的視覺操作介面，接下來的幾天就可以一邊看著文章一邊操作，同時如果想修改測試程式碼來觀看差異也非常方便。 本文章提供兩種安裝指南供讀者閱讀，可視讀者的需求來選擇觀看唷：  若讀者本身電腦已安裝並熟悉 NVM 與 Git 操作，請參考【快速通道】指南。 若尚未接觸過">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220917/20119062CcuD1FBnHO.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220917/20119062hNv22uoifE.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220917/201190628Yp8opdtfJ.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220917/201190620qyiJGjY4K.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220917/20119062NeaFUosjBZ.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220917/20119062ELJbe4EQKf.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220917/20119062JSkOSHYCf4.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220917/20119062DFdHlW74u1.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220917/20119062pQKDiT5bJz.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220917/20119062h3s2VuNasT.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220917/20119062OKCN0L0k01.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220917/20119062ixG26cyrHP.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220917/201190624JgnsPQP41.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220917/20119062CUKPJhSrZf.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20220917/20119062hL2GGYdyuI.png">
+<meta property="article:published_time" content="2022-09-17T09:49:06.000Z">
+<meta property="article:modified_time" content="2022-10-24T08:45:26.374Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Vitest">
+<meta property="article:tag" content="Vue Test Utils">
+<meta property="article:tag" content="Unit Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-02/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【初始ノ章】測試建置：跟著系列文一起學測試 | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【初始ノ章】測試建置：跟著系列文一起學測試
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-09-17 17:49:06" itemprop="dateCreated datePublished" datetime="2022-09-17T17:49:06+08:00">2022-09-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 16:45:26" itemprop="dateModified" datetime="2022-10-24T16:45:26+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-02/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-02/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>在進入測試的正文前，本文將帶著讀者一起來安裝系列文專用的測試專案，這份專案內含後續文章會介紹到的測試程式碼以及各元件基本的視覺操作介面，接下來的幾天就可以一邊看著文章一邊操作，同時如果想修改測試程式碼來觀看差異也非常方便。</p>
+<p>本文章提供兩種安裝指南供讀者閱讀，可視讀者的需求來選擇觀看唷：</p>
+<ul>
+<li>若讀者本身電腦已安裝並熟悉 <code>NVM</code> 與 <code>Git</code> 操作，請參考【快速通道】指南。</li>
+<li>若尚未接觸過 <code>NVM</code> 或 <code>Git</code> 的讀者，想一步一步操作，請參考【詳細安裝說明】指南。</li>
+</ul>
+<a id="more"></a>
+
+<h1 id="【快速通道】："><a href="#【快速通道】：" class="headerlink" title="【快速通道】："></a>【快速通道】：</h1><p>由於 <code>Vitest</code> 需求本身需要 <code>Node.js</code> 14 以上的版本，請將 <code>Node.js</code> 版本調整至 14 以上複製專案：</p>
+<p><code>git clone https://github.com/shawnlin0201/ithelp2022-vue3-unit-test.git</code></p>
+<p>接著透過 <code>npm install</code> 安裝依賴工具後，就能透過 <code>npm run dev</code> 啟動專案。</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220917/20119062CcuD1FBnHO.png" alt="https://ithelp.ithome.com.tw/upload/images/20220917/20119062CcuD1FBnHO.png"></p>
+<p>而測試的部分則可以透過終端機執行 <code>npm run test:unit</code> 。</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220917/20119062hNv22uoifE.png" alt="https://ithelp.ithome.com.tw/upload/images/20220917/20119062hNv22uoifE.png"></p>
+<p>若專案跟測試都能順利啟動，就沒問題了。<br>作者也會依照當天系列文來更新專案，所以別忘了透過 <code>Git</code> 來抓取當天最新進度唷！<br>接下來讓我們跟著系列文一起學習單元測試吧！</p>
+<hr>
+<h1 id="【詳細安裝說明】："><a href="#【詳細安裝說明】：" class="headerlink" title="【詳細安裝說明】："></a>【詳細安裝說明】：</h1><p>接下來安裝專案的部分由於有切換或管理 <code>Node.js</code> 版本的需求，因此這裡建議安裝 <code>NVM</code> 來處理；而專案本身後續會依照每日需要的做即時更新，因此我們需要透過 <code>Git</code> 來更新與安裝我們專案程式碼。</p>
+<p>所以接下來的步驟主要會是：<br>一、安裝 NVM<br>二、透過 NVM 安裝 Node.js 並切換到對應版本<br>三、安裝 Git GUI Tool<br>四、透過 Git GUI Tool Clone 系列文專案<br>五、啟動系列文專案</p>
+<h2 id="一、安裝-NVM"><a href="#一、安裝-NVM" class="headerlink" title="一、安裝 NVM"></a>一、安裝 NVM</h2><p>在開發的過程中，有時候會遇到不同的專案間要使用不同的 Node.js 版本，而透過 <code>NVM</code> ，我們就能在不同情境下快速切換到我們需要的 <code>Node.js</code> 版本。</p>
+<h3 id="使用-Windows-系統安裝-NVM："><a href="#使用-Windows-系統安裝-NVM：" class="headerlink" title="使用 Ｗindows 系統安裝 NVM："></a>使用 Ｗindows 系統安裝 NVM：</h3><ol>
+<li>請至官方 release 文件中下載 <a href="[https://github.com/coreybutler/nvm-windows/releases](https://github.com/coreybutler/nvm-windows/releases)">nvm-setup</a>。</li>
+<li>依照 Windows 安裝精靈下載完成。</li>
+<li>打開「命令提示字元」後輸入 <code>nvm</code> ，若有出現 Runnine version x.x.x 版本號碼表示安裝成功。</li>
+</ol>
+<h3 id="使用-MacOS-系統安裝-NVM："><a href="#使用-MacOS-系統安裝-NVM：" class="headerlink" title="使用 MacOS 系統安裝 NVM："></a>使用 MacOS 系統安裝 NVM：</h3><ol>
+<li>同時按下 <code>cmd(⌘) + 空白鍵</code> ，輸入 terminal 後，打開「終端機」，執行下面一種指令：</li>
+</ol>
+<ul>
+<li><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash</code></li>
+</ul>
+<ol start="2">
+<li>此時應該會自動生成 <code>nvm</code> 路徑檔案至你的環境中，請務必關掉「終端機」，再繼續以下步驟。</li>
+<li>重新打開「終端機」後，輸入指令 <code>nvm -v</code> 確認是否有版本號跳出表示安裝成功，可以準備來安裝 <code>Node.js</code> 了。</li>
+</ol>
+<h4 id="若步驟-3-時出現-command-not-found-怎麼辦？"><a href="#若步驟-3-時出現-command-not-found-怎麼辦？" class="headerlink" title="若步驟 3 時出現 command not found 怎麼辦？"></a>若步驟 3 時出現 <code>command not found</code> 怎麼辦？</h4><p>正常安裝完 <code>NVM</code> 後系統應該會自動根據終端機的指令工具補上對應的語法路徑，若沒有表示可能指令工具的路徑出現了狀況，因此我們需要確認當下的指令工具，並補上對應的 <code>nvm</code> 設定。</p>
+<ol>
+<li>首先，在終端機輸入 <code>echo $SHELL</code> 來檢視目前所使用的指令工具。</li>
+<li>接著依據不同的指令工具在對應的地方補上 <code>nvm</code> 指令設定：</li>
+</ol>
+<h5 id="echo-SHELL-出來的指令工具為-bin-bash-或顯示為-bash："><a href="#echo-SHELL-出來的指令工具為-bin-bash-或顯示為-bash：" class="headerlink" title="echo $SHELL 出來的指令工具為 /bin/bash 或顯示為 bash："></a><code>echo $SHELL</code> 出來的指令工具為 /bin/bash 或顯示為 bash：</h5><p>a. 執行 <code>touch ~/.bash_profile</code> ，若環境根目錄尚未有 <code>.bash_profile</code>檔案會自動會生成出來。<br>b. 打開 Finder，點開上方「前往」。<br>c. 點選「個人專屬」。<br>d. 同時按下 <code>cmd(⌘) + Shift + .</code> 顯示隱藏檔案。<br>e. 用文字編輯器打開 <code>.bash_profile</code> 檔案。<br>f. 將底下程式碼複製貼上到 <code>.bash_profile</code> 檔案的末端，並存檔。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> NVM_DIR=<span class="string">"$HOME/.nvm"</span></span><br><span class="line">[ -s "$NVM_DIR/nvm.sh" ] &amp;&amp; \. "$NVM_DIR/nvm.sh"  # This loads nvm</span><br><span class="line">[ -s "$NVM_DIR/bash_completion" ] &amp;&amp; \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion</span><br></pre></td></tr></table></figure>
+
+<h5 id="echo-SHELL-出來的指令工具為-zsh："><a href="#echo-SHELL-出來的指令工具為-zsh：" class="headerlink" title="echo $SHELL 出來的指令工具為 zsh："></a><code>echo $SHELL</code> 出來的指令工具為 zsh：</h5><p>a. 打開 Finder，點開上方「前往」。<br>b. 點選「個人專屬」。<br>c. 按下 <code>cmd(⌘) + Shift + .</code> 顯示隱藏檔案。<br>d. 用文字編輯器打開 <code>.zshrc</code> 檔案。<br>e. 將底下程式碼複製貼上到 <code>.zshrc</code> 檔案的末端，並存檔。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> NVM_DIR=<span class="string">"$HOME/.nvm"</span></span><br><span class="line">[ -s "$NVM_DIR/nvm.sh" ] &amp;&amp; \. "$NVM_DIR/nvm.sh"  # This loads nvm</span><br><span class="line">[ -s "$NVM_DIR/bash_completion" ] &amp;&amp; \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>補上指令後，回到「終端機」執行 <code>nvm -v</code> ，這時候應該就會有版本號訊息了。</li>
+</ol>
+<hr>
+<h2 id="二、透過-NVM-安裝-Node-js-並切換到對應版本"><a href="#二、透過-NVM-安裝-Node-js-並切換到對應版本" class="headerlink" title="二、透過 NVM 安裝 Node.js 並切換到對應版本"></a>二、透過 NVM 安裝 Node.js 並切換到對應版本</h2><p>在上個步驟我們確認好 <code>NVM</code> 已經安裝完畢，接著我們要透過 <code>NVM</code> 來下載與切換我們 <code>Node.js</code> 的版本號碼。</p>
+<ol>
+<li>在命令提示字元或終端機中輸入 <code>nvm ls</code> 此時會顯示目前電腦中對應的 <code>node.js</code> 版本號，若未下載過則通常會指著 system。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">   ...</span><br><span class="line">-&gt; system</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
+
+<p>若有透過 <code>nvm</code> 裝過不同 <code>Node.js</code> 版本的出現像這樣的版本號：<br><img src="https://ithelp.ithome.com.tw/upload/images/20220917/201190628Yp8opdtfJ.png" alt="https://ithelp.ithome.com.tw/upload/images/20220917/201190628Yp8opdtfJ.png"></p>
+<ol start="2">
+<li>接著執行 <code>nvm ls-remote</code> 會列出目前可供安裝的 Node.js 版本號碼列表。</li>
+</ol>
+<blockquote>
+<p>補充說明：<br>其中有 <code>LTS(Long-term support)</code> 標記的為有長期支援服務的版本。<br>按照 Node.js LTS 維護週期表來說，每年4月份發佈的偶數版本號會在為期 18 個月的 LTS 維護啟動後還多了個 Maintenanece 維護期來保證會處理一些嚴重的 Bug, 安全問題等等的修復。<br>因此除了工具本身的限制以外，若要挑選一個適當的 Node.js 版本來啟動專案，可以尋找偶數 LTS 版本號。</p>
+</blockquote>
+<ol start="3">
+<li>挑選合適的版本後，透過 <code>nvm install v16.17.0</code> 來安裝我們所需要的版本號碼。</li>
+<li>透過 <code>nvm use v16.17.0</code> 便可以切換版本號了，再一次透過 <code>nvm ls</code> 確認，此時應該會看到箭頭改為指向 <code>v16.17.0</code>。<br><img src="https://ithelp.ithome.com.tw/upload/images/20220917/201190620qyiJGjY4K.png" alt="https://ithelp.ithome.com.tw/upload/images/20220917/201190620qyiJGjY4K.png"></li>
+</ol>
+<hr>
+<h2 id="三、安裝-Git-GUI-Tool"><a href="#三、安裝-Git-GUI-Tool" class="headerlink" title="三、安裝 Git GUI Tool"></a>三、安裝 Git GUI Tool</h2><p>在專案的控管中，版本控管是一門不簡單的學問，而在這個專案我們會使用到 Git 版控系統來管理專案，透過相關指令我們就可以操作基於同個版控系統的專案（新增、複製、修改與更新等等功能）！</p>
+<blockquote>
+<p>若對於 Git 指令操作有興趣，想深入學習這裡推薦這本由高見龍前輩所撰寫的<a href="[https://www.tenlong.com.tw/products/9789864342662?utm_source=gitbook&utm_medium=site](https://www.tenlong.com.tw/products/9789864342662?utm_source=gitbook&utm_medium=site)">《為你自己學 Git》</a>書籍！</p>
+</blockquote>
+<p>然而一開始操作大量的指令對於尚未熟悉終端機的讀者可能會感到害怕，因此這裡推薦採用 GitHub Desktop（Git GUI Tool） 來安裝系列文專案：</p>
+<blockquote>
+<p>Git GUI Tool<br>其中的 GUI 意思為 Graphic User Interface（圖形使用者介面），因此 Git GUI Tool  簡單來說就是讓你能夠方便操作 Git 指令的圖形化工具。</p>
+</blockquote>
+<blockquote>
+<p>GitHub Desktop<br>GitHub 所開源的一套 Git GUI Tool ，除了可以快速操作 Git 相關動作也有結合 GitHub 網站本身的一些服務。</p>
+</blockquote>
+<ol>
+<li>首先到 GitHub Desktop <a href="[https://desktop.github.com/](https://desktop.github.com/)">官方網站</a>下載軟體，網站會自動偵測當下的系統環境提供適合的版本。</li>
+<li>下載完成後開啟 GitHub Desktop 就會進入歡迎畫面，直接點選 Skip this step（這邊主要是方便原先有在使用 GitHub 的用戶可以快速結合相關服務的地方，所以不用註冊其實也是能使用的。）</li>
+</ol>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220917/20119062NeaFUosjBZ.png" alt="https://ithelp.ithome.com.tw/upload/images/20220917/20119062NeaFUosjBZ.png"></p>
+<ol start="3">
+<li>進入下一頁來到 Configure Git，這頁簡單來說主要是讓你後續變更時，Git 版控系統需要紀錄是「誰」在操作的，因此這頁會需要填寫一下基本的稱呼與可以聯絡到你的信箱。</li>
+</ol>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220917/20119062ELJbe4EQKf.png" alt="https://ithelp.ithome.com.tw/upload/images/20220917/20119062ELJbe4EQKf.png"></p>
+<ol start="4">
+<li>填寫完畢後就會看到 GitHub Desktop 主要頁面，點選右方的 Clone a repository。<br>（或是點選左上角 <code>Current repository</code> 按鈕，再點選 <code>Add</code> 按鈕，也會有個 Clone a repository 。）</li>
+</ol>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220917/20119062JSkOSHYCf4.png" alt="https://ithelp.ithome.com.tw/upload/images/20220917/20119062JSkOSHYCf4.png"></p>
+<ol start="5">
+<li>出現小視窗後點選右方的 URL 頁籤，在上方 Repository URL 填入  <code>[https://github.com/shawnlin0201/ithelp2022-vue3-unit-test.git](https://github.com/shawnlin0201/ithelp2022-vue3-unit-test.git)</code> ，下方的 Local Path 則可以點選右方的 Choose，自行選擇一個好的位置來放置這個專案（後續若要開啟專案的會這個就會是放置專案的實際位置）。</li>
+</ol>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220917/20119062DFdHlW74u1.png" alt="https://ithelp.ithome.com.tw/upload/images/20220917/20119062DFdHlW74u1.png"></p>
+<ol start="6">
+<li>Clone 完成後，畫面的佈局就會長得像這樣子（這邊以 MacOS 版本 Dark 模式為例），左上角就會顯示當下檢視中的 repository（<code>ithelp2022-vue3-unit-test</code>）。</li>
+</ol>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220917/20119062pQKDiT5bJz.png" alt="https://ithelp.ithome.com.tw/upload/images/20220917/20119062pQKDiT5bJz.png"></p>
+<ol start="7">
+<li>後續觀看系列文若想更新當下最新的版本下來，只需要點選軟體上方 Repository 頁籤後，點擊 Pull，即可更新本地端的檔案囉。</li>
+</ol>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220917/20119062h3s2VuNasT.png" alt="https://ithelp.ithome.com.tw/upload/images/20220917/20119062h3s2VuNasT.png"></p>
+<p>確認專案已經下載好後，接下來我們要準備安裝專案本身要用的工具，使用 GitHub Desktop 的話則可以從上方 Repository &gt; Open in Terminal 中快速開啟。</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220917/20119062OKCN0L0k01.png" alt="https://ithelp.ithome.com.tw/upload/images/20220917/20119062OKCN0L0k01.png"></p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220917/20119062ixG26cyrHP.png" alt="https://ithelp.ithome.com.tw/upload/images/20220917/20119062ixG26cyrHP.png"></p>
+<p>從這種方式開啟後，終端機所在目錄就會是該專案的根目錄了。<br>確認沒問題後就可以來安裝專案所需要的工具啦！</p>
+<h2 id="安裝與啟動系列文專案"><a href="#安裝與啟動系列文專案" class="headerlink" title="安裝與啟動系列文專案"></a>安裝與啟動系列文專案</h2><p>在安裝完 NVM 與 Git 之後，讓我們先在終端機執行 <code>nvm ls</code> 重新確認一下現在 Node.js 版本號是否為 14 以上：</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220917/201190624JgnsPQP41.png" alt="https://ithelp.ithome.com.tw/upload/images/20220917/201190624JgnsPQP41.png"></p>
+<p>沒問題的話接下來就可以在終端機執行 <code>npm install</code> 安裝專案中所需要的工具。</p>
+<h3 id="啟動專案"><a href="#啟動專案" class="headerlink" title="啟動專案"></a>啟動專案</h3><p>待安裝完畢後，終端機執行 <code>npm run dev</code> 可啟動專案：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VITE v3.1.0  ready <span class="keyword">in</span> 1369 ms</span><br><span class="line"></span><br><span class="line">  ➜  Local:   http://127.0.0.1:5173/</span><br><span class="line">  ➜  Network: use --host to expose</span><br></pre></td></tr></table></figure>
+
+<p>在瀏覽器中輸入 <code>[http://127.0.0.1:5173/](http://127.0.0.1:5173/)</code> （請依據你當下終端機顯示的 Local 為主），開啟後弱看到下方畫面就算完成囉！</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220917/20119062CUKPJhSrZf.png" alt="https://ithelp.ithome.com.tw/upload/images/20220917/20119062CUKPJhSrZf.png"></p>
+<h3 id="啟動測試"><a href="#啟動測試" class="headerlink" title="啟動測試"></a>啟動測試</h3><p>啟動測試的話，則只需要在終端機執行 <code>npm run test:unit</code> ，終端機就會開始執行測試：</p>
+<p><img src="https://ithelp.ithome.com.tw/upload/images/20220917/20119062hL2GGYdyuI.png" alt="https://ithelp.ithome.com.tw/upload/images/20220917/20119062hL2GGYdyuI.png"></p>
+<p>由於目前都先將測試案例跳過的關係，因此目前執行測試應該會只有 <code>skipped</code> 的結果。</p>
+<p>到這邊為止如果啟動專案跟測試都沒問題的話，就可以繼續閱讀後續的章節囉！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+              <a href="/tags/Vitest/" rel="tag"># Vitest</a>
+              <a href="/tags/Vue-Test-Utils/" rel="tag"># Vue Test Utils</a>
+              <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-01/" rel="prev" title="【初始ノ章】前言與 TOC">
+      <i class="fa fa-chevron-left"></i> 【初始ノ章】前言與 TOC
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-03/" rel="next" title="【初始ノ章】測試建置：在自己的專案加入單元測試來學測試">
+      【初始ノ章】測試建置：在自己的專案加入單元測試來學測試 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文序"><span class="nav-number">1.</span> <span class="nav-text">本文序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【快速通道】："><span class="nav-number">2.</span> <span class="nav-text">【快速通道】：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【詳細安裝說明】："><span class="nav-number">3.</span> <span class="nav-text">【詳細安裝說明】：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、安裝-NVM"><span class="nav-number">3.1.</span> <span class="nav-text">一、安裝 NVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-Windows-系統安裝-NVM："><span class="nav-number">3.1.1.</span> <span class="nav-text">使用 Ｗindows 系統安裝 NVM：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-MacOS-系統安裝-NVM："><span class="nav-number">3.1.2.</span> <span class="nav-text">使用 MacOS 系統安裝 NVM：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#若步驟-3-時出現-command-not-found-怎麼辦？"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">若步驟 3 時出現 command not found 怎麼辦？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#echo-SHELL-出來的指令工具為-bin-bash-或顯示為-bash："><span class="nav-number">3.1.2.1.1.</span> <span class="nav-text">echo $SHELL 出來的指令工具為 &#x2F;bin&#x2F;bash 或顯示為 bash：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#echo-SHELL-出來的指令工具為-zsh："><span class="nav-number">3.1.2.1.2.</span> <span class="nav-text">echo $SHELL 出來的指令工具為 zsh：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、透過-NVM-安裝-Node-js-並切換到對應版本"><span class="nav-number">3.2.</span> <span class="nav-text">二、透過 NVM 安裝 Node.js 並切換到對應版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、安裝-Git-GUI-Tool"><span class="nav-number">3.3.</span> <span class="nav-text">三、安裝 Git GUI Tool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安裝與啟動系列文專案"><span class="nav-number">3.4.</span> <span class="nav-text">安裝與啟動系列文專案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#啟動專案"><span class="nav-number">3.4.1.</span> <span class="nav-text">啟動專案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#啟動測試"><span class="nav-number">3.4.2.</span> <span class="nav-text">啟動測試</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/ithelp-2022-vitest-02/";
+    this.page.identifier = "testing/ithelp-2022-vitest-02/";
+    this.page.title = "【初始ノ章】測試建置：跟著系列文一起學測試";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

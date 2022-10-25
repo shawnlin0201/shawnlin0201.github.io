@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文序今天要來介紹在 Vitest 工具中，有關於測試替身的語法有哪些內容，並且一樣會參考 Gerard Meszaros 的五大測試替身概念，來看看我們應該如何實際應用在真實的測試案例當中！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【語法ノ章】測試替身（Test Double）feat. Vitest Mocking API（Date, Timer）">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-28/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="本文序今天要來介紹在 Vitest 工具中，有關於測試替身的語法有哪些內容，並且一樣會參考 Gerard Meszaros 的五大測試替身概念，來看看我們應該如何實際應用在真實的測試案例當中！">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+<meta property="article:published_time" content="2022-10-13T11:05:22.000Z">
+<meta property="article:modified_time" content="2022-10-24T11:19:57.463Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Vitest">
+<meta property="article:tag" content="Vue Test Utils">
+<meta property="article:tag" content="Unit Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-28/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【語法ノ章】測試替身（Test Double）feat. Vitest Mocking API（Date, Timer） | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-28/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【語法ノ章】測試替身（Test Double）feat. Vitest Mocking API（Date, Timer）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-10-13 19:05:22" itemprop="dateCreated datePublished" datetime="2022-10-13T19:05:22+08:00">2022-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 19:19:57" itemprop="dateModified" datetime="2022-10-24T19:19:57+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-28/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-28/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>今天要來介紹在 Vitest 工具中，有關於測試替身的語法有哪些內容，並且一樣會參考 Gerard Meszaros 的<a href="https://ithelp.ithome.com.tw/articles/10307288" target="_blank" rel="noopener">五大測試替身概念</a>，來看看我們應該如何實際應用在真實的測試案例當中！</p>
+<a id="more"></a>
+
+<h2 id="Vitest-的測試替身"><a href="#Vitest-的測試替身" class="headerlink" title="Vitest 的測試替身"></a>Vitest 的測試替身</h2><p>Vitest 本身作為測試執行環境工具，提供的測試替身（Test Doubles）種類與應用範圍比起 Vue Test Utils 要來的多且廣泛，而在 Vitest 官方<a href="https://vitest.dev/guide/mocking.html" target="_blank" rel="noopener">文件</a>中對於這一類的測試替身相關的內容泛稱為 「Mocking」；因此，本文將以「Mocking API」 統稱這些 Vitest API，並不代表這些 API 都屬於五大分類中 Mock 類型的測試替身喔！</p>
+<p>而 Vitest Mocking API，主要都放置於 <code>vi</code> 模組底下，因此若要使用 Vitest Mocking API 時，我們只要在測試檔案底下引入即可：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; describe, it, expect, vi&#125; <span class="keyword">from</span> <span class="string">'vitest'</span></span><br></pre></td></tr></table></figure>
+
+<p>若你覺得每個檔案都要這樣引入太麻煩的話，我們可以在 Vitest <a href="https://ithelp.ithome.com.tw/articles/10294024" target="_blank" rel="noopener">Config</a> 中設定 <code>test.globals</code> 為 <code>true</code>，如此一來 Vitest API 將會以全域性的方式提供，我們就不必每次都要在測試檔案中引入 Vitest 了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">'vitest/config'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> defineConfig(&#123;</span><br><span class="line">  test: &#123;</span><br><span class="line">    globals: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>倘若專案中有使用到 <a href="https://eslint.org/" target="_blank" rel="noopener">esLint</a> 工具協助糾錯的話，此時會因為 Vitest API 沒有被引入而顯示宣告上有錯誤，因此我們要在 <code>.eslintrc.json</code> 中主動告知有哪些是屬於全域性的變數：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="string">"globals"</span>: &#123;</span><br><span class="line">    <span class="string">"describe"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"it"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"expect"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"vi"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>若專案中有使用到 TypeScript 的話，則需在 <code>tsconfig.json</code> 中補上 <code>types</code>，如此一來就能抓到透過全域變數的型別：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="string">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="string">"types"</span>: [<span class="string">"vitest/globals"</span>]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在設定完這些後，我們就可以來看看 Vitest Mocking API 有哪些方法。</p>
+<h2 id="Vitest-Mocking-API"><a href="#Vitest-Mocking-API" class="headerlink" title="Vitest Mocking API"></a>Vitest Mocking API</h2><p>Vitest 本身內建的 Mocking API 主要有以下幾種分類：</p>
+<ul>
+<li>Dates：用於模擬日期</li>
+<li>Timers：用於模擬計時器（<code>setTimeout</code>、<code>setInterval</code>）</li>
+<li>Functions：用於模擬函式</li>
+<li>Globals：用於模擬全域變數</li>
+<li>Modules：用於模擬模組引入</li>
+</ul>
+<h3 id="Dates"><a href="#Dates" class="headerlink" title="Dates"></a>Dates</h3><p>在開發的過程中，有時候我們可能會遇到功能實作與系統時間有關的實作，這時候我們就可以使用這些 API 來協助我們進行測試：</p>
+<ul>
+<li><code>vi.useFakeTimers</code></li>
+<li><code>vi.setSystemTime</code></li>
+<li><code>vi.useRealTimers</code></li>
+<li><code>vi.getMockedSystemTime</code></li>
+<li><code>vi.getRealSystemTime</code></li>
+<li><code>vi.restoreCurrentDate</code></li>
+</ul>
+<p>在測試案例中模擬日期時，我們可以透過 <code>vi.useFakeTimers</code> 來模擬系統時間，接著就可以透過 <code>vi.setSystemTime</code> 設定模擬系統時間：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should mock system time'</span>, () =&gt; &#123;</span><br><span class="line">    vi.useFakeTimers()</span><br><span class="line">    vi.setSystemTime(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2022-10-13'</span>))</span><br><span class="line"></span><br><span class="line">    expect(<span class="keyword">new</span> <span class="built_in">Date</span>()).toEqual(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2022-10-13'</span>))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>若要恢復模擬系統時間，可以透過 <code>vi.useRealTimers</code> 來恢復系統時間：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">it(<span class="string">'should restore system time'</span>, () =&gt; &#123;</span><br><span class="line">    vi.useFakeTimers()</span><br><span class="line">    vi.setSystemTime(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2022-10-13'</span>))</span><br><span class="line">    vi.useRealTimers()</span><br><span class="line"></span><br><span class="line">    expect(<span class="keyword">new</span> <span class="built_in">Date</span>()).not.toEqual(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2022-10-13'</span>))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>也可以結合先前 Setup &amp; Teardown API 的概念，快速設定各個測試案例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> formatDateTime = <span class="function">(<span class="params">date</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> year = date.getFullYear()</span><br><span class="line">  <span class="keyword">const</span> month = date.getMonth() + <span class="number">1</span></span><br><span class="line">  <span class="keyword">const</span> day = date.getDate()</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;year&#125;</span>-<span class="subst">$&#123;month&#125;</span>-<span class="subst">$&#123;day&#125;</span>`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">describe(<span class="string">'mock system time'</span>, () =&gt; &#123;</span><br><span class="line">  beforeEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    vi.useFakeTimers()</span><br><span class="line">  &#125;)</span><br><span class="line">  afterEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    vi.useRealTimers()</span><br><span class="line">  &#125;)</span><br><span class="line">  it(<span class="string">'should mock system time'</span>, () =&gt; &#123;</span><br><span class="line">    vi.setSystemTime(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2022-10-13'</span>))</span><br><span class="line">    expect(<span class="keyword">new</span> <span class="built_in">Date</span>()).toEqual(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2022-10-13'</span>))</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  it(<span class="string">'should restore system time'</span>, () =&gt; &#123;</span><br><span class="line">    expect(formatDateTime(<span class="keyword">new</span> <span class="built_in">Date</span>())).toEqual(formatDateTime(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2022-10-13'</span>)))</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>若要取得目前模擬的系統時間，可以透過 <code>vi.getMockedSystemTime</code> 來取得：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should get mocked system time'</span>, () =&gt; &#123;</span><br><span class="line">    vi.useFakeTimers()</span><br><span class="line">    vi.setSystemTime(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2022-10-13'</span>))</span><br><span class="line"></span><br><span class="line">    expect(vi.getMockedSystemTime()).toEqual(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2022-10-13'</span>))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>若要取得目前真實系統的時間，則可以透過 <code>vi.getRealSystemTime</code> 來取得：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should get real system time'</span>, () =&gt; &#123;</span><br><span class="line">    vi.useFakeTimers()</span><br><span class="line">    vi.setSystemTime(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2022-10-13'</span>))</span><br><span class="line"></span><br><span class="line">    expect(vi.getRealSystemTime()).not.toEqual(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2022-10-13'</span>))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>最後，想要將從模擬系統時間恢復成真實系統的時間，可以透過 <code>vi.restoreCurrentDate</code> 來恢復：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should restore current date'</span>, () =&gt; &#123;</span><br><span class="line">    vi.useFakeTimers()</span><br><span class="line">    vi.setSystemTime(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2022-10-13'</span>))</span><br><span class="line">    vi.restoreCurrentDate()</span><br><span class="line"></span><br><span class="line">    expect(<span class="keyword">new</span> <span class="built_in">Date</span>()).not.toEqual(<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2022-10-13'</span>))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Timers"><a href="#Timers" class="headerlink" title="Timers"></a>Timers</h3><p>Vitest 也提供了與計時器相關的 API，讓我們可以模擬 <code>setTimeout</code>、<code>setInterval</code> 的行為：</p>
+<ul>
+<li><code>vi.useFakeTimers</code></li>
+<li><code>vi.runAllTimers</code></li>
+<li><code>vi.runOnlyPendingTimers</code></li>
+<li><code>vi.advanceTimersByTime</code></li>
+<li><code>vi.advanceTimersToNextTimer</code></li>
+<li><code>vi.restoreAllMocks</code></li>
+</ul>
+<p>與日期相關的 API 類似，在模擬計時器之前，我們要透過 <code>vi.useFakeTimers</code> 讓當下環境中的計時器指定為模擬的計時器，接著就可以使用 <code>runAllTimers</code> 讓模擬計時器開始執行計時的功能：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should mock timers'</span>, () =&gt; &#123;</span><br><span class="line">    vi.useFakeTimers()</span><br><span class="line">    <span class="keyword">const</span> mockFn = vi.fn()</span><br><span class="line"></span><br><span class="line">    setTimeout(mockFn, <span class="number">1000</span>)</span><br><span class="line">    vi.runAllTimers()</span><br><span class="line"></span><br><span class="line">    expect(mockFn).toHaveBeenCalled()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>有時候我們計時器可能會有遞迴的情況，這時候可以透過 <code>vi.runOnlyPendingTimers</code> 來執行下一個應該要執行的計時器，從而捕捉各個計時器之間發生過程的相關內容：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should run only pending timers'</span>, () =&gt; &#123;</span><br><span class="line">  vi.useFakeTimers()</span><br><span class="line">  <span class="keyword">const</span> cache = &#123;</span><br><span class="line">    count: <span class="number">0</span>,</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> mockFn = vi.fn(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    cache.count++</span><br><span class="line"></span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      mockFn()</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  mockFn() <span class="comment">// 此時 cache.count === 1</span></span><br><span class="line"></span><br><span class="line">  expect(cache.count).toEqual(<span class="number">1</span>)</span><br><span class="line">  vi.runOnlyPendingTimers() <span class="comment">// 執行下一個 setTimeout</span></span><br><span class="line">  expect(cache.count).toEqual(<span class="number">2</span>)</span><br><span class="line">  vi.runOnlyPendingTimers() <span class="comment">// 執行下一個 setTimeout</span></span><br><span class="line">  expect(cache.count).toEqual(<span class="number">3</span>)</span><br><span class="line">  vi.runOnlyPendingTimers() <span class="comment">// 執行下一個 setTimeout</span></span><br><span class="line">  expect(cache.count).toEqual(<span class="number">4</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>除了階段性的執行計時器，若想直接讓計時器被提前到指定的時間，可以透過 <code>vi.advanceTimersByTime</code> 來達成：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should advance timers by time'</span>, () =&gt; &#123;</span><br><span class="line">  vi.useFakeTimers()</span><br><span class="line">  <span class="keyword">const</span> mockFn = vi.fn()</span><br><span class="line"></span><br><span class="line">  setTimeout(mockFn, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">  vi.advanceTimersByTime(<span class="number">999</span>) <span class="comment">// 計時器被提前 999 毫秒執行</span></span><br><span class="line">  expect(mockFn).not.toHaveBeenCalled()</span><br><span class="line">  vi.advanceTimersByTime(<span class="number">1</span>) <span class="comment">// 計時器被提前 1000 毫秒執行</span></span><br><span class="line">  expect(mockFn).toHaveBeenCalled()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>若想直接讓計時器被提前到下一個計時器的時間，可以透過 <code>vi.advanceTimersToNextTimer</code> 來達成：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should advance timers to next timer'</span>, () =&gt; &#123;</span><br><span class="line">  vi.useFakeTimers()</span><br><span class="line">  <span class="keyword">const</span> mockFn = vi.fn()</span><br><span class="line"></span><br><span class="line">  setTimeout(mockFn, <span class="number">1000</span>)</span><br><span class="line">  setTimeout(mockFn, <span class="number">3000</span>)</span><br><span class="line"></span><br><span class="line">  vi.advanceTimersToNextTimer() <span class="comment">// 所有計時器提前了 1000 毫秒</span></span><br><span class="line">  expect(mockFn).toHaveBeenCalled()</span><br><span class="line">  vi.advanceTimersToNextTimer() <span class="comment">// 所有計時器被提前了 3000 毫秒</span></span><br><span class="line">  expect(mockFn).toHaveBeenCalled()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>最後，如果想要將從模擬計時器恢復成真實計時器的時候，可以透過 <code>vi.restoreAllMocks</code> 方法達成：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">it(<span class="string">'should restore all mocks'</span>, () =&gt; &#123;</span><br><span class="line">    vi.useFakeTimers()</span><br><span class="line">    <span class="keyword">const</span> mockFn = vi.fn()</span><br><span class="line"></span><br><span class="line">    setTimeout(mockFn, <span class="number">1000</span>)</span><br><span class="line">    vi.restoreAllMocks()</span><br><span class="line"></span><br><span class="line">    expect(mockFn).not.toHaveBeenCalled()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>今日 Vitest Mocking API 先介紹到這邊，相信光是模擬日期與計時器的 API，就足夠讓你驚訝於 Vitest Mocking API 的威力，在瀏覽器環境囂張的計時器，在測試環境中，竟然可以如此任由我們所擺佈。</p>
+<p>但最重要的是由於我們可以細微的控制日期與計時器的執行時機，因此可以讓我們的測試案例能夠模擬各種不同的狀況，讓我們的測試案例能更加完整與彈性。</p>
+<p>而明天我們將會繼續介紹 Vitest Mocking API 的其他功能，學習完這些內容之後，我們就可以開始來寫有關 Vue 周邊工具的測試案例了！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+              <a href="/tags/Vitest/" rel="tag"># Vitest</a>
+              <a href="/tags/Vue-Test-Utils/" rel="tag"># Vue Test Utils</a>
+              <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-27/" rel="prev" title="【語法ノ章】測試替身（Test Double）feat. Vue Test Utils">
+      <i class="fa fa-chevron-left"></i> 【語法ノ章】測試替身（Test Double）feat. Vue Test Utils
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-29/" rel="next" title="【語法ノ章】測試替身（Test Double）feat. Vitest Mocking API（Function, Globals & Modules）">
+      【語法ノ章】測試替身（Test Double）feat. Vitest Mocking API（Function, Globals & Modules） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文序"><span class="nav-number">1.</span> <span class="nav-text">本文序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vitest-的測試替身"><span class="nav-number">1.1.</span> <span class="nav-text">Vitest 的測試替身</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vitest-Mocking-API"><span class="nav-number">1.2.</span> <span class="nav-text">Vitest Mocking API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dates"><span class="nav-number">1.2.1.</span> <span class="nav-text">Dates</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Timers"><span class="nav-number">1.2.2.</span> <span class="nav-text">Timers</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/ithelp-2022-vitest-28/";
+    this.page.identifier = "testing/ithelp-2022-vitest-28/";
+    this.page.title = "【語法ノ章】測試替身（Test Double）feat. Vitest Mocking API（Date, Timer）";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

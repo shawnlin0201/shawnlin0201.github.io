@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文序回顧目前語法章節的部分我們已經學了有關於：  測試案例與情境：describe、it 測試案例中 Setup 與 Teardown 環節有關的語法： beforeEach、beforeAll、afterEach 與 beforeAll 測試斷言中的各種 Matchers 與快照  而基於上述幾個語法加上先前的測試概念，我們已經滿足了撰寫基本單元測試的條件了！所以現在是⋯⋯測驗時間">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【試験ノ章】第一個測驗：測試情境案例、Setup &amp; Teardown 與 Matchers">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-16/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="本文序回顧目前語法章節的部分我們已經學了有關於：  測試案例與情境：describe、it 測試案例中 Setup 與 Teardown 環節有關的語法： beforeEach、beforeAll、afterEach 與 beforeAll 測試斷言中的各種 Matchers 與快照  而基於上述幾個語法加上先前的測試概念，我們已經滿足了撰寫基本單元測試的條件了！所以現在是⋯⋯測驗時間">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+<meta property="article:published_time" content="2022-10-01T15:24:15.000Z">
+<meta property="article:modified_time" content="2022-10-24T10:48:01.604Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Vitest">
+<meta property="article:tag" content="Vue Test Utils">
+<meta property="article:tag" content="Unit Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shawnlin0201.github.io/images/vitest-logo.svg">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-16/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>【試験ノ章】第一個測驗：測試情境案例、Setup & Teardown 與 Matchers | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【試験ノ章】第一個測驗：測試情境案例、Setup & Teardown 與 Matchers
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-10-01 23:24:15" itemprop="dateCreated datePublished" datetime="2022-10-01T23:24:15+08:00">2022-10-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 18:48:01" itemprop="dateModified" datetime="2022-10-24T18:48:01+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-16/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-16/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>回顧目前語法章節的部分我們已經學了有關於：</p>
+<ul>
+<li>測試案例與情境：<code>describe</code>、<code>it</code></li>
+<li>測試案例中 Setup 與 Teardown 環節有關的語法： <code>beforeEach</code>、<code>beforeAll</code>、<code>afterEach</code> 與 <code>beforeAll</code></li>
+<li>測試斷言中的各種 <code>Matchers</code> 與快照</li>
+</ul>
+<p>而基於上述幾個語法加上先前的測試概念，我們已經滿足了撰寫基本單元測試的條件了！所以現在是⋯⋯測驗時間！！！</p>
+<p>在測驗章節我們主要流程將會是：</p>
+<ul>
+<li>閱讀故事與題目，釐清需求與規則。</li>
+<li>規劃測試情境與測試案例，並列好描述的部分。</li>
+<li>撰寫測試程式碼（Testing Code），並執行測試時得到測試案例失敗。</li>
+<li>按照題目要求完成產品程式碼（Production Code）</li>
+<li>再次執行測試確保測試通過。</li>
+</ul>
+<p>而本文撰寫測試程式碼與產品程式碼的環節我也會提供 demo 的範例供參考與撰寫思路，那麼就讓我們開始吧！</p>
+<a id="more"></a>
+
+<h2 id="故事"><a href="#故事" class="headerlink" title="故事"></a>故事</h2><p>「柯基」在完成上次提到的<a href="https://ithelp.ithome.com.tw/articles/10299474" target="_blank" rel="noopener">任務</a>後，中午下樓到公司附近覓食時，遇到了一隻橘色虎斑貓「阿橘」，然而阿橘正面有難色地看著眼前的機台一直噴出好多貓食乾乾⋯⋯柯基決定上前瞭解狀況。</p>
+<p>「你好我是柯基，怎麼這台機器一直噴出乾乾啊！？」柯基驚訝地看著眼前的機台。</p>
+<p>「我是乾乾銀行的開發人員，眼前這台是『自動乾乾提存機』」阿橘嘆了口氣說「這台機器主要是供應平常貓貓們在日常被飼主餵太多乾乾，但又不想一次吃完的時候可以把乾乾存到這裡面來。」</p>
+<p>「可是⋯⋯」阿橘話還沒說完，機器又噴出更多乾乾把阿橘埋起來了。「⋯⋯這台機器程式不知道為什麼一直有問題，所以我們打算重新來處理他。」</p>
+<p>「當然，如果你協助我們的話就給你一年份的乾乾」阿橘邊說邊咬了一口嘴邊的乾乾，然後遞了一張規格書給柯基。柯基直接原地傻眼了幾秒後緩緩說道。</p>
+<p>「那⋯⋯乾乾可以換成狗狗可食用的嗎？」</p>
+<h2 id="題目"><a href="#題目" class="headerlink" title="題目"></a>題目</h2><p>自動乾乾提存機軟體控制主要是由一個 <code>FoodBank</code> 類別在負責處理，其中核心的功能主要有「開戶」、「存款」和「提款」：</p>
+<p>而規格對上述程式功能介面上有一些限制要求：</p>
+<ul>
+<li>資料規格<ul>
+<li>銀行紀錄格式為：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">safe: &#123;</span><br><span class="line">  name: &#123; </span><br><span class="line">        food: <span class="xml"><span class="tag">&lt;<span class="name">number</span>&gt;</span></span></span><br><span class="line"><span class="xml">    &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><code>name</code>：開戶者名稱，預設資料類型為 <code>string</code>。</li>
+<li><code>food</code>：「乾乾」單位，預設資料類型為 <code>number</code>。</li>
+</ul>
+</li>
+<li>開戶<ul>
+<li>需傳入 <code>name</code>，並檢查是否開過戶頭，若有開過戶頭則回應 <code>您已開過戶頭囉</code>。</li>
+<li>交易成功，在 Safe 物件中建立用戶資料。</li>
+<li>開戶完成後該方法要回應 <code>開戶完成</code>。</li>
+</ul>
+</li>
+<li>存款<ul>
+<li>需傳入 <code>name</code>，若查詢不到戶頭則交易失敗，該方法要回應 <code>查詢不到該用戶，請重新確認。</code></li>
+<li>交易成功，將傳入 <code>food</code> 存入 Safe 物件中</li>
+<li>交易完成後該方法要回應 <code>存款完成，戶頭目前餘額 {該用戶乾乾數量}</code></li>
+</ul>
+</li>
+<li>提款<ul>
+<li>需傳入 <code>name</code>，若查詢不到戶頭則交易失敗，該方法要回應 <code>查詢不到該用戶，請重新確認。</code></li>
+<li>若傳入的 <code>food</code> 要求超過該用戶戶頭則交易失敗，該方法要回應 <code>餘額不足，你帳戶目前餘額為 {該用戶乾乾數量}</code></li>
+<li>交易成功，從 Safe 物件中扣除該用戶的 <code>food</code></li>
+<li>交易完成後該方法要回應 <code>提款完成，戶頭目前餘額 {該用戶乾乾數量}</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>看到這裡，若有想法的讀者可以先按照自己的方式來寫測試哩，若沒想法或遇到困難時也可以參考底下 demo 的部分。<br>本文可利用<a href="https://ithelp.ithome.com.tw/articles/10292537" target="_blank" rel="noopener">系列文專用專案</a>來一邊學習，幫你準備好測試所需要的環境，快來安裝吧！</p>
+</blockquote>
+<h1 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h1><h2 id="撰寫測試脈絡"><a href="#撰寫測試脈絡" class="headerlink" title="撰寫測試脈絡"></a>撰寫測試脈絡</h2><p>依據之前測試脈絡章節提到的部分，規劃測試時要考量到有以下內容。</p>
+<ul>
+<li>決定測試類型工具：本系列文主要專注在 Vitest 的單元測試</li>
+<li>決定測試情境與測試案例</li>
+<li>思考測試案例路徑</li>
+<li>撰寫測試案例 3A</li>
+</ul>
+<h3 id="決定情境與測試案例"><a href="#決定情境與測試案例" class="headerlink" title="決定情境與測試案例"></a>決定情境與測試案例</h3><blockquote>
+<p>使用系列文專用檔案的讀者 demo 用的檔案位置如下：<br>測試程式碼 <code>/src/practice/practice-04.spec.js</code><br>產品程式碼 <code>/src/practice/practice-04.js</code></p>
+</blockquote>
+<p>首先建立好測試程式碼並準備好產品程式碼檔案與基本介面：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; describe, it&#125; <span class="keyword">from</span> <span class="string">'vitest'</span></span><br><span class="line"><span class="keyword">import</span> &#123; FoodBank &#125; <span class="keyword">from</span> <span class="string">'./FoodBank.js'</span></span><br><span class="line"><span class="comment">// ....</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">FoodBank</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.safe = &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  openAccount(name)&#123;&#125;</span><br><span class="line">  deposit(name, food)&#123;&#125;</span><br><span class="line">  withdraw(name, food)&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>與接下來開始撰寫測試碼情境，這邊主要依據 FoodBank 提供的方法來拆分：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">'openAccount()'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br><span class="line">describe(<span class="string">'deposit()'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br><span class="line">describe(<span class="string">'withdraw()'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>再來依據規格與設計思考要測試案例與案例路徑的部分：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">'開戶'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// happy path</span></span><br><span class="line">  it(<span class="string">`開戶完成，Safe 物件中應有用戶資訊' `</span>, () =&gt; &#123;&#125;)</span><br><span class="line">  it(<span class="string">`開戶完成，應該回應 '開戶完成' `</span>, () =&gt; &#123;&#125;)</span><br><span class="line">  <span class="comment">// sad path</span></span><br><span class="line">  it(<span class="string">`若開過戶頭，應該回應 '您已開過戶頭囉。' `</span>, () =&gt; &#123;&#125;)</span><br><span class="line">  <span class="comment">// ... 請自由發揮</span></span><br><span class="line">&#125;)</span><br><span class="line">describe(<span class="string">'存款'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// happy path</span></span><br><span class="line">  it(<span class="string">`存入 100 單位，Safe 物件中該用戶的乾乾應為 100 單位`</span>, () =&gt; &#123;&#125;)</span><br><span class="line">  it(<span class="string">`交易完成，應該回應 '存款完成，戶頭目前餘額 &#123;該用戶乾乾數量&#125;' `</span>, () =&gt; &#123;&#125;)</span><br><span class="line">  <span class="comment">// sad path</span></span><br><span class="line">  it(<span class="string">`若查詢不到戶頭，應該回應 '查詢不到該用戶，請重新確認。' `</span>, () =&gt; &#123;&#125;)</span><br><span class="line">  <span class="comment">// ... 請自由發揮</span></span><br><span class="line">&#125;)</span><br><span class="line">describe(<span class="string">'提款'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// happy path</span></span><br><span class="line">  it(<span class="string">`提款 100 單位，Safe 物件中該用戶的乾乾應減少 100 單位`</span>, () =&gt; &#123;&#125;)</span><br><span class="line">  it(<span class="string">`交易完成，應該回應 '存款完成，戶頭目前餘額 &#123;該用戶乾乾數量&#125;' `</span>, () =&gt; &#123;&#125;)</span><br><span class="line">  <span class="comment">// sad path</span></span><br><span class="line">  it(<span class="string">`若查詢不到戶頭，應該回應 '查詢不到該用戶，請重新確認。' `</span>, () =&gt; &#123;&#125;)</span><br><span class="line">  it(<span class="string">`餘額不足，應該回應 '餘額不足，你帳戶目前餘額為 &#123;該用戶乾乾數量&#125;' `</span>, () =&gt; &#123;&#125;)</span><br><span class="line">  <span class="comment">// ... 請自由發揮</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>接著撰寫測試案例 3A 部分。</p>
+<p>開戶情境：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">'開戶'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// happy path</span></span><br><span class="line">  it(<span class="string">`開戶完成，Safe 物件中應有用戶資訊' `</span>, () =&gt; &#123;</span><br><span class="line">    <span class="comment">// Arrange</span></span><br><span class="line">    <span class="keyword">const</span> bank = <span class="keyword">new</span> FoodBank()</span><br><span class="line">    <span class="comment">// Act</span></span><br><span class="line">    bank.openAccount(<span class="string">'Orange'</span>)</span><br><span class="line">    <span class="comment">// Assertion</span></span><br><span class="line">    expect(bank.safe).toEqual(&#123; <span class="attr">Orange</span>: &#123; <span class="attr">food</span>: <span class="number">0</span> &#125; &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">  it(<span class="string">`開戶完成，應該回應 '開戶完成。' `</span>, () =&gt; &#123;</span><br><span class="line">    <span class="comment">// Arrange</span></span><br><span class="line">    <span class="keyword">const</span> bank = <span class="keyword">new</span> FoodBank()</span><br><span class="line">    <span class="comment">// Assertion</span></span><br><span class="line">    expect(bank.openAccount(<span class="string">'Orange'</span>)).toBe(<span class="string">'開戶完成。'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="comment">// sad path</span></span><br><span class="line">  it(<span class="string">`若開過戶頭，應該回應 '您已開過戶頭囉。' `</span>, () =&gt; &#123;</span><br><span class="line">    <span class="comment">// Arrange</span></span><br><span class="line">    <span class="keyword">const</span> bank = <span class="keyword">new</span> FoodBank()</span><br><span class="line">    <span class="comment">// Act</span></span><br><span class="line">    bank.openAccount(<span class="string">'Orange'</span>)</span><br><span class="line">    <span class="comment">// Assertion</span></span><br><span class="line">    expect(bank.openAccount(<span class="string">'Orange'</span>)).toBe(<span class="string">'您已開過戶頭囉。'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="comment">// ... 請自由發揮</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>存款情境：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">'存款'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// happy path</span></span><br><span class="line">  it(<span class="string">`存入 100 單位，Safe 物件中該用戶的乾乾應為 100 單位`</span>, () =&gt; &#123;</span><br><span class="line">    <span class="comment">// Arrange</span></span><br><span class="line">    <span class="keyword">const</span> bank = <span class="keyword">new</span> FoodBank()</span><br><span class="line">    <span class="keyword">const</span> user = <span class="string">'Orange'</span></span><br><span class="line">    <span class="comment">// Act</span></span><br><span class="line">    bank.openAccount(user)</span><br><span class="line">    bank.deposit(user, <span class="number">100</span>)</span><br><span class="line">    <span class="comment">// Assertion</span></span><br><span class="line">    expect(bank.safe[user]).toEqual(&#123; <span class="attr">food</span>: <span class="number">100</span> &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">  it(<span class="string">`交易完成，應該回應 '存款完成，戶頭目前餘額 &#123;該用戶乾乾數量&#125;' `</span>, () =&gt; &#123;</span><br><span class="line">    <span class="comment">// Arrange</span></span><br><span class="line">    <span class="keyword">const</span> bank = <span class="keyword">new</span> FoodBank()</span><br><span class="line">    <span class="keyword">const</span> user = <span class="string">'Orange'</span></span><br><span class="line">    <span class="keyword">const</span> food = <span class="number">100</span></span><br><span class="line">    <span class="comment">// Act</span></span><br><span class="line">    bank.openAccount(user)</span><br><span class="line">    <span class="comment">// Assertion</span></span><br><span class="line">    expect(bank.deposit(user, food)).toEqual(<span class="string">`存款完成，戶頭目前餘額 <span class="subst">$&#123;food&#125;</span>`</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="comment">// sad path</span></span><br><span class="line">  it(<span class="string">`若查詢不到戶頭，應該回應 '查詢不到該用戶，請重新確認。' `</span>, () =&gt; &#123;</span><br><span class="line">    <span class="comment">// Arrange</span></span><br><span class="line">    <span class="keyword">const</span> bank = <span class="keyword">new</span> FoodBank()</span><br><span class="line">    <span class="keyword">const</span> user = <span class="string">'Orange'</span></span><br><span class="line">    <span class="keyword">const</span> food = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Assertion</span></span><br><span class="line">    expect(bank.deposit(user, food)).toEqual(<span class="string">`查詢不到該用戶，請重新確認。`</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="comment">// ... 請自由發揮</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>提款部分：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">'提款'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// happy path</span></span><br><span class="line">  it(<span class="string">`提款 100 單位，Safe 物件中該用戶的乾乾應減少 100 單位`</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> bank = <span class="keyword">new</span> FoodBank()</span><br><span class="line">    <span class="keyword">const</span> user = <span class="string">'Orange'</span></span><br><span class="line">    <span class="comment">// Act</span></span><br><span class="line">    bank.openAccount(user)</span><br><span class="line">    bank.deposit(user, <span class="number">100</span>)</span><br><span class="line">    bank.withdraw(user, <span class="number">100</span>)</span><br><span class="line">    <span class="comment">// Assertion</span></span><br><span class="line">    expect(bank.safe[user]).toEqual(&#123; <span class="attr">food</span>: <span class="number">0</span> &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">  it(<span class="string">`交易完成，應該回應 '存款完成，戶頭目前餘額 &#123;該用戶乾乾數量&#125;' `</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> bank = <span class="keyword">new</span> FoodBank()</span><br><span class="line">    <span class="keyword">const</span> user = <span class="string">'Orange'</span></span><br><span class="line">    <span class="comment">// Act</span></span><br><span class="line">    bank.openAccount(user)</span><br><span class="line">    bank.deposit(user, <span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Assertion</span></span><br><span class="line">    expect(bank.withdraw(user, <span class="number">100</span>)).toBe(<span class="string">'存款完成，戶頭目前餘額 0'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="comment">// sad path</span></span><br><span class="line">  it(<span class="string">`若查詢不到戶頭，應該回應 '查詢不到該用戶，請重新確認。' `</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> bank = <span class="keyword">new</span> FoodBank()</span><br><span class="line">    <span class="keyword">const</span> user = <span class="string">'Orange'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Assertion</span></span><br><span class="line">    expect(bank.withdraw(user, <span class="number">100</span>)).toBe(<span class="string">'查詢不到該用戶，請重新確認。'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  it(<span class="string">`餘額不足，應該回應 '餘額不足，你帳戶目前餘額為 &#123;該用戶乾乾數量&#125;' `</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> bank = <span class="keyword">new</span> FoodBank()</span><br><span class="line">    <span class="keyword">const</span> user = <span class="string">'Orange'</span></span><br><span class="line">    <span class="comment">// Act</span></span><br><span class="line">    bank.openAccount(user)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Assertion</span></span><br><span class="line">    expect(bank.withdraw(user, <span class="number">100</span>)).toBe(<span class="string">'餘額不足，你帳戶目前餘額為 0'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="comment">// ... 請自由發揮</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>接著執行測試，確認測試案例應該是錯誤之後，接著利用 <code>only</code> 將測試案例鎖定在各個情境下，一邊開發產品程式碼，這樣就不會受到其他測試情境底下的案例錯誤干擾開發過程：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">describe.only(<span class="string">'開戶'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// 專注在這邊的開發</span></span><br><span class="line">&#125;)</span><br><span class="line">describe(<span class="string">'存款'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// 先忽略這部分測試案例</span></span><br><span class="line">&#125;)</span><br><span class="line">describe(<span class="string">'提款'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">// 先忽略這部分測試案例</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>最後按著平常開發流程去補齊產品程式碼，完成一部分的情境就透過 <code>.only</code>, <code>.skip</code> 等輔助 API，來觀察測試結果：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">FoodBank</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.safe = &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  openAccount(name) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.safe[name]) <span class="keyword">return</span> <span class="string">'您已開過戶頭囉。'</span></span><br><span class="line">    <span class="keyword">this</span>.safe[name] = &#123; <span class="attr">food</span>: <span class="number">0</span> &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`開戶完成。`</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  deposit(name, food) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.safe[name]) <span class="keyword">return</span> <span class="string">'查詢不到該用戶，請重新確認。'</span></span><br><span class="line">    <span class="keyword">this</span>.safe[name].food += food</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`存款完成，戶頭目前餘額 <span class="subst">$&#123;<span class="keyword">this</span>.safe[name].food&#125;</span>`</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  withdraw(name, food) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.safe[name]) <span class="keyword">return</span> <span class="string">'查詢不到該用戶，請重新確認。'</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.safe[name].food &gt;= food) &#123;</span><br><span class="line">      <span class="keyword">this</span>.safe[name].food -= food</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`存款完成，戶頭目前餘額 <span class="subst">$&#123;<span class="keyword">this</span>.safe[name].food&#125;</span>`</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`餘額不足，你帳戶目前餘額為 <span class="subst">$&#123;<span class="keyword">this</span>.safe[name].food&#125;</span>`</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此時一邊開發的過程應該會看到錯誤的部分逐漸陸續通過，直到最後將所有 <code>.only</code>, <code>.skip</code> 等輔助 API 拔除後依然都是通過的情況，就能確保你的開發既符合測試，後續測試也將繼續保護你的產品程式碼！</p>
+<p>而這個開發過程也就是所謂的「測試驅動開發（TDD, Test-driven development）」中的「紅燈開發（Red-Green-Refactor）」，很有趣吧！</p>
+<p>後續進階章節將會補上有關於 「測試驅動開發（TDD, Test-driven development）」更為詳細的介紹，而明天我們將來繼續學習其餘語法的部分，讓我們能夠測試更多的東西！</p>
+<blockquote>
+<p>題外話：今天文章寫到最後時已經大概十一點多了，電腦突然一個卡死，差點嚇爆⋯⋯</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/Vue-js/" rel="tag"># Vue.js</a>
+              <a href="/tags/Vitest/" rel="tag"># Vitest</a>
+              <a href="/tags/Vue-Test-Utils/" rel="tag"># Vue Test Utils</a>
+              <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-15/" rel="prev" title="【語法ノ章】斷言（Assertion）下篇： 替身、快照（Snapshot）與拋出錯誤">
+      <i class="fa fa-chevron-left"></i> 【語法ノ章】斷言（Assertion）下篇： 替身、快照（Snapshot）與拋出錯誤
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-17/" rel="next" title="【概念ノ章】測試工具： Vue Test Utils 與元件測試">
+      【概念ノ章】測試工具： Vue Test Utils 與元件測試 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#本文序"><span class="nav-number">1.</span> <span class="nav-text">本文序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#故事"><span class="nav-number">1.1.</span> <span class="nav-text">故事</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#題目"><span class="nav-number">1.2.</span> <span class="nav-text">題目</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#demo"><span class="nav-number">2.</span> <span class="nav-text">demo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#撰寫測試脈絡"><span class="nav-number">2.1.</span> <span class="nav-text">撰寫測試脈絡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#決定情境與測試案例"><span class="nav-number">2.1.1.</span> <span class="nav-text">決定情境與測試案例</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/ithelp-2022-vitest-16/";
+    this.page.identifier = "testing/ithelp-2022-vitest-16/";
+    this.page.title = "【試験ノ章】第一個測驗：測試情境案例、Setup & Teardown 與 Matchers";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>
