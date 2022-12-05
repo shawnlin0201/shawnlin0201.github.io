@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-learnweb.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-learnweb.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-learnweb.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shawnlin0201.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="工具Test Runner Vitest Jest Mocha  Test Assertion Vitest Expect Jest Expect Chai  Test Double &amp; Mock Vitest Mock Jest Mock Sinon  Component Testing Vue Test Utils: for Vue3  測試種類Mutation Testing Str">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端測試相關資源 front-end testing resource">
+<meta property="og:url" content="https://shawnlin0201.github.io/testing/front-end-testing-resource/index.html">
+<meta property="og:site_name" content="璇之又璇的網路世界">
+<meta property="og:description" content="工具Test Runner Vitest Jest Mocha  Test Assertion Vitest Expect Jest Expect Chai  Test Double &amp; Mock Vitest Mock Jest Mock Sinon  Component Testing Vue Test Utils: for Vue3  測試種類Mutation Testing Str">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-12-05T04:00:27.000Z">
+<meta property="article:modified_time" content="2022-12-05T09:29:42.882Z">
+<meta property="article:author" content="ShawnL 林奇璇">
+<meta property="article:tag" content="front-end">
+<meta property="article:tag" content="testing">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://shawnlin0201.github.io/testing/front-end-testing-resource/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-tw'
+  };
+</script>
+
+  <title>前端測試相關資源 front-end testing resource | 璇之又璇的網路世界</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156161536-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-156161536-1');
+      }
+    </script>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: 'ca-pub-5671856325343459',
+          enable_page_level_ads: true
+     });
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta custom-logo">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">璇之又璇的網路世界</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">喜歡研究、喜歡貓、喜歡coding。<br>LearnWeb 社群創辦人</p>
+      <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" target="_blank">
+        <img class="custom-logo-image" src="/images/blog/logo.png" alt="璇之又璇的網路世界">
+      </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">113</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/front-end-testing-resource/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前端測試相關資源 front-end testing resource
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2022-12-05 12:00:27 / 修改時間：17:29:42" itemprop="dateCreated datePublished" datetime="2022-12-05T12:00:27+08:00">2022-12-05</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/front-end-testing-resource/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/front-end-testing-resource/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><h2 id="Test-Runner"><a href="#Test-Runner" class="headerlink" title="Test Runner"></a>Test Runner</h2><ul>
+<li><a href="https://vitest.dev/" target="_blank" rel="noopener">Vitest</a></li>
+<li><a href="https://jestjs.io/" target="_blank" rel="noopener">Jest</a></li>
+<li><a href="https://mochajs.org/" target="_blank" rel="noopener">Mocha</a></li>
+</ul>
+<h2 id="Test-Assertion"><a href="#Test-Assertion" class="headerlink" title="Test Assertion"></a>Test Assertion</h2><ul>
+<li><a href="https://vitest.dev/api/#expect" target="_blank" rel="noopener">Vitest Expect</a></li>
+<li><a href="https://jestjs.io/docs/expect" target="_blank" rel="noopener">Jest Expect</a></li>
+<li><a href="https://www.chaijs.com/" target="_blank" rel="noopener">Chai</a></li>
+</ul>
+<h2 id="Test-Double-amp-Mock"><a href="#Test-Double-amp-Mock" class="headerlink" title="Test Double &amp; Mock"></a>Test Double &amp; Mock</h2><ul>
+<li><a href="https://vitest.dev/guide/mocking.html" target="_blank" rel="noopener">Vitest Mock</a></li>
+<li><a href="https://jestjs.io/docs/mock-function-api/" target="_blank" rel="noopener">Jest Mock</a></li>
+<li><a href="https://sinonjs.org/" target="_blank" rel="noopener">Sinon</a></li>
+</ul>
+<h2 id="Component-Testing"><a href="#Component-Testing" class="headerlink" title="Component Testing"></a>Component Testing</h2><ul>
+<li><a href="https://test-utils.vuejs.org/" target="_blank" rel="noopener">Vue Test Utils</a>: for Vue3</li>
+</ul>
+<h1 id="測試種類"><a href="#測試種類" class="headerlink" title="測試種類"></a>測試種類</h1><h2 id="Mutation-Testing"><a href="#Mutation-Testing" class="headerlink" title="Mutation Testing"></a>Mutation Testing</h2><ul>
+<li><a href="https://stryker-mutator.io/" target="_blank" rel="noopener">Stryker Mutator</a></li>
+</ul>
+<h1 id="相關書籍、文章"><a href="#相關書籍、文章" class="headerlink" title="相關書籍、文章"></a>相關書籍、文章</h1><ul>
+<li><a href="http://xunitpatterns.com/index.html" target="_blank" rel="noopener">XUnit Test Patterns</a></li>
+<li><a href="https://www.tenlong.com.tw/products/9789862017050" target="_blank" rel="noopener">Robert C. Martin - 無瑕的程式碼－敏捷軟體開發技巧守則</a></li>
+<li><a href="https://www.tenlong.com.tw/products/9789865021832" target="_blank" rel="noopener">Martin Fowler - 重構｜改善既有程式的設計, 2/e</a></li>
+<li><a href="https://www.tenlong.com.tw/products/9789864342471" target="_blank" rel="noopener">Roy Osherove - 單元測試的藝術</a></li>
+<li><a href="https://www.tenlong.com.tw/products/9789864345618" target="_blank" rel="noopener">Kent Beck 的測試驅動開發：案例導向的逐步解決之道</a></li>
+<li><a href="https://www.tenlong.com.tw/products/9789863470090" target="_blank" rel="noopener">Mark Ethan Trostler - 可測試的 JavaScript</a></li>
+<li><a href="https://www.tenlong.com.tw/products/9787111646709" target="_blank" rel="noopener">Edd Yerburgh - Vue.js 應用測試</a></li>
+<li><a href="https://www.tenlong.com.tw/products/9789864341313" target="_blank" rel="noopener">CODE COMPLETE：軟體開發實務指南, 2/e</a></li>
+<li><a href="https://github.com/goldbergyoni/javascript-testing-best-practices" target="_blank" rel="noopener">goldbergyoni/javascript-testing-best-practices</a></li>
+</ul>
+<h2 id="單元測試-Unit-Testing"><a href="#單元測試-Unit-Testing" class="headerlink" title="單元測試 Unit Testing"></a>單元測試 Unit Testing</h2><ul>
+<li><a href="https://martinfowler.com/bliki/UnitTest.html" target="_blank" rel="noopener">Martin - UnitTest</a></li>
+<li><a href="https://otischou.tw/2019/08/02/unit-test.html" target="_blank" rel="noopener">otischou - 暸解單元測試</a></li>
+</ul>
+<h2 id="斷言庫-Assertion-Library"><a href="#斷言庫-Assertion-Library" class="headerlink" title="斷言庫 Assertion Library"></a>斷言庫 Assertion Library</h2><ul>
+<li><a href="https://dwatow.github.io/2020/04-18-jest/jest-doc-2/" target="_blank" rel="noopener">Chris - 讀 Jest Doc - 斷言庫</a></li>
+</ul>
+<h2 id="測試替身-Test-Double"><a href="#測試替身-Test-Double" class="headerlink" title="測試替身 Test Double"></a>測試替身 Test Double</h2><ul>
+<li><a href="http://teddy-chen-tw.blogspot.com/2014/09/test-double1.html" target="_blank" rel="noopener">Teddy Chen - Test Double（1）：什麼是測試替身？</a></li>
+<li><a href="http://teddy-chen-tw.blogspot.com/2014/09/test-double2.html" target="_blank" rel="noopener">Teddy Chen - Test Double（2）：五種替身簡介</a></li>
+<li><a href="http://teddy-chen-tw.blogspot.com/2014/09/test-double3dummy-object.html" target="_blank" rel="noopener">Teddy Chen - Test Double（3）：Dummy Object</a></li>
+<li><a href="http://teddy-chen-tw.blogspot.com/2014/09/test-double4test-stub.html" target="_blank" rel="noopener">Teddy Chen - Test Double（4）：Test Stub</a></li>
+<li><a href="http://teddy-chen-tw.blogspot.com/2014/10/test-double5test-spy.html" target="_blank" rel="noopener">Teddy Chen - Test Double（5）：Test Spy</a></li>
+<li><a href="http://teddy-chen-tw.blogspot.com/2014/10/test-double6fake-object.html" target="_blank" rel="noopener">Teddy Chen - Test Double（6）：Fake Object</a></li>
+<li><a href="http://teddy-chen-tw.blogspot.com/2014/10/test-double7mock-object.html" target="_blank" rel="noopener">Teddy Chen - Test Double（7）：Mock Object</a></li>
+<li><a href="https://martinfowler.com/bliki/TestDouble.html" target="_blank" rel="noopener">Martin Fowler - TestDouble</a></li>
+<li><a href="https://medium.com/starbugs/unit-test-%E4%B8%AD%E7%9A%84%E6%9B%BF%E8%BA%AB-%E6%90%9E%E4%B8%8D%E6%B8%85%E6%A5%9A%E7%9A%84dummy-stub-spy-mock-fake-94be192d5c46" target="_blank" rel="noopener">被蛇咬到的魯卡 - Unit Test 中的替身：搞不清楚的Dummy 、Stub、Spy、Mock、Fake</a></li>
+<li><a href="https://jchu.cc/2018/08/16-test.html" target="_blank" rel="noopener">Julian Chu - 測試中常見的名詞：Stub, Dummy, Mock..等等</a></li>
+</ul>
+<h1 id="Conf"><a href="#Conf" class="headerlink" title="Conf"></a>Conf</h1><ul>
+<li><a href="https://www.youtube.com/watch?v=LxXsGNXsMo8" target="_blank" rel="noopener">Edd Yerburgh - Unit testing Vue components Why test, what to test, and how to test Vue components</a></li>
+<li><a href="https://www.youtube.com/watch?v=okWjao-Y9Eo" target="_blank" rel="noopener">Natalia Tepluhina - 7 ways to make your Vue Unit tests better</a></li>
+<li><a href="https://www.youtube.com/watch?v=CW9uTys0li0" target="_blank" rel="noopener">Anthony Fu - Introduction to Vitest</a></li>
+</ul>
+<h1 id="測試相關議題"><a href="#測試相關議題" class="headerlink" title="測試相關議題"></a>測試相關議題</h1><h2 id="TDD"><a href="#TDD" class="headerlink" title="TDD"></a>TDD</h2><ul>
+<li><a href="https://ithelp.ithome.com.tw/users/20010292/ironman/462" target="_blank" rel="noopener">就是91 - 30天快速上手TDD</a></li>
+</ul>
+<h2 id="Coverage"><a href="#Coverage" class="headerlink" title="Coverage"></a>Coverage</h2><ul>
+<li><a href="http://teddy-chen-tw.blogspot.com/2019/02/blog-post.html" target="_blank" rel="noopener">Teddy Chen - 透過測試涵蓋率讓重構更有信心（上）：分支涵蓋率</a></li>
+<li><a href="http://teddy-chen-tw.blogspot.com/2019/02/blog-post_19.html" target="_blank" rel="noopener">Teddy Chen - 透過測試涵蓋率讓重構更有信心（中）：突變測試</a></li>
+<li><a href="http://teddy-chen-tw.blogspot.com/2019/02/blog-post_20.html" target="_blank" rel="noopener">Teddy Chen - 透過測試涵蓋率讓重構更有信心（下）：特徵測試</a></li>
+<li><a href="https://martinfowler.com/bliki/TestCoverage.html" target="_blank" rel="noopener">Martin Fowler - TestCoverage</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/front-end/" rel="tag"># front-end</a>
+              <a href="/tags/testing/" rel="tag"># testing</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/testing/ithelp-2022-vitest-35/" rel="prev" title="【雜談ノ章】那些沒說到的內容、完賽感言、TOC 與參考資料們">
+      <i class="fa fa-chevron-left"></i> 【雜談ノ章】那些沒說到的內容、完賽感言、TOC 與參考資料們
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#工具"><span class="nav-number">1.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-Runner"><span class="nav-number">1.1.</span> <span class="nav-text">Test Runner</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-Assertion"><span class="nav-number">1.2.</span> <span class="nav-text">Test Assertion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-Double-amp-Mock"><span class="nav-number">1.3.</span> <span class="nav-text">Test Double &amp; Mock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Component-Testing"><span class="nav-number">1.4.</span> <span class="nav-text">Component Testing</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#測試種類"><span class="nav-number">2.</span> <span class="nav-text">測試種類</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mutation-Testing"><span class="nav-number">2.1.</span> <span class="nav-text">Mutation Testing</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相關書籍、文章"><span class="nav-number">3.</span> <span class="nav-text">相關書籍、文章</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#單元測試-Unit-Testing"><span class="nav-number">3.1.</span> <span class="nav-text">單元測試 Unit Testing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#斷言庫-Assertion-Library"><span class="nav-number">3.2.</span> <span class="nav-text">斷言庫 Assertion Library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#測試替身-Test-Double"><span class="nav-number">3.3.</span> <span class="nav-text">測試替身 Test Double</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Conf"><span class="nav-number">4.</span> <span class="nav-text">Conf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#測試相關議題"><span class="nav-number">5.</span> <span class="nav-text">測試相關議題</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TDD"><span class="nav-number">5.1.</span> <span class="nav-text">TDD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Coverage"><span class="nav-number">5.2.</span> <span class="nav-text">Coverage</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ShawnL 林奇璇"
+      src="/images/information-avatar.png">
+  <p class="site-author-name" itemprop="name">ShawnL 林奇璇</p>
+  <div class="site-description" itemprop="description">我家的貓會coding</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">113</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shawnlin0201" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shawnlin0201" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100004228181424" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100004228181424" rel="noopener" target="_blank"><i class="fab fa-facebook fa-fw"></i>FB Page</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">ithelp-ShawnL</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/profile.php?id=100088109416778" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100088109416778" rel="noopener" target="_blank">Shawn 技術筆記</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+      <!--google_adsense-->
+        
+          <div class="links-of-blogroll-title">
+            <i class="fa fa-google"></i> AdSense
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-5671856325343459"
+                data-ad-slot="6653476093"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        
+      <!--/google_adsense-->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShawnL 林奇璇</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shawnlin0201-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shawnlin0201.github.io/testing/front-end-testing-resource/";
+    this.page.identifier = "testing/front-end-testing-resource/";
+    this.page.title = "前端測試相關資源 front-end testing resource";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shawnlin0201-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"tagMode":false});</script></body>
+</html>

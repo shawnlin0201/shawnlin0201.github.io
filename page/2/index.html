@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">111</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歷史文章<span class="badge">113</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -194,6 +194,235 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-27/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/testing/ithelp-2022-vitest-27/" class="post-title-link" itemprop="url">【語法ノ章】測試替身（Test Double）feat. Vue Test Utils</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-10-12 20:02:07" itemprop="dateCreated datePublished" datetime="2022-10-12T20:02:07+08:00">2022-10-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 19:19:09" itemprop="dateModified" datetime="2022-10-24T19:19:09+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-27/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-27/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>昨天我們提到了 Gerard Meszaros 的五大測試替身概念，釐清我們要在什麼時機下使用何種測試替身來幫助測試案例流程能更加順利，並帶了一點與測試替身相關的語法。</p>
+<p>而今天要來詳細談談 Vue Test Utils 工具中有關於測試替身的相關語法有哪些，並思考以五大測試替身的概念去思考其中的應用場景。</p>
+<h2 id="Vue-Test-Utils-的測試替身"><a href="#Vue-Test-Utils-的測試替身" class="headerlink" title="Vue Test Utils 的測試替身"></a>Vue Test Utils 的測試替身</h2><p>在 Vue Test Utils 工具中的測試替身，大部分都是在協助有關於替換元件渲染以及替換 <code>&lt;slot&gt;</code> 等 <code>stub</code> 類型的測試替身：</p>
+<h3 id="shallowMount"><a href="#shallowMount" class="headerlink" title="shallowMount"></a><code>shallowMount</code></h3><p>第一個不得不提的就是我們熟悉的 <code>shallowMount</code> 元件容器（Wrapper），在前面章節有提過，若我們不使用 <code>mount</code> 而是改由 <code>shallowMount</code> 容器來渲染元件的話：</p>
+<p>App.vue</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ChildComponent</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> component <span class="keyword">from</span> <span class="string">'App.vue'</span></span><br><span class="line"><span class="keyword">const</span> wrapper = shallowMount(component)</span><br></pre></td></tr></table></figure>
+
+<p>那麼上方的 <code>wrapper</code> 渲染結果將會變成：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">child-component-stub</span>&gt;</span><span class="tag">&lt;/<span class="name">child-component-stub</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>這麼一來我們就可以測試有關 <code>App.vue</code> 元件本身的行為。</p>
+<h3 id="shallow"><a href="#shallow" class="headerlink" title="shallow"></a><code>shallow</code></h3><p>接下來是同樣概念的 <code>shallow</code>，只是差在使用方法是透過 <code>mount</code> 元件容器的第二參數帶上 <code>{ shallow: true }</code>：</p>
+<p>App.vue</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ChildComponent</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> component <span class="keyword">from</span> <span class="string">'App.vue'</span></span><br><span class="line"><span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">    shallow: <span class="literal">true</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><code>wrapper</code> 將會渲染成：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">child-component-stub</span>&gt;</span><span class="tag">&lt;/<span class="name">child-component-stub</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="global-renderStubDefaultSlot"><a href="#global-renderStubDefaultSlot" class="headerlink" title="global.renderStubDefaultSlot"></a>global.renderStubDefaultSlot</h3><p><code>renderStubDefaultSlot</code> 使用場景比較特別，他主要是用來指定是否強迫渲染 <code>slot</code> 內容，即使是在 <code>shallow</code> 元件的時候：</p>
+<p>App.vue</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">slot</span>&gt;</span><span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Child-Component</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> component <span class="keyword">from</span> <span class="string">'App.vue'</span></span><br><span class="line"><span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">    shallow: <span class="literal">true</span>,</span><br><span class="line">    slots: &#123;</span><br><span class="line">        <span class="keyword">default</span>: <span class="string">'&lt;p&gt;force render this!&lt;/p&gt;'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    global: &#123;</span><br><span class="line">        renderStubDefaultSlot: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>以上方為例最後 <code>wrapper</code> 會變成：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>force render this!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">child-component-stub</span>&gt;</span><span class="tag">&lt;/<span class="name">child-component-stub</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>但官方也特別強調由於技術限制的關係，<code>renderStubDefaultSlot</code> 語法暫時只支援預設插槽（Default Slots）能被指定渲染。</p>
+<h3 id="global-stubs"><a href="#global-stubs" class="headerlink" title="global.stubs"></a>global.stubs</h3><p>前面有稍微提到的 <code>global.stubs</code>，最主要是用來指定子元件渲染成 <code>&lt;-stub&gt;</code> 元件或特定 <code>template</code> 的方法：</p>
+<p>App.vue</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ChildComponent</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> component <span class="keyword">from</span> <span class="string">'App.vue'</span></span><br><span class="line"></span><br><span class="line">it(<span class="string">'should be render...'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">        global: &#123;</span><br><span class="line">          stubs: &#123; <span class="attr">ChildComponent</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    expect(wrapper.html()).toEqual(<span class="string">'&lt;div&gt;&lt;child-component-stub&gt;&lt;/child-component-stub&gt;&lt;/div&gt;'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">it(<span class="string">'should be render...'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">        global: &#123;</span><br><span class="line">          stubs: &#123;</span><br><span class="line">            ChildComponent:</span><br><span class="line">                &#123;</span><br><span class="line">                    name: <span class="string">'StubComponent'</span>,</span><br><span class="line">                    template: <span class="string">'&lt;p&gt;custom content&lt;/p&gt;'</span></span><br><span class="line">                &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    expect(wrapper.html()).toEqual(<span class="string">'&lt;div&gt;&lt;p&gt;custom content&lt;/p&gt;&lt;/div&gt;'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>現在我們就可以針對 <code>stub</code> 後的結果開始斷言啦！</p>
+<blockquote>
+<p>有沒有覺得看到 <code>Stub</code> 術語就有種親切感呢！</p>
+</blockquote>
+<h3 id="global-mock"><a href="#global-mock" class="headerlink" title="global.mock"></a>global.mock</h3><p>最後一個 <code>global.mock</code> 主要是用來替身 Vue 開發時常用到的 Router 或 Store 周邊工具庫的語法：</p>
+<p>App.vue</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">data-test</span>=<span class="string">"button"</span> @<span class="attr">click</span>=<span class="string">"handleOnClickButton"</span>&gt;</span>Add 1 to Store<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleOnClickButton() &#123;</span><br><span class="line"><span class="actionscript">      <span class="keyword">this</span>.$store.dispatch(<span class="string">'add'</span>)</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>這時我們可以在測試案例中替身（<code>mock</code>）掉原先 <code>store</code> 的方法，甚至仿照出一個新的 <code>store</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> component <span class="keyword">from</span> <span class="string">'App.vue'</span></span><br><span class="line"></span><br><span class="line">it(<span class="string">'should be mocked'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> $store = &#123;</span><br><span class="line">        dispatch: vi.fn(), <span class="comment">// Vitest 中用來記錄用的函式</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(component, &#123;</span><br><span class="line">        global: &#123;</span><br><span class="line">            mocks: &#123; $store &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">await</span> wrapper.find(<span class="string">'[data-test="button"]'</span>).trigger(<span class="string">'click)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    epxect($store.dispatch).toHaveBeenCalled() // 確認 `dispatch` 有被呼叫</span></span><br><span class="line"><span class="string">&#125;)</span></span><br></pre></td></tr></table></figure>
+
+<p>如此一來我們就可以捕捉原先受測物（SUT）想要對依賴物（DOC）做的事情，是否如我們預期，這也就是昨天測試替身中 <code>Mock</code> 類型想要做的事情！</p>
+<hr>
+<p>以上主要是 Vue Test Utils 中有關測試替身的 API，而明天我們將要來繼續介紹在 Vitest 中有哪些測試替身囉！</p>
+<blockquote>
+<p>結果昨天還在說最近變天有點小感冒，今天眼睛就馬上紅腫RRRRRR⋯⋯<br>還好休息一下吃個 B 群什麼的有稍微好一點<br>決定先把 Vue Test Utils 的部分寫好，明天繼續再戰！！！</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
+    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-26/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/information-avatar.png">
+      <meta itemprop="name" content="ShawnL 林奇璇">
+      <meta itemprop="description" content="我家的貓會coding">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="璇之又璇的網路世界">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/testing/ithelp-2022-vitest-26/" class="post-title-link" itemprop="url">【概念ノ章】測試替身（Test Double）：Dummy, Stub, Spy, Fake & Mock</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-10-11 23:44:02" itemprop="dateCreated datePublished" datetime="2022-10-11T23:44:02+08:00">2022-10-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-10-24 19:20:05" itemprop="dateModified" datetime="2022-10-24T19:20:05+08:00">2022-10-24</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/testing/ithelp-2022-vitest-26/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-26/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div style="display:flex;justify-content:center;">
+  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
+</div>
+
+<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>目前有關測試相關文章幾乎都會提及的 <strong>測試替身（Test Double）</strong> 一詞，主要可追溯自 Gerard Meszaros 於 2007 年所寫的<a href="https://www.tenlong.com.tw/products/9780131495050" target="_blank" rel="noopener">《xUnit Test Patterns》</a>。</p>
+<p>在書中的測試替身模式（Test Double Patterns）章節裡。作者詳細描述測試替身在做的事情，並根據測試替身所模擬的環節再進一步細分出五種不同測試替身各自能做的事情，而本文主要將參照該書中所提及的內容，以前端測試的角度來詮釋測試替身的概念。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/testing/ithelp-2022-vitest-26/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -956,208 +1185,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-17/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/information-avatar.png">
-      <meta itemprop="name" content="ShawnL 林奇璇">
-      <meta itemprop="description" content="我家的貓會coding">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="璇之又璇的網路世界">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/testing/ithelp-2022-vitest-17/" class="post-title-link" itemprop="url">【概念ノ章】測試工具： Vue Test Utils 與元件測試</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2022-10-02 14:58:24" itemprop="dateCreated datePublished" datetime="2022-10-02T14:58:24+08:00">2022-10-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2022-10-24 19:07:49" itemprop="dateModified" datetime="2022-10-24T19:07:49+08:00">2022-10-24</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/testing/ithelp-2022-vitest-17/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-17/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
-</div>
-
-<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>經過昨天的練習後，我們現在已經可以對一些透過預設匯出（default export）或具名匯出（named export）的函式、方法或類別等等邏輯進行單元測試了。</p>
-<p>接著，若我們想進一步在專案中測試 Vue 元件的話，我們除了基於前面的概念與語法之外，還得依靠能夠幫助能夠解析 Vue 元件並與其模擬互動的工具：</p>
-<ul>
-<li>Vue Test Utils</li>
-<li>Cypress</li>
-<li>Vue Testing Library</li>
-</ul>
-<p>而本系列文將著重在介紹要怎麼透過 Vue Test Utils 來進行與 Vue 元件有關的「元件測試」，因此本文要來介紹一下 Vue Test Utils 與元件測試是在做什麼，又這又跟單元測試有什麼關係呢。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/testing/ithelp-2022-vitest-17/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://shawnlin0201.github.io/testing/ithelp-2022-vitest-16/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/information-avatar.png">
-      <meta itemprop="name" content="ShawnL 林奇璇">
-      <meta itemprop="description" content="我家的貓會coding">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="璇之又璇的網路世界">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/testing/ithelp-2022-vitest-16/" class="post-title-link" itemprop="url">【試験ノ章】第一個測驗：測試情境案例、Setup & Teardown 與 Matchers</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2022-10-01 23:24:15" itemprop="dateCreated datePublished" datetime="2022-10-01T23:24:15+08:00">2022-10-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2022-10-24 18:48:01" itemprop="dateModified" datetime="2022-10-24T18:48:01+08:00">2022-10-24</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/testing/ithelp-2022-vitest-16/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="testing/ithelp-2022-vitest-16/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div style="display:flex;justify-content:center;">
-  <img style="object-fit:cover;" alt="vitest-logo" src='/images/vitest-logo.svg' width='200px' height='200px' />
-</div>
-
-<h1 id="本文序"><a href="#本文序" class="headerlink" title="本文序"></a>本文序</h1><p>回顧目前語法章節的部分我們已經學了有關於：</p>
-<ul>
-<li>測試案例與情境：<code>describe</code>、<code>it</code></li>
-<li>測試案例中 Setup 與 Teardown 環節有關的語法： <code>beforeEach</code>、<code>beforeAll</code>、<code>afterEach</code> 與 <code>beforeAll</code></li>
-<li>測試斷言中的各種 <code>Matchers</code> 與快照</li>
-</ul>
-<p>而基於上述幾個語法加上先前的測試概念，我們已經滿足了撰寫基本單元測試的條件了！所以現在是⋯⋯測驗時間！！！</p>
-<p>在測驗章節我們主要流程將會是：</p>
-<ul>
-<li>閱讀故事與題目，釐清需求與規則。</li>
-<li>規劃測試情境與測試案例，並列好描述的部分。</li>
-<li>撰寫測試程式碼（Testing Code），並執行測試時得到測試案例失敗。</li>
-<li>按照題目要求完成產品程式碼（Production Code）</li>
-<li>再次執行測試確保測試通過。</li>
-</ul>
-<p>而本文撰寫測試程式碼與產品程式碼的環節我也會提供 demo 的範例供參考與撰寫思路，那麼就讓我們開始吧！</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/testing/ithelp-2022-vitest-16/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1229,7 +1256,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-count">113</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -1240,7 +1267,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">標籤</span></a>
       </div>
   </nav>
@@ -1264,7 +1291,10 @@
           <a href="https://www.facebook.com/groups/LearnWeb.Taiwan/" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;groups&#x2F;LearnWeb.Taiwan&#x2F;" rel="noopener" target="_blank">LearnWeb-Taiwan 社群</a>
         </li>
         <li class="links-of-blogroll-item">
-          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">iThelp-ShawnL</a>
+          <a href="https://ithelp.ithome.com.tw/users/20119062" title="https:&#x2F;&#x2F;ithelp.ithome.com.tw&#x2F;users&#x2F;20119062" rel="noopener" target="_blank">ithelp-ShawnL</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.facebook.com/profile.php?id=100088109416778" title="https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100088109416778" rel="noopener" target="_blank">Shawn 技術筆記</a>
         </li>
     </ul>
   </div>

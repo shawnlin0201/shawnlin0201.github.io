@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://shawnlin0201.github.io/testing/front-end-testing-resource/</loc>
+    
+    <lastmod>2022-12-05T09:29:42.882Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://shawnlin0201.github.io/book/the-mythical-man-month/01/</loc>
+    
+    <lastmod>2022-10-31T05:29:53.278Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://shawnlin0201.github.io/testing/ithelp-2022-vitest-35/</loc>
     
     <lastmod>2022-10-24T11:28:05.341Z</lastmod>
@@ -261,14 +275,14 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/vue.js/Vue-cli-004-vue-file-sample-2/</loc>
+    <loc>https://shawnlin0201.github.io/vue.js/Vue-cli-005-vuex/</loc>
     
     <lastmod>2021-01-05T08:48:07.497Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/vue.js/Vue-cli-005-vuex/</loc>
+    <loc>https://shawnlin0201.github.io/vue.js/Vue-cli-004-vue-file-sample-2/</loc>
     
     <lastmod>2021-01-05T08:48:07.497Z</lastmod>
     
@@ -317,14 +331,14 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-001-intro/</loc>
+    <loc>https://shawnlin0201.github.io/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-002-naming-methodology/</loc>
     
     <lastmod>2020-10-05T15:24:58.156Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-002-naming-methodology/</loc>
+    <loc>https://shawnlin0201.github.io/cleancode/clean-code-a-handbook-of-agile-software-craftsmanship-001-intro/</loc>
     
     <lastmod>2020-10-05T15:24:58.156Z</lastmod>
     
@@ -415,14 +429,14 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/vue.js/Vue-011-event/</loc>
+    <loc>https://shawnlin0201.github.io/vue.js/Vue-013-dynamic-component/</loc>
     
     <lastmod>2020-09-29T14:32:47.956Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/vue.js/Vue-013-dynamic-component/</loc>
+    <loc>https://shawnlin0201.github.io/vue.js/Vue-011-event/</loc>
     
     <lastmod>2020-09-29T14:32:47.956Z</lastmod>
     
@@ -443,14 +457,14 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/vue.js/Vue-010-props/</loc>
+    <loc>https://shawnlin0201.github.io/vue.js/Vue-007-component/</loc>
     
     <lastmod>2020-09-29T14:32:47.955Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/vue.js/Vue-007-component/</loc>
+    <loc>https://shawnlin0201.github.io/vue.js/Vue-010-props/</loc>
     
     <lastmod>2020-09-29T14:32:47.955Z</lastmod>
     
@@ -471,6 +485,13 @@
   </url>
   
   <url>
+    <loc>https://shawnlin0201.github.io/vue.js/Vue-004-modifier/</loc>
+    
+    <lastmod>2020-09-29T14:32:47.954Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://shawnlin0201.github.io/vue.js/Vue-005-options/</loc>
     
     <lastmod>2020-09-29T14:32:47.954Z</lastmod>
@@ -479,13 +500,6 @@
   
   <url>
     <loc>https://shawnlin0201.github.io/vue.js/Vue-006-lifecycle/</loc>
-    
-    <lastmod>2020-09-29T14:32:47.954Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://shawnlin0201.github.io/vue.js/Vue-004-modifier/</loc>
     
     <lastmod>2020-09-29T14:32:47.954Z</lastmod>
     
@@ -534,14 +548,14 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/d3.js/D3-009-d3-data-processing/</loc>
+    <loc>https://shawnlin0201.github.io/d3.js/D3-008-d3-in-vue/</loc>
     
     <lastmod>2020-09-29T14:32:47.951Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/d3.js/D3-008-d3-in-vue/</loc>
+    <loc>https://shawnlin0201.github.io/d3.js/D3-009-d3-data-processing/</loc>
     
     <lastmod>2020-09-29T14:32:47.951Z</lastmod>
     
@@ -562,13 +576,6 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/d3.js/D3-005-svg-draw-1/</loc>
-    
-    <lastmod>2020-09-29T14:32:47.950Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://shawnlin0201.github.io/d3.js/D3-005-svg-draw-2/</loc>
     
     <lastmod>2020-09-29T14:32:47.950Z</lastmod>
@@ -576,7 +583,7 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/d3.js/D3-006-selection-data-datum/</loc>
+    <loc>https://shawnlin0201.github.io/d3.js/D3-005-svg-draw-1/</loc>
     
     <lastmod>2020-09-29T14:32:47.950Z</lastmod>
     
@@ -590,14 +597,14 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/d3.js/D3-001-why-d3js/</loc>
+    <loc>https://shawnlin0201.github.io/d3.js/D3-006-selection-data-datum/</loc>
     
-    <lastmod>2020-09-29T14:32:47.949Z</lastmod>
+    <lastmod>2020-09-29T14:32:47.950Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/d3.js/D3-002-build/</loc>
+    <loc>https://shawnlin0201.github.io/d3.js/D3-001-why-d3js/</loc>
     
     <lastmod>2020-09-29T14:32:47.949Z</lastmod>
     
@@ -611,9 +618,23 @@
   </url>
   
   <url>
+    <loc>https://shawnlin0201.github.io/d3.js/D3-002-build/</loc>
+    
+    <lastmod>2020-09-29T14:32:47.949Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://shawnlin0201.github.io/d3.js/D3-004-how-d3-draw/</loc>
     
     <lastmod>2020-09-29T14:32:47.949Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://shawnlin0201.github.io/Methodology/Methodology-002-Kiss-principle/</loc>
+    
+    <lastmod>2020-09-29T14:32:47.948Z</lastmod>
     
   </url>
   
@@ -632,13 +653,6 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/Optimization/Optimization-001-lighthouse/</loc>
-    
-    <lastmod>2020-09-29T14:32:47.948Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://shawnlin0201.github.io/Optimization/Optimization-002.performance/</loc>
     
     <lastmod>2020-09-29T14:32:47.948Z</lastmod>
@@ -646,9 +660,16 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/Methodology/Methodology-002-Kiss-principle/</loc>
+    <loc>https://shawnlin0201.github.io/Optimization/Optimization-001-lighthouse/</loc>
     
     <lastmod>2020-09-29T14:32:47.948Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://shawnlin0201.github.io/Methodology/Methodology-001-DRY-principle/</loc>
+    
+    <lastmod>2020-09-29T14:32:47.947Z</lastmod>
     
   </url>
   
@@ -667,9 +688,9 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/Methodology/Methodology-001-DRY-principle/</loc>
+    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-this/</loc>
     
-    <lastmod>2020-09-29T14:32:47.947Z</lastmod>
+    <lastmod>2020-09-29T14:32:47.946Z</lastmod>
     
   </url>
   
@@ -688,20 +709,6 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/Jest.js/Jest-002-matchers-assertion/</loc>
-    
-    <lastmod>2020-09-29T14:32:47.946Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-this/</loc>
-    
-    <lastmod>2020-09-29T14:32:47.946Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://shawnlin0201.github.io/Jest.js/Jest-003-async-test/</loc>
     
     <lastmod>2020-09-29T14:32:47.946Z</lastmod>
@@ -709,14 +716,21 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-call-by-value/</loc>
+    <loc>https://shawnlin0201.github.io/Jest.js/Jest-002-matchers-assertion/</loc>
+    
+    <lastmod>2020-09-29T14:32:47.946Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Variable-Object-and-Activation-Object/</loc>
     
     <lastmod>2020-09-29T14:32:47.945Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Variable-Object-and-Activation-Object/</loc>
+    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-call-by-value/</loc>
     
     <lastmod>2020-09-29T14:32:47.945Z</lastmod>
     
@@ -744,6 +758,13 @@
   </url>
   
   <url>
+    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Scope/</loc>
+    
+    <lastmod>2020-09-29T14:32:47.944Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Pure-Function/</loc>
     
     <lastmod>2020-09-29T14:32:47.944Z</lastmod>
@@ -758,20 +779,6 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Scope/</loc>
-    
-    <lastmod>2020-09-29T14:32:47.944Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Garbage-Collection/</loc>
-    
-    <lastmod>2020-09-29T14:32:47.943Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Execution-Context/</loc>
     
     <lastmod>2020-09-29T14:32:47.943Z</lastmod>
@@ -780,6 +787,13 @@
   
   <url>
     <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Exception-Handling/</loc>
+    
+    <lastmod>2020-09-29T14:32:47.943Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Garbage-Collection/</loc>
     
     <lastmod>2020-09-29T14:32:47.943Z</lastmod>
     
@@ -814,14 +828,14 @@
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Arrow-function/</loc>
+    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Array-methods/</loc>
     
     <lastmod>2020-09-29T14:32:47.941Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Array-methods/</loc>
+    <loc>https://shawnlin0201.github.io/JavaScript/JavaScript-Arrow-function/</loc>
     
     <lastmod>2020-09-29T14:32:47.941Z</lastmod>
     
